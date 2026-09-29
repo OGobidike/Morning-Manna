@@ -1,0 +1,41 @@
+# Python
+
+__pycache__/ # folders of python
+# compiled python files
+*.py[cod]
+# virtual environment
+.venv/
+# virtual environment for our project (this is the one we use)
+venv/
+# egg info
+*.egg-info/
+# pytest cache
+.pytest_cache/
+# ruff cache our very favorite linter
+.ruff_cache/
+
+# Node
+
+# node modules all the dependencies for node (npm install)
+node_modules/
+
+# Secrets
+
+# environment variables
+.env
+# environment variables for different environments than the one before i guess
+.env.*
+# example environment variables file (env variables but not the real ones
+!.env.example
+
+# Data 
+
+# raw data files ( Our bible datasets for ETL)
+data/raw/
+
+# OS junk
+
+# Windows image file cache (this doesnt really matter but its a windows thing)
+Thumbs.db
+
+
