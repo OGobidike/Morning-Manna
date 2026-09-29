@@ -1,6 +1,7 @@
 # Python
 
-__pycache__/ # folders of python
+# folders of python
+__pycache__/
 # compiled python files
 *.py[cod]
 # virtual environment
