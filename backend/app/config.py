@@ -1,7 +1,8 @@
 
 
-# This is a configuration file for the backend application. It uses Pydantic's BaseSettings to manage application settings and configurations. The SettingsConfigDict is used to define the structure and validation of the settings.
-from pydantic_settings import BaseSettings, SettingsConfigDict 
+"""Configuration for the backend, read from environment variables or a .env file."""
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
 
 class Settings(BaseSettings):
     """Runtime configuration for the Morning Manna API."""
