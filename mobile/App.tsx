@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>May the Grace of the day greet you on morning rays</Text>
+      <Text>May the Grace of the day greet you on morning rays! Start the day with a smile!</Text>
       <StatusBar style="auto" />
     </View>
   );
