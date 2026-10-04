@@ -11,6 +11,7 @@ class Settings(BaseSettings):
 
     app_name: str = "Morning Manna API"
     environment: str = "local"
+    database_url: str = "postgresql+psycopg://manna:manna@localhost:5432/manna"
 
 
 settings = Settings()

@@ -20,6 +20,7 @@ services:
     build: ./backend
     environment:
       ENVIRONMENT: docker
+      DATABASE_URL: postgresql+psycopg://manna:manna@db:5432/manna
     ports:
       - "8000:8000"
     depends_on:
