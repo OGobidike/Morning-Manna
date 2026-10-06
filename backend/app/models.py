@@ -9,6 +9,9 @@ from datetime import date, datetime, time
 # Tools from SQLAlchemy for describing columns and rules
 from sqlalchemy import DateTime, ForeignKey, String, Text, UniqueConstraint, func
 
+# A Postgresql specific column type for JSON data
+from sqlalchemy.dialects.postgresql import JSONB
+
 # Tools for writing tables as Python classes (the SQLAlchemy 2.0 style :)
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -137,3 +140,35 @@ class UserPlan(Base):
     start_date: Mapped[date]
     # Which day of the plan they're on. New enrolments start at day 1.
     current_day: Mapped[int] = mapped_column(default=1)
+
+class ReadingSession(Base):
+    """One sitting with one day's passage: opened, and perhaps completed."""
+
+    __tablename__ = "reading_sessions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # Who read (points to users.id)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    # Which day's passage (points to plan_days.id)
+    plan_day_id: Mapped[int] = mapped_column(ForeignKey("plan_days.id"))
+    # When the passage was opened. Always known.
+    opened_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    # When it was finished. Empty (NULL) if the reader never finished.
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Real reading time measured by the app. Empty (NULL) if never finished.
+    seconds_spent: Mapped[int | None]
+
+class Event(Base):
+    """One thing that happened in the app, e.g. a notification was opened."""
+
+    __tablename__ = "events"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # Who it happened to (points to users.id)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    # What happened, e.g. "notification_opened" or "reading_completed"
+    event_type: Mapped[str] = mapped_column(String(50))
+    # When it happened. Always known.
+    occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    # Extra details that differ for each event type, e.g. {"minutes": 10}
+    properties: Mapped[dict] = mapped_column(JSONB, server_default="{}")
