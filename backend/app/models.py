@@ -61,3 +61,38 @@ class Verse(Base):
     verse: Mapped[int]
     # The words of the verse. Text has no length limit.
     text: Mapped[str] = mapped_column(Text)
+
+
+class ReadingPlan(Base):
+    """A 30 day reading plan ( such as; 30 Mornings)"""
+
+    __tablename__ = "reading_plans"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # The plans name: e.g. "30 Mornings"
+    name: Mapped[str] = mapped_column(String(100), unique=True)
+    # A sentence or two describing the plan
+    description: Mapped[str] = mapped_column(String(500))
+
+
+class PlanDay(Base):
+    """One day in a reading plan, e.g. Day 1 of 30 Mornings."""
+
+    __tablename__ = "plan_days"
+    # Rule: each plan has only one row per day number
+    __table_args__ = (UniqueConstraint("plan_id", "day_number"),)
+
+
+    # the unique id of this row
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # The plan this day belongs to
+    plan_id: Mapped[int] = mapped_column(ForeignKey("reading_plans.id"))
+    # the number of day ( e.g. day 1, day 2, day 3, etc)
+    day_number: Mapped[int]
+
+    #where to start and end reading Remember, the translations are stored by the reader not here
+    book_id: Mapped[int] = mapped_column(ForeignKey("books.id"))
+    start_chapter: Mapped[int]
+    start_verse: Mapped[int]
+    end_chapter: Mapped[int]
+    end_verse: Mapped[int]
