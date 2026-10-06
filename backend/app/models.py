@@ -3,10 +3,13 @@
 ### Oh boi was this complicated the first timee
 """Database tables for Morning Manna, written as SQLAlchemy models."""
 
-# Tools from SQLAlchemy for describing columns and rules
-from sqlalchemy import ForeignKey, String, Text, UniqueConstraint
+# Python's built-in date and time types
+from datetime import date, datetime, time
 
-# Tools for writing tables as Python classes (the SQLAlchemy 2.0 style)
+# Tools from SQLAlchemy for describing columns and rules
+from sqlalchemy import DateTime, ForeignKey, String, Text, UniqueConstraint, func
+
+# Tools for writing tables as Python classes (the SQLAlchemy 2.0 style :)
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -96,3 +99,41 @@ class PlanDay(Base):
     start_verse: Mapped[int]
     end_chapter: Mapped[int]
     end_verse: Mapped[int]
+
+
+class User(Base):
+    """One reader, identified only by an anonymous device ID."""
+
+    __tablename__ = "users"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # Random ID created by the app on first launch. No name or email, by design.
+    device_id: Mapped[str] = mapped_column(String(64), unique=True)
+    # Time zone name, e.g. "Africa/Lagos" (a name, not an offset like +1)
+    timezone: Mapped[str] = mapped_column(String(64))
+    # Reminder clock time, e.g. 05:30 (no date, no zone)
+    wake_time: Mapped[time]
+    # The reader's chosen translation (points to translations.id)
+    translation_id: Mapped[int] = mapped_column(ForeignKey("translations.id"))
+    # When the reader joined. The database fills this in automatically.
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+
+class UserPlan(Base):
+    """One reader's progress through one reading plan."""
+
+    __tablename__ = "user_plans"
+    # Rule: a reader can be enrolled in each plan only once
+    __table_args__ = (UniqueConstraint("user_id", "plan_id"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # Which reader (points to users.id)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    # Which plan (points to reading_plans.id)
+    plan_id: Mapped[int] = mapped_column(ForeignKey("reading_plans.id"))
+    # The day the reader started, e.g. 2026-10-06 (date only)
+    start_date: Mapped[date]
+    # Which day of the plan they're on. New enrolments start at day 1.
+    current_day: Mapped[int] = mapped_column(default=1)
