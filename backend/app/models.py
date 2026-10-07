@@ -158,6 +158,7 @@ class ReadingSession(Base):
     # Real reading time measured by the app. Empty (NULL) if never finished.
     seconds_spent: Mapped[int | None]
 
+
 class Event(Base):
     """One thing that happened in the app, e.g. a notification was opened."""
 
