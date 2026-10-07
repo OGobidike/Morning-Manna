@@ -1,6 +1,7 @@
 
 
 # Morning Manna
+![Morning Manna](docs/images/hero.png)
 
 Hihi! OG here! smiley day to ya! This project will create a daily Bible reading app for working class people: you can set your wake time, get reminders in the morning,
 read one short passage, and other features! 
