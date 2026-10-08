@@ -7,7 +7,7 @@
 from datetime import date, datetime, time
 
 # Tools from SQLAlchemy for describing columns and rules
-from sqlalchemy import DateTime, ForeignKey, String, Text, UniqueConstraint, func
+from sqlalchemy import DateTime, ForeignKey, Index, String, Text, UniqueConstraint, func
 
 # A Postgresql specific column type for JSON data
 from sqlalchemy.dialects.postgresql import JSONB
@@ -52,9 +52,15 @@ class Book(Base):
 
 class Verse(Base):
     """One verse in one translation, such as John 3:16 in the KJV."""
+    # Rule: each verse appears once per translation.
+    # Its unique index also serves verse lookups (translation + book + chapter.
+    # *Think out it like a surname),
+    # so no separate index is needed.
 
     __tablename__ = "verses"
     # Unique constraint: no two verses may have the same translation, book, chapter, and verse.
+    # Its index also serves verse lookups (translation + book + chapter, the leftmost
+    # columns), so no separate index is needed.
     __table_args__ = (UniqueConstraint("translation_id", "book_id", "chapter", "verse"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -163,6 +169,9 @@ class Event(Base):
     """One thing that happened in the app, e.g. a notification was opened."""
 
     __tablename__ = "events"
+    # Index: find one user's events in a time range quickly
+    # (user first for the exact match(surname rule), then time for the range)
+    __table_args__ = (Index("ix_events_user_id_occurred_at", "user_id", "occurred_at"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
     # Who it happened to (points to users.id)
