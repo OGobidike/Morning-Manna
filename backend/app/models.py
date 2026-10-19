@@ -182,3 +182,27 @@ class Event(Base):
     occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     # Extra details that differ for each event type, e.g. {"minutes": 10}
     properties: Mapped[dict] = mapped_column(JSONB, server_default="{}")
+
+
+class EtlRun(Base):
+    """One run of a data pipeline: when it ran, how it ended, and how many rows it handled."""
+
+    __tablename__ = "etl_runs"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # Which pipeline ran, e.g. "scripture"
+    pipeline: Mapped[str] = mapped_column(String(50))
+    # "running" while it works, then "success" or "failed"
+    status: Mapped[str] = mapped_column(String(20))
+    # When the run started. The database fills this in automatically.
+    started_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    # When the run ended. Empty (NULL) while it is still running.
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Row counts: read from the files, loaded into Postgres, and rejected as unusable
+    rows_read: Mapped[int] = mapped_column(default=0)
+    rows_loaded: Mapped[int] = mapped_column(default=0)
+    rows_rejected: Mapped[int] = mapped_column(default=0)
+    # What went wrong, if the run failed. Empty (NULL) on success.
+    error: Mapped[str | None] = mapped_column(Text)
