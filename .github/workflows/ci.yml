@@ -41,9 +41,9 @@ jobs:
           python-version: "3.12"
       - run: pip install -e ".[dev]"
       - run: ruff check .
-      - run: pytest
       - name: Migrations build an empty database
         run: alembic upgrade head
+      - run: pytest
       - name: Migrations roll back cleanly
         run: alembic downgrade base
       - name: Migrations re-apply after rollback
