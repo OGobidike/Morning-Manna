@@ -119,6 +119,8 @@ class User(Base):
     # Random ID created by the app on first launch. No name or email, by design.
     device_id: Mapped[str] = mapped_column(String(64), unique=True)
     # Time zone name, e.g. "Africa/Lagos" (a name, not an offset like +1)
+    token_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    # SHA-256 hash of the device's secret token. The token itself is never stored.
     timezone: Mapped[str] = mapped_column(String(64))
     # Reminder clock time, e.g. 05:30 (no date, no zone)
     wake_time: Mapped[time]
