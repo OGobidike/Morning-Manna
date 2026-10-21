@@ -5,7 +5,7 @@
 import pytest
 from sqlalchemy import select
 
-from app.models import Book, PlanDay, ReadingPlan, Translation, UserPlan, Verse
+from app.models import Book, PlanDay, ReadingPlan, Translation, User, UserPlan, Verse
 
 
 @pytest.fixture
@@ -66,6 +66,17 @@ def start_plan(client, headers, plan):
     client.post("/users/me/plans", json={"plan_id": plan.id}, headers=headers)
 
 
+def set_current_day(db, day):
+    """Move the TEST reader to a given day (a stand-in until readings can be completed)."""
+    enrolment = db.scalar(
+        select(UserPlan)
+        .join(User, User.id == UserPlan.user_id)
+        .where(User.device_id == "today-test-device")
+    )
+    enrolment.current_day = day
+    db.flush()
+
+
 def test_day_one_passage(client, headers, world):
     start_plan(client, headers, world)
 
@@ -80,8 +91,7 @@ def test_day_one_passage(client, headers, world):
 
 def test_passage_across_two_chapters(client, db, headers, world):
     start_plan(client, headers, world)
-    db.scalar(select(UserPlan)).current_day = 2
-    db.flush()
+    set_current_day(db, 2)
 
     data = client.get("/today", headers=headers).json()
 
@@ -91,8 +101,7 @@ def test_passage_across_two_chapters(client, db, headers, world):
 
 def test_after_the_last_day_the_plan_is_completed(client, db, headers, world):
     start_plan(client, headers, world)
-    db.scalar(select(UserPlan)).current_day = 3
-    db.flush()
+    set_current_day(db, 3)
 
     data = client.get("/today", headers=headers).json()
 
