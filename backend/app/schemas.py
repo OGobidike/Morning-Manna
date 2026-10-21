@@ -53,6 +53,7 @@ class UserCreated(BaseModel):
     wake_time: time
     token: str
 
+
 class UserOut(BaseModel):
     """A reader's own settings, as the app sees them. Never includes the token."""
 
@@ -89,3 +90,26 @@ class UserPlanOut(BaseModel):
     plan_id: int
     start_date: date
     current_day: int
+
+
+class VerseOut(BaseModel):
+    """One verse of today's passage."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    chapter: int
+    verse: int
+    text: str
+
+
+class TodayOut(BaseModel):
+    """This morning's reading: where the reader is in their plan, and the passage itself."""
+
+    plan_name: str
+    day_number: int
+    total_days: int
+    # True once every day of the plan has been read; then there is no passage
+    completed: bool
+    # e.g. "John 3:16-21". Empty when the plan is completed.
+    reference: str | None = None
+    verses: list[VerseOut] = []
