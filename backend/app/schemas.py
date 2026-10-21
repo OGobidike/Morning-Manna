@@ -57,3 +57,18 @@ class UserOut(BaseModel):
     id: int
     timezone: str
     wake_time: time
+
+
+class UserUpdate(BaseModel):
+    """What a phone may change about its reader. Every field is optional: send only what changes."""
+
+    timezone: str | None = None
+    wake_time: time | None = None
+
+    @field_validator("timezone")
+    @classmethod
+    def timezone_must_exist(cls, value: str | None) -> str | None:
+        """Reject names that aren't real time zones, e.g. "Mars/Olympus"."""
+        if value is not None and value not in available_timezones():
+            raise ValueError(f"unknown time zone: {value}")
+        return value
