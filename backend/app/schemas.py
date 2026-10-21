@@ -48,3 +48,12 @@ class UserCreated(BaseModel):
     timezone: str
     wake_time: time
     token: str
+
+class UserOut(BaseModel):
+    """A reader's own settings, as the app sees them. Never includes the token."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    timezone: str
+    wake_time: time
