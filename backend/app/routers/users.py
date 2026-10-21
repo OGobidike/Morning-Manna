@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from app.auth import get_current_user
 from app.db import get_db
 from app.models import Translation, User
-from app.schemas import UserCreate, UserCreated, UserOut
+from app.schemas import UserCreate, UserCreated, UserOut, UserUpdate
 from app.security import hash_token, new_token
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -44,4 +44,19 @@ def register(body: UserCreate, db: Session = Depends(get_db)):
 @router.get("/me", response_model=UserOut)
 def read_me(user: User = Depends(get_current_user)):
     """Who am I? Returns the settings of the reader whose token was sent."""
+    return user
+
+
+# PATCH /users/me: change only the settings that were sent; everything else stays as it was
+@router.patch("/me", response_model=UserOut)
+def update_me(
+    body: UserUpdate,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Change the reader's time zone and/or wake time."""
+    changes = body.model_dump(exclude_unset=True, exclude_none=True)
+    for field, value in changes.items():
+        setattr(user, field, value)
+    db.commit()
     return user

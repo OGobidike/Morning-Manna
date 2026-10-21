@@ -8,6 +8,13 @@ from zoneinfo import available_timezones
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
+def check_timezone(value: str) -> str:
+    """Reject names that aren't real time zones, e.g. "Mars/Olympus". Shared by the schemas."""
+    if value not in available_timezones():
+        raise ValueError(f"unknown time zone: {value}")
+    return value
+
+
 class PlanOut(BaseModel):
     """One reading plan, as the app sees it."""
 
@@ -35,10 +42,7 @@ class UserCreate(BaseModel):
     @field_validator("timezone")
     @classmethod
     def timezone_must_exist(cls, value: str) -> str:
-        """Reject names that aren't real time zones, e.g. "Mars/Olympus"."""
-        if value not in available_timezones():
-            raise ValueError(f"unknown time zone: {value}")
-        return value
+        return check_timezone(value)
 
 
 class UserCreated(BaseModel):
@@ -57,3 +61,15 @@ class UserOut(BaseModel):
     id: int
     timezone: str
     wake_time: time
+
+
+class UserUpdate(BaseModel):
+    """What a phone may change about its reader. Every field is optional: send only what changes."""
+
+    timezone: str | None = None
+    wake_time: time | None = None
+
+    @field_validator("timezone")
+    @classmethod
+    def timezone_must_exist(cls, value: str | None) -> str | None:
+        return value if value is None else check_timezone(value)
