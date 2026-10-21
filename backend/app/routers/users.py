@@ -6,9 +6,10 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.auth import get_current_user
 from app.db import get_db
 from app.models import Translation, User
-from app.schemas import UserCreate, UserCreated
+from app.schemas import UserCreate, UserCreated, UserOut
 from app.security import hash_token, new_token
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -37,3 +38,10 @@ def register(body: UserCreate, db: Session = Depends(get_db)):
     db.commit()
 
     return UserCreated(id=user.id, timezone=user.timezone, wake_time=user.wake_time, token=token)
+
+
+# GET /users/me: the reader making the request, worked out from their token
+@router.get("/me", response_model=UserOut)
+def read_me(user: User = Depends(get_current_user)):
+    """Who am I? Returns the settings of the reader whose token was sent."""
+    return user
