@@ -2,7 +2,7 @@
 
 """Response and request shapes for the API (what JSON goes in and out)."""
 
-from datetime import time
+from datetime import date, time
 from zoneinfo import available_timezones
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -73,3 +73,19 @@ class UserUpdate(BaseModel):
     @classmethod
     def timezone_must_exist(cls, value: str | None) -> str | None:
         return value if value is None else check_timezone(value)
+
+class UserPlanCreate(BaseModel):
+    """What a phone sends to start a reading plan."""
+
+    plan_id: int
+
+
+class UserPlanOut(BaseModel):
+    """One reader's enrolment in one plan."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    plan_id: int
+    start_date: date
+    current_day: int
