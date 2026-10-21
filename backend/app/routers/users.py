@@ -7,9 +7,17 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.auth import get_current_user
+from app.clock import local_today
 from app.db import get_db
-from app.models import Translation, User
-from app.schemas import UserCreate, UserCreated, UserOut, UserUpdate
+from app.models import ReadingPlan, Translation, User, UserPlan
+from app.schemas import (
+    UserCreate,
+    UserCreated,
+    UserOut,
+    UserPlanCreate,
+    UserPlanOut,
+    UserUpdate,
+)
 from app.security import hash_token, new_token
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -60,3 +68,30 @@ def update_me(
         setattr(user, field, value)
     db.commit()
     return user
+
+# POST /users/me/plans: start a reading plan today (in the reader's own time zone)
+@router.post("/me/plans", response_model=UserPlanOut, status_code=status.HTTP_201_CREATED)
+def start_plan(
+    body: UserPlanCreate,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Enrol the reader in a plan, starting at day 1."""
+    if db.get(ReadingPlan, body.plan_id) is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "no such plan")
+
+    already = db.scalar(
+        select(UserPlan).where(UserPlan.user_id == user.id, UserPlan.plan_id == body.plan_id)
+    )
+    if already is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, "you have already started this plan")
+
+    enrolment = UserPlan(
+        user_id=user.id,
+        plan_id=body.plan_id,
+        start_date=local_today(user.timezone),
+        current_day=1,
+    )
+    db.add(enrolment)
+    db.commit()
+    return enrolment
