@@ -11,6 +11,7 @@ from app.clock import local_today
 from app.db import get_db
 from app.models import ReadingPlan, Translation, User, UserPlan
 from app.schemas import (
+    StreakOut,
     UserCreate,
     UserCreated,
     UserOut,
@@ -19,6 +20,7 @@ from app.schemas import (
     UserUpdate,
 )
 from app.security import hash_token, new_token
+from app.streaks import streaks
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -68,6 +70,15 @@ def update_me(
         setattr(user, field, value)
     db.commit()
     return user
+
+
+# GET /users/me/streak: mornings in a row, counted in the reader's own time zone
+@router.get("/me/streak", response_model=StreakOut)
+def read_streak(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    """The reader's current and longest reading streaks."""
+    current, longest, last_read_on = streaks(db, user, local_today(user.timezone))
+    return StreakOut(current=current, longest=longest, last_read_on=last_read_on)
+
 
 # POST /users/me/plans: start a reading plan today (in the reader's own time zone)
 @router.post("/me/plans", response_model=UserPlanOut, status_code=status.HTTP_201_CREATED)
