@@ -125,3 +125,14 @@ class ReadingOut(BaseModel):
     opened_at: datetime
     # Empty until the reader finishes ###DO NOT DELETE None ###
     completed_at: datetime | None
+
+
+class StreakOut(BaseModel):
+    """How many mornings in a row the reader has finished their passage."""
+
+    # Days in a row up to today (or yesterday, if they haven't read yet today)
+    current: int
+    # The best run ever
+    longest: int
+    # The last day they finished a reading, in their own time zone. Empty if never.
+    last_read_on: date | None
