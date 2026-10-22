@@ -2,10 +2,11 @@
 
 """Response and request shapes for the API (what JSON goes in and out)."""
 
-from datetime import date, datetime, time
+from datetime import UTC, date, datetime, time, timedelta
+from typing import Any, Literal
 from zoneinfo import available_timezones
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validator
 
 
 def check_timezone(value: str) -> str:
@@ -136,3 +137,43 @@ class StreakOut(BaseModel):
     longest: int
     # The last day they finished a reading, in their own time zone. Empty if never.
     last_read_on: date | None
+
+
+# The only event types the app may send. Anything else is a typo or a bug: reject it.
+EventType = Literal[
+    "app_opened",
+    "notification_opened",
+    "reading_opened",
+    "reading_completed",
+    "reminder_snoozed",
+]
+
+
+class EventIn(BaseModel):
+    """One thing that happened in the app, as the phone reports it."""
+
+    event_type: EventType
+    # Must carry a time zone, e.g. "2026-10-22T06:00:00Z", so the moment is unambiguous
+    occurred_at: AwareDatetime
+    # Extra details for this event, e.g. {"minutes": 10}
+    properties: dict[str, Any] = {}
+
+    @field_validator("occurred_at")
+    @classmethod
+    def not_in_the_future(cls, value: datetime) -> datetime:
+        # Allow 5 minutes for a phone clock that runs a little fast
+        if value > datetime.now(UTC) + timedelta(minutes=5):
+            raise ValueError("occurred_at is in the future")
+        return value
+
+
+class EventBatch(BaseModel):
+    """Events sent together. One bad event rejects the whole batch."""
+
+    events: list[EventIn] = Field(min_length=1, max_length=100)
+
+
+class EventBatchOut(BaseModel):
+    """How many events were stored."""
+
+    accepted: int
