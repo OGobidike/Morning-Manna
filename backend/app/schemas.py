@@ -2,7 +2,7 @@
 
 """Response and request shapes for the API (what JSON goes in and out)."""
 
-from datetime import date, time
+from datetime import date, datetime, time
 from zoneinfo import available_timezones
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -113,3 +113,15 @@ class TodayOut(BaseModel):
     # e.g. "John 3:16-21". Empty when the plan is completed.
     reference: str | None = None
     verses: list[VerseOut] = []
+
+
+class ReadingOut(BaseModel):
+    """One sitting with one day's passage."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    plan_day_id: int
+    opened_at: datetime
+    # Empty until the reader finishes ###DO NOT DELETE None ###
+    completed_at: datetime | None
