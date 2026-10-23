@@ -37,7 +37,8 @@ def upsert_books(session: Session) -> dict[str, int]:
         },
     )
     session.execute(stmt)
-    return dict(session.execute(select(Book.code, Book.id)).tuples().all())
+    # No .tuples() SQLAlchemy 2.1 rows already behave like tuples
+    return dict(session.execute(select(Book.code, Book.id)).all())
 
 
 def upsert_translation(session: Session, source: Source) -> int:
