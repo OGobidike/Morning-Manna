@@ -43,7 +43,7 @@ jobs:
       - run: ruff check .
       - name: Migrations build an empty database
         run: alembic upgrade head
-      - run: pytest
+      - run: pytest --cov
       - name: Migrations roll back cleanly
         run: alembic downgrade base
       - name: Migrations re-apply after rollback
