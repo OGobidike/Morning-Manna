@@ -2,13 +2,14 @@
 
 """Endpoint for this morning's reading."""
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends
 from sqlalchemy import func, select, tuple_
 from sqlalchemy.orm import Session
 
 from app.auth import get_current_user
 from app.db import get_db
-from app.models import Book, PlanDay, ReadingPlan, User, UserPlan, Verse
+from app.models import Book, PlanDay, ReadingPlan, User, Verse
+from app.progress import current_enrolment, current_plan_day
 from app.schemas import TodayOut, VerseOut
 
 router = APIRouter(prefix="/today", tags=["today"])
@@ -25,24 +26,14 @@ def reference(book: str, day: PlanDay) -> str:
 @router.get("", response_model=TodayOut)
 def read_today(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     """This morning's passage, in the reader's own translation."""
-    # The plan the reader started most recently
-    enrolment = db.scalar(
-        select(UserPlan).where(UserPlan.user_id == user.id).order_by(UserPlan.id.desc())
-    )
-    if enrolment is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "start a plan first")
+    enrolment = current_enrolment(db, user)
 
     plan = db.get(ReadingPlan, enrolment.plan_id)
     total_days = db.scalar(
         select(func.count()).select_from(PlanDay).where(PlanDay.plan_id == plan.id)
     )
 
-    # Rule B: serve the day the reader has reached, however many calendar days have passed
-    day = db.scalar(
-        select(PlanDay).where(
-            PlanDay.plan_id == plan.id, PlanDay.day_number == enrolment.current_day
-        )
-    )
+    day = current_plan_day(db, enrolment)
     if day is None:
         # Past the last day: the plan is finished
         return TodayOut(

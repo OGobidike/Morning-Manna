@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.auth import get_current_user
 from app.db import get_db
 from app.models import PlanDay, ReadingSession, User, UserPlan
+from app.progress import current_enrolment, current_plan_day
 from app.schemas import ReadingOut
 
 router = APIRouter(prefix="/readings", tags=["readings"])
@@ -20,18 +21,9 @@ router = APIRouter(prefix="/readings", tags=["readings"])
 @router.post("", response_model=ReadingOut, status_code=status.HTTP_201_CREATED)
 def open_reading(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     """Start a sitting with today's passage."""
-    # The plan the reader started most recently (the same one GET /today serves)
-    enrolment = db.scalar(
-        select(UserPlan).where(UserPlan.user_id == user.id).order_by(UserPlan.id.desc())
-    )
-    if enrolment is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "start a plan first")
-
-    day = db.scalar(
-        select(PlanDay).where(
-            PlanDay.plan_id == enrolment.plan_id, PlanDay.day_number == enrolment.current_day
-        )
-    )
+    # The same plan and day that GET /today serves
+    enrolment = current_enrolment(db, user)
+    day = current_plan_day(db, enrolment)
     if day is None:
         raise HTTPException(status.HTTP_409_CONFLICT, "plan already completed")
 
