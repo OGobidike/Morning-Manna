@@ -1,6 +1,6 @@
 
 
-# Backend: t# Morning Manna API
+# Morning Manna API
 
 The FastAPI backend for Morning Manna: a reader signs up with their phone, starts a reading plan, gets one short passage each morning in their own time zone, marks it read, and builds a streak.
 
@@ -151,4 +151,3 @@ tests/           pytest suite
 - The rate limiter keeps its counts in memory, so it applies per server process and resets on restart. Running several servers would need a shared store such as Redis.
 - Behind a proxy, every caller shares the proxy's address for rate limiting.
 - `app/etl/extract.py` (network downloads) and the pipeline runner aren't covered by tests. The transform, validate and load steps are.
-he FastAPI service, database models, migrations, and tests.
