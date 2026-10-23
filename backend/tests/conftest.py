@@ -11,6 +11,13 @@ from sqlalchemy.orm import Session
 from app.db import engine, get_db
 from app.main import app
 from app.models import Book, PlanDay, ReadingPlan, Translation, Verse
+from app.ratelimit import signup_limiter
+
+
+@pytest.fixture(autouse=True)
+def fresh_rate_limits():
+    """Every test starts with a clean sign-up allowance."""
+    signup_limiter.reset()
 
 
 @pytest.fixture

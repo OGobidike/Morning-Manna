@@ -10,6 +10,7 @@ from app.auth import get_current_user
 from app.clock import local_today
 from app.db import get_db
 from app.models import ReadingPlan, Translation, User, UserPlan
+from app.ratelimit import limit_signups
 from app.schemas import (
     StreakOut,
     UserCreate,
@@ -26,7 +27,13 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 
 # POST /users: register a device. Returns its token once; only the token's hash is stored.
-@router.post("", response_model=UserCreated, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "",
+    response_model=UserCreated,
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(limit_signups)],
+)
+
 def register(body: UserCreate, db: Session = Depends(get_db)):
     """Register a new device and give it a secret token."""
     translation = db.scalar(select(Translation).where(Translation.code == body.translation))
