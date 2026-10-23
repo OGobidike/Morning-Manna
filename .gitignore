@@ -12,6 +12,8 @@ venv/
 *.egg-info/
 # pytest cache
 .pytest_cache/
+# coverage data file written by pytest --cov
+.coverage
 # ruff cache our very favorite linter
 .ruff_cache/
 
