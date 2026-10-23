@@ -39,7 +39,9 @@ docs/        blueprint and design notes
 bash, Docker, cd mobile && npm install && expo start
 
 ```
-The text comes from the: (World English Bible, as well as King James).
+The text comes from the King James Version and the American Standard Version (both public domain).
+
+**Status: the API is built (see [backend/README.md](backend/README.md)); the mobile app is next.**
 
 ## License
 
