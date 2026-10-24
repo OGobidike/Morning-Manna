@@ -51,3 +51,25 @@ export type Health = { status: string; app: string; environment: string };
 export function getHealth(): Promise<Health> {
   return api<Health>('/health');
 }
+
+// GET /plans
+export type Plan = { id: number; name: string; description: string };
+
+export function getPlans(): Promise<Plan[]> {
+  return api<Plan[]>('/plans');
+}
+
+// POST /users: the token comes back once, so it must be saved straight away
+export type SignUpDetails = { device_id: string; timezone: string; wake_time: string };
+export type SignedUp = { id: number; timezone: string; wake_time: string; token: string };
+
+export function signUp(details: SignUpDetails): Promise<SignedUp> {
+  return api<SignedUp>('/users', { method: 'POST', body: details });
+}
+
+// POST /users/me/plans
+export type Enrolment = { id: number; plan_id: number; start_date: string; current_day: number };
+
+export function startPlan(token: string, planId: number): Promise<Enrolment> {
+  return api<Enrolment>('/users/me/plans', { method: 'POST', token, body: { plan_id: planId } });
+}
