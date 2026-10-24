@@ -73,3 +73,36 @@ export type Enrolment = { id: number; plan_id: number; start_date: string; curre
 export function startPlan(token: string, planId: number): Promise<Enrolment> {
   return api<Enrolment>('/users/me/plans', { method: 'POST', token, body: { plan_id: planId } });
 }
+
+// GET /today: this morning's passage (or completed: true once the plan is finished)
+export type Verse = { chapter: number; verse: number; text: string };
+export type Today = {
+  plan_name: string;
+  day_number: number;
+  total_days: number;
+  completed: boolean;
+  reference: string | null;
+  verses: Verse[];
+};
+
+export function getToday(token: string): Promise<Today> {
+  return api<Today>('/today', { token });
+}
+
+// POST /readings, then POST /readings/{id}/complete
+export type Reading = { id: number; plan_day_id: number; opened_at: string; completed_at: string | null };
+
+export function openReading(token: string): Promise<Reading> {
+  return api<Reading>('/readings', { method: 'POST', token });
+}
+
+export function completeReading(token: string, readingId: number): Promise<Reading> {
+  return api<Reading>(`/readings/${readingId}/complete`, { method: 'POST', token });
+}
+
+// GET /users/me/streak
+export type Streak = { current: number; longest: number; last_read_on: string | null };
+
+export function getStreak(token: string): Promise<Streak> {
+  return api<Streak>('/users/me/streak', { token });
+}
