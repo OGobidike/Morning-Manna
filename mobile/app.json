@@ -1,3 +1,5 @@
+
+
 {
   "expo": {
     "name": "Morning Manna",
@@ -10,6 +12,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.ogobidike.morningmanna",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -27,6 +30,12 @@
       "expo-localization",
       "@react-native-community/datetimepicker"
     ],
-    "scheme": "morningmanna"
+    "scheme": "morningmanna",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "3a6d9b0d-6e78-4817-a062-c7631811c000"
+      }
+    }
   }
 }

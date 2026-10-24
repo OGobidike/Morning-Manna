@@ -3,6 +3,8 @@
 import { Stack } from 'expo-router';
 
 import { SessionProvider, useSession } from '@/session';
+// Loaded here so the notification handler is set as soon as the app starts
+import '@/reminders';
 
 export default function RootLayout() {
   return (
