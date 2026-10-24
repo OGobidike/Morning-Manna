@@ -23,7 +23,7 @@ function Screens() {
   return (
     <Stack screenOptions={{ title: 'Morning Manna' }}>
       <Stack.Protected guard={onboarded}>
-        <Stack.Screen name="index" />
+        <Stack.Screen name="index" options={{ title: 'Today' }} />
       </Stack.Protected>
 
       <Stack.Protected guard={!onboarded}>
