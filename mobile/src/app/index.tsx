@@ -1,5 +1,3 @@
-
-
 import { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -14,12 +12,14 @@ import {
 import {
   ApiError,
   completeReading,
+  getMe,
   getStreak,
   getToday,
   openReading,
   type Streak,
   type Today,
 } from '@/api/client';
+import { askForReminders, remindersAllowed, scheduleDailyReminder, sendTestReminder } from '@/reminders';
 import { useSession } from '@/session';
 
 // Today's date on this phone, e.g. "2026-10-24" (the same form as the API's last_read_on)
@@ -29,7 +29,7 @@ function localDate(): string {
   return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 }
 
-type Loaded = { today: Today; streak: Streak };
+type Loaded = { today: Today; streak: Streak; wakeTime: string; reminders: boolean };
 
 // The main screen: today's passage, Mark as read, and the streak
 export default function TodayScreen() {
@@ -45,9 +45,20 @@ export default function TodayScreen() {
     if (!token) return;
     setError(null);
     try {
-      // Ask for both at once, then wait for both
-      const [today, streak] = await Promise.all([getToday(token), getStreak(token)]);
-      setData({ today, streak });
+      // Ask for all three at once, then wait for all three
+      const [today, streak, me] = await Promise.all([getToday(token), getStreak(token), getMe(token)]);
+
+      // Keep the daily reminder in step with the wake time saved on the server.
+      // A reminder problem must never hide the passage, so it gets its own try.
+      let reminders = false;
+      try {
+        reminders = await remindersAllowed();
+        if (reminders) await scheduleDailyReminder(me.wake_time);
+      } catch {
+        reminders = false;
+      }
+
+      setData({ today, streak, wakeTime: me.wake_time.slice(0, 5), reminders });
 
       // Start a reading as soon as an unread passage is on screen, so opened_at is honest
       const doneToday = streak.last_read_on === localDate();
@@ -67,6 +78,13 @@ export default function TodayScreen() {
     setRefreshing(true);
     await load();
     setRefreshing(false);
+  }
+
+  async function turnOnReminders() {
+    if (data && (await askForReminders())) {
+      await scheduleDailyReminder(data.wakeTime);
+      setData({ ...data, reminders: true });
+    }
   }
 
   async function markAsRead() {
@@ -108,7 +126,7 @@ export default function TodayScreen() {
     return <ActivityIndicator style={styles.centred} size="large" />;
   }
 
-  const { today, streak } = data;
+  const { today, streak, wakeTime, reminders } = data;
   const doneToday = streak.last_read_on === localDate();
 
   return (
@@ -158,8 +176,25 @@ export default function TodayScreen() {
         </>
       )}
 
-      {/* Only in development: forget this reader, to test onboarding again */}
-      {__DEV__ && <Button title="Start over (dev only)" color="#888" onPress={reset} />}
+      <View style={styles.reminder}>
+        {reminders ? (
+          <Text style={styles.message}>⏰ Reminder every morning at {wakeTime}</Text>
+        ) : (
+          <>
+            <Text style={styles.message}>Morning reminders are off</Text>
+            <Button title="Turn on reminders" onPress={turnOnReminders} />
+          </>
+        )}
+        <Text style={styles.note}>A notification with sound, not an alarm clock.</Text>
+      </View>
+
+      {/* Only in development */}
+      {__DEV__ && (
+        <>
+          <Button title="Test reminder in 10 s (dev only)" color="#888" onPress={() => sendTestReminder()} />
+          <Button title="Start over (dev only)" color="#888" onPress={reset} />
+        </>
+      )}
     </ScrollView>
   );
 }
@@ -175,4 +210,6 @@ const styles = StyleSheet.create({
   verseNumber: { fontSize: 13, fontWeight: '700', color: '#999' },
   message: { fontSize: 16, color: '#555', textAlign: 'center' },
   error: { fontSize: 16, color: '#b3261e', textAlign: 'center' },
+  reminder: { alignItems: 'center', gap: 8, paddingTop: 8 },
+  note: { fontSize: 13, color: '#888', textAlign: 'center' },
 });

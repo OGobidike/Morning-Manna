@@ -106,3 +106,10 @@ export type Streak = { current: number; longest: number; last_read_on: string | 
 export function getStreak(token: string): Promise<Streak> {
   return api<Streak>('/users/me/streak', { token });
 }
+
+// GET /users/me: the reader's settings, e.g. wake_time "06:30:00"
+export type Me = { id: number; timezone: string; wake_time: string };
+
+export function getMe(token: string): Promise<Me> {
+  return api<Me>('/users/me', { token });
+}
