@@ -11,6 +11,7 @@ from app.models import Translation
 def headers(client, db):
     """Register a test device and return the headers that prove who it is."""
     db.add(Translation(code="TST", name="Test Translation", license="Public domain"))
+    db.add(Translation(code="TS2", name="Second Test Translation", license="Public domain"))
     db.flush()
     response = client.post(
         "/users",
@@ -56,3 +57,26 @@ def test_update_needs_a_token(client):
     response = client.patch("/users/me", json={"wake_time": "05:45"})
 
     assert response.status_code == 401
+
+
+
+
+def test_settings_include_the_translation(client, headers):
+    assert client.get("/users/me", headers=headers).json()["translation"] == "TST"
+
+
+def test_change_the_translation(client, headers):
+    response = client.patch("/users/me", json={"translation": "TS2"}, headers=headers)
+
+    assert response.status_code == 200
+    assert response.json()["translation"] == "TS2"
+    # Nothing else changed
+    assert response.json()["wake_time"] == "06:30:00"
+    assert client.get("/users/me", headers=headers).json()["translation"] == "TS2"
+
+
+def test_unknown_translation_is_rejected(client, headers):
+    response = client.patch("/users/me", json={"translation": "NOPE"}, headers=headers)
+
+    assert response.status_code == 400
+    assert client.get("/users/me", headers=headers).json()["translation"] == "TST"
