@@ -16,6 +16,15 @@ def check_timezone(value: str) -> str:
     return value
 
 
+class TranslationOut(BaseModel):
+    """One Bible translation a reader can choose."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    code: str
+    name: str
+
+
 class PlanOut(BaseModel):
     """One reading plan, as the app sees it."""
 
@@ -58,11 +67,11 @@ class UserCreated(BaseModel):
 class UserOut(BaseModel):
     """A reader's own settings, as the app sees them. Never includes the token."""
 
-    model_config = ConfigDict(from_attributes=True)
-
     id: int
     timezone: str
     wake_time: time
+    # The translation they read in, by code, e.g. "KJV"
+    translation: str
 
 
 class UserUpdate(BaseModel):
@@ -70,6 +79,8 @@ class UserUpdate(BaseModel):
 
     timezone: str | None = None
     wake_time: time | None = None
+    # A translation code, e.g. "ASV"
+    translation: str | None = None
 
     @field_validator("timezone")
     @classmethod

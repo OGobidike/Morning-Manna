@@ -26,6 +26,22 @@ from app.streaks import streaks
 router = APIRouter(prefix="/users", tags=["users"])
 
 
+def find_translation(db: Session, code: str) -> Translation:
+    """The translation with this code, or 400 if there isn't one."""
+    translation = db.scalar(select(Translation).where(Translation.code == code))
+    if translation is None:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, f"unknown translation: {code}")
+    return translation
+
+
+def user_out(db: Session, user: User) -> UserOut:
+    """A reader's settings, with their translation shown by code rather than by id."""
+    translation = db.get(Translation, user.translation_id)
+    return UserOut(
+        id=user.id, timezone=user.timezone, wake_time=user.wake_time, translation=translation.code
+    )
+
+
 # POST /users: register a device. Returns its token once; only the token's hash is stored.
 @router.post(
     "",
@@ -36,9 +52,7 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 def register(body: UserCreate, db: Session = Depends(get_db)):
     """Register a new device and give it a secret token."""
-    translation = db.scalar(select(Translation).where(Translation.code == body.translation))
-    if translation is None:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, f"unknown translation: {body.translation}")
+    translation = find_translation(db, body.translation)
 
     if db.scalar(select(User).where(User.device_id == body.device_id)) is not None:
         raise HTTPException(status.HTTP_409_CONFLICT, "this device is already registered")
@@ -59,9 +73,9 @@ def register(body: UserCreate, db: Session = Depends(get_db)):
 
 # GET /users/me: the reader making the request, worked out from their token
 @router.get("/me", response_model=UserOut)
-def read_me(user: User = Depends(get_current_user)):
+def read_me(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     """Who am I? Returns the settings of the reader whose token was sent."""
-    return user
+    return user_out(db, user)
 
 
 # PATCH /users/me: change only the settings that were sent; everything else stays as it was
@@ -71,12 +85,18 @@ def update_me(
     user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Change the reader's time zone and/or wake time."""
+    """Change the reader's time zone, wake time and/or translation."""
     changes = body.model_dump(exclude_unset=True, exclude_none=True)
+
+    # The translation arrives as a code but is stored as an id, so it's handled on its own
+    code = changes.pop("translation", None)
+    if code is not None:
+        user.translation_id = find_translation(db, code).id
+
     for field, value in changes.items():
         setattr(user, field, value)
     db.commit()
-    return user
+    return user_out(db, user)
 
 
 # GET /users/me/streak: mornings in a row, counted in the reader's own time zone
