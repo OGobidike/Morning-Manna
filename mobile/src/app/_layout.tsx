@@ -1,6 +1,6 @@
 
 
-import { Stack } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 
 import { SessionProvider, useSession } from '@/session';
 // Loaded here so the notification handler is set as soon as the app starts
@@ -25,7 +25,18 @@ function Screens() {
   return (
     <Stack screenOptions={{ title: 'Morning Manna' }}>
       <Stack.Protected guard={onboarded}>
-        <Stack.Screen name="index" options={{ title: 'Today' }} />
+        <Stack.Screen
+          name="index"
+          options={{
+            title: 'Today',
+            headerRight: () => (
+              <Link href="/settings" style={{ fontSize: 16, color: '#208AEF' }}>
+                Settings
+              </Link>
+            ),
+          }}
+        />
+        <Stack.Screen name="settings" options={{ title: 'Settings' }} />
       </Stack.Protected>
 
       <Stack.Protected guard={!onboarded}>

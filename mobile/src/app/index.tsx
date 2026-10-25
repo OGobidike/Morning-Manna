@@ -1,4 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+
+
+import { useFocusEffect } from 'expo-router';
+import { useCallback, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Button,
@@ -37,7 +40,9 @@ export default function TodayScreen() {
 
   const [data, setData] = useState<Loaded | null>(null);
   const [error, setError] = useState<ApiError | Error | null>(null);
-  const [readingId, setReadingId] = useState<number | null>(null);
+  // The open reading's id. A ref, not state: changing it doesn't need a redraw,
+  // and load() always sees the latest value.
+  const readingId = useRef<number | null>(null);
   const [marking, setMarking] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -62,17 +67,20 @@ export default function TodayScreen() {
 
       // Start a reading as soon as an unread passage is on screen, so opened_at is honest
       const doneToday = streak.last_read_on === localDate();
-      if (!today.completed && !doneToday) {
-        setReadingId((await openReading(token)).id);
+      if (!today.completed && !doneToday && readingId.current === null) {
+        readingId.current = (await openReading(token)).id;
       }
     } catch (e) {
       setError(e as Error);
     }
   }, [token]);
 
-  useEffect(() => {
-    load();
-  }, [load]);
+  // Load every time this screen comes into view, e.g. back from Settings with a new translation
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load]),
+  );
 
   async function refresh() {
     setRefreshing(true);
@@ -92,9 +100,9 @@ export default function TodayScreen() {
     setMarking(true);
     try {
       // If opening failed earlier, open now so there's something to complete
-      const id = readingId ?? (await openReading(token)).id;
+      const id = readingId.current ?? (await openReading(token)).id;
       await completeReading(token, id);
-      setReadingId(null);
+      readingId.current = null;
       await load();
     } catch (e) {
       setError(e as Error);
