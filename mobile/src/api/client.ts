@@ -107,9 +107,23 @@ export function getStreak(token: string): Promise<Streak> {
   return api<Streak>('/users/me/streak', { token });
 }
 
-// GET /users/me: the reader's settings, e.g. wake_time "06:30:00"
-export type Me = { id: number; timezone: string; wake_time: string };
+// GET /users/me: the reader's settings, e.g. wake_time "06:30:00", translation "KJV"
+export type Me = { id: number; timezone: string; wake_time: string; translation: string };
 
 export function getMe(token: string): Promise<Me> {
   return api<Me>('/users/me', { token });
+}
+
+// PATCH /users/me: send only what changes, e.g. { wake_time: "05:45" }
+export type SettingsChange = Partial<Pick<Me, 'timezone' | 'wake_time' | 'translation'>>;
+
+export function updateMe(token: string, changes: SettingsChange): Promise<Me> {
+  return api<Me>('/users/me', { method: 'PATCH', token, body: changes });
+}
+
+// GET /translations
+export type Translation = { code: string; name: string };
+
+export function getTranslations(): Promise<Translation[]> {
+  return api<Translation[]>('/translations');
 }

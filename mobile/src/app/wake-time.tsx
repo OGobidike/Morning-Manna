@@ -5,11 +5,8 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import { Button, Platform, StyleSheet, Text, View } from 'react-native';
 
-// "06:30", the format the API expects
-function toHHMM(date: Date): string {
-  const pad = (n: number) => String(n).padStart(2, '0');
-  return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
-}
+import { toHHMM } from '@/time';
+
 
 // Onboarding 2 of 3
 export default function WakeTime() {
