@@ -22,6 +22,8 @@ import {
   type Streak,
   type Today,
 } from '@/api/client';
+
+import { useAppearance } from '@/appearance';
 import { askForReminders, remindersAllowed, scheduleDailyReminder, sendTestReminder } from '@/reminders';
 import { useSession } from '@/session';
 
@@ -37,6 +39,7 @@ type Loaded = { today: Today; streak: Streak; wakeTime: string; reminders: boole
 // The main screen: today's passage, Mark as read, and the streak
 export default function TodayScreen() {
   const { token, reset } = useSession();
+  const { colors, passage } = useAppearance();
 
   const [data, setData] = useState<Loaded | null>(null);
   const [error, setError] = useState<ApiError | Error | null>(null);
@@ -115,7 +118,7 @@ export default function TodayScreen() {
   if (error instanceof ApiError && (error.status === 401 || error.status === 404)) {
     return (
       <View style={styles.centred}>
-        <Text style={styles.message}>We couldn't find your reading plan.</Text>
+        <Text style={[styles.message, { color: colors.muted }]}>We couldn't find your reading plan.</Text>
         <Button title="Set up again" onPress={reset} />
       </View>
     );
@@ -124,14 +127,14 @@ export default function TodayScreen() {
   if (error) {
     return (
       <View style={styles.centred}>
-        <Text style={styles.error}>Something went wrong: {error.message}</Text>
+        <Text style={[styles.error, { color: colors.error }]}>Something went wrong: {error.message}</Text>
         <Button title="Try again" onPress={load} />
       </View>
     );
   }
 
   if (!data) {
-    return <ActivityIndicator style={styles.centred} size="large" />;
+    return <ActivityIndicator style={styles.centred} size="large" color={colors.accent} />;
   }
 
   const { today, streak, wakeTime, reminders } = data;
@@ -142,35 +145,35 @@ export default function TodayScreen() {
       contentContainerStyle={styles.page}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} />}
     >
-      <Text style={styles.streak}>
+      <Text style={[styles.streak, { color: colors.text }]}>
         {streak.current > 0
           ? `🔥 ${streak.current}-day streak`
           : 'Read today to start your streak'}
       </Text>
 
       {today.completed ? (
-        <View style={styles.card}>
-          <Text style={styles.title}>You finished {today.plan_name}! 🎉</Text>
-          <Text style={styles.message}>Longest streak: {streak.longest} days</Text>
+        <View style={[styles.card, { backgroundColor: colors.card }]}>
+          <Text style={[styles.title, { color: colors.text }]}>You finished {today.plan_name}! 🎉</Text>
+          <Text style={[styles.message, { color: colors.muted }]}>Longest streak: {streak.longest} days</Text>
         </View>
       ) : doneToday ? (
-        <View style={styles.card}>
-          <Text style={styles.title}>Done for today 🙏</Text>
-          <Text style={styles.message}>
+        <View style={[styles.card, { backgroundColor: colors.card }]}>
+          <Text style={[styles.title, { color: colors.text }]}>Done for today 🙏</Text>
+          <Text style={[styles.message, { color: colors.muted }]}>
             Tomorrow: {today.reference} (day {today.day_number} of {today.total_days})
           </Text>
         </View>
       ) : (
         <>
-          <Text style={styles.day}>
+          <Text style={[styles.day, { color: colors.faint }]}>
             {today.plan_name} · Day {today.day_number} of {today.total_days}
           </Text>
-          <Text style={styles.title}>{today.reference}</Text>
+          <Text style={[styles.title, { color: colors.text }]}>{today.reference}</Text>
 
-          <Text style={styles.passage}>
+          <Text style={[passage, { color: colors.text }]}>
             {today.verses.map((v) => (
               <Text key={`${v.chapter}:${v.verse}`}>
-                <Text style={styles.verseNumber}>{v.verse} </Text>
+                <Text style={[styles.verseNumber, { color: colors.faint }]}>{v.verse} </Text>
                 {v.text}{' '}
               </Text>
             ))}
@@ -186,14 +189,14 @@ export default function TodayScreen() {
 
       <View style={styles.reminder}>
         {reminders ? (
-          <Text style={styles.message}>⏰ Reminder every morning at {wakeTime}</Text>
+          <Text style={[styles.message, { color: colors.muted }]}>⏰ Reminder every morning at {wakeTime}</Text>
         ) : (
           <>
-            <Text style={styles.message}>Morning reminders are off</Text>
+            <Text style={[styles.message, { color: colors.muted }]}>Morning reminders are off</Text>
             <Button title="Turn on reminders" onPress={turnOnReminders} />
           </>
         )}
-        <Text style={styles.note}>A notification with sound, not an alarm clock.</Text>
+        <Text style={[styles.note, { color: colors.faint }]}>A notification with sound, not an alarm clock.</Text>
       </View>
 
       {/* Only in development */}
@@ -210,14 +213,14 @@ export default function TodayScreen() {
 const styles = StyleSheet.create({
   centred: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 16, padding: 32 },
   page: { padding: 24, gap: 20 },
+  // Colours come from the theme (useAppearance), so only sizes and layout live here
   streak: { fontSize: 18, fontWeight: '600', textAlign: 'center' },
-  card: { borderRadius: 12, backgroundColor: '#F4F1EA', padding: 24, gap: 10, alignItems: 'center' },
-  day: { fontSize: 14, color: '#777', textTransform: 'uppercase', letterSpacing: 1 },
+  card: { borderRadius: 12, padding: 24, gap: 10, alignItems: 'center' },
+  day: { fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 },
   title: { fontSize: 26, fontWeight: '700', textAlign: 'center' },
-  passage: { fontSize: 21, lineHeight: 34 },
-  verseNumber: { fontSize: 13, fontWeight: '700', color: '#999' },
-  message: { fontSize: 16, color: '#555', textAlign: 'center' },
-  error: { fontSize: 16, color: '#b3261e', textAlign: 'center' },
+  verseNumber: { fontSize: 13, fontWeight: '700' },
+  message: { fontSize: 16, textAlign: 'center' },
+  error: { fontSize: 16, textAlign: 'center' },
   reminder: { alignItems: 'center', gap: 8, paddingTop: 8 },
-  note: { fontSize: 13, color: '#888', textAlign: 'center' },
+  note: { fontSize: 13, textAlign: 'center' },
 });
