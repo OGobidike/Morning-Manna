@@ -114,6 +114,22 @@ class VerseOut(BaseModel):
     text: str
 
 
+class PassageOut(BaseModel):
+    """One day's passage: which day, the reference, and the verses."""
+
+    day_number: int
+    reference: str
+    verses: list[VerseOut]
+
+
+class UpcomingOut(BaseModel):
+    """The next few passages, from the reader's current day onwards (for reading offline)."""
+
+    plan_name: str
+    total_days: int
+    passages: list[PassageOut]
+
+
 class TodayOut(BaseModel):
     """This morning's reading: where the reader is in their plan, and the passage itself."""
 
