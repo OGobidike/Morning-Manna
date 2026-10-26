@@ -5,7 +5,6 @@
 
 import { ApiError, type AppEvent, type EventType, sendEvents } from '@/api/client';
 import { load, save } from '@/store';
-import { clearOffline } from './offline';
 
 // Send as soon as this many are waiting
 const BATCH_SIZE = 10;
