@@ -1,12 +1,17 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DarkTheme, DefaultTheme, Link, Stack, ThemeProvider } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { AppState } from 'react-native';
 
 import { AppearanceProvider, palettes, useAppearance } from '@/appearance';
-import { flush, setEventsToken, track } from '@/events';
+import { flush, restoreEvents, setEventsToken, track } from '@/events';
 import { onReminderTapped } from '@/reminders';
 import { SessionProvider, useSession } from '@/session';
+import { setStore } from '@/store';
+
+// Saved data (offline passages, waiting events) lives in the phone's storage
+setStore(AsyncStorage);
 
 export default function RootLayout() {
   return (
@@ -29,9 +34,12 @@ function useEventTracking() {
 
   useEffect(() => {
     if (!onboarded) return;
-    // Opening the app, now and every time it comes back to the front
-    track('app_opened');
-    void flush();
+    // Opening the app, now and every time it comes back to the front.
+    // First load back any events saved last time, so they're sent too.
+    void restoreEvents().then(() => {
+      track('app_opened');
+      void flush();
+    });
     const subscription = AppState.addEventListener('change', (state) => {
       if (state === 'active') track('app_opened');
       // Going to the background is the moment to send: the reader is done for now
