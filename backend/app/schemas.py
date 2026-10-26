@@ -9,6 +9,20 @@ from zoneinfo import available_timezones
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validator
 
 
+def check_not_in_the_future(value: datetime) -> datetime:
+    """Reject a moment that hasn't happened yet. Allows 5 minutes for a phone clock running fast."""
+    if value > datetime.now(UTC) + timedelta(minutes=5):
+        raise ValueError("that time is in the future")
+    return value
+
+
+def check_recent(value: datetime) -> datetime:
+    """A moment from the last 14 days: how long a reading saved offline may wait to be synced."""
+    if value < datetime.now(UTC) - timedelta(days=14):
+        raise ValueError("that time is more than 14 days ago")
+    return check_not_in_the_future(value)
+
+
 def check_timezone(value: str) -> str:
     """Reject names that aren't real time zones, e.g. "Mars/Olympus". Shared by the schemas."""
     if value not in available_timezones():
@@ -143,6 +157,30 @@ class TodayOut(BaseModel):
     verses: list[VerseOut] = []
 
 
+class ReadingOpen(BaseModel):
+    """Optional body for POST /readings. Leave it out to mean "now"."""
+
+    # When the reader really opened the passage, if earlier (e.g. while offline)
+    opened_at: AwareDatetime | None = None
+
+    @field_validator("opened_at")
+    @classmethod
+    def opened_at_is_recent(cls, value: datetime | None) -> datetime | None:
+        return value if value is None else check_recent(value)
+
+
+class ReadingComplete(BaseModel):
+    """Optional body for POST /readings/{id}/complete. Leave it out to mean "now"."""
+
+    # When the reader really finished, if earlier (e.g. while offline)
+    completed_at: AwareDatetime | None = None
+
+    @field_validator("completed_at")
+    @classmethod
+    def completed_at_is_recent(cls, value: datetime | None) -> datetime | None:
+        return value if value is None else check_recent(value)
+
+
 class ReadingOut(BaseModel):
     """One sitting with one day's passage."""
 
@@ -198,10 +236,7 @@ class EventIn(BaseModel):
     @field_validator("occurred_at")
     @classmethod
     def not_in_the_future(cls, value: datetime) -> datetime:
-        # Allow 5 minutes for a phone clock that runs a little fast
-        if value > datetime.now(UTC) + timedelta(minutes=5):
-            raise ValueError("occurred_at is in the future")
-        return value
+        return check_not_in_the_future(value)
 
 
 class EventBatch(BaseModel):
