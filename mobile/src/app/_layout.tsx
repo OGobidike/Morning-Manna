@@ -1,12 +1,12 @@
-
-
 import { DarkTheme, DefaultTheme, Link, Stack, ThemeProvider } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
+import { AppState } from 'react-native';
 
 import { AppearanceProvider, palettes, useAppearance } from '@/appearance';
+import { flush, setEventsToken, track } from '@/events';
+import { onReminderTapped } from '@/reminders';
 import { SessionProvider, useSession } from '@/session';
-// Loaded here so the notification handler is set as soon as the app starts
-import '@/reminders';
 
 export default function RootLayout() {
   return (
@@ -18,11 +18,38 @@ export default function RootLayout() {
   );
 }
 
+// Analytics: app opens, reminder taps, and sending the batch when the app is put away
+function useEventTracking() {
+  const { token, onboarded } = useSession();
+
+  // Events can only be sent with a token
+  useEffect(() => {
+    setEventsToken(token);
+  }, [token]);
+
+  useEffect(() => {
+    if (!onboarded) return;
+    // Opening the app, now and every time it comes back to the front
+    track('app_opened');
+    void flush();
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active') track('app_opened');
+      // Going to the background is the moment to send: the reader is done for now
+      if (state === 'background') void flush();
+    });
+    return () => subscription.remove();
+  }, [onboarded]);
+
+  // Tapping the morning reminder
+  useEffect(() => onReminderTapped(() => track('notification_opened')), []);
+}
+
 // Onboarding screens before sign-up, the main screen after. Expo Router sends the
 // reader to whichever group they're allowed in, and back-navigation can't cross over.
 function Screens() {
   const { ready, onboarded } = useSession();
   const appearance = useAppearance();
+  useEventTracking();
 
   // Show nothing for the moment it takes to read the saved session
   if (!ready) return null;

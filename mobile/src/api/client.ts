@@ -137,3 +137,20 @@ export function getHistory(token: string, days = 91): Promise<History> {
 }
 
 
+// POST /events: app events, sent in batches (the API accepts these types only)
+export type EventType =
+  | 'app_opened'
+  | 'notification_opened'
+  | 'reading_opened'
+  | 'reading_completed'
+  | 'reminder_snoozed';
+
+export type AppEvent = {
+  event_type: EventType;
+  occurred_at: string;
+  properties: Record<string, unknown>;
+};
+
+export function sendEvents(token: string, events: AppEvent[]): Promise<{ accepted: number }> {
+  return api<{ accepted: number }>('/events', { method: 'POST', token, body: { events } });
+}

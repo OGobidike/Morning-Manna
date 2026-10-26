@@ -22,6 +22,7 @@ import {
 } from '@/api/client';
 
 import { useAppearance } from '@/appearance';
+import { track } from '@/events';
 import { askForReminders, remindersAllowed, scheduleDailyReminder, sendTestReminder } from '@/reminders';
 import { useSession } from '@/session';
 
@@ -70,6 +71,7 @@ export default function TodayScreen() {
       const doneToday = streak.last_read_on === localDate();
       if (!today.completed && !doneToday && readingId.current === null) {
         readingId.current = (await openReading(token)).id;
+      track('reading_opened', { day_number: today.day_number });
       }
     } catch (e) {
       setError(e as Error);
@@ -103,6 +105,7 @@ export default function TodayScreen() {
       // If opening failed earlier, open now so there's something to complete
       const id = readingId.current ?? (await openReading(token)).id;
       await completeReading(token, id);
+      if (data) track('reading_completed', { day_number: data.today.day_number });
       readingId.current = null;
       await load();
     } catch (e) {

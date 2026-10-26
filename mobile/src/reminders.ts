@@ -71,3 +71,25 @@ export async function sendTestReminder(seconds = 10): Promise<void> {
     },
   });
 }
+
+
+// Call back once for every reminder the reader taps, including a tap that opened the app.
+// Returns a function that stops listening.
+let lastTap: string | null = null;
+
+export function onReminderTapped(callback: () => void): () => void {
+  function handle(response: Notifications.NotificationResponse | null) {
+    if (!response) return;
+    // The same tap can arrive twice (at launch and through the listener): count it once
+    const tap = `${response.notification.request.identifier}:${response.notification.date}`;
+    if (tap === lastTap) return;
+    lastTap = tap;
+    Notifications.clearLastNotificationResponse();
+    callback();
+  }
+
+  // A tap that launched the app happened before this listener existed
+  handle(Notifications.getLastNotificationResponse());
+  const subscription = Notifications.addNotificationResponseReceivedListener(handle);
+  return () => subscription.remove();
+}
