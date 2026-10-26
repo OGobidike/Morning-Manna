@@ -61,6 +61,7 @@ function Screens() {
               ),
             }}
           />
+          <Stack.Screen name="settings" options={{ title: 'Settings' }} />
           <Stack.Screen name="history" options={{ title: 'History' }} />
         </Stack.Protected>
 
