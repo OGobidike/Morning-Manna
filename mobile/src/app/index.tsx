@@ -1,6 +1,4 @@
-
-
-import { useFocusEffect } from 'expo-router';
+import { Link, useFocusEffect } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
 import {
   ActivityIndicator,
@@ -150,6 +148,9 @@ export default function TodayScreen() {
           ? `🔥 ${streak.current}-day streak`
           : 'Read today to start your streak'}
       </Text>
+      <Link href="/history" style={[styles.link, { color: colors.accent }]}>
+        See your history →
+      </Link>
 
       {today.completed ? (
         <View style={[styles.card, { backgroundColor: colors.card }]}>
@@ -215,6 +216,7 @@ const styles = StyleSheet.create({
   page: { padding: 24, gap: 20 },
   // Colours come from the theme (useAppearance), so only sizes and layout live here
   streak: { fontSize: 18, fontWeight: '600', textAlign: 'center' },
+  link: { fontSize: 15, textAlign: 'center' },
   card: { borderRadius: 12, padding: 24, gap: 10, alignItems: 'center' },
   day: { fontSize: 14, textTransform: 'uppercase', letterSpacing: 1 },
   title: { fontSize: 26, fontWeight: '700', textAlign: 'center' },

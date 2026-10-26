@@ -127,3 +127,13 @@ export type Translation = { code: string; name: string };
 export function getTranslations(): Promise<Translation[]> {
   return api<Translation[]>('/translations');
 }
+
+
+// GET /users/me/history: the days the reader finished a reading, oldest first
+export type History = { start: string; end: string; days: string[] };
+
+export function getHistory(token: string, days = 91): Promise<History> {
+  return api<History>(`/users/me/history?days=${days}`, { token });
+}
+
+
