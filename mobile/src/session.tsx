@@ -8,6 +8,7 @@ import * as SecureStore from 'expo-secure-store';
 import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
 
 import { ApiError, signUp, startPlan } from '@/api/client';
+import { clearOffline } from '@/offline';
 
 // Secure storage keys (letters, digits, dots, dashes and underscores only)
 const TOKEN_KEY = 'morning-manna.token';
@@ -73,6 +74,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   async function reset() {
     await SecureStore.deleteItemAsync(TOKEN_KEY);
     await SecureStore.deleteItemAsync(ONBOARDED_KEY);
+    // The saved passages and offline readings belonged to the old reader
+    await clearOffline();
     setToken(null);
     setOnboarded(false);
   }

@@ -1,3 +1,5 @@
+
+
 import { Link, useFocusEffect } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
 import {
@@ -16,13 +18,27 @@ import {
   getMe,
   getStreak,
   getToday,
+  getUpcoming,
   openReading,
+  type Passage,
   type Streak,
   type Today,
 } from '@/api/client';
 
 import { useAppearance } from '@/appearance';
 import { track } from '@/events';
+import {
+  addPending,
+  loadPending,
+  loadSnapshot,
+  nextOfflinePassage,
+  type PendingReading,
+  readToday,
+  saveSnapshot,
+  type Snapshot,
+  syncPending,
+} from '@/offline';
+import { OfflineToday } from '@/offline-today';
 import { askForReminders, remindersAllowed, scheduleDailyReminder, sendTestReminder } from '@/reminders';
 import { useSession } from '@/session';
 
@@ -34,6 +50,7 @@ function localDate(): string {
 }
 
 type Loaded = { today: Today; streak: Streak; wakeTime: string; reminders: boolean };
+type Offline = { snapshot: Snapshot; pending: PendingReading[] };
 
 // The main screen: today's passage, Mark as read, and the streak
 export default function TodayScreen() {
@@ -45,6 +62,10 @@ export default function TodayScreen() {
   // The open reading's id. A ref, not state: changing it doesn't need a redraw,
   // and load() always sees the latest value.
   const readingId = useRef<number | null>(null);
+  // When the passage on screen was first shown, for readings saved offline
+  const openedAt = useRef<string | null>(null);
+  // Set when there's no connection and the saved copy is on screen
+  const [offline, setOffline] = useState<Offline | null>(null);
   const [marking, setMarking] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -52,8 +73,19 @@ export default function TodayScreen() {
     if (!token) return;
     setError(null);
     try {
-      // Ask for all three at once, then wait for all three
-      const [today, streak, me] = await Promise.all([getToday(token), getStreak(token), getMe(token)]);
+      // Send any readings finished offline first, so today's passage and the streak include them
+      await syncPending(token);
+
+      // Ask for all four at once, then wait for all four
+      const [today, streak, me, upcoming] = await Promise.all([
+        getToday(token),
+        getStreak(token),
+        getMe(token),
+        getUpcoming(token),
+      ]);
+      // Keep a copy of the coming passages, for mornings without a connection
+      await saveSnapshot({ savedAt: new Date().toISOString(), upcoming, streak });
+      setOffline(null);
 
       // Keep the daily reminder in step with the wake time saved on the server.
       // A reminder problem must never hide the passage, so it gets its own try.
@@ -71,10 +103,24 @@ export default function TodayScreen() {
       const doneToday = streak.last_read_on === localDate();
       if (!today.completed && !doneToday && readingId.current === null) {
         readingId.current = (await openReading(token)).id;
-      track('reading_opened', { day_number: today.day_number });
+        openedAt.current = new Date().toISOString();
+        track('reading_opened', { day_number: today.day_number });
       }
     } catch (e) {
-      setError(e as Error);
+      // An ApiError is the server answering "no". Anything else means it couldn't be
+      // reached: show the copy saved on this phone, if there is one.
+      const snapshot = e instanceof ApiError ? null : await loadSnapshot();
+      if (!snapshot) {
+        setError(e as Error);
+        return;
+      }
+      const pending = await loadPending();
+      setOffline({ snapshot, pending });
+      const next = nextOfflinePassage(snapshot, pending);
+      if (next && !readToday(snapshot, pending) && openedAt.current === null) {
+        openedAt.current = new Date().toISOString();
+        track('reading_opened', { day_number: next.day_number });
+      }
     }
   }, [token]);
 
@@ -107,12 +153,40 @@ export default function TodayScreen() {
       await completeReading(token, id);
       if (data) track('reading_completed', { day_number: data.today.day_number });
       readingId.current = null;
+      openedAt.current = null;
       await load();
     } catch (e) {
-      setError(e as Error);
+      // The connection went while reading: keep it on this phone and send it later
+      if (!(e instanceof ApiError) && data) {
+        await saveOffline(data.today.day_number);
+        await load();
+      } else {
+        setError(e as Error);
+      }
     } finally {
       setMarking(false);
     }
+  }
+
+  // Mark as read with no connection
+  async function markAsReadOffline(passage: Passage) {
+    await saveOffline(passage.day_number);
+    if (offline) setOffline({ ...offline, pending: await loadPending() });
+  }
+
+  // Save a finished reading on this phone, to be sent by syncPending next time load() works.
+  // If the reading was opened on the server before the connection went, finish that one.
+  async function saveOffline(dayNumber: number) {
+    const now = new Date().toISOString();
+    await addPending({
+      day_number: dayNumber,
+      opened_at: openedAt.current ?? now,
+      completed_at: now,
+      reading_id: readingId.current ?? undefined,
+    });
+    track('reading_completed', { day_number: dayNumber });
+    readingId.current = null;
+    openedAt.current = null;
   }
 
   // 401 (token no longer known) or 404 (no plan): the reader needs setting up again
@@ -131,6 +205,17 @@ export default function TodayScreen() {
         <Text style={[styles.error, { color: colors.error }]}>Something went wrong: {error.message}</Text>
         <Button title="Try again" onPress={load} />
       </View>
+    );
+  }
+
+  if (offline) {
+    return (
+      <OfflineToday
+        snapshot={offline.snapshot}
+        pending={offline.pending}
+        onMarkRead={markAsReadOffline}
+        onRetry={load}
+      />
     );
   }
 
