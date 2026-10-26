@@ -10,7 +10,6 @@ from sqlalchemy.orm import Session
 from app.models import ReadingSession, User
 
 
-
 def local_reading_day(user: User):
     """SQL for the calendar day a reading was finished, in the reader's own time zone."""
     return func.date(func.timezone(user.timezone, ReadingSession.completed_at))
