@@ -2,7 +2,9 @@
 
 """Endpoints for readers (users)."""
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from datetime import timedelta
+
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -12,6 +14,7 @@ from app.db import get_db
 from app.models import ReadingPlan, Translation, User, UserPlan
 from app.ratelimit import limit_signups
 from app.schemas import (
+    HistoryOut,
     StreakOut,
     UserCreate,
     UserCreated,
@@ -21,7 +24,7 @@ from app.schemas import (
     UserUpdate,
 )
 from app.security import hash_token, new_token
-from app.streaks import streaks
+from app.streaks import reading_days, streaks
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -105,6 +108,19 @@ def read_streak(user: User = Depends(get_current_user), db: Session = Depends(ge
     """The reader's current and longest reading streaks."""
     current, longest, last_read_on = streaks(db, user, local_today(user.timezone))
     return StreakOut(current=current, longest=longest, last_read_on=last_read_on)
+
+
+# GET /users/me/history: which days the reader read, for the history calendar
+@router.get("/me/history", response_model=HistoryOut)
+def read_history(
+    days: int = Query(91, ge=1, le=366),
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """The days the reader finished a reading, over the last `days` days (13 weeks by default)."""
+    end = local_today(user.timezone)
+    start = end - timedelta(days=days - 1)
+    return HistoryOut(start=start, end=end, days=reading_days(db, user, start, end))
 
 
 # POST /users/me/plans: start a reading plan today (in the reader's own time zone)
