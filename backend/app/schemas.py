@@ -139,6 +139,16 @@ class ReadingOut(BaseModel):
     completed_at: datetime | None
 
 
+class HistoryOut(BaseModel):
+    """The days a reader finished a reading, for the history calendar."""
+
+    # The first and last day covered, in the reader's own time zone
+    start: date
+    end: date
+    # Each day they read, oldest first, e.g. ["2026-10-20", "2026-10-22"]
+    days: list[date]
+
+
 class StreakOut(BaseModel):
     """How many mornings in a row the reader has finished their passage."""
 
