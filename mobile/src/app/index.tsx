@@ -34,11 +34,13 @@ import {
   nextOfflinePassage,
   type PendingReading,
   readToday,
+  saveLastRead,
   saveSnapshot,
   type Snapshot,
   syncPending,
 } from '@/offline';
 import { OfflineToday } from '@/offline-today';
+import { ReadAgain } from '@/read-again';
 import { askForReminders, remindersAllowed, scheduleDailyReminder, sendTestReminder } from '@/reminders';
 import { useSession } from '@/session';
 
@@ -145,8 +147,10 @@ export default function TodayScreen() {
   }
 
   async function markAsRead() {
-    if (!token) return;
+    if (!token || !data) return;
     setMarking(true);
+    // Keep a copy, so the reader can open it again from "Done for today"
+    await saveLastRead(data.today);
     try {
       // If opening failed earlier, open now so there's something to complete
       const id = readingId.current ?? (await openReading(token)).id;
@@ -170,6 +174,7 @@ export default function TodayScreen() {
 
   // Mark as read with no connection
   async function markAsReadOffline(passage: Passage) {
+    await saveLastRead(passage);
     await saveOffline(passage.day_number);
     if (offline) setOffline({ ...offline, pending: await loadPending() });
   }
@@ -246,12 +251,15 @@ export default function TodayScreen() {
           <Text style={[styles.message, { color: colors.muted }]}>Longest streak: {streak.longest} days</Text>
         </View>
       ) : doneToday ? (
-        <View style={[styles.card, { backgroundColor: colors.card }]}>
-          <Text style={[styles.title, { color: colors.text }]}>Done for today 🙏</Text>
-          <Text style={[styles.message, { color: colors.muted }]}>
-            Tomorrow: {today.reference} (day {today.day_number} of {today.total_days})
-          </Text>
-        </View>
+        <>
+          <View style={[styles.card, { backgroundColor: colors.card }]}>
+            <Text style={[styles.title, { color: colors.text }]}>Done for today 🙏</Text>
+            <Text style={[styles.message, { color: colors.muted }]}>
+              Tomorrow: {today.reference} (day {today.day_number} of {today.total_days})
+            </Text>
+          </View>
+          <ReadAgain />
+        </>
       ) : (
         <>
           <Text style={[styles.day, { color: colors.faint }]}>

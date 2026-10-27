@@ -3,12 +3,21 @@
 // Reading without a connection: a saved copy of the coming passages, and readings finished
 // offline that wait on the phone until they can be sent.
 
-import { ApiError, completeReading, openReading, type Passage, type Streak, type Upcoming } from '@/api/client';
+import {
+  ApiError,
+  completeReading,
+  openReading,
+  type Passage,
+  type Streak,
+  type Upcoming,
+  type Verse,
+} from '@/api/client';
 import { isoDay } from '@/calendar';
 import { forget, load, save } from '@/store';
 
 const SNAPSHOT_KEY = 'morning-manna.snapshot';
 const PENDING_KEY = 'morning-manna.pending-readings';
+const LAST_READ_KEY = 'morning-manna.last-read';
 
 // What the app last saw online
 export type Snapshot = { savedAt: string; upcoming: Upcoming; streak: Streak };
@@ -43,6 +52,24 @@ export async function addPending(reading: PendingReading): Promise<void> {
 export async function clearOffline(): Promise<void> {
   await forget(SNAPSHOT_KEY);
   await forget(PENDING_KEY);
+  await forget(LAST_READ_KEY);
+}
+
+// The passage read most recently, kept so it can be opened again after Mark as read
+// (the server has already moved on to tomorrow's)
+export type LastRead = { read_on: string; reference: string; verses: Verse[] };
+
+export function saveLastRead(passage: { reference: string | null; verses: Verse[] }): Promise<void> {
+  const lastRead: LastRead = {
+    read_on: isoDay(new Date()),
+    reference: passage.reference ?? '',
+    verses: passage.verses,
+  };
+  return save(LAST_READ_KEY, lastRead);
+}
+
+export function loadLastRead(): Promise<LastRead | null> {
+  return load<LastRead | null>(LAST_READ_KEY, null);
 }
 
 // The passage to read next while offline: the first saved one not already finished offline
