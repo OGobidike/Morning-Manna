@@ -41,7 +41,7 @@ bash, Docker, cd mobile && npm install && expo start
 ```
 The text comes from the King James Version and the American Standard Version (both public domain).
 
-Status:** the API is built (see **Status: the API and the Android app are built. See [backend/README.md](backend/README.md) and [mobile/README.md](mobile/README.md).**[backend/README.md](backend/README.md)); the mobile app is next.**
+**Status: the API and the Android app are built. See [backend/README.md](backend/README.md) and [mobile/README.md](mobile/README.md).**
 
 ## License
 
