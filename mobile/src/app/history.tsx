@@ -42,6 +42,9 @@ export default function HistoryScreen() {
   const end = parseDay(history.end);
   const weeks = buildWeeks(start, end);
   const weeksCovered = Math.round(daysCovered(start, end) / 7);
+  const labels = weeks.map((week, w) => monthLabel(week, w === 0));
+  // The first week's name would run into the next one when a month starts the week after
+  if (labels[1]) labels[0] = '';
 
   return (
     <ScrollView contentContainerStyle={styles.page}>
@@ -52,9 +55,9 @@ export default function HistoryScreen() {
 
       {/* Month names, one slot per week column, above the grid */}
       <View style={styles.months}>
-        {weeks.map((week, w) => (
+        {labels.map((label, w) => (
           <Text key={w} style={[styles.monthLabel, { color: colors.faint }]} numberOfLines={1}>
-            {monthLabel(week, w === 0)}
+            {label}
           </Text>
         ))}
       </View>
@@ -112,7 +115,9 @@ const styles = StyleSheet.create({
   message: { fontSize: 16 },
   // Each week column is CELL wide with GAP after it, so labels and squares line up
   months: { flexDirection: 'row', marginTop: 8, paddingLeft: LABEL + GAP },
-  monthLabel: { width: CELL + GAP, fontSize: 10, overflow: 'visible' },
+  // A name may run on over the two empty slots after it (so "Aug" isn't cut to "A…"):
+  // three slots wide, then pulled back two, so the next name still starts one slot later
+  monthLabel: { width: 3 * (CELL + GAP), marginRight: -2 * (CELL + GAP), fontSize: 10 },
   grid: { flexDirection: 'row', gap: GAP },
   column: { gap: GAP },
   cell: { width: CELL, height: CELL, borderRadius: 4 },
