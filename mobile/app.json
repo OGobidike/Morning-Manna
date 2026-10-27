@@ -34,7 +34,8 @@
             "usesCleartextTraffic": true
           }
         }
-      ]
+      ],
+      "expo-font"
     ],
     "scheme": "morningmanna",
     "extra": {
