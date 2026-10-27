@@ -8,6 +8,7 @@ import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { Passage } from '@/api/client';
 import { useAppearance } from '@/appearance';
 import { nextOfflinePassage, readToday, type PendingReading, type Snapshot } from '@/offline';
+import { ReadAgain } from '@/read-again';
 
 type Props = {
   snapshot: Snapshot;
@@ -39,14 +40,17 @@ export function OfflineToday({ snapshot, pending, onMarkRead, onRetry }: Props) 
       )}
 
       {doneToday ? (
-        <View style={[styles.card, { backgroundColor: colors.card }]}>
-          <Text style={[styles.title, { color: colors.text }]}>Done for today 🙏</Text>
-          {next && (
-            <Text style={[styles.message, { color: colors.muted }]}>
-              Tomorrow: {next.reference} (day {next.day_number} of {total_days})
-            </Text>
-          )}
-        </View>
+        <>
+          <View style={[styles.card, { backgroundColor: colors.card }]}>
+            <Text style={[styles.title, { color: colors.text }]}>Done for today 🙏</Text>
+            {next && (
+              <Text style={[styles.message, { color: colors.muted }]}>
+                Tomorrow: {next.reference} (day {next.day_number} of {total_days})
+              </Text>
+            )}
+          </View>
+          <ReadAgain />
+        </>
       ) : next ? (
         <>
           <Text style={[styles.day, { color: colors.faint }]}>
