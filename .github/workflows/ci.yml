@@ -77,3 +77,34 @@ jobs:
       - run: pip install -e ".[dev]"
       - run: ruff check .
       - run: pytest
+
+  pipelines:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pipelines
+    # The loader's tests need a real Postgres, like the backend's
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: manna
+          POSTGRES_PASSWORD: manna
+          POSTGRES_DB: manna
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U manna"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://manna:manna@localhost:5432/manna
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: pytest

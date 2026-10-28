@@ -9,6 +9,7 @@ from datetime import UTC, datetime
 
 import boto3
 import pytest
+from botocore.exceptions import ClientError
 from moto.server import ThreadedMotoServer
 
 from app import lake
@@ -111,3 +112,28 @@ def test_no_lake_url_means_no_lake_at_all(client, headers, monkeypatch):
 
     monkeypatch.setattr(boto3, "client", no_calls)
     assert send(client, headers, event()).status_code == 201
+
+
+def test_the_lake_copy_works_when_the_bucket_already_exists(client, headers, lake_on, monkeypatch):
+    # As SeaweedFS did on Kai's PC after a restart: the bucket exists, but isn't listed,
+    # and creating it again answers "you already own it"
+    s3, bucket = lake_on
+    s3.create_bucket(Bucket=bucket)
+
+    class SeaweedLike:
+        def __init__(self, real):
+            self.real = real
+
+        def list_buckets(self):
+            return {"Buckets": []}
+
+        def create_bucket(self, Bucket):
+            error = {"Error": {"Code": "BucketAlreadyOwnedByYou", "Message": "you own it"}}
+            raise ClientError(error, "CreateBucket")
+
+        def __getattr__(self, name):
+            return getattr(self.real, name)
+
+    monkeypatch.setattr(lake, "lake_client", lambda: SeaweedLike(s3))
+    assert send(client, headers, event()).status_code == 201
+    assert len(files_in(s3, bucket)) == 1  # the copy still landed

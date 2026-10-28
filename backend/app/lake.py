@@ -15,10 +15,12 @@ from datetime import UTC, datetime
 
 import boto3
 from botocore.config import Config
-
+from botocore.exceptions import ClientError
 from app.config import settings
 from app.logs import logger
 from app.models import Event
+# The answers an S3 server gives when the bucket we asked for already exists
+ALREADY_THERE = ("BucketAlreadyOwnedByYou", "BucketAlreadyExists")
 
 # Set once the bucket is known to exist, so it's only checked once per server start
 _bucket_ready = False
@@ -63,6 +65,19 @@ def lake_client():
     )
 
 
+def ensure_bucket(client) -> None:
+    """Create the lake's bucket if it isn't there yet.
+
+    Some S3 servers (SeaweedFS among them) leave buckets out of their bucket list, so don't
+    trust the list: ask to create it, and take "you already have it" as success.
+    """
+    try:
+        client.create_bucket(Bucket=settings.lake_bucket)
+    except ClientError as error:
+        if error.response["Error"]["Code"] not in ALREADY_THERE:
+            raise
+
+
 def save_events(records: list[dict], received_at: datetime) -> None:
     """Write one batch to the lake. Never raises: a lake problem is logged, not passed on."""
     global _bucket_ready
@@ -74,9 +89,7 @@ def save_events(records: list[dict], received_at: datetime) -> None:
     try:
         client = lake_client()
         if not _bucket_ready:
-            existing = {bucket["Name"] for bucket in client.list_buckets()["Buckets"]}
-            if settings.lake_bucket not in existing:
-                client.create_bucket(Bucket=settings.lake_bucket)
+            ensure_bucket(client)
             _bucket_ready = True
         client.put_object(
             Bucket=settings.lake_bucket,
