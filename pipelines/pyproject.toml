@@ -1,0 +1,31 @@
+
+
+[project]
+name = "morning-manna-pipelines"
+version = "0.1.0"
+description = "Jobs that move Morning Manna's events from the lake into the warehouse"
+requires-python = ">=3.11"
+dependencies = [
+    "boto3>=1.40",
+    "psycopg[binary]>=3.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.6",
+    "moto[server]>=5.1",
+]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["ingest*"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I"]
