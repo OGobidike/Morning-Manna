@@ -14,6 +14,7 @@ dependencies = [
     "alembic>=1.13",
     "pandas>=2.2",
     "tzdata>=2024.1",
+    "boto3>=1.40",
 ]
 
 [project.optional-dependencies]
@@ -22,6 +23,7 @@ dev = [
     "pytest-cov>=5.0",
     "httpx2>=2.13",
     "ruff>=0.6",
+    "moto[server]>=5.1",
 ]
 
 [build-system]

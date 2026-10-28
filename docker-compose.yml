@@ -1,5 +1,3 @@
-
-
 services:
   db:
     image: postgres:16
@@ -21,11 +19,24 @@ services:
     environment:
       ENVIRONMENT: docker
       DATABASE_URL: postgresql+psycopg://manna:manna@db:5432/manna
+      LAKE_URL: http://lake:8333
     ports:
       - "8000:8000"
     depends_on:
       db:
         condition: service_healthy
 
+  # The data lake: SeaweedFS, speaking the same S3 language as Amazon S3.
+  # (MinIO, the blueprint's choice, took its images off Docker Hub.)
+  lake:
+    image: chrislusf/seaweedfs:4.51
+    command: server -dir=/data -s3
+    ports:
+      - "8333:8333"   # the S3 API
+      - "8888:8888"   # a web page for browsing the lake's files
+    volumes:
+      - lakedata:/data
+
 volumes:
   pgdata:
+  lakedata:
