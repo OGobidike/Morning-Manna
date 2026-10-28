@@ -16,9 +16,11 @@ from datetime import UTC, datetime
 import boto3
 from botocore.config import Config
 from botocore.exceptions import ClientError
+
 from app.config import settings
 from app.logs import logger
 from app.models import Event
+
 # The answers an S3 server gives when the bucket we asked for already exists
 ALREADY_THERE = ("BucketAlreadyOwnedByYou", "BucketAlreadyExists")
 
