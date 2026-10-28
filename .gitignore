@@ -35,6 +35,8 @@ node_modules/
 
 # raw data files ( Our bible datasets for ETL)
 data/raw/
+# the pretend data lake made by ml/simulate.py (rebuild it any time)
+data/lake/
 
 # OS junk
 

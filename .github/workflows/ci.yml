@@ -63,3 +63,17 @@ jobs:
           node-version: "22"
       - run: npm ci
       - run: npx tsc --noEmit
+
+  ml:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ml
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: pytest
