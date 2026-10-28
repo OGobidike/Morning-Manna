@@ -12,7 +12,7 @@ from fastapi import Request
 logger = logging.getLogger("morning_manna")
 
 # Extra fields a log line may carry, beyond time, level and message
-FIELDS = ("method", "path", "status", "duration_ms")
+FIELDS = ("method", "path", "status", "duration_ms", "error")
 
 
 class JsonFormatter(logging.Formatter):
