@@ -1,0 +1,15 @@
+# Where dbt builds: the same Postgres as the app, in the "analytics" schema.
+# dbt finds this file because you run it from analytics/. Settings come from
+# environment variables, with the local docker compose database as the default.
+morning_manna:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('DBT_HOST', 'localhost') }}"
+      port: "{{ env_var('DBT_PORT', '5432') | int }}"
+      user: "{{ env_var('DBT_USER', 'manna') }}"
+      password: "{{ env_var('DBT_PASSWORD', 'manna') }}"
+      dbname: "{{ env_var('DBT_DATABASE', 'manna') }}"
+      schema: analytics
+      threads: 4

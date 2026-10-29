@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: stg_events
+    description: One row per event, from raw.events, with plain names and types.
+    columns:
+      - name: event_id
+        tests: [unique, not_null]
+      - name: user_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_key
+      - name: event_type
+        tests:
+          - accepted_values:
+              arguments:
+                values: [app_opened, notification_opened, reading_opened, reading_completed, reminder_snoozed]
+      - name: source
+        tests:
+          - accepted_values:
+              arguments:
+                values: [app, synthetic]
+      - name: occurred_at
+        tests: [not_null]
+
+  - name: stg_users
+    description: One row per reader, pretend and real side by side.
+    columns:
+      - name: user_key
+        tests: [unique, not_null]
+      - name: timezone
+        tests: [not_null]
+      - name: signed_up_on
+        tests: [not_null]
+      - name: source
+        tests:
+          - accepted_values:
+              arguments:
+                values: [app, synthetic]

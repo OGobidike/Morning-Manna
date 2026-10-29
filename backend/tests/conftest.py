@@ -8,6 +8,7 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
+from app.config import settings
 from app.db import engine, get_db
 from app.main import app
 from app.models import Book, PlanDay, ReadingPlan, Translation, Verse
@@ -18,6 +19,16 @@ from app.ratelimit import signup_limiter
 def fresh_rate_limits():
     """Every test starts with a clean sign-up allowance."""
     signup_limiter.reset()
+
+
+@pytest.fixture(autouse=True)
+def no_real_lake(monkeypatch):
+    """Tests never write to the real lake, even if .env sets LAKE_URL.
+
+    Their readers vanish when each test ends, so anything they sent to the lake would be
+    events from readers who never existed. The lake tests point at a test lake of their own.
+    """
+    monkeypatch.setattr(settings, "lake_url", "")
 
 
 @pytest.fixture
