@@ -108,3 +108,24 @@ jobs:
       - run: pip install -e ".[dev]"
       - run: ruff check .
       - run: pytest
+    
+  airflow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # The same image docker compose builds: Airflow, plus each job's own Python
+      - name: Build the Airflow image
+        run: docker build -f pipelines/Dockerfile -t manna-airflow .
+      - name: Each job's Python can load its code
+        run: |
+          docker run --rm --entrypoint "" manna-airflow \
+            /home/airflow/venvs/pipelines/bin/python -c "import ingest.load_events"
+          docker run --rm --entrypoint "" manna-airflow \
+            /home/airflow/venvs/backend/bin/python -c "import app.etl.__main__"
+          docker run --rm --entrypoint "" manna-airflow /home/airflow/venvs/dbt/bin/dbt --version
+      # The DAG tests run inside the image, so they test the exact Airflow we run
+      - name: DAG tests
+        run: >
+          docker run --rm --entrypoint "" -v "$PWD/pipelines:/opt/manna/pipelines:ro"
+          manna-airflow bash -c "pip install -q pytest &&
+          python -m pytest -p no:cacheprovider /opt/manna/pipelines/dag_tests"

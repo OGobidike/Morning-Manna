@@ -1,0 +1,8 @@
+# What docker leaves behind when it builds from the repo root (the Airflow image):
+# secrets, installed packages and data stay on your PC
+**/.env
+**/venv
+**/.venv
+**/node_modules
+**/__pycache__
+data

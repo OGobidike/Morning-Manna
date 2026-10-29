@@ -37,6 +37,58 @@ services:
     volumes:
       - lakedata:/data
 
+  # Airflow's own records: which runs happened, when, and how they went. A Postgres of
+  # its own, so Airflow's tables never mix with the app's.
+  airflow-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - airflowdb:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow"]
+      interval: 5s
+      retries: 10
+
+  # The night watchman: Airflow, which runs pipelines/dags on schedule.
+  # "standalone" puts all of Airflow in this one container, light enough for 8 GB.
+  # Its web page: http://localhost:8080
+  airflow:
+    build:
+      context: .
+      dockerfile: pipelines/Dockerfile
+    command: standalone
+    environment:
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db:5432/airflow
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__PARALLELISM: 4   # at most 4 tasks at once: fewer idle workers, less RAM
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/manna/pipelines/dags
+      # No login: the page is only reachable from this PC (see ports)
+      AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: "true"
+      # Where the jobs find the warehouse and the lake, inside docker compose
+      DATABASE_URL: postgresql+psycopg://manna:manna@db:5432/manna
+      LAKE_URL: http://lake:8333
+      DBT_HOST: db
+      DBT_PROJECT_DIR: /opt/manna/analytics
+      DBT_PROFILES_DIR: /opt/manna/analytics
+      DBT_TARGET_PATH: /tmp/dbt/target
+      DBT_LOG_PATH: /tmp/dbt/logs
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - .:/opt/manna:ro           # all our code, read-only: the jobs can read it, not change it
+      - ./data:/opt/manna/data    # except data/, where the scripture files are downloaded
+    depends_on:
+      db:
+        condition: service_healthy
+      airflow-db:
+        condition: service_healthy
+      lake:
+        condition: service_started
+
 volumes:
   pgdata:
   lakedata:
+  airflowdb:
