@@ -129,3 +129,60 @@ jobs:
           docker run --rm --entrypoint "" -v "$PWD/pipelines:/opt/manna/pipelines:ro"
           manna-airflow bash -c "pip install -q pytest &&
           python -m pytest -p no:cacheprovider /opt/manna/pipelines/dag_tests"
+
+  analytics:
+    runs-on: ubuntu-latest
+    # Builds the warehouse from nothing, the way it's built for real: the app's tables,
+    # pretend readers, a lake, the loader, then every dbt model and test
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: manna
+          POSTGRES_PASSWORD: manna
+          POSTGRES_DB: manna
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U manna"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql+psycopg://manna:manna@localhost:5432/manna
+      LAKE_URL: http://localhost:8333
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install the backend, the simulator and the loader
+        run: pip install -e backend -e ml -e "pipelines[dev]"
+      # dbt gets a venv of its own, as on Kai's PC, so its libraries can't clash
+      - name: Install dbt
+        run: python -m venv .dbt && .dbt/bin/pip install -r analytics/requirements.txt
+      - name: Create the app's tables
+        working-directory: backend
+        run: alembic upgrade head
+      # A fixed end date and the default seed make exactly the same readers every run
+      - name: Make 90 days of pretend readers
+        run: python ml/simulate.py --end 2026-10-27
+      # moto stands in for SeaweedFS: CI service containers can't be given its start command
+      - name: Fill a stand-in lake, then load it into the warehouse
+        run: |
+          moto_server -p 8333 > /dev/null 2>&1 &
+          timeout 30 bash -c "until curl -s localhost:8333 > /dev/null; do sleep 1; done"
+          python -m ingest.upload
+          python -m ingest.load_events --all
+      - name: Build and test every model
+        working-directory: analytics
+        run: ../.dbt/bin/dbt build
+      - name: Retention, for the record
+        working-directory: analytics
+        run: |
+          ../.dbt/bin/dbt show --inline "
+            select
+                round(sum(day_1_returned)::numeric / nullif(sum(day_1_eligible), 0), 3) as day_1,
+                round(sum(day_7_returned)::numeric / nullif(sum(day_7_eligible), 0), 3) as day_7,
+                round(sum(day_30_returned)::numeric / nullif(sum(day_30_eligible), 0), 3) as day_30
+            from {{ ref('fct_retention_cohorts') }}"
