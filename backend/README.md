@@ -87,7 +87,7 @@ Every endpoint except `GET /health`, `GET /plans` and `POST /users` needs `Autho
 | POST | `/readings` | Open a reading for the current day |
 | POST | `/readings/{id}/complete` | Mark it read and move to the next day |
 | GET | `/users/me/streak` | Current and longest streak |
-| POST | `/events` | Store a batch of app events |
+| POST | `/events` | Store a batch of app events, and copy it to the data lake |
 
 ## Design decisions
 
@@ -98,6 +98,7 @@ Every endpoint except `GET /health`, `GET /plans` and `POST /users` needs `Autho
 - **The reader's own time zone.** "Today", plan start dates and streak days all follow the reader's time zone, not the server's.
 - **Streaks with gaps and islands.** In SQL, `day - row_number()` is the same for every day in an unbroken run, so grouping by it finds each streak.
 - **Events: all or nothing.** A batch is checked before anything is stored: known event types only, times must carry a time zone and can't be in the future, 1 to 100 per batch. One bad event rejects the batch, and the 422 says which one.
+- **A copy for the data lake.** Each stored batch is also written to the lake (SeaweedFS, which speaks S3) as one JSON-lines file, in the background, after the response. If the lake is down, the request still succeeds and a warning is logged. Leave `LAKE_URL` empty to switch it off. See [pipelines/README.md](../pipelines/README.md).
 - **Sign-ups are rate-limited.** 5 per hour per address, then 429 with `Retry-After`.
 - **Structured logs.** One JSON line per request: method, path, status and duration. Headers and query strings are never logged, so tokens can't leak into logs.
 
@@ -118,7 +119,7 @@ Each run is recorded in the `etl_runs` table: status, rows read, loaded and reje
 pytest --cov
 ```
 
-The suite has 88 tests and runs against a real Postgres database. Each test runs inside a transaction that is rolled back afterwards, so tests never leave data behind. CI fails if coverage drops below 80% (currently about 88%).
+The suite has 124 tests and runs against a real Postgres database. Each test runs inside a transaction that is rolled back afterwards, so tests never leave data behind. Tests never write to the real data lake, even when `.env` sets `LAKE_URL`. CI fails if coverage drops below 80% (currently about 90%).
 
 On every push, GitHub Actions runs:
 
@@ -141,6 +142,7 @@ app/
   streaks.py     streak calculation
   ratelimit.py   sliding-window rate limiter
   logs.py        structured JSON request logs
+  lake.py        copies each event batch to the data lake
   etl/           the scripture pipeline
 alembic/         database migrations
 tests/           pytest suite

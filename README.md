@@ -41,7 +41,7 @@ bash, Docker, cd mobile && npm install && expo start
 ```
 The text comes from the King James Version and the American Standard Version (both public domain).
 
-**Status: the API and the Android app are built. See [backend/README.md](backend/README.md) and [mobile/README.md](mobile/README.md).**
+**Status: the API, the Android app and the data platform (lake, loader, Airflow, dbt) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md) and [analytics/README.md](analytics/README.md).**
 
 ## License
 
