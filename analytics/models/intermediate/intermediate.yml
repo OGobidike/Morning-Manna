@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: int_daily_reading
+    description: >
+      One row per reader per local day, from the day they joined to the last day with data,
+      including days with no reading.
+    columns:
+      - name: user_key
+        tests: [not_null]
+      - name: local_day
+        tests: [not_null]
+      - name: days_since_signup
+        description: 0 on the day they joined, 1 the day after, and so on.

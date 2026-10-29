@@ -1,0 +1,22 @@
+# Morning Manna's warehouse models: raw events in, retention answers out
+name: morning_manna
+version: "1.0.0"
+profile: morning_manna
+
+model-paths: ["models"]
+test-paths: ["tests"]
+
+flags:
+  # Don't send usage statistics to dbt Labs: our tools shouldn't share data unasked
+  send_anonymous_usage_stats: false
+
+models:
+  morning_manna:
+    # Staging tidies the raw tables: cheap views, always up to date
+    staging:
+      +materialized: view
+    # Intermediate and marts do the heavy work once, so they're stored as tables
+    intermediate:
+      +materialized: table
+    marts:
+      +materialized: table

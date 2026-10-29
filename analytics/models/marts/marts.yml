@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: fct_streaks
+    description: One row per streak of mornings read in a row.
+    columns:
+      - name: streak_id
+        tests: [unique, not_null]
+      - name: length_days
+        tests: [not_null]
+
+  - name: fct_retention_cohorts
+    description: >
+      One row per signup week: how many readers read again 1, 7 and 30 days after joining,
+      counting only readers who have been around long enough to have that day.
+    columns:
+      - name: cohort_week
+        tests: [unique, not_null]
+
+  - name: dim_users
+    description: One row per reader, including those who never read.
+    columns:
+      - name: user_key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_key
