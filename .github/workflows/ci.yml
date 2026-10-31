@@ -158,9 +158,11 @@ jobs:
           python-version: "3.12"
       - name: Install the backend, the simulator and the loader
         run: pip install -e backend -e ml -e "pipelines[dev]"
-      # dbt gets a venv of its own, as on Kai's PC, so its libraries can't clash
-      - name: Install dbt
-        run: python -m venv .dbt && .dbt/bin/pip install -r analytics/requirements.txt
+      # dbt and the notebooks share a venv of their own, as on Kai's PC, apart from the app's
+      - name: Install dbt and the notebooks' libraries
+        run: |
+          python -m venv .dbt
+          .dbt/bin/pip install -r analytics/requirements.txt -r analytics/notebooks/requirements.txt
       - name: Create the app's tables
         working-directory: backend
         run: alembic upgrade head
@@ -186,3 +188,14 @@ jobs:
                 round(sum(day_7_returned)::numeric / nullif(sum(day_7_eligible), 0), 3) as day_7,
                 round(sum(day_30_returned)::numeric / nullif(sum(day_30_eligible), 0), 3) as day_30
             from {{ ref('fct_retention_cohorts') }}"
+      # Every notebook must run from top to bottom on the fresh warehouse, so none goes stale
+      - name: Run the notebooks
+        working-directory: analytics/notebooks
+        run: ../../.dbt/bin/jupyter nbconvert --execute --to notebook --output-dir /tmp/ran *.ipynb
+      # Outputs and run details make diffs unreadable, so notebooks are committed without them
+      - name: The notebooks are saved without their outputs
+        working-directory: analytics/notebooks
+        run: |
+          ../../.dbt/bin/jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True \
+            --inplace *.ipynb
+          git diff --exit-code -- .
