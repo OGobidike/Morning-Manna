@@ -51,14 +51,14 @@ fct_streaks, fct_retention_cohorts, dim_users
 
 ## Run it
 
-dbt has its own venv. You need the warehouse loaded first (see [pipelines/README.md](../pipelines/README.md#the-loader)).
+dbt and the notebooks share a venv of their own. You need the warehouse loaded first (see [pipelines/README.md](../pipelines/README.md#the-loader)).
 
 ```bash
 docker compose up -d db
 cd analytics
 python -m venv .venv
 source .venv/bin/activate          # Windows (Git Bash): source .venv/Scripts/activate
-pip install -r requirements.txt
+pip install -r requirements.txt -r notebooks/requirements.txt
 dbt build                          # every model, then its tests
 ```
 
@@ -79,6 +79,18 @@ dbt docs serve --port 8081
 
 Airflow runs `dbt build` every night after the loader, so the tables are fresh each morning.
 
+## Notebooks
+
+[notebooks/01_reading_habits.ipynb](notebooks/01_reading_habits.ipynb) is the first look at the readers: when they read, which days they skip, and how long their streaks last. The readers are pretend, so the simulator holds an answer key to check the findings against. That makes the notebook a test that the warehouse tells the truth, as well as a look around.
+
+Open it in VS Code after `dbt build`, choose the `analytics/.venv` kernel, and click **Run All**.
+
+Notebooks are committed without their outputs or run details, which keeps diffs readable. Clear them before you commit:
+
+```bash
+jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inplace notebooks/*.ipynb
+```
+
 ## Tests
 
 25 data tests: keys that are unique and never empty, events that belong to a known reader, allowed values only, and three custom checks in [tests/](tests/):
@@ -95,4 +107,4 @@ The **analytics** job in CI builds the warehouse from nothing on every push:
 4. The loader.
 5. `dbt build`.
 
-It then prints the day 1, 7 and 30 retention in the log.
+It then prints the day 1, 7 and 30 retention in the log, runs every notebook from top to bottom, and checks each was saved without its outputs.

@@ -1,0 +1,7 @@
+# For the notebooks in this folder. Installed into the same venv as dbt (../requirements.txt).
+pandas>=3.0,<4
+sqlalchemy>=2.0,<3
+psycopg[binary]>=3.2,<4
+plotly>=6.0,<7
+ipykernel>=6.29,<8
+nbconvert>=7.16,<8
