@@ -11,11 +11,19 @@ models:
 
   - name: fct_retention_cohorts
     description: >
-      One row per signup week: how many readers read again 1, 7 and 30 days after joining,
-      counting only readers who have been around long enough to have that day.
+      One row per signup week per persona: how many readers read again 1, 7 and 30 days
+      after joining, counting only readers who have been around long enough to have that
+      day. For everyone together, add the rows up.
     columns:
-      - name: cohort_week
+      - name: cohort_id
         tests: [unique, not_null]
+      - name: cohort_week
+        tests: [not_null]
+      - name: persona
+        tests:
+          - accepted_values:
+              arguments:
+                values: [early_riser, commuter, weekend_reader, app]
 
   - name: dim_users
     description: One row per reader, including those who never read.
@@ -28,3 +36,42 @@ models:
               arguments:
                 to: ref('stg_users')
                 field: user_key
+
+  - name: fct_daily_activity
+    description: >
+      One row per day per persona, in readers' own time zones: readers who had joined,
+      readers who read, and the share of readers who opened a reading that finished one.
+      Feeds the dashboard.
+    columns:
+      - name: activity_id
+        tests: [unique, not_null]
+      - name: local_day
+        tests: [not_null]
+      - name: persona
+        tests:
+          - accepted_values:
+              arguments:
+                values: [early_riser, commuter, weekend_reader, app]
+      - name: readers_so_far
+        description: Readers of this persona who had joined by this day
+      - name: active_readers
+        description: Of those, how many finished a reading this day
+      - name: opened_reading
+        description: Readers who opened a reading this day
+      - name: finished_reading
+        description: Readers who opened a reading this day and finished one
+      - name: completion_rate
+        description: finished_reading / opened_reading, blank on a day nobody opened one
+
+  - name: fct_reading_times
+    description: >
+      One row per persona per half hour of the reader's own day (0 is 00:00 to 00:29,
+      47 is 23:30 to 23:59): how many readings were finished then. Feeds the reading clock.
+    columns:
+      - name: slot_id
+        tests: [unique, not_null]
+      - name: persona
+        tests:
+          - accepted_values:
+              arguments:
+                values: [early_riser, commuter, weekend_reader, app]

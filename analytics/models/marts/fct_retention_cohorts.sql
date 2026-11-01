@@ -1,15 +1,18 @@
 
 
--- One row per signup week: how many of that week's new readers came back to read
--- 1, 7 and 30 days after joining. A reader only counts once enough days have passed
--- to know: someone who joined yesterday can't have a day 7 yet.
+-- One row per signup week per persona: how many of that week's new readers came back
+-- to read 1, 7 and 30 days after joining. A reader only counts once enough days have
+-- passed to know: someone who joined yesterday can't have a day 7 yet.
+-- For everyone together, add the rows up (sum returned / sum eligible).
 
 with users as (
 
     select
         user_key,
         signed_up_on,
-        date_trunc('week', signed_up_on)::date as cohort_week
+        date_trunc('week', signed_up_on)::date as cohort_week,
+        -- Real app users have no persona: they get their own group
+        coalesce(persona, 'app') as persona
     from {{ ref('stg_users') }}
 
 ),
@@ -36,6 +39,7 @@ per_reader as (
 
     select
         u.cohort_week,
+        u.persona,
         u.signed_up_on + 1 <= l.day as can_have_day_1,
         u.signed_up_on + 7 <= l.day as can_have_day_7,
         u.signed_up_on + 30 <= l.day as can_have_day_30,
@@ -52,6 +56,7 @@ counted as (
 
     select
         cohort_week,
+        persona,
         count(*) as readers,
         count(*) filter (where can_have_day_1) as day_1_eligible,
         count(*) filter (where read_day_1) as day_1_returned,
@@ -60,11 +65,12 @@ counted as (
         count(*) filter (where can_have_day_30) as day_30_eligible,
         count(*) filter (where read_day_30) as day_30_returned
     from per_reader
-    group by cohort_week
+    group by cohort_week, persona
 
 )
 
 select
+    cohort_week || '/' || persona as cohort_id,
     *,
     round(day_1_returned::numeric / nullif(day_1_eligible, 0), 3) as day_1_rate,
     round(day_7_returned::numeric / nullif(day_7_eligible, 0), 3) as day_7_rate,
