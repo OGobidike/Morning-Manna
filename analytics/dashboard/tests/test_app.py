@@ -41,3 +41,9 @@ def test_the_page_builds_and_serves(engine):
     assert layout.status_code == 200
     assert b"Reading dashboard" in layout.data
     assert b"The reading clock" in layout.data
+
+
+def test_debug_mode_only_when_asked():
+    # Debug mode doubles the start-up time and the scripts the browser downloads
+    assert dashboard.wants_debug([]) is False
+    assert dashboard.wants_debug(["--debug"]) is True

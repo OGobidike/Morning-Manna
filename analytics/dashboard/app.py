@@ -2,12 +2,14 @@
 
 Run it after dbt build, from this folder:
     python app.py            then open http://localhost:8050
+    python app.py --debug    while changing the code: reloads on every save
 
 data.py asks the dbt marts the questions, charts.py draws the answers, and this file lays
 out the page and wires up the persona filter.
 """
 
 import os
+import sys
 
 import pandas as pd
 from dash import Dash, Input, Output, dcc, html
@@ -210,7 +212,14 @@ def create_app(engine: Engine) -> Dash:
     return app
 
 
+def wants_debug(args: list[str]) -> bool:
+    """Debug mode only when asked for. It reloads on every save and shows Dash's dev tools,
+    which helps while coding, but it starts the app twice and sends the browser about 9 MB
+    more of unminified scripts, so the page opens about twice as slowly."""
+    return "--debug" in args
+
+
 if __name__ == "__main__":
     # The local docker database unless DATABASE_URL says otherwise
     url = os.environ.get("DATABASE_URL", "postgresql+psycopg://manna:manna@localhost:5432/manna")
-    create_app(create_engine(url)).run(debug=True, port=8050)
+    create_app(create_engine(url)).run(debug=wants_debug(sys.argv[1:]), port=8050)
