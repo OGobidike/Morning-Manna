@@ -1,0 +1,9 @@
+# For the dashboard in this folder. Installed into the same venv as dbt and the notebooks.
+dash>=4.5,<5
+pandas>=3.0,<4
+sqlalchemy>=2.0,<3
+psycopg[binary]>=3.2,<4
+plotly>=6.0,<7
+# To check it: the tests, and the same linter as the rest of the repo
+pytest>=9.0,<10
+ruff>=0.6

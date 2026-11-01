@@ -41,7 +41,13 @@ bash, Docker, cd mobile && npm install && expo start
 ```
 The text comes from the King James Version and the American Standard Version (both public domain).
 
-**Status: the API, the Android app and the data platform (lake, loader, Airflow, dbt) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md) and [analytics/README.md](analytics/README.md).**
+**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt) and the first analytics (a notebook and a dashboard) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md) and [analytics/README.md](analytics/README.md).**
+
+## 📊 The reading dashboard
+
+![The reading dashboard: who reads each day, the reading clock, the reading rhythm, finish rate, streak survival and retention cohorts](docs/images/dashboard.png)
+
+Who reads, when, how steadily, and who comes back: six charts and four headline tiles drawn from the dbt marts, rebuilt every night by Airflow, with a filter that recolours the whole page by reader persona. See [analytics/README.md](analytics/README.md).
 
 ## License
 

@@ -158,11 +158,12 @@ jobs:
           python-version: "3.12"
       - name: Install the backend, the simulator and the loader
         run: pip install -e backend -e ml -e "pipelines[dev]"
-      # dbt and the notebooks share a venv of their own, as on Kai's PC, apart from the app's
-      - name: Install dbt and the notebooks' libraries
+      # dbt, the notebooks and the dashboard share a venv of their own, as on Kai's PC
+      - name: Install dbt, the notebooks' and the dashboard's libraries
         run: |
           python -m venv .dbt
-          .dbt/bin/pip install -r analytics/requirements.txt -r analytics/notebooks/requirements.txt
+          .dbt/bin/pip install -r analytics/requirements.txt \
+            -r analytics/notebooks/requirements.txt -r analytics/dashboard/requirements.txt
       - name: Create the app's tables
         working-directory: backend
         run: alembic upgrade head
@@ -199,3 +200,9 @@ jobs:
           ../../.dbt/bin/jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True \
             --inplace *.ipynb
           git diff --exit-code -- .
+      # The dashboard's numbers, checked against the warehouse just built and the answer key
+      - name: Lint and test the dashboard
+        working-directory: analytics/dashboard
+        run: |
+          ../../.dbt/bin/ruff check .
+          ../../.dbt/bin/pytest

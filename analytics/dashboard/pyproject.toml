@@ -1,0 +1,14 @@
+# Settings for the dashboard's tools. It isn't a package to install: run app.py from here.
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I"]
+
+[tool.pytest.ini_options]
+# The tests import app.py and data.py from this folder
+pythonpath = ["."]
+testpaths = ["tests"]
+# Dash ships a pytest plugin for browser tests; these tests don't use it
+addopts = "-p no:dash"
