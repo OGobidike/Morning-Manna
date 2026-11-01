@@ -57,6 +57,8 @@ After `dbt build` (see **▶️ Run it** below), from `analytics/dashboard`:
 
 Then open http://localhost:8050. The page reads the warehouse each time it loads, so a refresh after Airflow's nightly run shows the new day.
 
+Changing the dashboard's code? Run `python app.py --debug` instead: it reloads on every save and shows Dash's developer tools. It's off by default because it makes the page open about twice as slowly.
+
 | File | What it does |
 |---|---|
 | [dashboard/data.py](dashboard/data.py) | Asks the marts the questions, and shapes the answers with plain functions the tests can check by hand |
@@ -147,7 +149,7 @@ jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inpl
 | What | How many | Run with |
 |---|---|---|
 | dbt data tests | **36** | `dbt build` |
-| Dashboard tests | **33** | `pytest`, from `analytics/dashboard` |
+| Dashboard tests | **34** | `pytest`, from `analytics/dashboard` |
 
 The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus five custom checks in [tests/](tests/):
 
