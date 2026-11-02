@@ -108,6 +108,37 @@ def test_streaks_break_and_readers_drift_away(data):
     assert len(last_week) < 0.8 * len(days)
 
 
+def test_every_reader_gets_a_fair_coin_flip():
+    readers = sim.make_readers(10_000, date(2026, 7, 30), 90, seed=7)
+    groups = [r.reminder_variant for r in readers]
+
+    assert set(groups) == set(sim.REMINDER_VARIANTS)
+    # A fair coin lands within 300 of 5,000 in all but about 1 in 10^9 runs (6 sd)
+    assert abs(groups.count("A") - 5_000) < 300
+
+
+def test_the_wording_only_reaches_readers_who_see_it(monkeypatch):
+    # The same readers, with and without wording B's planted effect
+    with_effect = sim.simulate(readers=300, days=40, end=END, seed=5)
+    monkeypatch.setattr(sim, "WORDING_B_LIFT", 0.0)
+    without = sim.simulate(readers=300, days=40, end=END, seed=5)
+    assert with_effect[0] == without[0]  # the coin and everything else about each reader
+
+    def events_of(run, keys):
+        return [
+            {k: v for k, v in e.items() if k != "event_id"}  # ids are numbered across everyone
+            for e in run[1] if e["user_key"] in keys
+        ]
+
+    readers = with_effect[0]
+    # Group A, and group B readers with reminders off, live exactly the same mornings
+    untouched = {r.user_key for r in readers if r.reminder_variant == "A" or not r.reminders_on}
+    assert events_of(with_effect, untouched) == events_of(without, untouched)
+    # Group B readers with reminders on are the ones the planted effect reaches
+    touched = {r.user_key for r in readers} - untouched
+    assert events_of(with_effect, touched) != events_of(without, touched)
+
+
 def test_write_lake_lays_out_files_by_arrival_day(tmp_path, data):
     readers, events = data
     summary = sim.write_lake(readers, events, tmp_path)

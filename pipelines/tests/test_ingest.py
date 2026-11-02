@@ -160,6 +160,38 @@ def test_readers_are_loaded_and_updated_not_doubled(lake, schema):
     ]
 
 
+def test_readers_keep_their_reminder_group(lake, schema):
+    reader = {"user_key": "sim:00001", "persona": "commuter", "timezone": "Africa/Lagos",
+              "wake_time": "06:30", "signed_up_on": "2026-08-01", "reminders_on": True,
+              "source": "synthetic"}
+    # A file from before the experiment has no group, and still loads
+    put(lake, "readers/synthetic.jsonl", json.dumps(reader))
+    load_events.run([], schema)
+    assert query(schema, "select reminder_variant from {s}.readers") == [(None,)]
+    # The next file gives the reader a group, and loading again fills it in
+    put(lake, "readers/synthetic.jsonl", json.dumps(reader | {"reminder_variant": "B"}))
+    load_events.run([], schema)
+    assert query(schema, "select reminder_variant from {s}.readers") == [("B",)]
+
+
+def test_an_older_warehouse_gets_the_new_column(lake, schema):
+    # raw.readers as it was before the reminder experiment, without reminder_variant
+    with psycopg.connect(database_url(), autocommit=True) as conn:
+        conn.execute(sql.SQL("create schema {}").format(sql.Identifier(schema)))
+        conn.execute(sql.SQL(
+            "create table {} (user_key text primary key, persona text,"
+            " timezone text not null, wake_time text not null, signed_up_on date not null,"
+            " reminders_on boolean not null, source text not null,"
+            " loaded_at timestamptz not null default now())"
+        ).format(sql.Identifier(schema, "readers")))
+    put(lake, "readers/synthetic.jsonl", json.dumps({
+        "user_key": "sim:00001", "persona": "commuter", "timezone": "Africa/Lagos",
+        "wake_time": "06:30", "signed_up_on": "2026-08-01", "reminders_on": True,
+        "reminder_variant": "A", "source": "synthetic"}))
+    load_events.run([], schema)
+    assert query(schema, "select reminder_variant from {s}.readers") == [("A",)]
+
+
 def test_every_run_is_logged(lake, schema):
     put(lake, "events/dt=2026-10-27/a.jsonl", line("e1"), "broken")
     load_events.run([DAY], schema)

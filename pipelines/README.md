@@ -78,7 +78,7 @@ docker compose exec airflow airflow backfill create --dag-id daily_events \
 
 ```bash
 cd pipelines
-pytest                    # the loader: 13 tests (needs: docker compose up -d db)
+pytest                    # the loader: 15 tests (needs: docker compose up -d db)
 ```
 
 The loader's tests run against a real Postgres and a stand-in S3 server (moto), with a fresh schema for each test, so they never touch `raw`.

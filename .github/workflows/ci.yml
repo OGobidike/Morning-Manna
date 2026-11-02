@@ -189,6 +189,19 @@ jobs:
                 round(sum(day_7_returned)::numeric / nullif(sum(day_7_eligible), 0), 3) as day_7,
                 round(sum(day_30_returned)::numeric / nullif(sum(day_30_eligible), 0), 3) as day_30
             from {{ ref('fct_retention_cohorts') }}"
+      # The reminder experiment's group sizes. Only the sizes: the pre-registration says
+      # nobody looks at how the groups did until the analysis
+      - name: The experiment's groups, for the record
+        working-directory: analytics
+        run: |
+          ../.dbt/bin/dbt show --inline "
+            select
+                reminder_variant,
+                count(*) as readers,
+                count(*) filter (where can_have_day_7) as reached_day_7
+            from {{ ref('fct_experiment') }}
+            group by reminder_variant
+            order by reminder_variant"
       # Every notebook must run from top to bottom on the fresh warehouse, so none goes stale
       - name: Run the notebooks
         working-directory: analytics/notebooks

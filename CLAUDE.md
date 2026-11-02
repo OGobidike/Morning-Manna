@@ -28,7 +28,7 @@ Airflow daily_events (00:30 UTC): ingest.load_events (yesterday's folder → raw
 - The backend's lake write (`app/lake.py`) runs after the response and never fails the request; `LAKE_URL=""` disables it.
 - `load_events` replaces a whole day in one transaction (idempotent), rejects and counts bad lines, and logs runs in `raw.load_runs`.
 - The scripture ETL (`python -m app.etl`) downloads KJV/ASV into `data/raw/`, validates (66 books, chapter counts, no dupes), upserts in one transaction, and logs to `etl_runs`. Re-running changes nothing.
-- dbt `stg_users` unions synthetic readers (`raw.readers`) with real app users (as `app:<id>`).
+- dbt `stg_users` unions synthetic readers (`raw.readers`) with real app users (as `app:<id>`), each with their `reminder_variant`. `fct_experiment` holds one row per reader in the reminder A/B test (docs/analysis/reminder-experiment.md).
 
 ## Backend invariants (don't break these)
 
@@ -82,7 +82,7 @@ DAG tests need Airflow, so run them in the container:
 
 ### ML (`cd ml`)
 
-`pytest`. Run `python ml/simulate.py --end 2026-10-27` (from the root) for reproducible data. Seed 7 with that end date yields exactly 5,000 readers and 166,154 events; CI and the analytics README numbers depend on this, so changing the simulator changes them.
+`pytest`. Run `python ml/simulate.py --end 2026-10-27` (from the root) for reproducible data. Seed 7 with that end date yields exactly 5,000 readers and 179,077 events; CI and the analytics README numbers depend on this, so changing the simulator changes them. Each reader gets reminder wording A or B; `WORDING_B_LIFT` is the planted effect, the practice run's answer key: the Card 6.4 analysis must never read it, and is compared with it only once the analysis is done.
 
 ### Mobile (`cd mobile`)
 

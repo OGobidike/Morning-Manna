@@ -6,18 +6,18 @@ dbt-core 1.12 · dbt-postgres 1.11 · PostgreSQL 16 · Dash 4 · Plotly 6
 
 ## 📈 The answers so far
 
-From the pretend readers ([ml/simulate.py](../ml/simulate.py): 5,000 readers, the 90 days to 27 October 2026, seed 7). These are practice data, not real people.
+From the pretend readers ([ml/simulate.py](../ml/simulate.py): 5,000 readers, the 90 days to 27 October 2026, seed 7). These are practice data, not real people. Half of them are in group B of the [reminder experiment](#-experiments), which the simulator gave a planted effect, so these numbers include it.
 
 | Measure | Value |
 |---|---|
-| Came back on day 1 | **46.7%** |
-| Came back on day 7 | **37.6%** |
-| Came back on day 30 | **21.2%** |
+| Came back on day 1 | **49.5%** |
+| Came back on day 7 | **40.0%** |
+| Came back on day 30 | **23.6%** |
 | Finished the reading they opened | **90.0%** |
 | Median streak | **2 mornings** |
-| Streaks that reach a week | **11%** |
-| Longest streak | **35 mornings** |
-| Signed up but never read | **969 of 5,000** |
+| Streaks that reach a week | **13%** |
+| Longest streak | **39 mornings** |
+| Signed up but never read | **917 of 5,000** |
 
 ## 📊 The dashboard
 
@@ -73,11 +73,11 @@ flowchart TD
     S["① Sources<br/>raw.events · raw.readers · public.users<br/>(the loader and the app)"]
     G["② Staging: views<br/>stg_events · stg_users"]
     I["③ Intermediate: a table<br/>int_daily_reading, one row per reader per day"]
-    M["④ Marts: the answers, as tables<br/>fct_streaks · fct_retention_cohorts · dim_users<br/>fct_daily_activity · fct_reading_times"]
+    M["④ Marts: the answers, as tables<br/>fct_streaks · fct_retention_cohorts · dim_users<br/>fct_daily_activity · fct_reading_times · fct_experiment"]
     D["⑤ The notebook and the dashboard"]
     S -->|tidy names and types| G
     G -->|a row for every day since signup, read or not| I
-    I -->|streaks, cohorts, readers, daily activity| M
+    I -->|streaks, cohorts, readers, daily activity, the experiment| M
     G -->|finished readings, by the half hour| M
     M -->|read by| D
 ```
@@ -85,13 +85,14 @@ flowchart TD
 | Model | One row per | What it holds |
 |---|---|---|
 | `stg_events` | event | The lake's events, cleaned up |
-| `stg_users` | reader | Pretend readers and the app's real users together (as `app:<id>`), with the day each signed up in their own time zone |
+| `stg_users` | reader | Pretend readers and the app's real users together (as `app:<id>`), with the day each signed up in their own time zone and their reminder group (A or B) |
 | `int_daily_reading` | reader per day | From signup to the last day of data: did they read, did they open the app, how many events |
 | `fct_streaks` | streak | Each unbroken run of mornings read: start, end, length, and whether it's still going |
 | `fct_retention_cohorts` | signup week per persona | How many came back on day 1, 7 and 30, and the rates. Add the rows up for everyone |
 | `dim_users` | reader | Longest and current streak, active in the last 7 days, never read |
 | `fct_daily_activity` | day per persona | Readers who had joined, readers who read, and how many who opened a reading finished one |
 | `fct_reading_times` | half hour per persona | Readings finished in each half hour of the readers' own day |
+| `fct_experiment` | reader in the reminder test | Their group, day-1 and day-7 return (once they've had the day), and first-week readings opened and finished |
 
 ## 🧭 Decisions
 
@@ -136,6 +137,8 @@ Airflow runs `dbt build` every night after the loader, so the tables are fresh e
 
 The first A/B test compares two wordings of the morning reminder. Its plan was written down before any data existed: [docs/analysis/reminder-experiment.md](../docs/analysis/reminder-experiment.md) fixes the measure (day-7 return), the sample size (**1,508 new readers per group**) and how the result will be decided.
 
+Every reader in the test is a row of `fct_experiment`, with the measures the plan decides on. The pretend readers' test runs across the whole simulation; for real app users it began on 2 November 2026, when the app started flipping the coin (`reminder_test_app_start` in [dbt_project.yml](dbt_project.yml)).
+
 [experiments/power.py](experiments/power.py) works out the sample size. To see the table, from `analytics/experiments`:
 
 ```bash
@@ -158,17 +161,19 @@ jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inpl
 
 | What | How many | Run with |
 |---|---|---|
-| dbt data tests | **36** | `dbt build` |
+| dbt data tests | **46** | `dbt build` |
 | Dashboard tests | **34** | `pytest`, from `analytics/dashboard` |
 | Experiment tools | **9** | `pytest`, from `analytics/experiments` |
 
-The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus five custom checks in [tests/](tests/):
+The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus seven custom checks in [tests/](tests/):
 
 - `one_row_per_reader_per_day`: no reader has the same day twice.
 - `streaks_add_up`: each streak's length matches its dates, and all the streaks together add up to every morning read.
 - `retention_rates_make_sense`: no more readers returned than were eligible, and every rate is between 0 and 1.
 - `daily_activity_makes_sense`: no more readers active, or finishing, than could be, and every finish rate between 0 and 1.
 - `reading_times_add_up`: every finished reading lands in exactly one half hour of the clock.
+- `experiment_makes_sense`: nobody in the experiment returns on a day they haven't had yet, or finishes more readings than they opened.
+- `experiment_matches_retention`: the experiment's day-1 and day-7 counts, added up over both groups, equal the retention cohorts' counts for the pretend readers.
 
 The dashboard tests check the arithmetic on small hand-made tables (Kaplan-Meier, the week-on-week changes, the small-group rule), the warehouse against itself (the personas add up to everyone), and the warehouse against the simulator's answer key.
 
@@ -180,4 +185,4 @@ The **analytics** job in CI builds the warehouse from nothing on every push:
 4. The loader.
 5. `dbt build`.
 
-It then prints the day 1, 7 and 30 retention in the log, runs every notebook from top to bottom, checks each was saved without its outputs, and lints and tests the dashboard and the experiment tools.
+It then prints the day 1, 7 and 30 retention and the size of each experiment group in the log (only the sizes: nobody looks at how the groups did until the analysis), runs every notebook from top to bottom, checks each was saved without its outputs, and lints and tests the dashboard and the experiment tools.

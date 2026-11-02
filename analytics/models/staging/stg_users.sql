@@ -10,6 +10,7 @@ with pretend as (
         timezone,
         wake_time::time as wake_time,
         signed_up_on,
+        reminder_variant,
         source
     from {{ source('raw', 'readers') }}
 
@@ -24,6 +25,7 @@ app as (
         wake_time,
         -- The day they joined, in their own time zone
         (created_at at time zone timezone)::date as signed_up_on,
+        reminder_variant,
         'app' as source
     from {{ source('app', 'users') }}
 

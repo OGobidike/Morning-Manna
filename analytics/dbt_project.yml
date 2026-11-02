@@ -6,6 +6,11 @@ profile: morning_manna
 model-paths: ["models"]
 test-paths: ["tests"]
 
+vars:
+  # The day real app users began getting a coin flip for the reminder experiment (Card 6.3.2).
+  # App users who joined earlier have a group too, but they joined before the test began.
+  reminder_test_app_start: "2026-11-02"
+
 flags:
   # Don't send usage statistics to dbt Labs: our tools shouldn't share data unasked
   send_anonymous_usage_stats: false

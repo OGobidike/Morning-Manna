@@ -55,6 +55,13 @@ WEEKDAY_FACTOR = {
     "weekend_reader": (0.45, 0.4, 0.4, 0.45, 0.5, 1.0, 1.0),
 }
 
+# The reminder experiment (docs/analysis/reminder-experiment.md): a fair coin gives each
+# reader wording A or B. B carries a planted effect: on any morning, a reader whose reminders
+# are on is this much likelier to read. It's the practice run's answer key, so the analysis
+# (Card 6.4) never reads it, and is compared with it only once the analysis is done.
+REMINDER_VARIANTS = ("A", "B")
+WORDING_B_LIFT = 0.10
+
 # Minutes after waking that a reader opens the passage: (mean, spread) on (weekdays, weekends)
 READ_DELAY = {
     "early_riser": ((10, 8), (20, 15)),
@@ -73,6 +80,7 @@ class Reader:
     wake_time: str  # "05:15", the reader's local time
     signed_up_on: str  # "2026-08-14"
     reminders_on: bool
+    reminder_variant: str  # "A" or "B", the reminder experiment's coin flip
     source: str = "synthetic"
 
 
@@ -84,6 +92,8 @@ def utc_text(moment: datetime) -> str:
 def make_readers(count: int, start: date, days: int, seed: int) -> list[Reader]:
     """Invent the readers: who they are, where they live, and when they joined."""
     rng = np.random.default_rng([seed, 0])
+    # The experiment's coin has a stream of its own, so adding it changed no other draw
+    coin = np.random.default_rng([seed, 0, 1])
     readers = []
     for n in range(count):
         persona = str(rng.choice(PERSONAS, p=PERSONA_SHARE))
@@ -100,6 +110,7 @@ def make_readers(count: int, start: date, days: int, seed: int) -> list[Reader]:
                 wake_time=f"{wake // 60:02d}:{wake % 60:02d}",
                 signed_up_on=joined.isoformat(),
                 reminders_on=bool(rng.random() < 0.85),
+                reminder_variant=str(coin.choice(REMINDER_VARIANTS)),
             )
         )
     return readers
@@ -134,6 +145,9 @@ def simulate_reader(reader: Reader, end: date, seed: int) -> list[dict]:
             chance += min(0.05 * streak, 0.25)
         elif days_missed >= 2:
             chance -= 0.15
+        # Wording B can only help a reader who sees it: one whose reminders are on
+        if reader.reminders_on and reader.reminder_variant == "B":
+            chance += WORDING_B_LIFT
         chance = min(max(chance, 0.0), 0.98)
 
         woke = datetime.combine(day, wake, tzinfo=zone)
