@@ -84,7 +84,7 @@ export default function Settings() {
 
       // A new wake time moves tomorrow's reminder too
       if (changes.wake_time && (await remindersAllowed())) {
-        await scheduleDailyReminder(updated.wake_time);
+        await scheduleDailyReminder(updated.wake_time, updated.reminder_variant);
       }
       setMessage('Saved');
     } catch (e) {

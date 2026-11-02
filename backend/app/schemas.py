@@ -75,6 +75,8 @@ class UserCreated(BaseModel):
     id: int
     timezone: str
     wake_time: time
+    # Which reminder wording this reader gets: "A" or "B"
+    reminder_variant: Literal["A", "B"]
     token: str
 
 
@@ -86,6 +88,8 @@ class UserOut(BaseModel):
     wake_time: time
     # The translation they read in, by code, e.g. "KJV"
     translation: str
+    # Which reminder wording they get: "A" or "B". Set at sign-up and never changed.
+    reminder_variant: Literal["A", "B"]
 
 
 class UserUpdate(BaseModel):

@@ -6,7 +6,19 @@
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
+import type { ReminderVariant } from '@/api/client';
+
 const CHANNEL_ID = 'morning-reminder';
+
+// The reminder experiment's two wordings. A is the one readers have always had; B is being
+// tested against it. Each reader's group comes from the server, so it's the same on every phone.
+export const REMINDER_WORDING: Record<ReminderVariant, { title: string; body: string }> = {
+  A: { title: 'Good morning ☀️', body: 'Your passage for today is ready.' },
+  B: {
+    title: 'New every morning ☀️',
+    body: "Today's passage is waiting for you. (Lam 3:22–23)",
+  },
+};
 
 // Show the reminder even if the app happens to be open when it fires
 Notifications.setNotificationHandler({
@@ -43,13 +55,17 @@ export async function remindersAllowed(): Promise<boolean> {
   return (await Notifications.getPermissionsAsync()).granted;
 }
 
-// One reminder every day at the wake time ("06:30" or "06:30:00"), replacing any earlier one
-export async function scheduleDailyReminder(wakeTime: string): Promise<void> {
+// One reminder every day at the wake time ("06:30" or "06:30:00"), in the reader's own
+// wording, replacing any earlier one
+export async function scheduleDailyReminder(
+  wakeTime: string,
+  variant: ReminderVariant,
+): Promise<void> {
   const [hour, minute] = wakeTime.split(':').map(Number);
   await ensureChannel();
   await Notifications.cancelAllScheduledNotificationsAsync();
   await Notifications.scheduleNotificationAsync({
-    content: { title: 'Good morning ☀️', body: 'Your passage for today is ready.' },
+    content: REMINDER_WORDING[variant],
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.DAILY,
       hour,
@@ -60,10 +76,10 @@ export async function scheduleDailyReminder(wakeTime: string): Promise<void> {
 }
 
 // For testing: a one-off reminder a few seconds from now (it doesn't touch the daily one)
-export async function sendTestReminder(seconds = 10): Promise<void> {
+export async function sendTestReminder(variant: ReminderVariant, seconds = 10): Promise<void> {
   await ensureChannel();
   await Notifications.scheduleNotificationAsync({
-    content: { title: 'Good morning ☀️', body: 'This is how your reminder will look.' },
+    content: { title: REMINDER_WORDING[variant].title, body: 'This is how your reminder will look.' },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
       seconds,

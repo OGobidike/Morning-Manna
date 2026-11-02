@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.auth import get_current_user
 from app.clock import local_today
 from app.db import get_db
+from app.experiment import assign_variant
 from app.models import ReadingPlan, Translation, User, UserPlan
 from app.ratelimit import limit_signups
 from app.schemas import (
@@ -41,7 +42,11 @@ def user_out(db: Session, user: User) -> UserOut:
     """A reader's settings, with their translation shown by code rather than by id."""
     translation = db.get(Translation, user.translation_id)
     return UserOut(
-        id=user.id, timezone=user.timezone, wake_time=user.wake_time, translation=translation.code
+        id=user.id,
+        timezone=user.timezone,
+        wake_time=user.wake_time,
+        translation=translation.code,
+        reminder_variant=user.reminder_variant,
     )
 
 
@@ -67,11 +72,19 @@ def register(body: UserCreate, db: Session = Depends(get_db)):
         timezone=body.timezone,
         wake_time=body.wake_time,
         translation_id=translation.id,
+        # The reminder experiment's coin flip, made once, here, and never again
+        reminder_variant=assign_variant(),
     )
     db.add(user)
     db.commit()
 
-    return UserCreated(id=user.id, timezone=user.timezone, wake_time=user.wake_time, token=token)
+    return UserCreated(
+        id=user.id,
+        timezone=user.timezone,
+        wake_time=user.wake_time,
+        reminder_variant=user.reminder_variant,
+        token=token,
+    )
 
 
 # GET /users/me: the reader making the request, worked out from their token

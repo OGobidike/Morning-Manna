@@ -21,6 +21,7 @@ import {
   getUpcoming,
   openReading,
   type Passage,
+  type ReminderVariant,
   type Streak,
   type Today,
 } from '@/api/client';
@@ -51,7 +52,13 @@ function localDate(): string {
   return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 }
 
-type Loaded = { today: Today; streak: Streak; wakeTime: string; reminders: boolean };
+type Loaded = {
+  today: Today;
+  streak: Streak;
+  wakeTime: string;
+  variant: ReminderVariant;
+  reminders: boolean;
+};
 type Offline = { snapshot: Snapshot; pending: PendingReading[] };
 
 // The main screen: today's passage, Mark as read, and the streak
@@ -94,12 +101,18 @@ export default function TodayScreen() {
       let reminders = false;
       try {
         reminders = await remindersAllowed();
-        if (reminders) await scheduleDailyReminder(me.wake_time);
+        if (reminders) await scheduleDailyReminder(me.wake_time, me.reminder_variant);
       } catch {
         reminders = false;
       }
 
-      setData({ today, streak, wakeTime: me.wake_time.slice(0, 5), reminders });
+      setData({
+        today,
+        streak,
+        wakeTime: me.wake_time.slice(0, 5),
+        variant: me.reminder_variant,
+        reminders,
+      });
 
       // Start a reading as soon as an unread passage is on screen, so opened_at is honest
       const doneToday = streak.last_read_on === localDate();
@@ -141,7 +154,7 @@ export default function TodayScreen() {
 
   async function turnOnReminders() {
     if (data && (await askForReminders())) {
-      await scheduleDailyReminder(data.wakeTime);
+      await scheduleDailyReminder(data.wakeTime, data.variant);
       setData({ ...data, reminders: true });
     }
   }
@@ -299,7 +312,7 @@ export default function TodayScreen() {
       {/* Only in development */}
       {__DEV__ && (
         <>
-          <Button title="Test reminder in 10 s (dev only)" color="#888" onPress={() => sendTestReminder()} />
+          <Button title="Test reminder in 10 s (dev only)" color="#888" onPress={() => sendTestReminder(data.variant)} />
           <Button title="Start over (dev only)" color="#888" onPress={reset} />
         </>
       )}
