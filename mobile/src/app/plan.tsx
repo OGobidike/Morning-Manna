@@ -9,8 +9,8 @@ import { ActivityIndicator, Button, Pressable, StyleSheet, Text, View } from 're
 // ── Then our own files (the @/ shortcut means src/) ──────────────────────────
 // Fetches the list of plans, plus the Plan type describing one plan
 import { getPlans, type Plan } from '@/api/client';
-// Asks for notification permission, and sets the daily reminder
-import { askForReminders, scheduleDailyReminder } from '@/reminders';
+// Asks for notification permission (the main screen sets the daily reminder)
+import { askForReminders } from '@/reminders';
 // The shared session: lets this screen finish onboarding (sign up + start the plan)
 import { useSession } from '@/session';
 
@@ -51,8 +51,10 @@ export default function ChoosePlan() {
     try {
       // Use the chosen wake time, or 06:00 if none came through
       const time = wakeTime ?? '06:00';
-      // Ask for reminders first: the prompt explains itself, and saying no is fine
-      if (await askForReminders()) await scheduleDailyReminder(time);
+      // Ask for reminders first: the prompt explains itself, and saying no is fine.
+      // The main screen schedules the reminder as soon as it opens, once the server has
+      // said which wording this reader gets.
+      await askForReminders();
       // Once this succeeds, the layout moves the reader to the main screen by itself
       await finishOnboarding(time, chosen);
     } catch (e) {

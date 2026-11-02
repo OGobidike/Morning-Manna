@@ -67,6 +67,7 @@ erDiagram
         string timezone
         time wake_time
         int translation_id FK
+        string reminder_variant "A or B"
         datetime created_at
     }
 

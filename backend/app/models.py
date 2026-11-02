@@ -7,7 +7,16 @@
 from datetime import date, datetime, time
 
 # Tools from SQLAlchemy for describing columns and rules
-from sqlalchemy import DateTime, ForeignKey, Index, String, Text, UniqueConstraint, func
+from sqlalchemy import (
+    CheckConstraint,
+    DateTime,
+    ForeignKey,
+    Index,
+    String,
+    Text,
+    UniqueConstraint,
+    func,
+)
 
 # A Postgresql specific column type for JSON data
 from sqlalchemy.dialects.postgresql import JSONB
@@ -114,6 +123,10 @@ class User(Base):
     """One reader, identified only by an anonymous device ID."""
 
     __tablename__ = "users"
+    # Rule: every reader is in group A or group B of the reminder experiment, nothing else
+    __table_args__ = (
+        CheckConstraint("reminder_variant in ('A', 'B')", name="users_reminder_variant_check"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True)
     # Random ID created by the app on first launch. No name or email, by design.
@@ -126,6 +139,9 @@ class User(Base):
     wake_time: Mapped[time]
     # The reader's chosen translation (points to translations.id)
     translation_id: Mapped[int] = mapped_column(ForeignKey("translations.id"))
+    # Which reminder wording they get, "A" or "B": a coin flip at sign-up that never changes
+    # (see docs/analysis/reminder-experiment.md)
+    reminder_variant: Mapped[str] = mapped_column(String(1))
     # When the reader joined. The database fills this in automatically.
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()

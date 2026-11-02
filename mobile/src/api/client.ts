@@ -78,7 +78,13 @@ export function getPlans(): Promise<Plan[]> {
 
 // POST /users: the token comes back once, so it must be saved straight away
 export type SignUpDetails = { device_id: string; timezone: string; wake_time: string };
-export type SignedUp = { id: number; timezone: string; wake_time: string; token: string };
+export type SignedUp = {
+  id: number;
+  timezone: string;
+  wake_time: string;
+  reminder_variant: ReminderVariant;
+  token: string;
+};
 
 export function signUp(details: SignUpDetails): Promise<SignedUp> {
   return api<SignedUp>('/users', { method: 'POST', body: details });
@@ -128,8 +134,18 @@ export function getStreak(token: string): Promise<Streak> {
   return api<Streak>('/users/me/streak', { token });
 }
 
+// Which reminder wording a reader gets in the reminder experiment, chosen by the server
+// at sign-up and never changed (see docs/analysis/reminder-experiment.md)
+export type ReminderVariant = 'A' | 'B';
+
 // GET /users/me: the reader's settings, e.g. wake_time "06:30:00", translation "KJV"
-export type Me = { id: number; timezone: string; wake_time: string; translation: string };
+export type Me = {
+  id: number;
+  timezone: string;
+  wake_time: string;
+  translation: string;
+  reminder_variant: ReminderVariant;
+};
 
 export function getMe(token: string): Promise<Me> {
   return api<Me>('/users/me', { token });

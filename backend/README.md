@@ -80,7 +80,7 @@ Every endpoint except `GET /health`, `GET /plans` and `POST /users` needs `Autho
 | GET | `/health` | Liveness check |
 | GET | `/plans` | List the reading plans |
 | POST | `/users` | Sign up a device and return its token (rate-limited) |
-| GET | `/users/me` | The reader's settings |
+| GET | `/users/me` | The reader's settings, and which reminder wording they get (`A` or `B`) |
 | PATCH | `/users/me` | Change time zone or wake time |
 | POST | `/users/me/plans` | Start a plan |
 | GET | `/today` | Today's passage, in the reader's translation |
@@ -100,6 +100,7 @@ Every endpoint except `GET /health`, `GET /plans` and `POST /users` needs `Autho
 - **Events: all or nothing.** A batch is checked before anything is stored: known event types only, times must carry a time zone and can't be in the future, 1 to 100 per batch. One bad event rejects the batch, and the 422 says which one.
 - **A copy for the data lake.** Each stored batch is also written to the lake (SeaweedFS, which speaks S3) as one JSON-lines file, in the background, after the response. If the lake is down, the request still succeeds and a warning is logged. Leave `LAKE_URL` empty to switch it off. See [pipelines/README.md](../pipelines/README.md).
 - **Sign-ups are rate-limited.** 5 per hour per address, then 429 with `Retry-After`.
+- **One coin flip per reader.** Signing up puts each reader in group A or B of the [reminder experiment](../docs/analysis/reminder-experiment.md), using Python's `secrets`, so nothing about the reader decides it. The group is saved once and no request can change it, and the database only accepts `A` or `B`.
 - **Structured logs.** One JSON line per request: method, path, status and duration. Headers and query strings are never logged, so tokens can't leak into logs.
 
 ## Data pipeline
@@ -119,7 +120,7 @@ Each run is recorded in the `etl_runs` table: status, rows read, loaded and reje
 pytest --cov
 ```
 
-The suite has 124 tests and runs against a real Postgres database. Each test runs inside a transaction that is rolled back afterwards, so tests never leave data behind. Tests never write to the real data lake, even when `.env` sets `LAKE_URL`. CI fails if coverage drops below 80% (currently about 90%).
+The suite has 130 tests and runs against a real Postgres database. Each test runs inside a transaction that is rolled back afterwards, so tests never leave data behind. Tests never write to the real data lake, even when `.env` sets `LAKE_URL`. CI fails if coverage drops below 80% (currently about 90%).
 
 On every push, GitHub Actions runs:
 

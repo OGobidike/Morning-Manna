@@ -34,7 +34,7 @@ Expo SDK 57 · React Native 0.86 · TypeScript · Expo Router · EAS Build
 - **Onboarding:** pick a wake time and a reading plan. The app signs up and keeps its token in secure storage.
 - **Today:** this morning's passage with verse numbers, and **Mark as read**. Then "Done for today", with tomorrow's reference and a button to read today's passage again.
 - **Streak:** the current streak on Today, and a 13-week heat map of every morning read on History.
-- **Morning reminder:** a notification every day at your wake time.
+- **Morning reminder:** a notification every day at your wake time, in one of two wordings while the [reminder experiment](../docs/analysis/reminder-experiment.md) runs.
 - **Settings:** wake time, translation (King James or American Standard), light or dark, and text size.
 - **Offline:** the next 7 passages are saved on the phone. With no connection you can still read and mark as read, and the reading is sent when the connection comes back.
 
@@ -108,7 +108,7 @@ src/
 - **The server decides the passage.** The app shows what `GET /today` returns: the reader's next unread day, so a missed morning is resumed, never skipped.
 - **Offline readings keep their real times.** A reading finished offline is saved with its own `opened_at` and `completed_at`, and sent oldest first when the app is back online, so the streak counts the morning it really happened. Readings the API will never accept (404, 409, 422) are dropped; anything else waits for the next try.
 - **Ten seconds, then offline.** Android's networking waits forever by default, so every request gives up after 10 s and Today falls back to the saved copy.
-- **Reminders are local.** The phone schedules its own daily notification, so no push server is needed. It follows the wake time saved on the server.
+- **Reminders are local.** The phone schedules its own daily notification, so no push server is needed. It follows the wake time saved on the server, and the server decides which wording each reader gets.
 - **Events are batched.** App events are sent 10 at a time, or when the app goes to the background. Up to 100 wait on the phone, even through a restart.
 
 ## Checks
