@@ -206,3 +206,9 @@ jobs:
         run: |
           ../../.dbt/bin/ruff check .
           ../../.dbt/bin/pytest
+      # The A/B test's maths (sample sizes now, the analysis later), checked against known answers
+      - name: Lint and test the experiment tools
+        working-directory: analytics/experiments
+        run: |
+          ../../.dbt/bin/ruff check .
+          ../../.dbt/bin/pytest

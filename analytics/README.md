@@ -132,6 +132,16 @@ dbt docs serve --port 8081
 
 Airflow runs `dbt build` every night after the loader, so the tables are fresh each morning.
 
+## 🧪 Experiments
+
+The first A/B test compares two wordings of the morning reminder. Its plan was written down before any data existed: [docs/analysis/reminder-experiment.md](../docs/analysis/reminder-experiment.md) fixes the measure (day-7 return), the sample size (**1,508 new readers per group**) and how the result will be decided.
+
+[experiments/power.py](experiments/power.py) works out the sample size. To see the table, from `analytics/experiments`:
+
+```bash
+../.venv/bin/python power.py
+```
+
 ## 📓 Notebooks
 
 [notebooks/01_reading_habits.ipynb](notebooks/01_reading_habits.ipynb) is the first look at the readers: when they read, which days they skip, and how long their streaks last. The readers are pretend, so the simulator holds an answer key to check the findings against. That makes the notebook a test that the warehouse tells the truth, as well as a look around.
@@ -150,6 +160,7 @@ jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inpl
 |---|---|---|
 | dbt data tests | **36** | `dbt build` |
 | Dashboard tests | **34** | `pytest`, from `analytics/dashboard` |
+| Experiment tools | **9** | `pytest`, from `analytics/experiments` |
 
 The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus five custom checks in [tests/](tests/):
 
@@ -169,4 +180,4 @@ The **analytics** job in CI builds the warehouse from nothing on every push:
 4. The loader.
 5. `dbt build`.
 
-It then prints the day 1, 7 and 30 retention in the log, runs every notebook from top to bottom, checks each was saved without its outputs, and lints and tests the dashboard.
+It then prints the day 1, 7 and 30 retention in the log, runs every notebook from top to bottom, checks each was saved without its outputs, and lints and tests the dashboard and the experiment tools.
