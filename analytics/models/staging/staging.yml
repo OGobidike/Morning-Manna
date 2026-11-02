@@ -35,6 +35,13 @@ models:
         tests: [not_null]
       - name: signed_up_on
         tests: [not_null]
+      - name: reminder_variant
+        description: The reminder experiment's group, A or B, from a coin flip when the reader joined
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [A, B]
       - name: source
         tests:
           - accepted_values:

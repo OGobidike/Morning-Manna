@@ -54,9 +54,12 @@ create table if not exists {schema}.readers (
     wake_time    text not null,
     signed_up_on date not null,
     reminders_on boolean not null,
+    reminder_variant text,              -- "A" or "B": the reminder experiment's coin flip
     source       text not null,
     loaded_at    timestamptz not null default now()
 );
+-- Warehouses made before the reminder experiment get the new column too
+alter table {schema}.readers add column if not exists reminder_variant text;
 
 create table if not exists {schema}.load_runs (
     id            serial primary key,
@@ -150,15 +153,21 @@ def load_readers(conn, schema: str, client, bucket: str) -> int:
         body = client.get_object(Bucket=bucket, Key="readers/synthetic.jsonl")["Body"].read()
     except client.exceptions.NoSuchKey:
         return 0
-    readers = [json.loads(line) for line in body.decode().splitlines() if line.strip()]
+    # A readers file made before the reminder experiment has no group: it loads as empty
+    readers = [
+        {"reminder_variant": None} | json.loads(line)
+        for line in body.decode().splitlines()
+        if line.strip()
+    ]
     query = sql.SQL(
         "insert into {} (user_key, persona, timezone, wake_time, signed_up_on, reminders_on,"
-        " source) values (%(user_key)s, %(persona)s, %(timezone)s, %(wake_time)s,"
-        " %(signed_up_on)s, %(reminders_on)s, %(source)s)"
+        " reminder_variant, source) values (%(user_key)s, %(persona)s, %(timezone)s,"
+        " %(wake_time)s, %(signed_up_on)s, %(reminders_on)s, %(reminder_variant)s, %(source)s)"
         " on conflict (user_key) do update set persona = excluded.persona,"
         " timezone = excluded.timezone, wake_time = excluded.wake_time,"
         " signed_up_on = excluded.signed_up_on, reminders_on = excluded.reminders_on,"
-        " source = excluded.source, loaded_at = now()"
+        " reminder_variant = excluded.reminder_variant, source = excluded.source,"
+        " loaded_at = now()"
     ).format(sql.Identifier(schema, "readers"))
     with conn.transaction():
         conn.cursor().executemany(query, readers)

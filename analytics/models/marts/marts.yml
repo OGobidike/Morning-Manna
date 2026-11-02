@@ -75,3 +75,39 @@ models:
           - accepted_values:
               arguments:
                 values: [early_riser, commuter, weekend_reader, app]
+
+  - name: fct_experiment
+    description: >
+      One row per reader in the reminder experiment: their group (A or B) and the measures
+      the pre-registration decides on (docs/analysis/reminder-experiment.md). Day-1 and
+      day-7 return count only when the reader has had that day. The finish rate guardrail
+      is first_week_finished / first_week_opened, added up over a group's readers.
+    columns:
+      - name: user_key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_key
+      - name: reminder_variant
+        description: The group the coin gave them when they joined, kept for good
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [A, B]
+      - name: source
+        tests:
+          - accepted_values:
+              arguments:
+                values: [app, synthetic]
+      - name: can_have_day_7
+        description: The data reaches the reader's 7th day after joining, so their day 7 counts
+      - name: read_day_7
+        description: They finished a reading on that day (the primary measure)
+      - name: first_week_opened
+        description: Days 0 to 7 on which they opened a reading
+      - name: first_week_finished
+        description: Of those days, the ones on which they finished a reading
