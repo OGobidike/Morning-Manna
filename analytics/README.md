@@ -1,6 +1,6 @@
 # Morning Manna analytics
 
-The dbt project that turns raw events into the answers that matter most for a daily reading app (who comes back, and who keeps reading), plus the notebook and the dashboard that show them.
+The dbt project that turns raw events into the answers that matter most for a daily reading app (who comes back, and who keeps reading), plus the notebooks and the dashboard that show them.
 
 dbt-core 1.12 · dbt-postgres 1.11 · PostgreSQL 16 · Dash 4 · Plotly 6
 
@@ -74,7 +74,7 @@ flowchart TD
     G["② Staging: views<br/>stg_events · stg_users"]
     I["③ Intermediate: a table<br/>int_daily_reading, one row per reader per day"]
     M["④ Marts: the answers, as tables<br/>fct_streaks · fct_retention_cohorts · dim_users<br/>fct_daily_activity · fct_reading_times · fct_experiment"]
-    D["⑤ The notebook and the dashboard"]
+    D["⑤ The notebooks and the dashboard"]
     S -->|tidy names and types| G
     G -->|a row for every day since signup, read or not| I
     I -->|streaks, cohorts, readers, daily activity, the experiment| M
@@ -145,15 +145,22 @@ Every reader in the test is a row of `fct_experiment`, with the measures the pla
 ../.venv/bin/python power.py      # the sample-size table
 ../.venv/bin/python analyze.py    # the result, as Markdown
 ../.venv/bin/python drill.py 20 20   # a quick fire drill (the full 1,000 + 200 runs take ~25 min)
+../.venv/bin/python charts.py     # the three charts below, as web pages in charts/
 ```
 
 **The practice run's verdict: switch to wording B.** Day-7 return rose **+4.0 points** (38.2% → 42.3%, 95% interval +0.6 to +7.4, p = 0.021), and neither guardrail dropped. **The reveal:** the effect planted in the simulator is worth **+5.9 points** in one long run, and **+5.5** measured across a 1,200-run drill ([experiments/drill.py](experiments/drill.py)). Both are inside that interval, so the analysis found the right winner. The drill also found that it raises false alarms 7% of the time, not 5%. The whole result is in [docs/analysis/reminder-experiment-results.md](../docs/analysis/reminder-experiment-results.md).
+
+![Across 1,200 practice runs, the 1,000 with no effect pile up around 0 in grey, and the 200 with wording B's effect pile up around the truth, +5.5 points, in magenta. Our run's +4.0 sits on the low side of the magenta pile.](../docs/images/experiment-drill.png)
+
+[experiments/charts.py](experiments/charts.py) draws the story in three pictures: the look, the result with the truth marked, and the drill above. Group A is **green** and group B **magenta**, two colours the dashboard doesn't use, so a colour never means two things here. The pair passes the colour-blind checks, and every mark carries a label too.
 
 ## 📓 Notebooks
 
 [notebooks/01_reading_habits.ipynb](notebooks/01_reading_habits.ipynb) is the first look at the readers: when they read, which days they skip, and how long their streaks last. The readers are pretend, so the simulator holds an answer key to check the findings against. That makes the notebook a test that the warehouse tells the truth, as well as a look around.
 
-Open it in VS Code after `dbt build`, choose the `analytics/.venv` kernel, and click **Run All**.
+[notebooks/02_reminder_experiment.ipynb](notebooks/02_reminder_experiment.ipynb) tells the reminder experiment's story in three pictures, drawn from `fct_experiment` and the drill's record with the same code as the results page, so the two can never disagree.
+
+Open either in VS Code after `dbt build`, choose the `analytics/.venv` kernel, and click **Run All**.
 
 Notebooks are committed without their outputs or run details, which keeps diffs readable. Clear them before you commit:
 
@@ -167,7 +174,7 @@ jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inpl
 |---|---|---|
 | dbt data tests | **46** | `dbt build` |
 | Dashboard tests | **34** | `pytest`, from `analytics/dashboard` |
-| Experiment tools | **30** | `pytest`, from `analytics/experiments` |
+| Experiment tools | **37** | `pytest`, from `analytics/experiments` |
 
 The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus seven custom checks in [tests/](tests/):
 

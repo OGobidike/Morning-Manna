@@ -37,6 +37,8 @@ node_modules/
 data/raw/
 # the pretend data lake made by ml/simulate.py (rebuild it any time)
 data/lake/
+# the experiment's charts as web pages (python charts.py rebuilds them)
+analytics/experiments/charts/
 # dbt's working files in analytics/ (rebuilt on every run)
 analytics/target/
 analytics/logs/
