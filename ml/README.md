@@ -16,7 +16,13 @@ There are no real users yet, so the pipelines, the warehouse and the models need
 
 Readers live in five time zones (Lagos, New York, London, Manila and Chicago). Their streaks break, and some drift away for good.
 
-**The reminder experiment.** A fair coin puts each reader in group A or B of the [reminder test](../docs/analysis/reminder-experiment.md), and wording B carries a planted effect: readers in group B whose reminders are on are a little likelier to read each morning. It's the practice run's answer key. The analysis never reads it, and is checked against it only once it's done. The coin has a random stream of its own, so group A readers live exactly the mornings they did before the experiment existed. Every reader and event is marked `synthetic`, and none of it goes near the app's own tables.
+**The reminder experiment.** A fair coin puts each reader in group A or B of the [reminder test](../docs/analysis/reminder-experiment.md), and wording B carries a planted effect: readers in group B whose reminders are on are a little likelier to read each morning. It's the practice run's answer key. The analysis never reads it, and is checked against it only once it's done. The coin has a random stream of its own, so group A readers live exactly the mornings they did before the experiment existed.
+
+[true_effect.py](true_effect.py) opens the answer key: it simulates the same readers twice, with the effect and without it, to measure what the effect is truly worth on day-7 return (**+5.9 points**). It was run only after the analysis's verdict was merged. From the repo root, it takes about a minute:
+
+```bash
+python ml/true_effect.py
+``` Every reader and event is marked `synthetic`, and none of it goes near the app's own tables.
 
 ```bash
 # From the repo root
@@ -41,5 +47,5 @@ Then [pipelines/README.md](../pipelines/README.md#the-loader) uploads and loads 
 ```bash
 cd ml
 pip install -e ".[dev]"
-pytest          # 14 tests
+pytest          # 19 tests
 ```
