@@ -53,6 +53,34 @@ The written plan left three things open, so I fixed them in the analysis code ([
 - **These are pretend readers.** The practice run proves the whole chain works, from the coin to the verdict. With real readers, I'd run the same code, unchanged.
 - **Readers with reminders off are counted too** (intention to treat). They never see either wording, so they pull the difference towards zero. The effect on readers who actually see the reminder is likely larger.
 
-## 🔍 What happens next
+## 🔍 The reveal: did the analysis catch the truth?
 
-**The reveal.** I gave wording B a true effect inside the simulator, and wrote down how big it was before any of this ran. The next step compares that answer key with what this analysis found. Did the interval catch the truth? Only then do I find out whether this analysis can be trusted with real readers.
+*Opened 3 November 2026, after the verdict above was merged.*
+
+I gave wording B a true effect inside the simulator, written into [simulate.py](../../ml/simulate.py) before any of this ran: on any morning, a group B reader whose reminders are on is 10 points likelier to read (`WORDING_B_LIFT = 0.10`). The analysis never read that number. To see what it's worth on day-7 return, [true_effect.py](../../ml/true_effect.py) simulates the same readers twice, with the effect and without it. Each reader keeps their own random stream, so the only difference between the two runs is the effect itself.
+
+| Wording B's effect on day-7 return | |
+|---|---|
+| 🎯 What the analysis estimated | **+4.0 points** (95% interval +0.6 to +7.4) |
+| 🔑 The truth, in the long run (8,329 group B readers) | **+5.9 points** (± 0.8) |
+| 🔑 The truth, in this practice run's 1,536 group B readers | +4.8 points (± 1.8) |
+
+✅ **The interval caught the truth, and the decision was right.** Wording B really does bring more readers back, and the analysis said so.
+
+**Why +4.0 and not +5.9?** Two pieces of luck, both in the same direction:
+
+- **These group B readers were a little less moved than average.** Wording B brought back 4.8 points of them, where the long run says 5.9.
+- **The coin put slightly fewer natural returners in group B.** Without the effect, group B would have come back at 37.4% (575 of 1,536), against group A's 38.2%.
+
+Together that's 1.9 points low (1.1 from the first, 0.8 from the second), well inside the interval. That's what the interval is for: with about 1,500 readers a group, an estimate can easily land 3 points either side of the truth.
+
+**A 10-point daily lift is worth 5.9 points on day 7** because the effect can only reach the 85% of readers with reminders on, and only while they're still around. Readers who have already drifted away never see a reminder at all.
+
+**Checked against the warehouse:** the script counts day-7 returns exactly as dbt does: 626 of 1,637 in A and 649 of 1,536 in B at the look, the same as the analysis.
+
+## 🧭 What this means for real readers
+
+- **The analysis can be trusted.** On data where the answer was known, it found the right winner, and its interval held the truth.
+- **My "partly luck" worry above was too gloomy.** I wrote it before the reveal, and I've left it as it was. The true effect, +5.9 points, is bigger than the +5 the test was sized for, so the test had a better than 80% chance of spotting it.
+- **The size of a win is the uncertain part.** If a real test needs a sharp number rather than just a winner, it needs more readers than 1,508 a group.
+- **Next:** the report, with the charts that tell this story at a glance.

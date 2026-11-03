@@ -146,7 +146,7 @@ Every reader in the test is a row of `fct_experiment`, with the measures the pla
 ../.venv/bin/python analyze.py    # the result, as Markdown
 ```
 
-**The practice run's verdict: switch to wording B.** Day-7 return rose **+4.0 points** (38.2% → 42.3%, 95% interval +0.6 to +7.4, p = 0.021), and neither guardrail dropped. The whole result is in [docs/analysis/reminder-experiment-results.md](../docs/analysis/reminder-experiment-results.md).
+**The practice run's verdict: switch to wording B.** Day-7 return rose **+4.0 points** (38.2% → 42.3%, 95% interval +0.6 to +7.4, p = 0.021), and neither guardrail dropped. **The reveal:** the effect planted in the simulator is worth **+5.9 points**, inside that interval, so the analysis found the right winner. The whole result is in [docs/analysis/reminder-experiment-results.md](../docs/analysis/reminder-experiment-results.md).
 
 ## 📓 Notebooks
 
