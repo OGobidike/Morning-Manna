@@ -144,9 +144,10 @@ Every reader in the test is a row of `fct_experiment`, with the measures the pla
 ```bash
 ../.venv/bin/python power.py      # the sample-size table
 ../.venv/bin/python analyze.py    # the result, as Markdown
+../.venv/bin/python drill.py 20 20   # a quick fire drill (the full 1,000 + 200 runs take ~25 min)
 ```
 
-**The practice run's verdict: switch to wording B.** Day-7 return rose **+4.0 points** (38.2% → 42.3%, 95% interval +0.6 to +7.4, p = 0.021), and neither guardrail dropped. **The reveal:** the effect planted in the simulator is worth **+5.9 points**, inside that interval, so the analysis found the right winner. The whole result is in [docs/analysis/reminder-experiment-results.md](../docs/analysis/reminder-experiment-results.md).
+**The practice run's verdict: switch to wording B.** Day-7 return rose **+4.0 points** (38.2% → 42.3%, 95% interval +0.6 to +7.4, p = 0.021), and neither guardrail dropped. **The reveal:** the effect planted in the simulator is worth **+5.9 points** in one long run, and **+5.5** measured across a 1,200-run drill ([experiments/drill.py](experiments/drill.py)). Both are inside that interval, so the analysis found the right winner. The drill also found that it raises false alarms 7% of the time, not 5%. The whole result is in [docs/analysis/reminder-experiment-results.md](../docs/analysis/reminder-experiment-results.md).
 
 ## 📓 Notebooks
 
@@ -166,7 +167,7 @@ jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inpl
 |---|---|---|
 | dbt data tests | **46** | `dbt build` |
 | Dashboard tests | **34** | `pytest`, from `analytics/dashboard` |
-| Experiment tools | **25** | `pytest`, from `analytics/experiments` |
+| Experiment tools | **30** | `pytest`, from `analytics/experiments` |
 
 The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus seven custom checks in [tests/](tests/):
 

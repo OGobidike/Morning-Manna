@@ -7,8 +7,8 @@ line-length = 100
 select = ["E", "W", "F", "I"]
 
 [tool.pytest.ini_options]
-# The tests import power.py from this folder
-pythonpath = ["."]
+# The tests import the tools from this folder, and the drill's simulator from ml/
+pythonpath = [".", "../../ml"]
 testpaths = ["tests"]
 # Dash's pytest plugin lives in the same venv; these tests don't use it
 addopts = "-p no:dash"

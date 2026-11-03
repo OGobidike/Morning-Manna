@@ -78,9 +78,32 @@ Together that's 1.9 points low (1.1 from the first, 0.8 from the second), well i
 
 **Checked against the warehouse:** the script counts day-7 returns exactly as dbt does: 626 of 1,637 in A and 649 of 1,536 in B at the look, the same as the analysis.
 
+## 🧯 The fire drill: 1,200 more practice runs
+
+*Run 3 November 2026.*
+
+One practice run can be lucky, so [drill.py](../../analytics/experiments/drill.py) re-ran the whole experiment 1,200 times on fresh pretend readers, with a new seed each time, through the very same analysis code. It rebuilds the real practice run exactly (the same +4.0 points and the same verdict), so the drill counts just as the warehouse does.
+
+- **1,000 A/A runs:** no effect planted. Any "switch" or "B did worse" is a false alarm.
+- **200 A/B runs:** the real planted effect. Each one has an A/A twin with the same seed (the same readers), so the twins together measure the true effect very precisely.
+
+| Drill | What we want | What happened |
+|---|---|---|
+| A/A: any false alarm | about 5% | **7.0%** (70 of 1,000; 95% range 5.4% to 8.6%) |
+| A/B: finds that B is better (power) | 80% or more | **87.5%** (175 of 200) ✅ |
+| A/B: interval holds the truth | about 95% | **93.5%** (187 of 200) |
+| A/B: average estimate | the truth, +5.5 | **+5.6 points** ✅ (no bias) |
+| Split alarms (p below 0.001) | about 0.1% | **0.2%** (2 of 1,200) ✅ |
+
+**A sharper truth: +5.5 points.** Measured across 200 pairs of twins, wording B is worth +5.5 points (± 0.1) on day-7 return. The reveal's +5.9 came from one long run and carried a margin of ± 0.8, so it was right, just blurrier. Either way, the truth sits inside the analysis's interval.
+
+**An honest flaw: slightly too many false alarms.** The drill's results spread about 4.5% wider than the z-test assumes, so the analysis cries wolf 7% of the time instead of 5%. With 1,000 runs that's no longer chance. I haven't found the cause yet; it's a job for a future card.
+
+**Does it change the verdict? No.** Widening this experiment's uncertainty by the drill's 4.5% moves the interval to +0.4 to +7.6 points and p to 0.028. Still above zero and still below 0.05, so switching to B stands.
+
 ## 🧭 What this means for real readers
 
-- **The analysis can be trusted.** On data where the answer was known, it found the right winner, and its interval held the truth.
+- **The analysis can be trusted, with one caveat.** On data where the answer was known, it found the right winner, and across 1,200 drills it found real effects 87.5% of the time. But it raises false alarms about 7% of the time, not 5%, so a result with p just under 0.05 deserves a second look.
 - **My "partly luck" worry above was too gloomy.** I wrote it before the reveal, and I've left it as it was. The true effect, +5.9 points, is bigger than the +5 the test was sized for, so the test had a better than 80% chance of spotting it.
 - **The size of a win is the uncertain part.** If a real test needs a sharp number rather than just a winner, it needs more readers than 1,508 a group.
 - **Next:** the report, with the charts that tell this story at a glance.
