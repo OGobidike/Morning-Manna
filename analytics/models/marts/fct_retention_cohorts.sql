@@ -9,17 +9,12 @@ with users as (
 
     select
         user_key,
+        source,
         signed_up_on,
         date_trunc('week', signed_up_on)::date as cohort_week,
         -- Real app users have no persona: they get their own group
         coalesce(persona, 'app') as persona
     from {{ ref('stg_users') }}
-
-),
-
-last_day as (
-
-    select max(local_day) as day from {{ ref('int_daily_reading') }}
 
 ),
 
@@ -40,14 +35,15 @@ per_reader as (
     select
         u.cohort_week,
         u.persona,
-        u.signed_up_on + 1 <= l.day as can_have_day_1,
-        u.signed_up_on + 7 <= l.day as can_have_day_7,
-        u.signed_up_on + 30 <= l.day as can_have_day_30,
+        -- Measured against the last day of their own source's data (int_last_day)
+        coalesce(u.signed_up_on + 1 <= l.last_day, false) as can_have_day_1,
+        coalesce(u.signed_up_on + 7 <= l.last_day, false) as can_have_day_7,
+        coalesce(u.signed_up_on + 30 <= l.last_day, false) as can_have_day_30,
         coalesce(r.read_day_1, false) as read_day_1,
         coalesce(r.read_day_7, false) as read_day_7,
         coalesce(r.read_day_30, false) as read_day_30
     from users as u
-    cross join last_day as l
+    left join {{ ref('int_last_day') }} as l using (source)
     left join returns as r using (user_key)
 
 ),

@@ -19,12 +19,6 @@ with users as (
 
 ),
 
-last_day as (
-
-    select max(local_day) as day from {{ ref('int_daily_reading') }}
-
-),
-
 returns as (
 
     select
@@ -71,13 +65,14 @@ select
     u.persona,
     u.reminder_variant,
     u.signed_up_on,
-    u.signed_up_on + 1 <= l.day as can_have_day_1,
+    -- Measured against the last day of their own source's data (int_last_day)
+    coalesce(u.signed_up_on + 1 <= l.last_day, false) as can_have_day_1,
     coalesce(r.read_day_1, false) as read_day_1,
-    u.signed_up_on + 7 <= l.day as can_have_day_7,
+    coalesce(u.signed_up_on + 7 <= l.last_day, false) as can_have_day_7,
     coalesce(r.read_day_7, false) as read_day_7,
     coalesce(w.first_week_opened, 0) as first_week_opened,
     coalesce(w.first_week_finished, 0) as first_week_finished
 from users as u
-cross join last_day as l
+left join {{ ref('int_last_day') }} as l using (source)
 left join returns as r using (user_key)
 left join first_week_totals as w using (user_key)

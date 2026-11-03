@@ -28,6 +28,7 @@ Airflow daily_events (00:30 UTC): ingest.load_events (yesterday's folder → raw
 - The backend's lake write (`app/lake.py`) runs after the response and never fails the request; `LAKE_URL=""` disables it.
 - `load_events` replaces a whole day in one transaction (idempotent), rejects and counts bad lines, and logs runs in `raw.load_runs`.
 - The scripture ETL (`python -m app.etl`) downloads KJV/ASV into `data/raw/`, validates (66 books, chapter counts, no dupes), upserts in one transaction, and logs to `etl_runs`. Re-running changes nothing.
+- Each reader source has its own last day of data (`int_last_day`): every "has this reader had day N yet" or "still going" check joins it by `source`, never a single global `max(local_day)`, so real app readings can't stretch the synthetic readers' calendar.
 - dbt `stg_users` unions synthetic readers (`raw.readers`) with real app users (as `app:<id>`), each with their `reminder_variant`. `fct_experiment` holds one row per reader in the reminder A/B test (docs/analysis/reminder-experiment.md).
 - `analytics/experiments/` analyses that test (`analyze.py`), drills it (`drill.py`, record in `drill_runs.csv`) and draws it (`charts.py`, shown by notebook 02). Group A is green `#008300` and group B magenta `#e87ba4`, never the dashboard's persona colours.
 
