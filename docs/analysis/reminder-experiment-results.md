@@ -38,6 +38,10 @@ flowchart TD
 4. **The guardrails.** Neither dropped by more than 2 points: day-1 return rose 4.8 points, and the finish rate barely moved (+0.2).
 5. **The Bayesian second view.** Starting from no opinion (a flat Beta prior), there's a **99.0%** chance that B beats A on day 7, and the lift is most likely +4.0 points (95% credible interval +0.6 to +7.4). It agrees with the z-test, but by the rules it can't change the decision.
 
+![Two lines, group A in green and group B in magenta, climb together from August. A dotted line marks the planned size of 1,508 readers a group; group A crosses it first, and the one look falls on 9 October, when group B crosses it too.](../images/experiment-look.png)
+
+*Drawn on 3 November: both groups climb to the planned size together, and the one look waits for the slower group, B.*
+
 ## 📌 Three details I pinned down before looking
 
 The written plan left three things open, so I fixed them in the analysis code ([analyze.py](../../analytics/experiments/analyze.py)) and tested it on made-up numbers before running it on the real data:
@@ -67,6 +71,10 @@ I gave wording B a true effect inside the simulator, written into [simulate.py](
 
 ✅ **The interval caught the truth, and the decision was right.** Wording B really does bring more readers back, and the analysis said so.
 
+![Three measures, each a magenta dot with its 95% interval: day-7 return +4.0 points (+0.6 to +7.4), with a black diamond for the truth at +5.5 inside the interval; day-1 return +4.8 points; finish rate +0.2 points. A dotted line at −2 marks the guardrail floor, and nothing comes near it.](../images/experiment-result.png)
+
+*The diamond is the sharper truth from the fire drill below, +5.5 points.*
+
 **Why +4.0 and not +5.9?** Two pieces of luck, both in the same direction:
 
 - **These group B readers were a little less moved than average.** Wording B brought back 4.8 points of them, where the long run says 5.9.
@@ -95,9 +103,13 @@ One practice run can be lucky, so [drill.py](../../analytics/experiments/drill.p
 | A/B: average estimate | the truth, +5.5 | **+5.6 points** ✅ (no bias) |
 | Split alarms (p below 0.001) | about 0.1% | **0.2%** (2 of 1,200) ✅ |
 
+![Two overlapping histograms of the estimated day-7 lift. The 1,000 runs with no effect, in grey, pile up around 0. The 200 runs with wording B's effect, in magenta, pile up around the truth at +5.5. A solid line marks our run's +4.0, on the low side of the magenta pile.](../images/experiment-drill.png)
+
+*Grey: no effect planted. Magenta: wording B's real effect. About 1 magenta run in 6 landed below our +4.0.*
+
 **A sharper truth: +5.5 points.** Measured across 200 pairs of twins, wording B is worth +5.5 points (± 0.1) on day-7 return. The reveal's +5.9 came from one long run and carried a margin of ± 0.8, so it was right, just blurrier. Either way, the truth sits inside the analysis's interval.
 
-**An honest flaw: slightly too many false alarms.** The drill's results spread about 4.5% wider than the z-test assumes, so the analysis cries wolf 7% of the time instead of 5%. With 1,000 runs that's no longer chance. I haven't found the cause yet; it's a job for a future card.
+**An honest flaw: slightly too many false alarms.** The analysis cried wolf 7% of the time instead of 5%; with 1,000 runs that's no longer chance. Part of it is that the drill's results spread about 4.5% wider than the z-test assumes. That alone would push false alarms to about 6%, and the rest is within the drill's own luck. *(Corrected 3 November: I first wrote that the wider spread explained all of it.)* I haven't found the cause of the wider spread yet; it's a job for a future card.
 
 **Does it change the verdict? No.** Widening this experiment's uncertainty by the drill's 4.5% moves the interval to +0.4 to +7.6 points and p to 0.028. Still above zero and still below 0.05, so switching to B stands.
 
@@ -106,4 +118,5 @@ One practice run can be lucky, so [drill.py](../../analytics/experiments/drill.p
 - **The analysis can be trusted, with one caveat.** On data where the answer was known, it found the right winner, and across 1,200 drills it found real effects 87.5% of the time. But it raises false alarms about 7% of the time, not 5%, so a result with p just under 0.05 deserves a second look.
 - **My "partly luck" worry above was too gloomy.** I wrote it before the reveal, and I've left it as it was. The true effect, +5.9 points, is bigger than the +5 the test was sized for, so the test had a better than 80% chance of spotting it.
 - **The size of a win is the uncertain part.** If a real test needs a sharp number rather than just a winner, it needs more readers than 1,508 a group.
-- **Next:** the report, with the charts that tell this story at a glance.
+- **The pictures:** the charts on this page come from [charts.py](../../analytics/experiments/charts.py), and [notebook 02](../../analytics/notebooks/02_reminder_experiment.ipynb) draws them from the warehouse on every CI run.
+- **Next:** the same story on Tableau Public, for people who will never open a notebook.
