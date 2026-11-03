@@ -1,6 +1,7 @@
 -- One row per reader per day, in the reader's own time zone, from the day they joined
--- to the last day with any data. Days with no reading are rows too: retention and
--- streaks are about the mornings that were missed as much as the ones that weren't.
+-- to the last day with data from their own source (int_last_day). Days with no reading
+-- are rows too: retention and streaks are about the mornings that were missed as much as
+-- the ones that weren't.
 
 with users as (
 
@@ -20,12 +21,6 @@ events as (
 
 ),
 
-last_day as (
-
-    select max(local_day) as day from events
-
-),
-
 calendar as (
 
     -- Every day of each reader's life in the app, read or not
@@ -34,8 +29,8 @@ calendar as (
         u.signed_up_on,
         gs.day::date as local_day
     from users as u
-    cross join last_day
-    cross join lateral generate_series(u.signed_up_on, last_day.day, interval '1 day') as gs (day)
+    join {{ ref('int_last_day') }} as l using (source)
+    cross join lateral generate_series(u.signed_up_on, l.last_day, interval '1 day') as gs (day)
 
 ),
 

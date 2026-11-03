@@ -1,10 +1,21 @@
 version: 2
 
 models:
+  - name: int_last_day
+    description: >
+      The last day with any data for each source of readers, in their own time. The pretend
+      readers' calendar ends with the simulation and real readers' goes on, so a real reading
+      never stretches the pretend readers' calendar.
+    columns:
+      - name: source
+        tests: [unique, not_null]
+      - name: last_day
+        tests: [not_null]
+
   - name: int_daily_reading
     description: >
-      One row per reader per local day, from the day they joined to the last day with data,
-      including days with no reading.
+      One row per reader per local day, from the day they joined to the last day with data
+      from their own source (int_last_day), including days with no reading.
     columns:
       - name: user_key
         tests: [not_null]

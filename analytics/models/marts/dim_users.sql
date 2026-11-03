@@ -22,6 +22,12 @@ reading as (
 
 ),
 
+last_days as (
+
+    select source, last_day from {{ ref('int_last_day') }}
+
+),
+
 streaks as (
 
     select
@@ -30,12 +36,6 @@ streaks as (
         max(length_days) filter (where is_current) as current_streak
     from {{ ref('fct_streaks') }}
     group by user_key
-
-),
-
-last_day as (
-
-    select max(local_day) as day from {{ ref('int_daily_reading') }}
 
 )
 
@@ -52,9 +52,9 @@ select
     coalesce(s.longest_streak, 0) as longest_streak,
     coalesce(s.current_streak, 0) as current_streak,
     r.first_read_on is null as never_read,
-    -- Read at least once in the last 7 days there is data for
-    coalesce(r.last_read_on > l.day - 7, false) as active_last_7_days
+    -- Read at least once in the last 7 days there is data for, from their own source
+    coalesce(r.last_read_on > l.last_day - 7, false) as active_last_7_days
 from users as u
-cross join last_day as l
+left join last_days as l using (source)
 left join reading as r using (user_key)
 left join streaks as s using (user_key)

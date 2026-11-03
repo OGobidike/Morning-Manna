@@ -72,7 +72,7 @@ Changing the dashboard's code? Run `python app.py --debug` instead: it reloads o
 flowchart TD
     S["① Sources<br/>raw.events · raw.readers · public.users<br/>(the loader and the app)"]
     G["② Staging: views<br/>stg_events · stg_users"]
-    I["③ Intermediate: a table<br/>int_daily_reading, one row per reader per day"]
+    I["③ Intermediate: two tables<br/>int_last_day, each source's last day of data<br/>int_daily_reading, one row per reader per day"]
     M["④ Marts: the answers, as tables<br/>fct_streaks · fct_retention_cohorts · dim_users<br/>fct_daily_activity · fct_reading_times · fct_experiment"]
     D["⑤ The notebooks and the dashboard"]
     S -->|tidy names and types| G
@@ -86,7 +86,8 @@ flowchart TD
 |---|---|---|
 | `stg_events` | event | The lake's events, cleaned up |
 | `stg_users` | reader | Pretend readers and the app's real users together (as `app:<id>`), with the day each signed up in their own time zone and their reminder group (A or B) |
-| `int_daily_reading` | reader per day | From signup to the last day of data: did they read, did they open the app, how many events |
+| `int_last_day` | source | The last day with data for each source: where the simulation ends for pretend readers, the newest reading for real ones |
+| `int_daily_reading` | reader per day | From signup to the last day of their own source's data: did they read, did they open the app, how many events |
 | `fct_streaks` | streak | Each unbroken run of mornings read: start, end, length, and whether it's still going |
 | `fct_retention_cohorts` | signup week per persona | How many came back on day 1, 7 and 30, and the rates. Add the rows up for everyone |
 | `dim_users` | reader | Longest and current streak, active in the last 7 days, never read |
@@ -99,6 +100,7 @@ flowchart TD
 - **The reader's own day.** A morning counts in the reader's own time zone, not the server's. 05:30 in Lagos and 05:30 in Manila are both "this morning".
 - **Every reader counts, including those who never came back.** `int_daily_reading` has a row for every day since signup, read or not. Readers who signed up and never read stay in the totals, so retention is never flattered.
 - **Only readers who've had time.** Someone who joined yesterday can't have a day 7 yet, so they don't count against day 7 until they've had one.
+- **Each source keeps its own calendar.** The pretend readers' data ends with the simulation, while real readers' keeps growing. Each is measured against its own last day (`int_last_day`), so one real reading can't give the pretend readers days they never had. My own warehouse caught this: a phone-test reading had stretched every pretend reader's calendar by a day.
 - **Streaks with gaps and islands.** `day - row_number()` is the same for every day in an unbroken run, so grouping by it finds each streak in one pass.
 - **The finish rate counts readers, not events.** Of the readers who opened a reading that day, how many finished one. Counting events instead would break if a reading started before midnight and finished after it.
 - **Build, then test, layer by layer.** `dbt build` tests each model before building what depends on it, so a model that fails its tests never feeds the tables after it.
@@ -172,11 +174,11 @@ jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inpl
 
 | What | How many | Run with |
 |---|---|---|
-| dbt data tests | **46** | `dbt build` |
+| dbt data tests | **50** | `dbt build` |
 | Dashboard tests | **34** | `pytest`, from `analytics/dashboard` |
 | Experiment tools | **37** | `pytest`, from `analytics/experiments` |
 
-The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus seven custom checks in [tests/](tests/):
+The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus eight custom checks in [tests/](tests/):
 
 - `one_row_per_reader_per_day`: no reader has the same day twice.
 - `streaks_add_up`: each streak's length matches its dates, and all the streaks together add up to every morning read.
@@ -185,6 +187,7 @@ The dbt tests check keys that are unique and never empty, events that belong to 
 - `reading_times_add_up`: every finished reading lands in exactly one half hour of the clock.
 - `experiment_makes_sense`: nobody in the experiment returns on a day they haven't had yet, or finishes more readings than they opened.
 - `experiment_matches_retention`: the experiment's day-1 and day-7 counts, added up over both groups, equal the retention cohorts' counts for the pretend readers.
+- `each_source_keeps_its_own_calendar`: each source's calendar ends on its own last day with data, so real readings never stretch the pretend readers' calendar.
 
 The dashboard tests check the arithmetic on small hand-made tables (Kaplan-Meier, the week-on-week changes, the small-group rule), the warehouse against itself (the personas add up to everyone), and the warehouse against the simulator's answer key.
 
