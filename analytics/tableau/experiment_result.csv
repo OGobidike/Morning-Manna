@@ -1,0 +1,4 @@
+order,measure,role,a_successes,a_total,b_successes,b_total,a_rate_pct,b_rate_pct,difference_points,low_points,high_points,p_value,guardrail_floor_points,truth_points
+1,Day-7 return,Decides,626,1637,649,1536,38.24,42.25,4.01,0.6,7.42,0.0212,,5.52
+2,Day-1 return,Guardrail,765,1637,791,1536,46.73,51.5,4.77,1.29,8.24,0.0073,-2.0,
+3,Finish rate,Guardrail,5531,6131,5825,6444,90.21,90.39,0.18,-0.85,1.22,0.7324,-2.0,

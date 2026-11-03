@@ -148,6 +148,7 @@ Every reader in the test is a row of `fct_experiment`, with the measures the pla
 ../.venv/bin/python analyze.py    # the result, as Markdown
 ../.venv/bin/python drill.py 20 20   # a quick fire drill (the full 1,000 + 200 runs take ~25 min)
 ../.venv/bin/python charts.py     # the three charts below, as web pages in charts/
+../.venv/bin/python tableau.py    # the files for Tableau Public, in ../tableau/
 ```
 
 **The practice run's verdict: switch to wording B.** Day-7 return rose **+4.0 points** (38.2% → 42.3%, 95% interval +0.6 to +7.4, p = 0.021), and neither guardrail dropped. **The reveal:** the effect planted in the simulator is worth **+5.9 points** in one long run, and **+5.5** measured across a 1,200-run drill ([experiments/drill.py](experiments/drill.py)). Both are inside that interval, so the analysis found the right winner. The drill also found that it raises false alarms 7% of the time, not 5%. The whole result is in [docs/analysis/reminder-experiment-results.md](../docs/analysis/reminder-experiment-results.md).
@@ -155,6 +156,8 @@ Every reader in the test is a row of `fct_experiment`, with the measures the pla
 ![Across 1,200 practice runs, the 1,000 with no effect pile up around 0 in grey, and the 200 with wording B's effect pile up around the truth, +5.5 points, in magenta. Our run's +4.0 sits on the low side of the magenta pile.](../docs/images/experiment-drill.png)
 
 [experiments/charts.py](experiments/charts.py) draws the story in three pictures: the look, the result with the truth marked, and the drill above. Group A is **green** and group B **magenta**, two colours the dashboard doesn't use, so a colour never means two things here. The pair passes the colour-blind checks, and every mark carries a label too.
+
+[tableau/](tableau/) holds the same story as three tidy CSV files for **Tableau Public**: the climb to the look, the result, and all 1,200 drill runs. They hold only the pretend readers and only counts, never a real app user. Its README explains every column and how to build the story, step by step.
 
 ## 📓 Notebooks
 
@@ -176,7 +179,7 @@ jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inpl
 |---|---|---|
 | dbt data tests | **50** | `dbt build` |
 | Dashboard tests | **34** | `pytest`, from `analytics/dashboard` |
-| Experiment tools | **37** | `pytest`, from `analytics/experiments` |
+| Experiment tools | **43** | `pytest`, from `analytics/experiments` |
 
 The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus eight custom checks in [tests/](tests/):
 
@@ -199,4 +202,4 @@ The **analytics** job in CI builds the warehouse from nothing on every push:
 4. The loader.
 5. `dbt build`.
 
-It then prints the day 1, 7 and 30 retention, the size of each experiment group and the experiment's result in the log, runs every notebook from top to bottom, checks each was saved without its outputs, and lints and tests the dashboard and the experiment tools.
+It then prints the day 1, 7 and 30 retention, the size of each experiment group and the experiment's result in the log, runs every notebook from top to bottom, checks each was saved without its outputs, rebuilds the Tableau files and checks the committed ones match, and lints and tests the dashboard and the experiment tools.
