@@ -1,0 +1,167 @@
+signup_day,group,new_readers,readers_so_far,planned_size,is_the_look
+2026-07-30,A: Good morning,1,1,1508,False
+2026-07-31,A: Good morning,1,2,1508,False
+2026-08-01,A: Good morning,2,4,1508,False
+2026-08-02,A: Good morning,2,6,1508,False
+2026-08-03,A: Good morning,4,10,1508,False
+2026-08-04,A: Good morning,4,14,1508,False
+2026-08-05,A: Good morning,4,18,1508,False
+2026-08-06,A: Good morning,1,19,1508,False
+2026-08-07,A: Good morning,6,25,1508,False
+2026-08-08,A: Good morning,2,27,1508,False
+2026-08-09,A: Good morning,7,34,1508,False
+2026-08-10,A: Good morning,7,41,1508,False
+2026-08-11,A: Good morning,8,49,1508,False
+2026-08-12,A: Good morning,7,56,1508,False
+2026-08-13,A: Good morning,5,61,1508,False
+2026-08-14,A: Good morning,9,70,1508,False
+2026-08-15,A: Good morning,12,82,1508,False
+2026-08-16,A: Good morning,12,94,1508,False
+2026-08-17,A: Good morning,8,102,1508,False
+2026-08-18,A: Good morning,12,114,1508,False
+2026-08-19,A: Good morning,14,128,1508,False
+2026-08-20,A: Good morning,14,142,1508,False
+2026-08-21,A: Good morning,7,149,1508,False
+2026-08-22,A: Good morning,19,168,1508,False
+2026-08-23,A: Good morning,14,182,1508,False
+2026-08-24,A: Good morning,19,201,1508,False
+2026-08-25,A: Good morning,18,219,1508,False
+2026-08-26,A: Good morning,12,231,1508,False
+2026-08-27,A: Good morning,19,250,1508,False
+2026-08-28,A: Good morning,20,270,1508,False
+2026-08-29,A: Good morning,10,280,1508,False
+2026-08-30,A: Good morning,15,295,1508,False
+2026-08-31,A: Good morning,32,327,1508,False
+2026-09-01,A: Good morning,20,347,1508,False
+2026-09-02,A: Good morning,16,363,1508,False
+2026-09-03,A: Good morning,20,383,1508,False
+2026-09-04,A: Good morning,26,409,1508,False
+2026-09-05,A: Good morning,23,432,1508,False
+2026-09-06,A: Good morning,20,452,1508,False
+2026-09-07,A: Good morning,27,479,1508,False
+2026-09-08,A: Good morning,32,511,1508,False
+2026-09-09,A: Good morning,20,531,1508,False
+2026-09-10,A: Good morning,17,548,1508,False
+2026-09-11,A: Good morning,28,576,1508,False
+2026-09-12,A: Good morning,29,605,1508,False
+2026-09-13,A: Good morning,23,628,1508,False
+2026-09-14,A: Good morning,43,671,1508,False
+2026-09-15,A: Good morning,37,708,1508,False
+2026-09-16,A: Good morning,45,753,1508,False
+2026-09-17,A: Good morning,33,786,1508,False
+2026-09-18,A: Good morning,29,815,1508,False
+2026-09-19,A: Good morning,37,852,1508,False
+2026-09-20,A: Good morning,43,895,1508,False
+2026-09-21,A: Good morning,38,933,1508,False
+2026-09-22,A: Good morning,43,976,1508,False
+2026-09-23,A: Good morning,36,1012,1508,False
+2026-09-24,A: Good morning,43,1055,1508,False
+2026-09-25,A: Good morning,37,1092,1508,False
+2026-09-26,A: Good morning,33,1125,1508,False
+2026-09-27,A: Good morning,39,1164,1508,False
+2026-09-28,A: Good morning,40,1204,1508,False
+2026-09-29,A: Good morning,39,1243,1508,False
+2026-09-30,A: Good morning,29,1272,1508,False
+2026-10-01,A: Good morning,33,1305,1508,False
+2026-10-02,A: Good morning,49,1354,1508,False
+2026-10-03,A: Good morning,42,1396,1508,False
+2026-10-04,A: Good morning,28,1424,1508,False
+2026-10-05,A: Good morning,50,1474,1508,False
+2026-10-06,A: Good morning,28,1502,1508,False
+2026-10-07,A: Good morning,45,1547,1508,False
+2026-10-08,A: Good morning,48,1595,1508,False
+2026-10-09,A: Good morning,42,1637,1508,True
+2026-10-10,A: Good morning,46,1683,1508,False
+2026-10-11,A: Good morning,44,1727,1508,False
+2026-10-12,A: Good morning,60,1787,1508,False
+2026-10-13,A: Good morning,44,1831,1508,False
+2026-10-14,A: Good morning,47,1878,1508,False
+2026-10-15,A: Good morning,52,1930,1508,False
+2026-10-16,A: Good morning,42,1972,1508,False
+2026-10-17,A: Good morning,49,2021,1508,False
+2026-10-18,A: Good morning,48,2069,1508,False
+2026-10-19,A: Good morning,48,2117,1508,False
+2026-10-20,A: Good morning,60,2177,1508,False
+2026-07-30,B: New every morning,0,0,1508,False
+2026-07-31,B: New every morning,1,1,1508,False
+2026-08-01,B: New every morning,1,2,1508,False
+2026-08-02,B: New every morning,1,3,1508,False
+2026-08-03,B: New every morning,2,5,1508,False
+2026-08-04,B: New every morning,3,8,1508,False
+2026-08-05,B: New every morning,3,11,1508,False
+2026-08-06,B: New every morning,4,15,1508,False
+2026-08-07,B: New every morning,6,21,1508,False
+2026-08-08,B: New every morning,2,23,1508,False
+2026-08-09,B: New every morning,4,27,1508,False
+2026-08-10,B: New every morning,3,30,1508,False
+2026-08-11,B: New every morning,7,37,1508,False
+2026-08-12,B: New every morning,15,52,1508,False
+2026-08-13,B: New every morning,6,58,1508,False
+2026-08-14,B: New every morning,12,70,1508,False
+2026-08-15,B: New every morning,13,83,1508,False
+2026-08-16,B: New every morning,7,90,1508,False
+2026-08-17,B: New every morning,9,99,1508,False
+2026-08-18,B: New every morning,15,114,1508,False
+2026-08-19,B: New every morning,9,123,1508,False
+2026-08-20,B: New every morning,12,135,1508,False
+2026-08-21,B: New every morning,13,148,1508,False
+2026-08-22,B: New every morning,19,167,1508,False
+2026-08-23,B: New every morning,14,181,1508,False
+2026-08-24,B: New every morning,10,191,1508,False
+2026-08-25,B: New every morning,11,202,1508,False
+2026-08-26,B: New every morning,16,218,1508,False
+2026-08-27,B: New every morning,23,241,1508,False
+2026-08-28,B: New every morning,12,253,1508,False
+2026-08-29,B: New every morning,24,277,1508,False
+2026-08-30,B: New every morning,25,302,1508,False
+2026-08-31,B: New every morning,21,323,1508,False
+2026-09-01,B: New every morning,24,347,1508,False
+2026-09-02,B: New every morning,28,375,1508,False
+2026-09-03,B: New every morning,11,386,1508,False
+2026-09-04,B: New every morning,19,405,1508,False
+2026-09-05,B: New every morning,23,428,1508,False
+2026-09-06,B: New every morning,22,450,1508,False
+2026-09-07,B: New every morning,25,475,1508,False
+2026-09-08,B: New every morning,27,502,1508,False
+2026-09-09,B: New every morning,30,532,1508,False
+2026-09-10,B: New every morning,28,560,1508,False
+2026-09-11,B: New every morning,25,585,1508,False
+2026-09-12,B: New every morning,24,609,1508,False
+2026-09-13,B: New every morning,24,633,1508,False
+2026-09-14,B: New every morning,30,663,1508,False
+2026-09-15,B: New every morning,24,687,1508,False
+2026-09-16,B: New every morning,27,714,1508,False
+2026-09-17,B: New every morning,24,738,1508,False
+2026-09-18,B: New every morning,23,761,1508,False
+2026-09-19,B: New every morning,33,794,1508,False
+2026-09-20,B: New every morning,44,838,1508,False
+2026-09-21,B: New every morning,33,871,1508,False
+2026-09-22,B: New every morning,43,914,1508,False
+2026-09-23,B: New every morning,29,943,1508,False
+2026-09-24,B: New every morning,29,972,1508,False
+2026-09-25,B: New every morning,37,1009,1508,False
+2026-09-26,B: New every morning,46,1055,1508,False
+2026-09-27,B: New every morning,45,1100,1508,False
+2026-09-28,B: New every morning,27,1127,1508,False
+2026-09-29,B: New every morning,36,1163,1508,False
+2026-09-30,B: New every morning,30,1193,1508,False
+2026-10-01,B: New every morning,41,1234,1508,False
+2026-10-02,B: New every morning,42,1276,1508,False
+2026-10-03,B: New every morning,34,1310,1508,False
+2026-10-04,B: New every morning,42,1352,1508,False
+2026-10-05,B: New every morning,38,1390,1508,False
+2026-10-06,B: New every morning,37,1427,1508,False
+2026-10-07,B: New every morning,31,1458,1508,False
+2026-10-08,B: New every morning,40,1498,1508,False
+2026-10-09,B: New every morning,38,1536,1508,True
+2026-10-10,B: New every morning,44,1580,1508,False
+2026-10-11,B: New every morning,51,1631,1508,False
+2026-10-12,B: New every morning,44,1675,1508,False
+2026-10-13,B: New every morning,47,1722,1508,False
+2026-10-14,B: New every morning,47,1769,1508,False
+2026-10-15,B: New every morning,57,1826,1508,False
+2026-10-16,B: New every morning,67,1893,1508,False
+2026-10-17,B: New every morning,42,1935,1508,False
+2026-10-18,B: New every morning,60,1995,1508,False
+2026-10-19,B: New every morning,40,2035,1508,False
+2026-10-20,B: New every morning,49,2084,1508,False

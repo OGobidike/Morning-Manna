@@ -216,6 +216,13 @@ jobs:
           ../../.dbt/bin/jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True \
             --inplace *.ipynb
           git diff --exit-code -- .
+      # Tableau Public reads the committed files, so they must match the warehouse just built
+      - name: The Tableau files are up to date
+        working-directory: analytics/experiments
+        run: |
+          ../../.dbt/bin/python tableau.py
+          git diff --exit-code -- ../tableau
+          test -z "$(git status --porcelain -- ../tableau)"  # and no new file left uncommitted
       # The dashboard's numbers, checked against the warehouse just built and the answer key
       - name: Lint and test the dashboard
         working-directory: analytics/dashboard
