@@ -139,11 +139,14 @@ The first A/B test compares two wordings of the morning reminder. Its plan was w
 
 Every reader in the test is a row of `fct_experiment`, with the measures the plan decides on. The pretend readers' test runs across the whole simulation; for real app users it began on 2 November 2026, when the app started flipping the coin (`reminder_test_app_start` in [dbt_project.yml](dbt_project.yml)).
 
-[experiments/power.py](experiments/power.py) works out the sample size. To see the table, from `analytics/experiments`:
+[experiments/power.py](experiments/power.py) works out the sample size, and [experiments/analyze.py](experiments/analyze.py) applies the plan's rules in their order: one look at the planned size, the split check, the z-test with its guardrails, and a Bayesian second view. From `analytics/experiments`:
 
 ```bash
-../.venv/bin/python power.py
+../.venv/bin/python power.py      # the sample-size table
+../.venv/bin/python analyze.py    # the result, as Markdown
 ```
+
+**The practice run's verdict: switch to wording B.** Day-7 return rose **+4.0 points** (38.2% → 42.3%, 95% interval +0.6 to +7.4, p = 0.021), and neither guardrail dropped. The whole result is in [docs/analysis/reminder-experiment-results.md](../docs/analysis/reminder-experiment-results.md).
 
 ## 📓 Notebooks
 
@@ -163,7 +166,7 @@ jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inpl
 |---|---|---|
 | dbt data tests | **46** | `dbt build` |
 | Dashboard tests | **34** | `pytest`, from `analytics/dashboard` |
-| Experiment tools | **9** | `pytest`, from `analytics/experiments` |
+| Experiment tools | **25** | `pytest`, from `analytics/experiments` |
 
 The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus seven custom checks in [tests/](tests/):
 
@@ -185,4 +188,4 @@ The **analytics** job in CI builds the warehouse from nothing on every push:
 4. The loader.
 5. `dbt build`.
 
-It then prints the day 1, 7 and 30 retention and the size of each experiment group in the log (only the sizes: nobody looks at how the groups did until the analysis), runs every notebook from top to bottom, checks each was saved without its outputs, and lints and tests the dashboard and the experiment tools.
+It then prints the day 1, 7 and 30 retention, the size of each experiment group and the experiment's result in the log, runs every notebook from top to bottom, checks each was saved without its outputs, and lints and tests the dashboard and the experiment tools.

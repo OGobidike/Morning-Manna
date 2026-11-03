@@ -189,8 +189,8 @@ jobs:
                 round(sum(day_7_returned)::numeric / nullif(sum(day_7_eligible), 0), 3) as day_7,
                 round(sum(day_30_returned)::numeric / nullif(sum(day_30_eligible), 0), 3) as day_30
             from {{ ref('fct_retention_cohorts') }}"
-      # The reminder experiment's group sizes. Only the sizes: the pre-registration says
-      # nobody looks at how the groups did until the analysis
+      # The reminder experiment's group sizes, then its analysis, by the rules written down
+      # before it began (docs/analysis/reminder-experiment.md)
       - name: The experiment's groups, for the record
         working-directory: analytics
         run: |
@@ -202,6 +202,9 @@ jobs:
             from {{ ref('fct_experiment') }}
             group by reminder_variant
             order by reminder_variant"
+      - name: The experiment's result
+        working-directory: analytics/experiments
+        run: ../../.dbt/bin/python analyze.py
       # Every notebook must run from top to bottom on the fresh warehouse, so none goes stale
       - name: Run the notebooks
         working-directory: analytics/notebooks
@@ -219,7 +222,7 @@ jobs:
         run: |
           ../../.dbt/bin/ruff check .
           ../../.dbt/bin/pytest
-      # The A/B test's maths (sample sizes now, the analysis later), checked against known answers
+      # The A/B test's maths (sample sizes and the analysis), checked against known answers
       - name: Lint and test the experiment tools
         working-directory: analytics/experiments
         run: |
