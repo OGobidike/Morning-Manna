@@ -248,3 +248,9 @@ jobs:
         run: |
           python ml/personas.py
           git diff --quiet -- ml/results/personas.csv || echo "::notice::The personas differ from ml/results/personas.csv"
+
+      # The best reminder time (Card 7.7): built on the personas, graded night by night
+      - name: The reminder times, for the record
+        run: |
+          python ml/reminder_time.py
+          git diff --quiet -- ml/results/reminder_time.csv || echo "::notice::The reminder times differ from ml/results/reminder_time.csv"
