@@ -22,6 +22,7 @@ mobile app ──POST /events──> backend ──> Postgres (public.events)
                                   └──background task──> SeaweedFS lake (S3, bucket morning-manna-lake)
                                                          events/dt=YYYY-MM-DD/*.jsonl  (filed by UTC arrival day)
 ml/simulate.py ──> data/lake/ ──ingest.upload──> same bucket
+          └──> data/answer_key/  (true daily finish chances: never loaded, only for grading models)
 Airflow daily_events (00:30 UTC): ingest.load_events (yesterday's folder → raw.events) ──> dbt build (→ analytics schema)
 ```
 
@@ -31,6 +32,7 @@ Airflow daily_events (00:30 UTC): ingest.load_events (yesterday's folder → raw
 - Each reader source has its own last day of data (`int_last_day`): every "has this reader had day N yet" or "still going" check joins it by `source`, never a single global `max(local_day)`, so real app readings can't stretch the synthetic readers' calendar.
 - dbt `stg_users` unions synthetic readers (`raw.readers`) with real app users (as `app:<id>`), each with their `reminder_variant`. `fct_experiment` holds one row per reader in the reminder A/B test (docs/analysis/reminder-experiment.md).
 - `analytics/experiments/` analyses that test (`analyze.py`), drills it (`drill.py`, record in `drill_runs.csv`) and draws it (`charts.py`, shown by notebook 02), and exports it for Tableau Public (`tableau.py` → `analytics/tableau/*.csv`: pretend readers and counts only; CI fails if the committed files are stale). Group A is green `#008300` and group B magenta `#e87ba4`, never the dashboard's persona colours.
+- `fct_reader_nights` (Card 7) is the streak-at-risk model's table: features use only that night and earlier (windows end at the current row); `missed_tomorrow` is the label. `reader_nights_never_peek` guards against leakage. Models are graded against `data/answer_key/`, which must never be loaded into the warehouse or used as a feature.
 
 ## Backend invariants (don't break these)
 
