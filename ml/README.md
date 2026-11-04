@@ -1,6 +1,6 @@
 # Morning Manna ML
 
-Pretend readers, the answer key the models are graded against, and the models themselves. The first one, streak risk, is built; reader personas and the best reminder time are next in Card 7.
+Pretend readers, the answer key the models are graded against, and the models themselves. Card 7 built three: streak risk, reader personas and the best reminder time.
 
 Python 3.11+ · NumPy · scikit-learn · XGBoost · LightGBM · MLflow
 
@@ -192,10 +192,28 @@ python ml/personas_charts.py     # the charts, as web pages in ml/charts/
 - **Chosen on one half, graded on the other.** Readers are split by a hash of their key: the number of groups and the groups themselves come from the learning half, and the grade from the checking half.
 - **At least 5 reading days**, a weekday and a weekend one among them, or a habit is mostly noise (ARI 0.59 for readers with 2 to 4). That's 52% of the pretend readers for now.
 
+## ⏰ The best reminder time (Card 7.7)
+
+The app sends the morning reminder at the reader's wake time. That suits early risers, but commuters start reading over an hour later, on the train. [reminder_time.py](reminder_time.py) learns how long after waking each reader usually starts, on weekdays and at weekends, from the warehouse's `fct_reader_starts`, and picks the time most likely to land in the half hour before they start.
+
+![Stacked bars: the share of reminders on time, too early or late, for each contestant. At wake time 46% on time; the model 62%; the truth 63%.](../docs/images/reminder-time-graded.png)
+
+**It closes 92% of the gap** between today's reminder (46% on time) and the best possible (63%). For commuters on weekdays, on time goes from 1% to 51%. It can't show that better timing makes people read more: in the simulator, timing changes nothing, so that needs an experiment with real readers. The whole story: [the write-up](../docs/analysis/reminder-time.md).
+
+```bash
+# From the repo root, after dbt build and python ml/personas.py
+python ml/reminder_time.py           # a few seconds; writes ml/results/reminder_time.csv and ml.reminder_times
+python ml/reminder_time_charts.py    # the charts, as web pages in ml/charts/
+```
+
+- **Built on Card 7.6.** Each group has its usual gaps after waking; a reader's own reads say which group they look like (Bayes' rule), and one or two reads are usually enough.
+- **Replayed night by night.** It's graded on the streak model's three held-out weeks, and each morning's pick uses only the reads before it.
+- **When unsure, the safe time.** A reader with no history gets the time most likely to be right, not an average of the groups: that's their wake time.
+
 ## Tests
 
 ```bash
 cd ml
 pip install -e ".[dev,models,tracking,serving]"
-pytest          # 65 tests
+pytest          # 74 tests
 ```

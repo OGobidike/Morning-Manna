@@ -196,3 +196,30 @@ models:
         description: Share of their reading days that fall at weekends. Empty with no reads.
       - name: read_minute_spread
         description: How much their reading time wanders, in minutes. Empty with fewer than two reads.
+
+  - name: fct_reader_starts
+    description: >
+      One row per reader per day they started reading, for finding the best reminder time
+      (Card 7.7): the first reading they opened that day, on their own clock, and how long
+      after their wake time that was.
+    columns:
+      - name: user_key
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_key
+      - name: local_day
+        description: The day, on the reader's own clock.
+        tests: [not_null]
+      - name: at_weekend
+        description: Saturday or Sunday, on the reader's own clock.
+        tests: [not_null]
+      - name: started_minute
+        description: When they opened their first reading that day, in minutes after midnight (330.5 is 05:30:30).
+      - name: wake_minute
+        description: The wake time they set in the app, in minutes after midnight.
+      - name: minutes_after_wake
+        description: How long after their wake time they started. Negative if they started before it.
+        tests: [not_null]

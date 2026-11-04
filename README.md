@@ -67,6 +67,12 @@ Tonight, how likely is a reader on a streak to miss tomorrow morning? Four model
 
 Can a model find the kinds of reader from their habits alone? K-means, given four habits and never the persona, found **3 groups**, and they match the simulator's true personas with an **ARI of 0.91** on readers it never saw. It even found that commuters read earlier at weekends. See [the write-up](docs/analysis/reader-personas.md).
 
+## ⏰ The best reminder time
+
+![Six histograms of how long after waking each group starts reading: early risers within half an hour, commuters about 75 minutes later on weekdays, weekend readers spread across two hours](docs/images/reminder-time-gaps.png)
+
+The morning reminder goes off at the reader's wake time, but a commuter starts reading over an hour later, on the train. Built on the personas, a model learns when each reader is about to read and picks the time most likely to land in the half hour before. It closes **92%** of the gap between today's reminder and the best possible, and for commuters on weekdays, on time goes from **1% to 51%**. See [the write-up](docs/analysis/reminder-time.md).
+
 ## License
 
 MIT
