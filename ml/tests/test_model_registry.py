@@ -1,0 +1,104 @@
+"""Tracking and versioning (Card 7.3): every race written down, and a champion that must earn it."""
+
+import os
+import sys
+from datetime import date
+from pathlib import Path
+
+import mlflow
+import pytest
+from mlflow import MlflowClient
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from test_streak_risk import pretend_nights  # noqa: E402
+
+import model_registry as mr  # noqa: E402
+import streak_risk as sr  # noqa: E402
+
+
+@pytest.fixture(scope="module")
+def race():
+    nights = pretend_nights()
+    learn, test = sr.split(nights, date(2026, 9, 21))
+    trained = [sr.train(name, learn, tries=2, folds=2) for name in sr.candidates()]
+    return sr.leaderboard(trained, test), trained, learn, test
+
+
+@pytest.fixture
+def store(tmp_path, monkeypatch):
+    """A fresh, empty store for each test. MLflow sets MLFLOW_TRACKING_URI itself when it's
+    pointed somewhere, so it's cleared before and after, or one test would write into another's."""
+    os.environ.pop("MLFLOW_TRACKING_URI", None)
+    monkeypatch.chdir(tmp_path)
+    yield tmp_path / "mlruns"
+    os.environ.pop("MLFLOW_TRACKING_URI", None)
+
+
+def test_a_race_is_written_down_with_every_model(race, store):
+    board, trained, learn, test = race
+    mr.use_store(store)
+    saved = mr.log_race(board, trained, learn, test)
+    assert set(saved) == set(sr.candidates())
+    runs = mlflow.search_runs(experiment_names=[mr.EXPERIMENT], output_format="list")
+    models = [r for r in runs if "model" in r.data.params]
+    assert len(runs) == 5 and len(models) == 4  # the race, and a run for each model
+    for run in models:
+        name = run.data.params["model"]
+        expected = board.set_index("model").roc_auc[name]
+        assert run.data.metrics["roc_auc"] == pytest.approx(expected)
+
+
+def test_everything_stays_in_the_store(race, store, tmp_path):
+    board, trained, learn, test = race
+    mr.track(board, trained, learn, test, store=store)
+    assert sorted(p.name for p in store.iterdir()) == ["artifacts", "mlflow.db"]
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["mlruns"]  # nothing anywhere else
+
+
+def test_the_first_model_becomes_champion_and_loads_back_exactly(race, store):
+    board, trained, learn, test = race
+    _, best, decision = mr.track(board, trained, learn, test, store=store)
+    assert decision.promoted and decision.champion_roc_auc is None
+    champion = mlflow.sklearn.load_model(f"models:/{mr.MODEL_NAME}@{mr.ALIAS}")
+    model = next(t.model for t in trained if t.name == best)
+    assert mr.same_predictions(model, champion, test)
+
+
+def test_a_tie_or_a_worse_model_never_takes_the_crown(race, store):
+    board, trained, learn, test = race
+    mr.use_store(store)
+    saved = mr.log_race(board, trained, learn, test)
+    first = mr.promote(saved["lightgbm"], test)
+    tie = mr.promote(saved["lightgbm"], test)
+    worse = mr.promote(saved["streak_rule"], test)
+    assert first.promoted and not tie.promoted and not worse.promoted
+    client = MlflowClient()
+    assert client.get_model_version_by_alias(mr.MODEL_NAME, mr.ALIAS).version == first.version
+    # Each one is still registered and labelled, so the history is complete
+    tags = client.get_model_version(mr.MODEL_NAME, worse.version).tags
+    assert tags["promoted"] == "False"
+    assert float(tags["held_out_roc_auc"]) < first.challenger_roc_auc
+
+
+def test_a_better_model_takes_the_crown(race, store):
+    board, trained, learn, test = race
+    mr.use_store(store)
+    saved = mr.log_race(board, trained, learn, test)
+    rule = mr.promote(saved["streak_rule"], test)
+    tree = mr.promote(saved["lightgbm"], test)
+    assert rule.promoted and tree.promoted
+    assert tree.champion_roc_auc == pytest.approx(rule.challenger_roc_auc)
+    client = MlflowClient()
+    assert client.get_model_version_by_alias(mr.MODEL_NAME, mr.ALIAS).version == tree.version
+
+
+def test_the_streak_rule_loads_back_without_pickle(race, store):
+    """Our own class goes through skops, trusted by name, and comes back working."""
+    board, trained, learn, test = race
+    mr.use_store(store)
+    saved = mr.log_race(board, trained, learn, test)
+    flavor = mlflow.models.get_model_info(saved["streak_rule"]).flavors["sklearn"]
+    assert flavor["serialization_format"] == "skops"
+    loaded = mlflow.sklearn.load_model(saved["streak_rule"])
+    rule = next(t.model for t in trained if t.name == "streak_rule")
+    assert type(loaded).__name__ == "StreakRule" and mr.same_predictions(rule, loaded, test)

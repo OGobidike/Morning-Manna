@@ -26,13 +26,25 @@ models = [
     "psycopg[binary]>=3.2",
     "plotly>=5.24",
 ]
+# Tracking and versioning the models (Card 7.3): about 113 MB more. The full package, because
+# mlflow-skinny can't keep its own records or show the web page
+tracking = [
+    "mlflow>=3.18",
+]
 
 [build-system]
 requires = ["setuptools>=69"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-py-modules = ["simulate", "streak_risk", "streak_risk_charts"]
+py-modules = ["simulate", "streak_risk", "streak_risk_charts", "model_registry"]
+
+[tool.pytest.ini_options]
+# MLflow's own code raises deprecation warnings from the libraries it uses; ours still show
+filterwarnings = [
+    "ignore:::mlflow.*",
+    "ignore:Hint. Inferred schema contains integer column:UserWarning",
+]
 
 [tool.ruff]
 line-length = 100

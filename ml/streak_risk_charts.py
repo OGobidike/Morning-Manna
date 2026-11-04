@@ -229,8 +229,10 @@ def learned(trained: list[sr.Trained]) -> go.Figure:
     )
 
 
-def everything(engine, answer_key: Path, tries: int = 25) -> dict[str, go.Figure]:
-    board, trained, _, test = sr.run(engine, answer_key, tries)
+def draw(
+    trained: list[sr.Trained], test: pd.DataFrame, board: pd.DataFrame
+) -> dict[str, go.Figure]:
+    """All four charts for a race that has already been run."""
     best = board[board.model.isin(["xgboost", "lightgbm"])].sort_values("roc_auc").model.iloc[-1]
     return {
         "races": races(trained, test, board),
@@ -238,6 +240,11 @@ def everything(engine, answer_key: Path, tries: int = 25) -> dict[str, go.Figure
         "honesty": honesty(trained, test, best),
         "learned": learned(trained),
     }
+
+
+def everything(engine, answer_key: Path, tries: int = 25) -> dict[str, go.Figure]:
+    board, trained, _, test = sr.run(engine, answer_key, tries)
+    return draw(trained, test, board)
 
 
 if __name__ == "__main__":
