@@ -1,8 +1,6 @@
 """Tracking and versioning (Card 7.3): every race written down, and a champion that must earn it."""
 
-import os
 import sys
-from datetime import date
 from pathlib import Path
 
 import mlflow
@@ -10,28 +8,10 @@ import pytest
 from mlflow import MlflowClient
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from test_streak_risk import pretend_nights  # noqa: E402
-
 import model_registry as mr  # noqa: E402
 import streak_risk as sr  # noqa: E402
 
-
-@pytest.fixture(scope="module")
-def race():
-    nights = pretend_nights()
-    learn, test = sr.split(nights, date(2026, 9, 21))
-    trained = [sr.train(name, learn, tries=2, folds=2) for name in sr.candidates()]
-    return sr.leaderboard(trained, test), trained, learn, test
-
-
-@pytest.fixture
-def store(tmp_path, monkeypatch):
-    """A fresh, empty store for each test. MLflow sets MLFLOW_TRACKING_URI itself when it's
-    pointed somewhere, so it's cleared before and after, or one test would write into another's."""
-    os.environ.pop("MLFLOW_TRACKING_URI", None)
-    monkeypatch.chdir(tmp_path)
-    yield tmp_path / "mlruns"
-    os.environ.pop("MLFLOW_TRACKING_URI", None)
+# The race and store fixtures are in conftest.py
 
 
 def test_a_race_is_written_down_with_every_model(race, store):

@@ -119,10 +119,36 @@ MLFLOW_DISABLE_TELEMETRY=true mlflow ui --backend-store-uri sqlite:///ml/mlruns/
 - **Nothing leaves the machine:** MLflow 3 sends usage statistics to its makers by default. `model_registry.py` switches that off, and so does `MLFLOW_DISABLE_TELEMETRY=true` in front of `mlflow ui`.
 - **Loaded back exactly:** every run checks that the registered model predicts exactly what it did before it was saved.
 
+## 🔔 The streak-at-risk service (Card 7.4)
+
+[serve.py](serve.py) puts the champion behind a small web API. It loads `models:/streak_risk@champion` once, when it starts, and anything that can send JSON (the nightly scoring in Card 7.5, the app, or you) can ask it about tonight's readers.
+
+| Endpoint | What it answers |
+|---|---|
+| `GET /health` | Is it up, and is a model loaded? |
+| `GET /model` | Which version is serving, and how it scored on held-out nights |
+| `POST /streak-risk` | For up to 1,000 streak nights at once, each reader's chance of missing tomorrow, and which version said so |
+
+![The service's interactive docs page: the three endpoints, and a request for two readers. A steady reader (a 12-day streak, read every day this week) gets a 15% chance of missing tomorrow; a wobbly one (a 1-day streak, read 2 days in 7, reading time wandering by 95 minutes) gets 48%. Both answers name model version 1.](../docs/images/streak-service.png)
+
+```bash
+# From the repo root, after python ml/model_registry.py has crowned a champion
+pip install -e "ml[models,tracking,serving]"
+uvicorn --app-dir ml serve:app --port 8001      # then open http://localhost:8001/docs
+```
+
+- **It speaks the reader's language.** Callers send `"reminder_variant": "B"`, not the model's `wording_b = 1`. The service translates, and always builds the exact columns the model learned from.
+- **Impossible nights are refused** with a clear error (422) before the model sees them: a rate above 100%, an 8th weekday, a streak of 0, a third wording, or a misspelled field.
+- **It says exactly what the model says.** A test sends 300 held-out nights through the API and checks every answer against the model run directly, to the last digit.
+- **Every answer is traceable:** it names the model version that gave it.
+- **No champion yet?** It still starts, and says so plainly (503, with what to run) instead of crashing.
+- **It's its own service, apart from the app's API in `backend/`,** so the app never carries the model libraries (over 200 MB), and either one can be restarted without the other. To pick up a new champion, restart it.
+- **It's quick:** a batch of 1,000 nights takes about 20 milliseconds.
+
 ## Tests
 
 ```bash
 cd ml
-pip install -e ".[dev,models,tracking]"
-pytest          # 41 tests
+pip install -e ".[dev,models,tracking,serving]"
+pytest          # 51 tests
 ```
