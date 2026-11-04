@@ -73,7 +73,7 @@ flowchart TD
     S["① Sources<br/>raw.events · raw.readers · public.users<br/>(the loader and the app)"]
     G["② Staging: views<br/>stg_events · stg_users"]
     I["③ Intermediate: three tables<br/>int_last_day, each source's last day of data<br/>int_daily_reading, one row per reader per day<br/>int_reader_nights, the model's features, worked out once"]
-    M["④ Marts: the answers, as tables<br/>fct_streaks · fct_retention_cohorts · dim_users<br/>fct_daily_activity · fct_reading_times · fct_experiment<br/>fct_reader_nights · fct_reader_tonight"]
+    M["④ Marts: the answers, as tables<br/>fct_streaks · fct_retention_cohorts · dim_users<br/>fct_daily_activity · fct_reading_times · fct_experiment<br/>fct_reader_nights · fct_reader_tonight · fct_reader_habits"]
     D["⑤ The notebooks and the dashboard"]
     S -->|tidy names and types| G
     G -->|a row for every day since signup, read or not| I
@@ -97,6 +97,7 @@ flowchart TD
 | `fct_experiment` | reader in the reminder test | Their group, day-1 and day-7 return (once they've had the day), and first-week readings opened and finished |
 | `fct_reader_nights` | reader per night | What was known by the end of that day (streak, days since the last reading, recent reading rates, how much their reading time wanders, tomorrow's weekday) and the label: did they miss the next morning? For the [streak-at-risk model](../docs/analysis/streak-risk-model.md) |
 | `fct_reader_tonight` | reader on a streak tonight | Everyone who read on their source's last day, with the same features and no label: their next morning hasn't happened yet. [Scored every night](../ml/README.md#-tonights-scores-card-75) |
+| `fct_reader_habits` | reader | Their reading habits: when they read on weekdays and at weekends, how much falls at weekends, how much the time wanders. Behaviour only, for [finding reader personas](../docs/analysis/reader-personas.md) |
 
 ## 🧭 Decisions
 
@@ -182,11 +183,11 @@ jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inpl
 
 | What | How many | Run with |
 |---|---|---|
-| dbt data tests | **69** | `dbt build` |
+| dbt data tests | **74** | `dbt build` |
 | Dashboard tests | **34** | `pytest`, from `analytics/dashboard` |
 | Experiment tools | **43** | `pytest`, from `analytics/experiments` |
 
-The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus eleven custom checks in [tests/](tests/):
+The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus twelve custom checks in [tests/](tests/):
 
 - `one_row_per_reader_per_day`: no reader has the same day twice.
 - `streaks_add_up`: each streak's length matches its dates, and all the streaks together add up to every morning read.
@@ -199,6 +200,7 @@ The dbt tests check keys that are unique and never empty, events that belong to 
 - `reader_nights_make_sense`: one row per reader per night, a streak only on a night they read, and rates between 0 and 1.
 - `reader_nights_never_peek`: the streak-at-risk features, worked out a second way from only the days up to each night, match the table, and the label matches the very next day. A planted peek three days ahead makes it fail.
 - `reader_tonight_makes_sense`: tonight's table holds exactly the readers who read on their source's last day, each with a streak to protect.
+- `reader_habits_make_sense`: every read is a weekday or a weekend one, shares and times are possible, and readers who never read have no times.
 
 The dashboard tests check the arithmetic on small hand-made tables (Kaplan-Meier, the week-on-week changes, the small-group rule), the warehouse against itself (the personas add up to everyone), and the warehouse against the simulator's answer key.
 

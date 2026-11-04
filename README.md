@@ -61,6 +61,12 @@ Two wordings of the morning reminder, tested on 5,000 pretend readers with a pla
 
 Tonight, how likely is a reader on a streak to miss tomorrow morning? Four models answer it, from a simple streak-length rule to XGBoost and LightGBM, graded on three weeks they never saw. **LightGBM** wins by a whisker and gets **half of the way** from the simple rule to perfect knowledge (the simulator's answer key). Nudging its riskiest fifth of readers reaches someone who'd have missed half the time. Every race is tracked in **MLflow**, and a new model becomes the **@champion** only if it beats the old one on the same nights. A small web API serves the champion, and answers for 1,000 readers in about 20 milliseconds. Every night, it scores the readers on a streak and flags who gets a nudge. See [the write-up](docs/analysis/streak-risk-model.md), [the model registry](ml/README.md#-tracking-and-versioning-card-73) and [the service](ml/README.md#-the-streak-at-risk-service-card-74).
 
+## 🧭 Reader personas
+
+![Three clouds of readers, by weekday reading time and share of reads at weekends: early risers around 05:30, commuters around 07:50, weekend readers around 08:20 with half their reading at weekends](docs/images/personas-map.png)
+
+Can a model find the kinds of reader from their habits alone? K-means, given four habits and never the persona, found **3 groups**, and they match the simulator's true personas with an **ARI of 0.91** on readers it never saw. It even found that commuters read earlier at weekends. See [the write-up](docs/analysis/reader-personas.md).
+
 ## License
 
 MIT

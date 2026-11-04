@@ -174,10 +174,28 @@ python ml/score_tonight.py
 
 Run by hand for now. Card 9 hands it to Airflow, together with the MLflow server: in a container, the model store's file paths (written on this machine) don't resolve, and the server is the proper fix.
 
+## 🧭 Reader personas (Card 7.6)
+
+Can a model find the kinds of reader from their habits alone? [personas.py](personas.py) gives K-means four habits from the warehouse's `fct_reader_habits` (weekday reading time, weekend reading time, the share of reads at weekends, and how much the reading time wanders), and never the persona. It chooses the number of groups itself, then is graded against the simulator's true personas on readers it never saw.
+
+![Three clouds of readers, by weekday reading time and share of reads at weekends: group 1 around 05:30, group 2 around 07:50 on weekdays and earlier at weekends, group 3 around 08:20 with half its reading at weekends.](../docs/images/personas-map.png)
+
+**It found them: 3 groups, ARI 0.91** (1 is a perfect match, 0 is chance). It even found that commuters read earlier at weekends. The whole story, with the honest split and the three charts: [the write-up](../docs/analysis/reader-personas.md).
+
+```bash
+# From the repo root, after dbt build
+python ml/personas.py            # a few seconds; writes ml/results/personas.csv and ml.reader_personas
+python ml/personas_charts.py     # the charts, as web pages in ml/charts/
+```
+
+- **The persona is the answer key.** It's read only to grade, the way the A/B test's planted effect was, and a test checks the habits table never carries it.
+- **Chosen on one half, graded on the other.** Readers are split by a hash of their key: the number of groups and the groups themselves come from the learning half, and the grade from the checking half.
+- **At least 5 reading days**, a weekday and a weekend one among them, or a habit is mostly noise (ARI 0.59 for readers with 2 to 4). That's 52% of the pretend readers for now.
+
 ## Tests
 
 ```bash
 cd ml
 pip install -e ".[dev,models,tracking,serving]"
-pytest          # 58 tests
+pytest          # 65 tests
 ```

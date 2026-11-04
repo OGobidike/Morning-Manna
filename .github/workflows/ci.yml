@@ -243,3 +243,8 @@ jobs:
         run: |
           python ml/streak_risk.py
           git diff --quiet -- ml/results || echo "::notice::The leaderboard differs from ml/results/streak_risk.csv"
+      # The reader personas (Card 7.6): found from habits alone, graded against the answer key
+      - name: The reader personas, for the record
+        run: |
+          python ml/personas.py
+          git diff --quiet -- ml/results/personas.csv || echo "::notice::The personas differ from ml/results/personas.csv"
