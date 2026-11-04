@@ -43,6 +43,9 @@ data/answer_key/
 analytics/experiments/charts/
 # the streak-at-risk model's charts as web pages (python ml/streak_risk_charts.py rebuilds them)
 ml/charts/
+# MLflow's records and saved models (python ml/model_registry.py), wherever a run puts them
+mlruns/
+mlartifacts/
 # dbt's working files in analytics/ (rebuilt on every run)
 analytics/target/
 analytics/logs/

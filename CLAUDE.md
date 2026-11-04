@@ -12,7 +12,7 @@ Morning Manna: a daily Bible-reading app (one short passage each morning, in the
 | `mobile/` | Android app | Expo SDK 57, React Native, TypeScript, Expo Router |
 | `pipelines/` | Lake → warehouse loader (package `ingest`) and Airflow DAGs | boto3, psycopg 3, Airflow 3.3 |
 | `analytics/` | dbt models (staging → intermediate → marts) | dbt-core 1.12, dbt-postgres |
-| `ml/` | `simulate.py`: deterministic synthetic readers; `streak_risk.py`: the streak-at-risk models (Phase 7) | NumPy, scikit-learn, XGBoost (`xgboost-cpu`), LightGBM |
+| `ml/` | `simulate.py`: deterministic synthetic readers; `streak_risk.py`: the streak-at-risk models; `model_registry.py`: MLflow tracking and the registry (Phase 7) | NumPy, scikit-learn, XGBoost (`xgboost-cpu`), LightGBM, MLflow |
 | `docs/` | `ERD.md` (database schema), screenshots | |
 
 ## How data flows
@@ -88,7 +88,7 @@ DAG tests need Airflow, so run them in the container:
 
 `pytest`. Run `python ml/simulate.py --end 2026-10-27` (from the root) for reproducible data. Seed 7 with that end date yields exactly 5,000 readers and 179,077 events; CI and the analytics README numbers depend on this, so changing the simulator changes them. Each reader gets reminder wording A or B; `WORDING_B_LIFT` is the planted effect, the practice run's answer key: the Card 6.4 analysis must never read it, and is compared with it only once the analysis is done.
 
-The models need the `models` extra: `pip install -e ".[dev,models]"` (it is `xgboost-cpu`, not `xgboost`, which would pull ~290 MB of unused GPU libraries; ask before adding heavy packages). On Linux, LightGBM also needs the system package `libgomp1` (minimal Ubuntu and WSL lack it; CI's runner has it). `python ml/streak_risk.py` (from the root, after `dbt build`) trains and grades the streak-at-risk models on a date split (`TEST_FROM`) with time-ordered tuning folds; never shuffle nights across time. It writes `ml/results/streak_risk.csv`, which is committed; `ml/charts/` is not.
+The models need the `models` extra: `pip install -e ".[dev,models]"` (it is `xgboost-cpu`, not `xgboost`, which would pull ~290 MB of unused GPU libraries; ask before adding heavy packages). On Linux, LightGBM also needs the system package `libgomp1` (minimal Ubuntu and WSL lack it; CI's runner has it). `python ml/model_registry.py` (needs the `tracking` extra, full `mlflow`; skinny can't use a local store) logs every race to MLflow (SQLite in `ml/mlruns/`, git-ignored; `MLFLOW_TRACKING_URI` overrides) and registers the best model; it takes `@champion` only if it strictly beats the re-scored champion on the same held-out nights. Models are saved with skops, so a new model class needs its types added to `TRUSTED`; telemetry is switched off in code. `python ml/streak_risk.py` (from the root, after `dbt build`) trains and grades the streak-at-risk models on a date split (`TEST_FROM`) with time-ordered tuning folds; never shuffle nights across time. It writes `ml/results/streak_risk.csv`, which is committed; `ml/charts/` is not.
 
 ### Mobile (`cd mobile`)
 

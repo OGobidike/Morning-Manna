@@ -19,7 +19,7 @@ recommendations.
 | Mobile | React Native (Expo), TypeScript |
 | API | Python, FastAPI, PostgreSQL |
 | Data | pandas, Airflow, dbt, AWS S3 |
-| ML / NLP | scikit-learn, sentence embeddings, pgvector, LLM API |
+| ML / NLP | scikit-learn, XGBoost, LightGBM, MLflow, sentence embeddings, pgvector, LLM API |
 | Ops | Docker, GitHub Actions, AWS(mayyybe we'll see) |
 
 ## Repository layout
@@ -59,7 +59,7 @@ Two wordings of the morning reminder, tested on 5,000 pretend readers with a pla
 
 ![ROC curves on the held-out weeks: the dotted streak rule lowest at 0.609, logistic regression at 0.646, XGBoost and LightGBM almost on top of each other at 0.662 and 0.665, and the truth well above them all at 0.719](docs/images/streak-risk-races.png)
 
-Tonight, how likely is a reader on a streak to miss tomorrow morning? Four models answer it, from a simple streak-length rule to XGBoost and LightGBM, graded on three weeks they never saw. **LightGBM** wins by a whisker and gets **half of the way** from the simple rule to perfect knowledge (the simulator's answer key). Nudging its riskiest fifth of readers reaches someone who'd have missed half the time. See [the write-up](docs/analysis/streak-risk-model.md).
+Tonight, how likely is a reader on a streak to miss tomorrow morning? Four models answer it, from a simple streak-length rule to XGBoost and LightGBM, graded on three weeks they never saw. **LightGBM** wins by a whisker and gets **half of the way** from the simple rule to perfect knowledge (the simulator's answer key). Nudging its riskiest fifth of readers reaches someone who'd have missed half the time. Every race is tracked in **MLflow**, and a new model becomes the **@champion** only if it beats the old one on the same nights. See [the write-up](docs/analysis/streak-risk-model.md) and [the model registry](ml/README.md#-tracking-and-versioning-card-73).
 
 ## License
 

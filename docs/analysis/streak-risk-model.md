@@ -106,4 +106,4 @@ python ml/streak_risk.py                 # trains and grades all four, writes th
 python ml/streak_risk_charts.py          # the four charts above, as web pages in ml/charts/
 ```
 
-Next, the winner gets tracked and versioned (Card 7.3), served (Card 7.4), and run every night (Card 7.5).
+Every race is also tracked with MLflow, and the winner is registered as a new version of the model. It becomes the `@champion` only if it beats the current one on the same held-out nights ([how it works](../../ml/README.md#-tracking-and-versioning-card-73)). Next, the champion gets served (Card 7.4) and run every night (Card 7.5).

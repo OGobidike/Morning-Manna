@@ -74,8 +74,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      # The models' libraries too (about 107 MB), so their tests run
-      - run: pip install -e ".[dev,models]"
+      # The models' libraries (about 107 MB) and MLflow (about 113 MB), so their tests run
+      - run: pip install -e ".[dev,models,tracking]"
       - run: ruff check .
       - run: pytest
 
