@@ -74,7 +74,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install -e ".[dev]"
+      # The models' libraries too (about 107 MB), so their tests run
+      - run: pip install -e ".[dev,models]"
       - run: ruff check .
       - run: pytest
 
@@ -156,8 +157,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - name: Install the backend, the simulator and the loader
-        run: pip install -e backend -e ml -e "pipelines[dev]"
+      - name: Install the backend, the simulator and its models, and the loader
+        run: pip install -e backend -e "ml[models]" -e "pipelines[dev]"
       # dbt, the notebooks and the dashboard share a venv of their own, as on Kai's PC
       - name: Install dbt, the notebooks' and the dashboard's libraries
         run: |
@@ -235,3 +236,10 @@ jobs:
         run: |
           ../../.dbt/bin/ruff check .
           ../../.dbt/bin/pytest
+      # The streak-at-risk models (Card 7.2), trained and graded on the warehouse just built
+      # (about 25 seconds). Tree models can round differently on another processor, so a
+      # leaderboard that differs from the committed one is flagged, not failed
+      - name: The streak-at-risk models, for the record
+        run: |
+          python ml/streak_risk.py
+          git diff --quiet -- ml/results || echo "::notice::The leaderboard differs from ml/results/streak_risk.csv"

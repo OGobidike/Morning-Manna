@@ -1,8 +1,8 @@
 # Morning Manna ML
 
-Pretend readers, and the answer key the models are graded against. The models themselves (streak risk, reader personas, the best reminder time) are being built in Card 7.
+Pretend readers, the answer key the models are graded against, and the models themselves. The first one, streak risk, is built; reader personas and the best reminder time are next in Card 7.
 
-Python 3.11+ · NumPy
+Python 3.11+ · NumPy · scikit-learn · XGBoost · LightGBM
 
 ## Pretend readers
 
@@ -58,10 +58,36 @@ The first thing it graded was the warehouse itself. [Notebook 03](../analytics/n
 
 ![Bars show the share of nights followed by a missed morning, by streak length, as the warehouse saw it: 88% with no streak, falling to 40% after one day and 18% at 10 days or more. Diamonds show what the simulator's truth expected, and they sit on top of every bar.](../docs/images/streak-truth.png)
 
+## 🔥 The streak-at-risk model (Card 7.2)
+
+Tonight, how likely is a reader on a streak to miss tomorrow morning? [streak_risk.py](streak_risk.py) trains four models to answer it, from the warehouse's `fct_reader_nights`: a streak-length lookup (the baseline), logistic regression, XGBoost and LightGBM. Each is tuned on time-ordered folds, so no model learns from its own future, then graded once on the last three weeks, against the answer key.
+
+| Model | ROC-AUC | Nudge the riskiest 20%: misses caught | Gap closed |
+|---|---|---|---|
+| Streak rule | 0.609 | 25.0% | 0% |
+| Logistic regression | 0.646 | 30.4% | 33% |
+| XGBoost | 0.662 | 31.7% | 48% |
+| 🥇 **LightGBM** | **0.665** | **32.1%** | **50%** |
+| *The truth (answer key)* | *0.719* | *37.4%* | *100%* |
+
+"Gap closed" is how far each model got from the streak rule to perfect knowledge. Even the truth can't score 1.0, because a reader with a 30% chance of missing still flips a weighted coin in the morning. The whole story, with four charts: [the write-up](../docs/analysis/streak-risk-model.md).
+
+![ROC curves on the held-out weeks: the dotted streak rule lowest, logistic regression above it, XGBoost and LightGBM almost on top of each other, and the truth well above them all.](../docs/images/streak-risk-races.png)
+
+```bash
+# From the repo root, after simulate.py and dbt build
+sudo apt install libgomp1           # Linux: LightGBM needs this system library (about 0.4 MB)
+pip install -e "ml[models]"         # scikit-learn, xgboost-cpu, LightGBM, … (about 107 MB)
+python ml/streak_risk.py            # about 25 seconds; writes ml/results/streak_risk.csv
+python ml/streak_risk_charts.py     # the charts, as web pages in ml/charts/
+```
+
+The libraries are an extra, so the simulator stays light for the jobs that only need it. LightGBM uses the system's OpenMP library to train on several cores, and a minimal Ubuntu (WSL's, for one) doesn't have it: without `libgomp1`, `import lightgbm` fails with `libgomp.so.1: cannot open shared object file`. scikit-learn and XGBoost bring their own copy. On a Mac, it's `brew install libomp`. `xgboost-cpu` is XGBoost without the 291 MB of GPU libraries the full package brings, which nothing here uses. The same warehouse gives the same leaderboard to the last digit, on every run on the same computer.
+
 ## Tests
 
 ```bash
 cd ml
-pip install -e ".[dev]"
-pytest          # 26 tests
+pip install -e ".[dev,models]"
+pytest          # 35 tests
 ```
