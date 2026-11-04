@@ -150,5 +150,5 @@ uvicorn --app-dir ml serve:app --port 8001      # then open http://localhost:800
 ```bash
 cd ml
 pip install -e ".[dev,models,tracking,serving]"
-pytest          # 51 tests
+pytest          # 52 tests
 ```

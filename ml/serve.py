@@ -10,7 +10,8 @@ It's a service of its own, apart from the app's API in backend/, so the app neve
 model libraries (over 200 MB) and either one can be restarted or updated without the other.
 To pick up a new champion, restart it.
 
-Run it from the repo root (http://localhost:8001/docs shows every endpoint, and lets you try them):
+Run it from the repo root, then open http://localhost:8001 (it goes to /docs, which shows every
+endpoint and lets you try them):
     ml/.venv/bin/uvicorn --app-dir ml serve:app --port 8001
 """
 
@@ -23,6 +24,7 @@ import mlflow
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, ConfigDict, Field
 
 import model_registry as mr  # also switches MLflow's telemetry off
@@ -105,6 +107,11 @@ def create_app(store: Path = mr.STORE) -> FastAPI:
                 503, "No champion model yet: run python ml/model_registry.py, then restart"
             )
         return app.state.champion
+
+    @app.get("/", include_in_schema=False)
+    def home():
+        # Opening the bare address (uvicorn prints it as a link) lands on the docs, not a 404
+        return RedirectResponse("/docs")
 
     @app.get("/health")
     def health():

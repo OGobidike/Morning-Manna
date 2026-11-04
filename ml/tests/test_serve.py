@@ -59,6 +59,13 @@ def test_with_no_champion_it_says_so_plainly(store):
         assert answer.status_code == 503 and "model_registry.py" in answer.json()["detail"]
 
 
+def test_the_bare_address_leads_to_the_docs(store):
+    with TestClient(serve.create_app(store)) as client:
+        answer = client.get("/", follow_redirects=False)
+        assert answer.status_code == 307 and answer.headers["location"] == "/docs"
+        assert client.get("/").status_code == 200  # and the docs page is there
+
+
 def test_it_serves_the_champion_and_says_which(crowned):
     store, _, version = crowned
     with TestClient(serve.create_app(store)) as client:
