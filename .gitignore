@@ -41,6 +41,8 @@ data/lake/
 data/answer_key/
 # the experiment's charts as web pages (python charts.py rebuilds them)
 analytics/experiments/charts/
+# the streak-at-risk model's charts as web pages (python ml/streak_risk_charts.py rebuilds them)
+ml/charts/
 # dbt's working files in analytics/ (rebuilt on every run)
 analytics/target/
 analytics/logs/

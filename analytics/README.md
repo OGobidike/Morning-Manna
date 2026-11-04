@@ -94,7 +94,7 @@ flowchart TD
 | `fct_daily_activity` | day per persona | Readers who had joined, readers who read, and how many who opened a reading finished one |
 | `fct_reading_times` | half hour per persona | Readings finished in each half hour of the readers' own day |
 | `fct_experiment` | reader in the reminder test | Their group, day-1 and day-7 return (once they've had the day), and first-week readings opened and finished |
-| `fct_reader_nights` | reader per night | What was known by the end of that day (streak, days since the last reading, recent reading rates, how much their reading time wanders, tomorrow's weekday) and the label: did they miss the next morning? For the streak-at-risk model |
+| `fct_reader_nights` | reader per night | What was known by the end of that day (streak, days since the last reading, recent reading rates, how much their reading time wanders, tomorrow's weekday) and the label: did they miss the next morning? For the [streak-at-risk model](../docs/analysis/streak-risk-model.md) |
 
 ## 🧭 Decisions
 
