@@ -23,3 +23,15 @@ models:
         tests: [not_null]
       - name: days_since_signup
         description: 0 on the day they joined, 1 the day after, and so on.
+
+  - name: int_reader_nights
+    description: >
+      One row per reader per night with the streak-at-risk model's features, worked out once
+      (Card 7.5). fct_reader_nights (the training data) and fct_reader_tonight (what the model
+      is asked about) both read from here, so their features can't drift apart.
+      reads_tomorrow is empty on each reader's last night.
+    columns:
+      - name: user_key
+        tests: [not_null]
+      - name: night
+        tests: [not_null]

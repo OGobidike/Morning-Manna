@@ -145,10 +145,39 @@ uvicorn --app-dir ml serve:app --port 8001      # then open http://localhost:800
 - **It's its own service, apart from the app's API in `backend/`,** so the app never carries the model libraries (over 200 MB), and either one can be restarted without the other. To pick up a new champion, restart it.
 - **It's quick:** a batch of 1,000 nights takes about 20 milliseconds.
 
+## 🌙 Tonight's scores (Card 7.5)
+
+Every night, some readers have a streak to protect. [score_tonight.py](score_tonight.py) asks the champion about each of them and decides who gets a gentle nudge:
+
+```mermaid
+flowchart TD
+    T["① analytics.fct_reader_tonight: everyone who read on their source's last day"] --> C["② The champion gives each one a chance of missing tomorrow"]
+    H["The held-out nights it was graded on"] -->|"the chance that marks their riskiest 20%"| K["The nudge cut-off"]
+    C --> N{"③ At or above the cut-off?"}
+    K --> N
+    N -->|yes| Y["④ nudge = true"]
+    N -->|no| X["④ nudge = false"]
+    Y --> S["⑤ ml.streak_risk_scores: night, reader, chance, nudge, cut-off, model version"]
+    X --> S
+```
+
+```bash
+# From the repo root, after dbt build, once a champion is crowned
+python ml/score_tonight.py
+```
+
+- **One feature recipe.** Tonight's features come from `int_reader_nights`, the same dbt model the training table reads from, so the numbers the model is asked about are worked out exactly the way the ones it learned from were.
+- **A fixed cut-off, not a quota.** The cut-off comes from the held-out nights the model was graded on (Card 7.2): the chance that marks their riskiest fifth, about 42% for the current champion. Rehearsal caught the quota's flaw: "the riskiest fifth" of a single real reader is nobody, so a lone reader at 56% would never have been nudged. With a cut-off, the rule is the same for one reader or 10,000, and a calm night nudges fewer people than a shaky one.
+- **Every row is traceable:** the chance, the cut-off it was compared with, and the model version that gave it.
+- **Safe to re-run.** Scoring a night again replaces its scores in one transaction: all of them land, or none do.
+- **Its own schema.** The scores live in `ml`, apart from the app's tables (`public`), the loader's (`raw`) and dbt's (`analytics`).
+
+Run by hand for now. Card 9 hands it to Airflow, together with the MLflow server: in a container, the model store's file paths (written on this machine) don't resolve, and the server is the proper fix.
+
 ## Tests
 
 ```bash
 cd ml
 pip install -e ".[dev,models,tracking,serving]"
-pytest          # 52 tests
+pytest          # 58 tests
 ```
