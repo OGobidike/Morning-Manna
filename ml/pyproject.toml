@@ -31,13 +31,20 @@ models = [
 tracking = [
     "mlflow>=3.18",
 ]
+# The model service (Card 7.4): FastAPI and uvicorn already come with MLflow, so only httpx2
+# (about 200 KB, for FastAPI's test client) is new
+serving = [
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+    "httpx2>=2.13",
+]
 
 [build-system]
 requires = ["setuptools>=69"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-py-modules = ["simulate", "streak_risk", "streak_risk_charts", "model_registry"]
+py-modules = ["simulate", "streak_risk", "streak_risk_charts", "model_registry", "serve"]
 
 [tool.pytest.ini_options]
 # MLflow's own code raises deprecation warnings from the libraries it uses; ours still show

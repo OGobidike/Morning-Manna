@@ -134,17 +134,24 @@ def log_race(board: pd.DataFrame, trained: list[sr.Trained], learn: pd.DataFrame
     return runs
 
 
-def champion_score(test: pd.DataFrame) -> float | None:
-    """The current champion's ROC-AUC on these nights, or None if there's no champion yet."""
+def champion_version():
+    """The registry's record of the current champion, or None if there's no champion yet."""
+    client = MlflowClient()
     try:
-        registered = MlflowClient().get_registered_model(MODEL_NAME)
+        registered = client.get_registered_model(MODEL_NAME)
     except mlflow.exceptions.MlflowException as error:
-        # Only "never registered" means no champion; any other failure must stop the run, or a
-        # hiccup could crown a worse model
+        # Only "never registered" means no champion; any other failure must stop the caller, or
+        # a hiccup could crown a worse model, or serve none at all
         if error.error_code == "RESOURCE_DOES_NOT_EXIST":
             return None
         raise
-    if ALIAS not in registered.aliases:
+    version = registered.aliases.get(ALIAS)
+    return None if version is None else client.get_model_version(MODEL_NAME, version)
+
+
+def champion_score(test: pd.DataFrame) -> float | None:
+    """The current champion's ROC-AUC on these nights, or None if there's no champion yet."""
+    if champion_version() is None:
         return None
     champion = mlflow.sklearn.load_model(f"models:/{MODEL_NAME}@{ALIAS}")
     return float(roc_auc_score(test[sr.LABEL], sr.miss_chance(champion, test)))
