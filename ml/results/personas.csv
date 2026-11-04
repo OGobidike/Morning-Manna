@@ -1,0 +1,4 @@
+group,weekday_minute,weekend_minute,weekend_share,read_minute_spread,label,readers,k,silhouette,learn_ari,check_ari,coverage
+1,331.66,341.95,0.29,11.04,"05:31 weekdays, 05:41 weekends, 29% of reads at weekends",1016,3,0.5185,0.9221,0.9098,0.516
+2,472.35,442.77,0.21,25.21,"07:52 weekdays, 07:22 weekends, 21% of reads at weekends",978,3,0.5185,0.9221,0.9098,0.516
+3,499.55,496.69,0.48,40.7,"08:19 weekdays, 08:16 weekends, 48% of reads at weekends",586,3,0.5185,0.9221,0.9098,0.516

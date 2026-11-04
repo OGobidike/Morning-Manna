@@ -169,3 +169,30 @@ models:
       - name: tomorrow_weekday
         description: The morning being predicted, 1 for Monday to 7 for Sunday.
         tests: [not_null]
+
+  - name: fct_reader_habits
+    description: >
+      One row per reader: their reading habits, for finding reader personas (Card 7.6).
+      Behaviour only; the simulator's persona is the answer key and never comes in here.
+      Times are minutes after midnight on the reader's own clock, from their first finished
+      reading each day.
+    columns:
+      - name: user_key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_key
+      - name: reads
+        description: Days with a finished reading.
+        tests: [not_null]
+      - name: weekday_minute
+        description: Average time of their first reading on Monday to Friday (330 is 05:30). Empty with no weekday reads.
+      - name: weekend_minute
+        description: The same on Saturday and Sunday.
+      - name: weekend_share
+        description: Share of their reading days that fall at weekends. Empty with no reads.
+      - name: read_minute_spread
+        description: How much their reading time wanders, in minutes. Empty with fewer than two reads.
