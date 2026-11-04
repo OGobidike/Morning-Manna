@@ -73,7 +73,7 @@ flowchart TD
     S["① Sources<br/>raw.events · raw.readers · public.users<br/>(the loader and the app)"]
     G["② Staging: views<br/>stg_events · stg_users"]
     I["③ Intermediate: two tables<br/>int_last_day, each source's last day of data<br/>int_daily_reading, one row per reader per day"]
-    M["④ Marts: the answers, as tables<br/>fct_streaks · fct_retention_cohorts · dim_users<br/>fct_daily_activity · fct_reading_times · fct_experiment"]
+    M["④ Marts: the answers, as tables<br/>fct_streaks · fct_retention_cohorts · dim_users<br/>fct_daily_activity · fct_reading_times · fct_experiment<br/>fct_reader_nights"]
     D["⑤ The notebooks and the dashboard"]
     S -->|tidy names and types| G
     G -->|a row for every day since signup, read or not| I
@@ -94,6 +94,7 @@ flowchart TD
 | `fct_daily_activity` | day per persona | Readers who had joined, readers who read, and how many who opened a reading finished one |
 | `fct_reading_times` | half hour per persona | Readings finished in each half hour of the readers' own day |
 | `fct_experiment` | reader in the reminder test | Their group, day-1 and day-7 return (once they've had the day), and first-week readings opened and finished |
+| `fct_reader_nights` | reader per night | What was known by the end of that day (streak, days since the last reading, recent reading rates, how much their reading time wanders, tomorrow's weekday) and the label: did they miss the next morning? For the streak-at-risk model |
 
 ## 🧭 Decisions
 
@@ -165,6 +166,8 @@ Every reader in the test is a row of `fct_experiment`, with the measures the pla
 
 [notebooks/02_reminder_experiment.ipynb](notebooks/02_reminder_experiment.ipynb) tells the reminder experiment's story in three pictures, drawn from `fct_experiment` and the drill's record with the same code as the results page, so the two can never disagree.
 
+[notebooks/03_streak_risk_data.ipynb](notebooks/03_streak_risk_data.ipynb) looks at the streak-at-risk model's data before any model exists, and checks every night's label against the simulator's answer key ([ml/README.md](../ml/README.md#-the-answer-key-card-7)). CI fails if they drift apart.
+
 Open either in VS Code after `dbt build`, choose the `analytics/.venv` kernel, and click **Run All**.
 
 Notebooks are committed without their outputs or run details, which keeps diffs readable. Clear them before you commit:
@@ -177,11 +180,11 @@ jupyter nbconvert --clear-output --ClearMetadataPreprocessor.enabled=True --inpl
 
 | What | How many | Run with |
 |---|---|---|
-| dbt data tests | **50** | `dbt build` |
+| dbt data tests | **60** | `dbt build` |
 | Dashboard tests | **34** | `pytest`, from `analytics/dashboard` |
 | Experiment tools | **43** | `pytest`, from `analytics/experiments` |
 
-The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus eight custom checks in [tests/](tests/):
+The dbt tests check keys that are unique and never empty, events that belong to a known reader, and allowed values only, plus ten custom checks in [tests/](tests/):
 
 - `one_row_per_reader_per_day`: no reader has the same day twice.
 - `streaks_add_up`: each streak's length matches its dates, and all the streaks together add up to every morning read.
@@ -191,6 +194,8 @@ The dbt tests check keys that are unique and never empty, events that belong to 
 - `experiment_makes_sense`: nobody in the experiment returns on a day they haven't had yet, or finishes more readings than they opened.
 - `experiment_matches_retention`: the experiment's day-1 and day-7 counts, added up over both groups, equal the retention cohorts' counts for the pretend readers.
 - `each_source_keeps_its_own_calendar`: each source's calendar ends on its own last day with data, so real readings never stretch the pretend readers' calendar.
+- `reader_nights_make_sense`: one row per reader per night, a streak only on a night they read, and rates between 0 and 1.
+- `reader_nights_never_peek`: the streak-at-risk features, worked out a second way from only the days up to each night, match the table, and the label matches the very next day. A planted peek three days ahead makes it fail.
 
 The dashboard tests check the arithmetic on small hand-made tables (Kaplan-Meier, the week-on-week changes, the small-group rule), the warehouse against itself (the personas add up to everyone), and the warehouse against the simulator's answer key.
 

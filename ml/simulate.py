@@ -15,9 +15,17 @@ Run it:
 It writes a little data lake, laid out the way S3 will hold it:
     data/lake/readers/synthetic.jsonl                   one line per reader
     data/lake/events/dt=2026-10-27/synthetic.jsonl      one line per event, by the day it arrived
+
+And, apart from the lake, the models' answer key (Card 7): each reader's true chance of
+finishing a reading on each day. It never goes into the warehouse, so the models can't see it;
+they're graded against it afterwards, the way the A/B test was:
+    data/answer_key/finish_chance.csv.gz                user_key, day, finish_chance
 """
 
 import argparse
+import csv
+import gzip
+import io
 import json
 from dataclasses import asdict, dataclass
 from datetime import UTC, date, datetime, time, timedelta
@@ -61,6 +69,12 @@ WEEKDAY_FACTOR = {
 # (Card 6.4) never reads it, and is compared with it only once the analysis is done.
 REMINDER_VARIANTS = ("A", "B")
 WORDING_B_LIFT = 0.10
+
+# Of the readings a reader opens, the share they finish
+FINISH_CHANCE = 0.9
+
+# Readers who leave for good, on any morning: likeliest in their first few days
+LEAVE_CHANCE_EARLY, LEAVE_CHANCE_LATER, EARLY_DAYS = 0.10, 0.02, 3
 
 # Minutes after waking that a reader opens the passage: (mean, spread) on (weekdays, weekends)
 READ_DELAY = {
@@ -116,8 +130,15 @@ def make_readers(count: int, start: date, days: int, seed: int) -> list[Reader]:
     return readers
 
 
-def simulate_reader(reader: Reader, end: date, seed: int) -> list[dict]:
-    """Every event one reader sends, from the day they join to the end date."""
+def simulate_reader(
+    reader: Reader, end: date, seed: int, answer_key: list[dict] | None = None
+) -> list[dict]:
+    """Every event one reader sends, from the day they join to the end date.
+
+    Pass a list as answer_key to also collect the reader's true chance of finishing a reading
+    on each day, judged that morning before anything happens. Collecting it draws no random
+    numbers, so the events come out exactly the same either way.
+    """
     # Each reader gets their own random stream, so adding readers never changes the others
     rng = np.random.default_rng([seed, int(reader.user_key[4:])])
     zone = ZoneInfo(reader.timezone)
@@ -135,10 +156,6 @@ def simulate_reader(reader: Reader, end: date, seed: int) -> list[dict]:
 
     while day <= end:
         today: list[tuple[str, datetime, dict]] = []  # this morning's events, before sending
-        # Some readers leave for good: most likely in the first few days
-        if rng.random() < (0.10 if age < 3 else 0.02):
-            break
-
         chance = keen * WEEKDAY_FACTOR[reader.persona][day.weekday()]
         # A habit carries itself: the longer the streak, the likelier today; a gap makes it harder
         if streak:
@@ -149,6 +166,16 @@ def simulate_reader(reader: Reader, end: date, seed: int) -> list[dict]:
         if reader.reminders_on and reader.reminder_variant == "B":
             chance += WORDING_B_LIFT
         chance = min(max(chance, 0.0), 0.98)
+
+        leave = LEAVE_CHANCE_EARLY if age < EARLY_DAYS else LEAVE_CHANCE_LATER
+        if answer_key is not None:
+            # Today's truth: they stay, they open a reading, and they finish it
+            finish = (1 - leave) * chance * FINISH_CHANCE
+            answer_key.append({"user_key": reader.user_key, "day": day.isoformat(),
+                               "finish_chance": round(finish, 6)})
+        # Some readers leave for good: most likely in the first few days
+        if rng.random() < leave:
+            break
 
         woke = datetime.combine(day, wake, tzinfo=zone)
         weekend = day.weekday() >= 5
@@ -169,7 +196,7 @@ def simulate_reader(reader: Reader, end: date, seed: int) -> list[dict]:
             started = opened + timedelta(seconds=float(rng.uniform(3, 30)))
             today.append(("reading_opened", started, {"day_number": day_number}))
             # Most readers finish the passage, a few minutes later
-            if rng.random() < 0.9:
+            if rng.random() < FINISH_CHANCE:
                 took = timedelta(minutes=float(np.clip(rng.normal(4, 1.5), 1, 15)))
                 today.append(("reading_completed", started + took, {"day_number": day_number}))
                 completed += 1
@@ -188,6 +215,14 @@ def simulate_reader(reader: Reader, end: date, seed: int) -> list[dict]:
         day += timedelta(days=1)
         age += 1
 
+    if answer_key is not None:
+        # A reader who has left has no chance at all, every day after the one they left on.
+        # (If they stayed to the end, day is already past it and this adds nothing.)
+        gone = day + timedelta(days=1) if day <= end else day
+        while gone <= end:
+            answer_key.append({"user_key": reader.user_key, "day": gone.isoformat(),
+                               "finish_chance": 0.0})
+            gone += timedelta(days=1)
     return events
 
 
@@ -215,11 +250,16 @@ def send(reader: Reader, today: list[tuple[str, datetime, dict]],
     return sent
 
 
-def simulate(readers: int, days: int, end: date, seed: int) -> tuple[list[Reader], list[dict]]:
-    """All the readers and all their events, oldest first. The same seed gives the same data."""
+def simulate(
+    readers: int, days: int, end: date, seed: int, answer_key: list[dict] | None = None
+) -> tuple[list[Reader], list[dict]]:
+    """All the readers and all their events, oldest first. The same seed gives the same data.
+
+    Pass a list as answer_key to also collect every reader's true daily finish chance.
+    """
     start = end - timedelta(days=days - 1)
     people = make_readers(readers, start, days, seed)
-    events = [e for reader in people for e in simulate_reader(reader, end, seed)]
+    events = [e for reader in people for e in simulate_reader(reader, end, seed, answer_key)]
     # Phones still offline at the end send their mornings after it: leave those out
     events = [e for e in events if e["received_at"][:10] <= end.isoformat()]
     events.sort(key=lambda e: (e["received_at"], e["user_key"], e["occurred_at"]))
@@ -249,6 +289,19 @@ def write_lake(readers: list[Reader], events: list[dict], out: Path) -> dict:
     return {"readers": len(readers), "events": len(events), "days": len(by_day)}
 
 
+def write_answer_key(rows: list[dict], path: Path) -> int:
+    """Write the answer key as a gzipped CSV. The same rows always give the same bytes."""
+    text = io.StringIO()
+    writer = csv.DictWriter(text, fieldnames=["user_key", "day", "finish_chance"],
+                            lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(rows)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    # mtime=0 keeps the date out of the gzip header, so a rerun is byte-for-byte identical
+    path.write_bytes(gzip.compress(text.getvalue().encode(), mtime=0))
+    return len(rows)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Make pretend Morning Manna readers and events.")
     parser.add_argument("--readers", type=int, default=5000)
@@ -258,12 +311,18 @@ def main() -> None:
                         help="last day to simulate, e.g. 2026-10-27 (default: yesterday)")
     parser.add_argument("--seed", type=int, default=7, help="same seed, same data")
     parser.add_argument("--out", type=Path, default=Path("data/lake"))
+    parser.add_argument("--answer-key", type=Path,
+                        default=Path("data/answer_key/finish_chance.csv.gz"),
+                        help="where the models' answer key goes (never into the lake)")
     args = parser.parse_args()
 
-    readers, events = simulate(args.readers, args.days, args.end, args.seed)
+    truth: list[dict] = []
+    readers, events = simulate(args.readers, args.days, args.end, args.seed, truth)
     summary = write_lake(readers, events, args.out)
     print(f"{summary['readers']:,} readers, {summary['events']:,} events "
           f"over {summary['days']} days, written to {args.out}/")
+    rows = write_answer_key(truth, args.answer_key)
+    print(f"The answer key: {rows:,} reader-days, written to {args.answer_key}")
 
 
 if __name__ == "__main__":
