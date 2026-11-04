@@ -145,3 +145,27 @@ models:
       - name: missed_tomorrow
         description: The label. True if they didn't finish a reading the next morning.
         tests: [not_null]
+
+  - name: fct_reader_tonight
+    description: >
+      One row per reader on a streak tonight (Card 7.5): everyone who read on the last day of
+      their source's data, with the same features as fct_reader_nights and no label, because
+      their next morning hasn't happened yet. ml/score_tonight.py scores it.
+    columns:
+      - name: user_key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_key
+      - name: night
+        description: The last day of their source's data, in the reader's own time.
+        tests: [not_null]
+      - name: streak_days
+        description: Mornings read in a row, ending tonight. At least 1, since they read today.
+        tests: [not_null]
+      - name: tomorrow_weekday
+        description: The morning being predicted, 1 for Monday to 7 for Sunday.
+        tests: [not_null]

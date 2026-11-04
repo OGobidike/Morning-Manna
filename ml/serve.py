@@ -16,11 +16,9 @@ endpoint and lets you try them):
 """
 
 from contextlib import asynccontextmanager
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
 
-import mlflow
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException
@@ -60,24 +58,6 @@ class Chances(BaseModel):
     miss_chances: list[float] = Field(description="Each night's chance of a miss, in order")
 
 
-@dataclass
-class Champion:
-    model: object
-    version: str
-    held_out_roc_auc: str | None
-
-
-def load_champion(store: Path = mr.STORE) -> Champion | None:
-    """The registry's current champion, ready to predict, or None if there isn't one yet."""
-    mr.use_store(store)
-    record = mr.champion_version()
-    if record is None:
-        return None
-    model = mlflow.sklearn.load_model(f"models:/{mr.MODEL_NAME}/{record.version}")
-    # MLflow numbers versions; the API always answers with text, the way the registry shows them
-    return Champion(model, str(record.version), record.tags.get("held_out_roc_auc"))
-
-
 def as_features(nights: list[Night]) -> pd.DataFrame:
     """The API speaks the reader's terms; the model wants the exact columns it learned from."""
     frame = pd.DataFrame([night.model_dump() for night in nights])
@@ -92,7 +72,7 @@ def as_features(nights: list[Night]) -> pd.DataFrame:
 def create_app(store: Path = mr.STORE) -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        app.state.champion = load_champion(store)
+        app.state.champion = mr.load_champion(store)
         yield
 
     app = FastAPI(
@@ -101,7 +81,7 @@ def create_app(store: Path = mr.STORE) -> FastAPI:
         lifespan=lifespan,
     )
 
-    def champion() -> Champion:
+    def champion() -> mr.Champion:
         if app.state.champion is None:
             raise HTTPException(
                 503, "No champion model yet: run python ml/model_registry.py, then restart"

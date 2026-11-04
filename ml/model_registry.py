@@ -149,6 +149,26 @@ def champion_version():
     return None if version is None else client.get_model_version(MODEL_NAME, version)
 
 
+@dataclass
+class Champion:
+    model: object
+    version: str
+    held_out_roc_auc: str | None
+
+
+def load_champion(store: Path = STORE) -> Champion | None:
+    """The registry's current champion, ready to predict, or None if there isn't one yet.
+
+    Shared by the service (Card 7.4) and the nightly scoring (Card 7.5)."""
+    use_store(store)
+    record = champion_version()
+    if record is None:
+        return None
+    model = mlflow.sklearn.load_model(f"models:/{MODEL_NAME}/{record.version}")
+    # MLflow numbers versions; we always say them as text, the way the registry shows them
+    return Champion(model, str(record.version), record.tags.get("held_out_roc_auc"))
+
+
 def champion_score(test: pd.DataFrame) -> float | None:
     """The current champion's ROC-AUC on these nights, or None if there's no champion yet."""
     if champion_version() is None:

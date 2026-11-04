@@ -87,14 +87,15 @@ def load_nights(engine) -> pd.DataFrame:
 
 
 def prepare(nights: pd.DataFrame) -> pd.DataFrame:
-    """Plain numbers for the models: the wording as 0 or 1, the label as 0 or 1."""
+    """Plain numbers for the models: the wording as 0 or 1, the label (if known) as 0 or 1."""
     nights = nights.copy()
     nights["night"] = pd.to_datetime(nights.night)
     nights["wording_b"] = (nights.reminder_variant == "B").astype(int)
     for column in NUMERIC:
         nights[column] = nights[column].astype(float)
     nights["tomorrow_weekday"] = nights.tomorrow_weekday.astype(int)
-    nights[LABEL] = nights[LABEL].astype(int)
+    if LABEL in nights:  # tonight's nights have no label yet (Card 7.5)
+        nights[LABEL] = nights[LABEL].astype(int)
     return nights.reset_index(drop=True)
 
 

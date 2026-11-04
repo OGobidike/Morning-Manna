@@ -44,7 +44,9 @@ requires = ["setuptools>=69"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-py-modules = ["simulate", "streak_risk", "streak_risk_charts", "model_registry", "serve"]
+py-modules = [
+    "simulate", "streak_risk", "streak_risk_charts", "model_registry", "serve", "score_tonight",
+]
 
 [tool.pytest.ini_options]
 # MLflow's own code raises deprecation warnings from the libraries it uses; ours still show
