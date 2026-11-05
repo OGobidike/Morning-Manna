@@ -41,7 +41,7 @@ bash, Docker, cd mobile && npm install && expo start
 ```
 The text comes from the King James Version and the American Standard Version (both public domain).
 
-**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt) the first analytics (two notebooks, a dashboard and the first A/B test) and the first model (streak risk) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
+**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt) the first analytics (two notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP step (verse embeddings) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
 
 ## 📊 The reading dashboard
 
@@ -72,6 +72,12 @@ Can a model find the kinds of reader from their habits alone? K-means, given fou
 ![Six histograms of how long after waking each group starts reading: early risers within half an hour, commuters about 75 minutes later on weekdays, weekend readers spread across two hours](docs/images/reminder-time-gaps.png)
 
 The morning reminder goes off at the reader's wake time, but a commuter starts reading over an hour later, on the train. Built on the personas, a model learns when each reader is about to read and picks the time most likely to land in the half hour before. It closes **92%** of the gap between today's reminder and the best possible, and for commuters on weekdays, on time goes from **1% to 51%**. See [the write-up](docs/analysis/reminder-time.md).
+
+## 🧬 Verse embeddings
+
+![A map of all 1,189 chapters of the Bible by meaning: the letters, gospels, poetry, prophets and histories each gather in their own region](docs/images/verse-embeddings-map.png)
+
+Every one of the 62,188 verses is now a vector of its meaning, made by a sentence-transformer model and stored in Postgres with pgvector, ready for search by meaning. Though the model never saw the Bible's sections, a verse's nearest neighbours share its section **62%** of the time, against **17%** by chance. See [the write-up](docs/analysis/verse-embeddings.md).
 
 ## License
 

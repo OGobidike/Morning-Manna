@@ -2,7 +2,7 @@
 
 Pretend readers, the answer key the models are graded against, and the models themselves. Card 7 built three: streak risk, reader personas and the best reminder time.
 
-Python 3.11+ · NumPy · scikit-learn · XGBoost · LightGBM · MLflow
+Python 3.11+ · NumPy · scikit-learn · XGBoost · LightGBM · MLflow · FastEmbed · pgvector
 
 ## Pretend readers
 
@@ -210,10 +210,29 @@ python ml/reminder_time_charts.py    # the charts, as web pages in ml/charts/
 - **Replayed night by night.** It's graded on the streak model's three held-out weeks, and each morning's pick uses only the reads before it.
 - **When unsure, the safe time.** A reader with no history gets the time most likely to be right, not an average of the groups: that's their wake time.
 
+## 🧬 Verse embeddings (Card 8.1)
+
+Phase 8's search, topic tags and recommendations all rest on one step: turning every verse into a vector of its meaning. [verse_embeddings.py](verse_embeddings.py) runs the sentence-transformer model `bge-small-en-v1.5` through FastEmbed (ONNX, no PyTorch) over all 62,188 verses, and stores the 384-number vectors in Postgres with pgvector (`ml.verse_embeddings`, with an HNSW index), so Postgres itself can find the nearest verses.
+
+![A map of all 1,189 chapters by meaning: the letters, gospels, poetry, prophets and histories each gather in their own region.](../docs/images/verse-embeddings-map.png)
+
+**A verse's five nearest neighbours share its section of the Bible 62% of the time, against 17% by chance**, though the model never saw the sections. The whole story, including why the psalms' headings are left out of the vectors: [the write-up](../docs/analysis/verse-embeddings.md).
+
+```bash
+# From the repo root, with the database up
+pip install -e "ml[nlp]"                  # about 33 MB; the model (67.5 MB) downloads on first use
+python ml/verse_embeddings.py             # the first time 6 to 8 minutes; then only new verses
+python ml/verse_embeddings_charts.py      # the charts, as web pages in ml/charts/
+```
+
+- **Postgres needs pgvector.** `docker compose` runs `pgvector/pgvector:pg16`, the official Postgres 16 with pgvector added, so existing data carries over.
+- **No PyTorch.** FastEmbed runs the same model on ONNX Runtime: about 33 MB of libraries instead of about 2 GB.
+- **The tests never download the model.** A stand-in encoder tests everything around it; the storage tests need the database (`docker compose up -d db`).
+
 ## Tests
 
 ```bash
 cd ml
-pip install -e ".[dev,models,tracking,serving]"
-pytest          # 74 tests
+pip install -e ".[dev,models,tracking,serving,nlp]"
+pytest          # 81 tests; the embedding storage tests need docker compose up -d db
 ```

@@ -1,6 +1,8 @@
 services:
+  # Postgres 16 with pgvector, which stores the verse embeddings (Card 8.1) and finds the
+  # nearest ones. It's built on the official postgres:16 image, so the data volume carries over
   db:
-    image: postgres:16
+    image: pgvector/pgvector:pg16
     environment:
       POSTGRES_USER: manna
       POSTGRES_PASSWORD: manna

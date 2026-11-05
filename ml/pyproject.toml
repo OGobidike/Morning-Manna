@@ -38,6 +38,13 @@ serving = [
     "uvicorn>=0.30",
     "httpx2>=2.13",
 ]
+# Verse embeddings (Card 8.1): about 33 MB, most of it ONNX Runtime, which runs the
+# sentence-transformer model without PyTorch (about 2 GB on Linux, with its GPU libraries).
+# The model itself (67.5 MB) downloads once, the first time it's used
+nlp = [
+    "fastembed>=0.9",
+    "pgvector>=0.5",
+]
 
 [build-system]
 requires = ["setuptools>=69"]
@@ -47,6 +54,7 @@ build-backend = "setuptools.build_meta"
 py-modules = [
     "simulate", "streak_risk", "streak_risk_charts", "model_registry", "serve", "score_tonight",
     "personas", "personas_charts", "reminder_time", "reminder_time_charts",
+    "verse_embeddings", "verse_embeddings_charts",
 ]
 
 [tool.pytest.ini_options]
