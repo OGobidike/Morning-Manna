@@ -1,0 +1,301 @@
+translation,question,method,relevant_verses,precision_at_5,hit_at_5,reciprocal_rank
+KJV,verses about worry and anxiety,keyword,29,0.0,0.0,0.0
+KJV,verses about worry and anxiety,bge,29,0.0,0.0,0.0
+KJV,verses about worry and anxiety,bge_hnsw,29,0.0,0.0,0.0
+KJV,verses about worry and anxiety,minilm,29,0.0,0.0,0.0
+KJV,verses about worry and anxiety,hybrid,29,0.0,0.0,0.0
+KJV,comfort when someone you love has died,keyword,17,0.0,0.0,0.1
+KJV,comfort when someone you love has died,bge,17,0.4,1.0,1.0
+KJV,comfort when someone you love has died,bge_hnsw,17,0.4,1.0,1.0
+KJV,comfort when someone you love has died,minilm,17,0.4,1.0,1.0
+KJV,comfort when someone you love has died,hybrid,17,0.4,1.0,1.0
+KJV,how much God loves us,keyword,18,0.4,1.0,1.0
+KJV,how much God loves us,bge,18,0.4,1.0,1.0
+KJV,how much God loves us,bge_hnsw,18,0.4,1.0,1.0
+KJV,how much God loves us,minilm,18,0.6,1.0,1.0
+KJV,how much God loves us,hybrid,18,0.6,1.0,1.0
+KJV,forgiving people who hurt you,keyword,24,0.0,0.0,0.0
+KJV,forgiving people who hurt you,bge,24,0.4,1.0,0.3333
+KJV,forgiving people who hurt you,bge_hnsw,24,0.4,1.0,0.3333
+KJV,forgiving people who hurt you,minilm,24,0.4,1.0,0.5
+KJV,forgiving people who hurt you,hybrid,24,0.0,0.0,0.1429
+KJV,being patient while waiting,keyword,11,0.4,1.0,0.3333
+KJV,being patient while waiting,bge,11,0.6,1.0,0.5
+KJV,being patient while waiting,bge_hnsw,11,0.6,1.0,0.5
+KJV,being patient while waiting,minilm,11,0.2,1.0,0.5
+KJV,being patient while waiting,hybrid,11,0.2,1.0,0.5
+KJV,strength when I feel weak,keyword,12,0.0,0.0,0.0
+KJV,strength when I feel weak,bge,12,0.2,1.0,1.0
+KJV,strength when I feel weak,bge_hnsw,12,0.2,1.0,1.0
+KJV,strength when I feel weak,minilm,12,0.2,1.0,1.0
+KJV,strength when I feel weak,hybrid,12,0.2,1.0,0.25
+KJV,do not be afraid,keyword,12,0.0,0.0,0.0
+KJV,do not be afraid,bge,12,0.4,1.0,0.5
+KJV,do not be afraid,bge_hnsw,12,0.4,1.0,0.5
+KJV,do not be afraid,minilm,12,0.0,0.0,0.1111
+KJV,do not be afraid,hybrid,12,0.4,1.0,0.3333
+KJV,controlling anger,keyword,11,0.0,0.0,0.0
+KJV,controlling anger,bge,11,0.6,1.0,1.0
+KJV,controlling anger,bge_hnsw,11,0.6,1.0,1.0
+KJV,controlling anger,minilm,11,0.0,0.0,0.1667
+KJV,controlling anger,hybrid,11,0.2,1.0,0.25
+KJV,pride and humility,keyword,16,0.0,0.0,0.0
+KJV,pride and humility,bge,16,0.6,1.0,1.0
+KJV,pride and humility,bge_hnsw,16,0.6,1.0,1.0
+KJV,pride and humility,minilm,16,0.6,1.0,1.0
+KJV,pride and humility,hybrid,16,0.4,1.0,1.0
+KJV,the love of money and greed,keyword,25,0.0,0.0,0.0
+KJV,the love of money and greed,bge,25,0.2,1.0,1.0
+KJV,the love of money and greed,bge_hnsw,25,0.2,1.0,1.0
+KJV,the love of money and greed,minilm,25,0.2,1.0,1.0
+KJV,the love of money and greed,hybrid,25,0.2,1.0,0.2
+KJV,husbands and wives in marriage,keyword,33,0.2,1.0,0.3333
+KJV,husbands and wives in marriage,bge,33,0.6,1.0,1.0
+KJV,husbands and wives in marriage,bge_hnsw,33,0.6,1.0,1.0
+KJV,husbands and wives in marriage,minilm,33,0.6,1.0,1.0
+KJV,husbands and wives in marriage,hybrid,33,0.4,1.0,0.5
+KJV,children obeying their parents,keyword,11,0.0,0.0,0.0
+KJV,children obeying their parents,bge,11,0.4,1.0,1.0
+KJV,children obeying their parents,bge_hnsw,11,0.4,1.0,1.0
+KJV,children obeying their parents,minilm,11,0.4,1.0,1.0
+KJV,children obeying their parents,hybrid,11,0.4,1.0,0.3333
+KJV,how to pray,keyword,34,0.0,0.0,0.1
+KJV,how to pray,bge,34,0.4,1.0,1.0
+KJV,how to pray,bge_hnsw,34,0.4,1.0,1.0
+KJV,how to pray,minilm,34,0.2,1.0,1.0
+KJV,how to pray,hybrid,34,0.0,0.0,0.1429
+KJV,what faith is,keyword,18,0.2,1.0,0.5
+KJV,what faith is,bge,18,0.0,0.0,0.0
+KJV,what faith is,bge_hnsw,18,0.0,0.0,0.0
+KJV,what faith is,minilm,18,0.4,1.0,1.0
+KJV,what faith is,hybrid,18,0.0,0.0,0.1429
+KJV,hope for the future,keyword,15,0.2,1.0,1.0
+KJV,hope for the future,bge,15,0.2,1.0,0.5
+KJV,hope for the future,bge_hnsw,15,0.2,1.0,0.5
+KJV,hope for the future,minilm,15,0.2,1.0,0.3333
+KJV,hope for the future,hybrid,15,0.2,1.0,1.0
+KJV,peace of mind,keyword,12,0.0,0.0,0.0
+KJV,peace of mind,bge,12,0.4,1.0,0.3333
+KJV,peace of mind,bge_hnsw,12,0.4,1.0,0.3333
+KJV,peace of mind,minilm,12,0.2,1.0,1.0
+KJV,peace of mind,hybrid,12,0.6,1.0,0.5
+KJV,being joyful,keyword,12,0.0,0.0,0.1111
+KJV,being joyful,bge,12,0.0,0.0,0.0
+KJV,being joyful,bge_hnsw,12,0.0,0.0,0.0
+KJV,being joyful,minilm,12,0.0,0.0,0.1111
+KJV,being joyful,hybrid,12,0.2,1.0,0.5
+KJV,giving thanks to God,keyword,12,0.0,0.0,0.0
+KJV,giving thanks to God,bge,12,0.2,1.0,0.5
+KJV,giving thanks to God,bge_hnsw,12,0.2,1.0,0.5
+KJV,giving thanks to God,minilm,12,0.4,1.0,1.0
+KJV,giving thanks to God,hybrid,12,0.0,0.0,0.1429
+KJV,resisting temptation,keyword,25,0.2,1.0,1.0
+KJV,resisting temptation,bge,25,0.4,1.0,1.0
+KJV,resisting temptation,bge_hnsw,25,0.4,1.0,1.0
+KJV,resisting temptation,minilm,25,0.8,1.0,1.0
+KJV,resisting temptation,hybrid,25,0.4,1.0,1.0
+KJV,hard work and laziness,keyword,22,0.0,0.0,0.0
+KJV,hard work and laziness,bge,22,0.0,0.0,0.0
+KJV,hard work and laziness,bge_hnsw,22,0.0,0.0,0.0
+KJV,hard work and laziness,minilm,22,0.2,1.0,1.0
+KJV,hard work and laziness,hybrid,22,0.0,0.0,0.0
+KJV,how God created the world,keyword,49,0.2,1.0,1.0
+KJV,how God created the world,bge,49,0.6,1.0,1.0
+KJV,how God created the world,bge_hnsw,49,0.6,1.0,1.0
+KJV,how God created the world,minilm,49,0.2,1.0,1.0
+KJV,how God created the world,hybrid,49,0.6,1.0,1.0
+KJV,Jesus rising from the dead,keyword,58,0.0,0.0,0.0
+KJV,Jesus rising from the dead,bge,58,0.0,0.0,0.1111
+KJV,Jesus rising from the dead,bge_hnsw,58,0.0,0.0,0.1111
+KJV,Jesus rising from the dead,minilm,58,0.2,1.0,0.3333
+KJV,Jesus rising from the dead,hybrid,58,0.0,0.0,0.0
+KJV,the Lord is my shepherd,keyword,28,0.0,0.0,0.0
+KJV,the Lord is my shepherd,bge,28,0.6,1.0,1.0
+KJV,the Lord is my shepherd,bge_hnsw,28,0.6,1.0,1.0
+KJV,the Lord is my shepherd,minilm,28,0.4,1.0,1.0
+KJV,the Lord is my shepherd,hybrid,28,0.4,1.0,0.25
+KJV,love your enemies,keyword,27,0.2,1.0,1.0
+KJV,love your enemies,bge,27,0.4,1.0,1.0
+KJV,love your enemies,bge_hnsw,27,0.4,1.0,1.0
+KJV,love your enemies,minilm,27,0.2,1.0,0.5
+KJV,love your enemies,hybrid,27,1.0,1.0,1.0
+KJV,the Lord's prayer,keyword,8,0.0,0.0,0.0
+KJV,the Lord's prayer,bge,8,0.0,0.0,0.0
+KJV,the Lord's prayer,bge_hnsw,8,0.0,0.0,0.0
+KJV,the Lord's prayer,minilm,8,0.0,0.0,0.0
+KJV,the Lord's prayer,hybrid,8,0.0,0.0,0.0
+KJV,do not judge others,keyword,23,0.0,0.0,0.0
+KJV,do not judge others,bge,23,0.4,1.0,0.5
+KJV,do not judge others,bge_hnsw,23,0.4,1.0,0.5
+KJV,do not judge others,minilm,23,0.4,1.0,0.5
+KJV,do not judge others,hybrid,23,0.6,1.0,1.0
+KJV,asking God for wisdom,keyword,18,0.2,1.0,1.0
+KJV,asking God for wisdom,bge,18,0.2,1.0,0.3333
+KJV,asking God for wisdom,bge_hnsw,18,0.2,1.0,0.3333
+KJV,asking God for wisdom,minilm,18,0.6,1.0,1.0
+KJV,asking God for wisdom,hybrid,18,0.2,1.0,1.0
+KJV,"saved by grace, not by works",keyword,12,0.2,1.0,1.0
+KJV,"saved by grace, not by works",bge,12,0.4,1.0,1.0
+KJV,"saved by grace, not by works",bge_hnsw,12,0.4,1.0,1.0
+KJV,"saved by grace, not by works",minilm,12,0.4,1.0,1.0
+KJV,"saved by grace, not by works",hybrid,12,0.6,1.0,1.0
+KJV,rest for the tired and weary,keyword,17,0.0,0.0,0.0
+KJV,rest for the tired and weary,bge,17,0.0,0.0,0.1667
+KJV,rest for the tired and weary,bge_hnsw,17,0.0,0.0,0.1667
+KJV,rest for the tired and weary,minilm,17,0.0,0.0,0.1429
+KJV,rest for the tired and weary,hybrid,17,0.0,0.0,0.0
+KJV,feeling lonely,keyword,13,0.0,0.0,0.0
+KJV,feeling lonely,bge,13,0.0,0.0,0.0
+KJV,feeling lonely,bge_hnsw,13,0.0,0.0,0.0
+KJV,feeling lonely,minilm,13,0.0,0.0,0.0
+KJV,feeling lonely,hybrid,13,0.0,0.0,0.0
+ASV,verses about worry and anxiety,keyword,29,0.2,1.0,0.5
+ASV,verses about worry and anxiety,bge,29,0.2,1.0,1.0
+ASV,verses about worry and anxiety,bge_hnsw,29,0.2,1.0,1.0
+ASV,verses about worry and anxiety,minilm,29,0.2,1.0,0.25
+ASV,verses about worry and anxiety,hybrid,29,0.4,1.0,1.0
+ASV,comfort when someone you love has died,keyword,17,0.0,0.0,0.1
+ASV,comfort when someone you love has died,bge,17,0.6,1.0,1.0
+ASV,comfort when someone you love has died,bge_hnsw,17,0.6,1.0,1.0
+ASV,comfort when someone you love has died,minilm,17,0.4,1.0,1.0
+ASV,comfort when someone you love has died,hybrid,17,0.2,1.0,0.5
+ASV,how much God loves us,keyword,18,0.4,1.0,1.0
+ASV,how much God loves us,bge,18,0.2,1.0,1.0
+ASV,how much God loves us,bge_hnsw,18,0.2,1.0,1.0
+ASV,how much God loves us,minilm,18,0.6,1.0,1.0
+ASV,how much God loves us,hybrid,18,0.6,1.0,1.0
+ASV,forgiving people who hurt you,keyword,24,0.0,0.0,0.0
+ASV,forgiving people who hurt you,bge,24,0.6,1.0,1.0
+ASV,forgiving people who hurt you,bge_hnsw,24,0.6,1.0,1.0
+ASV,forgiving people who hurt you,minilm,24,0.0,0.0,0.1111
+ASV,forgiving people who hurt you,hybrid,24,0.2,1.0,0.2
+ASV,being patient while waiting,keyword,11,0.4,1.0,0.3333
+ASV,being patient while waiting,bge,11,0.6,1.0,1.0
+ASV,being patient while waiting,bge_hnsw,11,0.6,1.0,1.0
+ASV,being patient while waiting,minilm,11,0.4,1.0,1.0
+ASV,being patient while waiting,hybrid,11,0.4,1.0,0.5
+ASV,strength when I feel weak,keyword,12,0.0,0.0,0.1111
+ASV,strength when I feel weak,bge,12,0.2,1.0,1.0
+ASV,strength when I feel weak,bge_hnsw,12,0.2,1.0,1.0
+ASV,strength when I feel weak,minilm,12,0.2,1.0,1.0
+ASV,strength when I feel weak,hybrid,12,0.2,1.0,0.3333
+ASV,do not be afraid,keyword,12,0.0,0.0,0.0
+ASV,do not be afraid,bge,12,0.2,1.0,0.5
+ASV,do not be afraid,bge_hnsw,12,0.2,1.0,0.5
+ASV,do not be afraid,minilm,12,0.0,0.0,0.0
+ASV,do not be afraid,hybrid,12,0.0,0.0,0.1667
+ASV,controlling anger,keyword,11,0.0,0.0,0.0
+ASV,controlling anger,bge,11,0.4,1.0,1.0
+ASV,controlling anger,bge_hnsw,11,0.4,1.0,1.0
+ASV,controlling anger,minilm,11,0.2,1.0,0.3333
+ASV,controlling anger,hybrid,11,0.0,0.0,0.1667
+ASV,pride and humility,keyword,16,0.0,0.0,0.0
+ASV,pride and humility,bge,16,0.6,1.0,1.0
+ASV,pride and humility,bge_hnsw,16,0.6,1.0,1.0
+ASV,pride and humility,minilm,16,0.4,1.0,1.0
+ASV,pride and humility,hybrid,16,0.4,1.0,0.5
+ASV,the love of money and greed,keyword,25,0.0,0.0,0.0
+ASV,the love of money and greed,bge,25,0.2,1.0,1.0
+ASV,the love of money and greed,bge_hnsw,25,0.2,1.0,1.0
+ASV,the love of money and greed,minilm,25,0.2,1.0,1.0
+ASV,the love of money and greed,hybrid,25,0.2,1.0,0.25
+ASV,husbands and wives in marriage,keyword,33,0.2,1.0,0.3333
+ASV,husbands and wives in marriage,bge,33,1.0,1.0,1.0
+ASV,husbands and wives in marriage,bge_hnsw,33,1.0,1.0,1.0
+ASV,husbands and wives in marriage,minilm,33,0.8,1.0,1.0
+ASV,husbands and wives in marriage,hybrid,33,0.6,1.0,0.5
+ASV,children obeying their parents,keyword,11,0.0,0.0,0.0
+ASV,children obeying their parents,bge,11,0.6,1.0,1.0
+ASV,children obeying their parents,bge_hnsw,11,0.6,1.0,1.0
+ASV,children obeying their parents,minilm,11,0.4,1.0,1.0
+ASV,children obeying their parents,hybrid,11,0.4,1.0,0.3333
+ASV,how to pray,keyword,34,0.0,0.0,0.0
+ASV,how to pray,bge,34,0.2,1.0,1.0
+ASV,how to pray,bge_hnsw,34,0.2,1.0,1.0
+ASV,how to pray,minilm,34,0.2,1.0,1.0
+ASV,how to pray,hybrid,34,0.0,0.0,0.125
+ASV,what faith is,keyword,18,0.4,1.0,0.3333
+ASV,what faith is,bge,18,0.0,0.0,0.0
+ASV,what faith is,bge_hnsw,18,0.0,0.0,0.0
+ASV,what faith is,minilm,18,0.2,1.0,1.0
+ASV,what faith is,hybrid,18,0.0,0.0,0.0
+ASV,hope for the future,keyword,15,0.4,1.0,1.0
+ASV,hope for the future,bge,15,0.4,1.0,0.5
+ASV,hope for the future,bge_hnsw,15,0.4,1.0,0.5
+ASV,hope for the future,minilm,15,0.6,1.0,1.0
+ASV,hope for the future,hybrid,15,0.2,1.0,1.0
+ASV,peace of mind,keyword,12,0.0,0.0,0.0
+ASV,peace of mind,bge,12,0.2,1.0,0.5
+ASV,peace of mind,bge_hnsw,12,0.2,1.0,0.5
+ASV,peace of mind,minilm,12,0.2,1.0,0.5
+ASV,peace of mind,hybrid,12,0.4,1.0,0.5
+ASV,being joyful,keyword,12,0.0,0.0,0.1
+ASV,being joyful,bge,12,0.0,0.0,0.0
+ASV,being joyful,bge_hnsw,12,0.0,0.0,0.0
+ASV,being joyful,minilm,12,0.0,0.0,0.125
+ASV,being joyful,hybrid,12,0.2,1.0,0.25
+ASV,giving thanks to God,keyword,12,0.0,0.0,0.0
+ASV,giving thanks to God,bge,12,0.4,1.0,0.5
+ASV,giving thanks to God,bge_hnsw,12,0.4,1.0,0.5
+ASV,giving thanks to God,minilm,12,0.2,1.0,1.0
+ASV,giving thanks to God,hybrid,12,0.0,0.0,0.1111
+ASV,resisting temptation,keyword,25,0.4,1.0,1.0
+ASV,resisting temptation,bge,25,0.6,1.0,1.0
+ASV,resisting temptation,bge_hnsw,25,0.6,1.0,1.0
+ASV,resisting temptation,minilm,25,0.6,1.0,1.0
+ASV,resisting temptation,hybrid,25,0.4,1.0,1.0
+ASV,hard work and laziness,keyword,22,0.0,0.0,0.0
+ASV,hard work and laziness,bge,22,0.4,1.0,1.0
+ASV,hard work and laziness,bge_hnsw,22,0.4,1.0,1.0
+ASV,hard work and laziness,minilm,22,0.0,0.0,0.1667
+ASV,hard work and laziness,hybrid,22,0.2,1.0,0.25
+ASV,how God created the world,keyword,49,0.2,1.0,1.0
+ASV,how God created the world,bge,49,0.4,1.0,1.0
+ASV,how God created the world,bge_hnsw,49,0.4,1.0,1.0
+ASV,how God created the world,minilm,49,0.4,1.0,1.0
+ASV,how God created the world,hybrid,49,0.4,1.0,1.0
+ASV,Jesus rising from the dead,keyword,58,0.0,0.0,0.0
+ASV,Jesus rising from the dead,bge,58,0.0,0.0,0.0
+ASV,Jesus rising from the dead,bge_hnsw,58,0.0,0.0,0.0
+ASV,Jesus rising from the dead,minilm,58,0.2,1.0,0.3333
+ASV,Jesus rising from the dead,hybrid,58,0.0,0.0,0.0
+ASV,the Lord is my shepherd,keyword,28,0.0,0.0,0.0
+ASV,the Lord is my shepherd,bge,28,0.6,1.0,1.0
+ASV,the Lord is my shepherd,bge_hnsw,28,0.6,1.0,1.0
+ASV,the Lord is my shepherd,minilm,28,0.4,1.0,0.5
+ASV,the Lord is my shepherd,hybrid,28,0.2,1.0,0.25
+ASV,love your enemies,keyword,27,0.2,1.0,1.0
+ASV,love your enemies,bge,27,0.8,1.0,1.0
+ASV,love your enemies,bge_hnsw,27,0.8,1.0,1.0
+ASV,love your enemies,minilm,27,0.4,1.0,1.0
+ASV,love your enemies,hybrid,27,0.8,1.0,1.0
+ASV,the Lord's prayer,keyword,8,0.0,0.0,0.0
+ASV,the Lord's prayer,bge,8,0.0,0.0,0.0
+ASV,the Lord's prayer,bge_hnsw,8,0.0,0.0,0.0
+ASV,the Lord's prayer,minilm,8,0.0,0.0,0.0
+ASV,the Lord's prayer,hybrid,8,0.0,0.0,0.0
+ASV,do not judge others,keyword,23,0.0,0.0,0.0
+ASV,do not judge others,bge,23,0.2,1.0,1.0
+ASV,do not judge others,bge_hnsw,23,0.2,1.0,1.0
+ASV,do not judge others,minilm,23,0.4,1.0,1.0
+ASV,do not judge others,hybrid,23,0.6,1.0,1.0
+ASV,asking God for wisdom,keyword,18,0.2,1.0,1.0
+ASV,asking God for wisdom,bge,18,0.2,1.0,1.0
+ASV,asking God for wisdom,bge_hnsw,18,0.2,1.0,1.0
+ASV,asking God for wisdom,minilm,18,0.2,1.0,0.5
+ASV,asking God for wisdom,hybrid,18,0.4,1.0,0.5
+ASV,"saved by grace, not by works",keyword,12,0.2,1.0,1.0
+ASV,"saved by grace, not by works",bge,12,0.8,1.0,1.0
+ASV,"saved by grace, not by works",bge_hnsw,12,0.8,1.0,1.0
+ASV,"saved by grace, not by works",minilm,12,0.4,1.0,1.0
+ASV,"saved by grace, not by works",hybrid,12,0.8,1.0,1.0
+ASV,rest for the tired and weary,keyword,17,0.0,0.0,0.0
+ASV,rest for the tired and weary,bge,17,0.0,0.0,0.125
+ASV,rest for the tired and weary,bge_hnsw,17,0.0,0.0,0.125
+ASV,rest for the tired and weary,minilm,17,0.0,0.0,0.125
+ASV,rest for the tired and weary,hybrid,17,0.0,0.0,0.1111
+ASV,feeling lonely,keyword,13,0.0,0.0,0.0
+ASV,feeling lonely,bge,13,0.0,0.0,0.0
+ASV,feeling lonely,bge_hnsw,13,0.0,0.0,0.0
+ASV,feeling lonely,minilm,13,0.0,0.0,0.0
+ASV,feeling lonely,hybrid,13,0.0,0.0,0.0

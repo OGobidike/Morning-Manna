@@ -41,7 +41,7 @@ bash, Docker, cd mobile && npm install && expo start
 ```
 The text comes from the King James Version and the American Standard Version (both public domain).
 
-**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt) the first analytics (two notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP step (verse embeddings) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
+**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt) the first analytics (two notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP steps (verse embeddings and search by meaning) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
 
 ## 📊 The reading dashboard
 
@@ -78,6 +78,12 @@ The morning reminder goes off at the reader's wake time, but a commuter starts r
 ![A map of all 1,189 chapters of the Bible by meaning: the letters, gospels, poetry, prophets and histories each gather in their own region](docs/images/verse-embeddings-map.png)
 
 Every one of the 62,188 verses is now a vector of its meaning, made by a sentence-transformer model and stored in Postgres with pgvector, ready for search by meaning. Though the model never saw the Bible's sections, a verse's nearest neighbours share its section **62%** of the time, against **17%** by chance. See [the write-up](docs/analysis/verse-embeddings.md).
+
+## 🔎 Search by meaning
+
+![Precision@5 for each search method on the KJV and ASV: meaning with BGE 30% and 35%, MiniLM 28% and 27%, the hybrid 27% and 27%, keyword search 8% and 11%](docs/images/search-leaderboard.png)
+
+Ask in your own words, and get the verses that answer, even when they share no words: "verses about worry" finds "Fear thou not; for I am with thee". Graded on 30 questions whose answers were frozen before any search ran, **searching by meaning finds three to four times what keyword search finds**, and a search takes about 11 milliseconds through Postgres's vector index. Mixing in keywords made it no better. See [the write-up](docs/analysis/semantic-search.md).
 
 ## License
 

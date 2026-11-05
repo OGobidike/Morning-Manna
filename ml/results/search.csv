@@ -1,0 +1,11 @@
+method,translation,precision_at_5,hit_at_5,mrr,questions
+keyword,KJV,8,33,28,30
+bge,KJV,30,73,59,30
+bge_hnsw,KJV,30,73,59,30
+minilm,KJV,28,77,67,30
+hybrid,KJV,27,67,47,30
+keyword,ASV,11,37,29,30
+bge,ASV,35,80,74,30
+bge_hnsw,ASV,35,80,74,30
+minilm,ASV,27,77,66,30
+hybrid,ASV,27,70,45,30

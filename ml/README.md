@@ -1,6 +1,6 @@
 # Morning Manna ML
 
-Pretend readers, the answer key the models are graded against, and the models themselves. Card 7 built three: streak risk, reader personas and the best reminder time.
+Pretend readers, the answer key the models are graded against, and the models themselves. Card 7 built three: streak risk, reader personas and the best reminder time. Card 8 adds language: every verse as a vector of its meaning, and search by meaning.
 
 Python 3.11+ · NumPy · scikit-learn · XGBoost · LightGBM · MLflow · FastEmbed · pgvector
 
@@ -128,6 +128,7 @@ MLFLOW_DISABLE_TELEMETRY=true mlflow ui --backend-store-uri sqlite:///ml/mlruns/
 | `GET /health` | Is it up, and is a model loaded? |
 | `GET /model` | Which version is serving, and how it scored on held-out nights |
 | `POST /streak-risk` | For up to 1,000 streak nights at once, each reader's chance of missing tomorrow, and which version said so |
+| `GET /search` | The verses that answer a question, by meaning (Card 8.2, [below](#-semantic-search-card-82)) |
 
 ![The service's interactive docs page: the three endpoints, and a request for two readers. A steady reader (a 12-day streak, read every day this week) gets a 15% chance of missing tomorrow; a wobbly one (a 1-day streak, read 2 days in 7, reading time wandering by 95 minutes) gets 48%. Both answers name model version 1.](../docs/images/streak-service.png)
 
@@ -229,10 +230,31 @@ python ml/verse_embeddings_charts.py      # the charts, as web pages in ml/chart
 - **No PyTorch.** FastEmbed runs the same model on ONNX Runtime: about 33 MB of libraries instead of about 2 GB.
 - **The tests never download the model.** A stand-in encoder tests everything around it; the storage tests need the database (`docker compose up -d db`).
 
+## 🔎 Semantic search (Card 8.2)
+
+A reader asks in their own words, and [search.py](search.py) finds the verses that answer, even when they share no words: "verses about worry" finds "Fear thou not; for I am with thee". The question becomes a vector with 8.1's model, and Postgres's HNSW index finds the nearest verses.
+
+![Precision@5 for each method on the KJV and ASV: BGE 30% and 35%, MiniLM 28% and 27%, the hybrid 27% and 27%, keyword search 8% and 11%.](../docs/images/search-leaderboard.png)
+
+**Searching by meaning finds three to four times what keyword search finds**, graded on 30 questions whose answers were written, and frozen, before any search ran. Five methods raced on both translations; BGE, the model 8.1 stored, won, and the hybrid of meaning and keywords did no better. The whole story: [the write-up](../docs/analysis/semantic-search.md).
+
+```bash
+# From the repo root, with the database up and the verses embedded
+python ml/search.py              # the race: about 5 minutes (MiniLM's 90 MB downloads the first time)
+python ml/search_charts.py       # the charts, as web pages in ml/charts/
+uvicorn --app-dir ml serve:app --port 8001
+curl "http://localhost:8001/search?q=verses+about+worry&k=5"
+```
+
+- **The answer key is frozen.** [data/search_questions.csv](data/search_questions.csv) was written before any search ran, and a test checks its fingerprint: tuning to 30 questions would grade the search on itself.
+- **`/search` lives in the ML service,** next to the streak-risk endpoints. It loads the model on the first search, and without the `nlp` extra or the verse vectors it says what to run (503) while the rest carries on.
+- **It never comes back short.** The index gathers candidates from both translations before filtering to one, so it weighs 100 candidates, and if that's still too few, reads every verse instead.
+- **The records:** `results/search.csv` (the leaderboard, whole percents) and `results/search_by_question.csv` (every question's grades, which the charts read).
+
 ## Tests
 
 ```bash
 cd ml
 pip install -e ".[dev,models,tracking,serving,nlp]"
-pytest          # 81 tests; the embedding storage tests need docker compose up -d db
+pytest          # 97 tests; the embedding and search tests need docker compose up -d db
 ```
