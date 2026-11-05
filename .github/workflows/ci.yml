@@ -16,7 +16,7 @@ jobs:
     # A throwaway Postgres, started fresh for every CI run and deleted afterwards
     services:
       postgres:
-        image: postgres:16
+        image: pgvector/pgvector:pg16
         env:
           POSTGRES_USER: manna
           POSTGRES_PASSWORD: manna
@@ -69,13 +69,33 @@ jobs:
     defaults:
       run:
         working-directory: ml
+
+    # Postgres with pgvector, for the verse embeddings' storage tests (Card 8.1)
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: manna
+          POSTGRES_PASSWORD: manna
+          POSTGRES_DB: manna
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U manna"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql+psycopg://manna:manna@localhost:5432/manna
+
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      # The models' libraries (about 107 MB), MLflow (about 113 MB) and the service's test client
-      - run: pip install -e ".[dev,models,tracking,serving]"
+      # The models' libraries (about 107 MB), MLflow (about 113 MB), the service's test client
+      # and the embedding libraries (about 33 MB; the tests never download the model itself)
+      - run: pip install -e ".[dev,models,tracking,serving,nlp]"
       - run: ruff check .
       - run: pytest
 
@@ -87,7 +107,7 @@ jobs:
     # The loader's tests need a real Postgres, like the backend's
     services:
       postgres:
-        image: postgres:16
+        image: pgvector/pgvector:pg16
         env:
           POSTGRES_USER: manna
           POSTGRES_PASSWORD: manna
@@ -137,7 +157,7 @@ jobs:
     # pretend readers, a lake, the loader, then every dbt model and test
     services:
       postgres:
-        image: postgres:16
+        image: pgvector/pgvector:pg16
         env:
           POSTGRES_USER: manna
           POSTGRES_PASSWORD: manna

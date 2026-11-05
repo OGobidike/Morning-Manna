@@ -1,0 +1,9 @@
+model,section,verses,same_section,chance_section,same_book,chance_book,verses_embedded
+BAAI/bge-small-en-v1.5,The Law,361,71,19,49,4,62188
+BAAI/bge-small-en-v1.5,History,451,70,23,36,2,62188
+BAAI/bge-small-en-v1.5,Poetry and wisdom,328,62,15,42,6,62188
+BAAI/bge-small-en-v1.5,The prophets,344,49,18,28,3,62188
+BAAI/bge-small-en-v1.5,Gospels and Acts,319,63,15,23,3,62188
+BAAI/bge-small-en-v1.5,Letters,172,48,9,13,1,62188
+BAAI/bge-small-en-v1.5,Revelation,25,26,1,26,1,62188
+BAAI/bge-small-en-v1.5,All,2000,62,17,34,3,62188
