@@ -1,6 +1,6 @@
 # Morning Manna ML
 
-Pretend readers, the answer key the models are graded against, and the models themselves. Card 7 built three: streak risk, reader personas and the best reminder time. Card 8 adds language: every verse as a vector of its meaning, and search by meaning.
+Pretend readers, the answer key the models are graded against, and the models themselves. Card 7 built three: streak risk, reader personas and the best reminder time. Card 8 adds language: every verse as a vector of its meaning, search by meaning, and topic tags.
 
 Python 3.11+ · NumPy · scikit-learn · XGBoost · LightGBM · MLflow · FastEmbed · pgvector
 
@@ -129,6 +129,7 @@ MLFLOW_DISABLE_TELEMETRY=true mlflow ui --backend-store-uri sqlite:///ml/mlruns/
 | `GET /model` | Which version is serving, and how it scored on held-out nights |
 | `POST /streak-risk` | For up to 1,000 streak nights at once, each reader's chance of missing tomorrow, and which version said so |
 | `GET /search` | The verses that answer a question, by meaning (Card 8.2, [below](#-semantic-search-card-82)) |
+| `GET /topics`, `GET /topics/{tag}` | The 30 topic tags, and a topic's best verses (Card 8.3, below) |
 
 ![The service's interactive docs page: the three endpoints, and a request for two readers. A steady reader (a 12-day streak, read every day this week) gets a 15% chance of missing tomorrow; a wobbly one (a 1-day streak, read 2 days in 7, reading time wandering by 95 minutes) gets 48%. Both answers name model version 1.](../docs/images/streak-service.png)
 
@@ -251,10 +252,30 @@ curl "http://localhost:8001/search?q=verses+about+worry&k=5"
 - **It never comes back short.** The index gathers candidates from both translations before filtering to one, so it weighs 100 candidates, and if that's still too few, reads every verse instead.
 - **The records:** `results/search.csv` (the leaderboard, whole percents) and `results/search_by_question.csv` (every question's grades, which the charts read).
 
+## 🏷️ Topic tags (Card 8.3)
+
+Every verse is tagged with what it's about, from 30 topics a reader would recognise: hope, patience, comfort in hard times, forgiving others, money and greed, and more. [topics.py](topics.py) races three taggers and stores the winner's tags in `ml.verse_topics`, for topic pages in the app.
+
+![Each topic's first screen of 20 verses: hope 85% right, praise and loving others 80%, down to worry and anxiety at 0%](../docs/images/topics-by-tag.png)
+
+**The answer key is Nave's Topical Bible** (1896, public domain; the CSV from [BibleData](https://github.com/BradyStephenson/bible-data), CC BY 4.0). Each tag was mapped to Nave's teaching headings before any tagger ran, giving 5,529 tagged verses. **A logistic regression on the BGE vectors wins every measure**, graded on whole books it never saw. Worry and anxiety fails, because Nave's files it under worldly care (food, clothing, barns), and the write-up shows why. The whole story: [the write-up](../docs/analysis/topic-tags.md).
+
+```bash
+# From the repo root, with the database up and the verses embedded
+python ml/topics.py              # about 2 minutes: the race, the record, and ml.verse_topics
+python ml/topics_charts.py       # the charts, as web pages in ml/charts/
+curl "http://localhost:8001/topics/patience?k=5"     # with the service running
+```
+
+- **The tags and the key are frozen.** [data/topic_tags.csv](data/topic_tags.csv) and [data/topic_key.csv](data/topic_key.csv) were fixed before any tagger ran, and a test checks both fingerprints. `python ml/topics.py --build-key` rebuilds the key from Nave's (1.4 MB, downloaded once into `data/raw/`, md5 checked) and must reproduce it exactly.
+- **Graded on unseen books.** The books split into 3 groups by a hash of their names; every verse is scored by a tagger trained on the other groups.
+- **No new download.** It uses 8.1's stored vectors and model.
+- **The records:** `results/topics.csv` (the leaderboard, whole percents) and `results/topics_by_tag.csv` (each tag's grades, also whole percents, which the charts read). Whole percents because another computer's floating point can move a 4th decimal.
+
 ## Tests
 
 ```bash
 cd ml
 pip install -e ".[dev,models,tracking,serving,nlp]"
-pytest          # 97 tests; the embedding and search tests need docker compose up -d db
+pytest          # 108 tests; the embedding, search and topic tests need docker compose up -d db
 ```

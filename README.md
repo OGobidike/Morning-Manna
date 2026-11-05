@@ -41,7 +41,7 @@ bash, Docker, cd mobile && npm install && expo start
 ```
 The text comes from the King James Version and the American Standard Version (both public domain).
 
-**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt) the first analytics (two notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP steps (verse embeddings and search by meaning) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
+**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt) the first analytics (two notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP steps (verse embeddings, search by meaning and topic tags) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
 
 ## 📊 The reading dashboard
 
@@ -84,6 +84,12 @@ Every one of the 62,188 verses is now a vector of its meaning, made by a sentenc
 ![Precision@5 for each search method on the KJV and ASV: meaning with BGE 30% and 35%, MiniLM 28% and 27%, the hybrid 27% and 27%, keyword search 8% and 11%](docs/images/search-leaderboard.png)
 
 Ask in your own words, and get the verses that answer, even when they share no words: "verses about worry" finds "Fear thou not; for I am with thee". Graded on 30 questions whose answers were frozen before any search ran, **searching by meaning finds three to four times what keyword search finds**, and a search takes about 11 milliseconds through Postgres's vector index. Mixing in keywords made it no better. See [the write-up](docs/analysis/semantic-search.md).
+
+## 🏷️ Topic tags
+
+![Each topic's first screen of 20 verses: hope 85% right, praise and loving others 80%, down to worry and anxiety at 0%](docs/images/topics-by-tag.png)
+
+Every verse is tagged with what it's about, from 30 topics a reader would recognise, so the app can offer "more on patience" or a page of verses for hard times. The answer key is **Nave's Topical Bible** (1896), mapped to our tags before any tagger ran. A model trained on Nave's examples wins, graded on whole books it never saw: hope gets **85%** of its first screen right. Worry and anxiety fails, because Nave's files it under worldly care, and the write-up shows why. See [the write-up](docs/analysis/topic-tags.md).
 
 ## License
 
