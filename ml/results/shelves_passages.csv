@@ -1,0 +1,4 @@
+pooler,recall_at_10,hit_at_10,precision_at_10,passages,served
+sum,11,48,9,2552,True
+rrf,11,49,8,2552,False
+full,9,40,7,2552,False

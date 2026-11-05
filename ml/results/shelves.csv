@@ -1,0 +1,7 @@
+method,recall_at_10,hit_at_10,precision_at_10,queries,links,winner
+popular,1,4,0,6493,35142,False
+words,21,48,7,6493,35142,False
+meaning,21,47,7,6493,35142,False
+topics,5,15,2,6493,35142,False
+blend,25,55,9,6493,35142,True
+chance,0,0,0,6493,35142,False

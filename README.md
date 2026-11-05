@@ -41,7 +41,7 @@ bash, Docker, cd mobile && npm install && expo start
 ```
 The text comes from the King James Version and the American Standard Version (both public domain).
 
-**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt) the first analytics (two notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP steps (verse embeddings, search by meaning and topic tags) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
+**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt) the first analytics (two notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP steps (verse embeddings, search by meaning, topic tags and what to read next) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
 
 ## 📊 The reading dashboard
 
@@ -90,6 +90,12 @@ Ask in your own words, and get the verses that answer, even when they share no w
 ![Each topic's first screen of 20 verses: hope 85% right, praise and loving others 80%, down to worry and anxiety at 0%](docs/images/topics-by-tag.png)
 
 Every verse is tagged with what it's about, from 30 topics a reader would recognise, so the app can offer "more on patience" or a page of verses for hard times. The answer key is **Nave's Topical Bible** (1896), mapped to our tags before any tagger ran. A model trained on Nave's examples wins, graded on whole books it never saw: hope gets **85%** of its first screen right. Worry and anxiety fails, because Nave's files it under worldly care, and the write-up shows why. See [the write-up](docs/analysis/topic-tags.md).
+
+## 📚 Because you read
+
+![Five recommenders on three measures against chance: words, meaning and topics together find 25% of a verse's voted links on a shelf of 10](docs/images/shelves-leaderboard.png)
+
+After a passage, the app can offer 10 verses to read next, each from a different chapter: after John 3:16 comes 1 John 4:9, "God sent his only begotten Son into the world, that we might live through him". The answer key is **OpenBible.info's cross-references**, voted on by readers, with the rules fixed before any recommender ran. **Shared words, meaning and topic tags together** win, graded on whole books they never saw: a shelf holds **25%** of a verse's voted links, and over half of shelves hold at least one. "Readers like you" is built, and switched off until readers choose passages for themselves. See [the write-up](docs/analysis/because-you-read.md).
 
 ## License
 

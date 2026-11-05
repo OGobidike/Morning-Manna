@@ -1,6 +1,6 @@
 # Morning Manna ML
 
-Pretend readers, the answer key the models are graded against, and the models themselves. Card 7 built three: streak risk, reader personas and the best reminder time. Card 8 adds language: every verse as a vector of its meaning, search by meaning, and topic tags.
+Pretend readers, the answer key the models are graded against, and the models themselves. Card 7 built three: streak risk, reader personas and the best reminder time. Card 8 adds language: every verse as a vector of its meaning, search by meaning, topic tags, and what to read next.
 
 Python 3.11+ · NumPy · scikit-learn · XGBoost · LightGBM · MLflow · FastEmbed · pgvector
 
@@ -130,6 +130,7 @@ MLFLOW_DISABLE_TELEMETRY=true mlflow ui --backend-store-uri sqlite:///ml/mlruns/
 | `POST /streak-risk` | For up to 1,000 streak nights at once, each reader's chance of missing tomorrow, and which version said so |
 | `GET /search` | The verses that answer a question, by meaning (Card 8.2, [below](#-semantic-search-card-82)) |
 | `GET /topics`, `GET /topics/{tag}` | The 30 topic tags, and a topic's best verses (Card 8.3, below) |
+| `GET /because-you-read` | After a verse, a chapter or a passage, the 10 verses a reader might want next (Card 8.4, below) |
 
 ![The service's interactive docs page: the three endpoints, and a request for two readers. A steady reader (a 12-day streak, read every day this week) gets a 15% chance of missing tomorrow; a wobbly one (a 1-day streak, read 2 days in 7, reading time wandering by 95 minutes) gets 48%. Both answers name model version 1.](../docs/images/streak-service.png)
 
@@ -272,10 +273,31 @@ curl "http://localhost:8001/topics/patience?k=5"     # with the service running
 - **No new download.** It uses 8.1's stored vectors and model.
 - **The records:** `results/topics.csv` (the leaderboard, whole percents) and `results/topics_by_tag.csv` (each tag's grades, also whole percents, which the charts read). Whole percents because another computer's floating point can move a 4th decimal.
 
+## 📚 Because you read (Card 8.4)
+
+After a passage, a shelf of 10 verses to read next, each from a different chapter and never from the chapter just read. [recommend.py](recommend.py) races five recommenders and stores every verse's shelf in `ml.verse_shelves`; a passage pools its verses' shelves.
+
+![Five recommenders on three measures against chance: words, meaning and topics together find 25% of a verse's voted links on a shelf of 10](../docs/images/shelves-leaderboard.png)
+
+**The answer key is OpenBible.info's cross-references** (CC BY): 344,799 links between verses, voted on by readers. A link counts from 10 votes, the best tenth, and the rules were fixed before any recommender ran. **The blend of shared words, meaning and topic tags wins**, graded on whole books it never saw: it finds 25% of a verse's voted links, against 21% for words or meaning alone. The whole story: [the write-up](../docs/analysis/because-you-read.md).
+
+```bash
+# From the repo root, with the database up, the verses embedded and the topics tagged
+python ml/recommend.py           # about 4 minutes: the race, the records, and ml.verse_shelves
+python ml/recommend_charts.py    # the charts, as web pages in ml/charts/
+curl "http://localhost:8001/because-you-read?book=John&chapter=3&verse=16&k=5"
+```
+
+- **The key is the published file, pinned.** It downloads once (8.3 MB, into `data/raw/`) and its md5 is checked, so a changed file can't quietly change the grades.
+- **Graded on unseen books,** in 8.3's 3 groups. The only things learned from the key (how often each verse is linked to, and the blend's weights) come from the other groups.
+- **Passages were graded too,** on every run of 6 verses: adding up the verses' shelf scores beat fusing their ranks, and beat the whole passage as one query.
+- **Readers like you is built and switched off.** Everyone reads the same plan, so readers' choices say nothing yet; `collab_status` turns it on once 200 readers have each chosen 5 chapters themselves.
+- **The records:** `results/shelves.csv` (the leaderboard), `shelves_by_section.csv`, `shelves_weights.csv` and `shelves_passages.csv`, all whole percents or counts. With the vectors nudged by another computer's rounding, the blend's weights for one book group can swap with a neighbour 0.04 points behind, moving a few numbers by a point, so another computer's records match within a point, not byte for byte.
+
 ## Tests
 
 ```bash
 cd ml
 pip install -e ".[dev,models,tracking,serving,nlp]"
-pytest          # 108 tests; the embedding, search and topic tests need docker compose up -d db
+pytest          # 124 tests; the embedding, search, topic and shelf tests need docker compose up -d db
 ```
