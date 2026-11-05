@@ -1,4 +1,4 @@
-"""The ML service (Cards 7.4 and 8.2): the models behind a small web API.
+"""The ML service (Cards 7.4 and 8.2 to 8.4): the models behind a small web API.
 
 It loads models:/streak_risk@champion from the registry once, when it starts, and answers:
 
@@ -8,10 +8,11 @@ It loads models:/streak_risk@champion from the registry once, when it starts, an
     GET  /search          the verses that answer a question, by meaning and by keyword (8.2)
     GET  /topics          the 30 topic tags (8.3)
     GET  /topics/{tag}    a topic's best verses (8.3)
+    GET  /because-you-read  after a passage, the verses a reader might want next (8.4)
 
 /search needs the nlp extra and the verse vectors (python ml/verse_embeddings.py); /topics/{tag}
-needs the tags (python ml/topics.py). Both connect on first use, so the service starts as fast as
-before.
+needs the tags (python ml/topics.py), and /because-you-read the shelves (python
+ml/recommend.py). They connect on first use, so the service starts as fast as before.
 
 It's a service of its own, apart from the app's API in backend/, so the app never carries the
 model libraries (over 200 MB) and either one can be restarted or updated without the other.
@@ -50,7 +51,8 @@ class Night(BaseModel):
     read_rate_7d: float = Field(ge=0, le=1, description="Share of the last 7 days they read")
     read_rate_28d: float = Field(ge=0, le=1, description="Share of the last 28 days they read")
     read_time_spread_14d: float | None = Field(
-        default=None, ge=0,
+        default=None,
+        ge=0,
         description="How much their reading time wanders, in minutes (none with fewer than two "
         "reads in 14 days)",
     )
@@ -96,6 +98,27 @@ class TopicPage(BaseModel):
     verses: list[Verse] = Field(description="Best first")
 
 
+class Shelf(BaseModel):
+    passage: str = Field(examples=["Psalms 23"])
+    translation: str
+    verses: list[Verse] = Field(description="Best first, each from a different chapter")
+    readers_like_you: bool = Field(
+        False,
+        description="Whether readers' own choices shape the shelf: off until 200 readers have "
+        "each chosen 5 chapters themselves (Card 8.4)",
+    )
+
+
+def passage_name(book, chapter, verse, end_chapter, end_verse) -> str:
+    """Psalms 23, John 3:16, Matthew 6:25-34 or Ruth 1:1-2:3."""
+    if verse is None and end_verse is None:
+        return f"{book} {chapter}" + (f"-{end_chapter}" if end_chapter != chapter else "")
+    start = f"{book} {chapter}:{verse or 1}"
+    if end_chapter != chapter:
+        return f"{start}-{end_chapter}:{end_verse}" if end_verse else f"{start}-{end_chapter}"
+    return start if end_verse in (None, verse) else f"{start}-{end_verse}"
+
+
 def database():
     from sqlalchemy import create_engine
 
@@ -105,7 +128,7 @@ def database():
 
 def needs_nlp(missing: ImportError) -> HTTPException:
     return HTTPException(
-        503, f"This needs the nlp extra, pip install -e \".[nlp]\" (no {missing.name})"
+        503, f'This needs the nlp extra, pip install -e ".[nlp]" (no {missing.name})'
     )
 
 
@@ -117,6 +140,16 @@ def topic_finder():
         raise needs_nlp(missing) from missing
     engine = database()
     return lambda tag, translation, k: topics.topic_verses(engine, tag, translation, k)
+
+
+def shelf_finder():
+    """A function from a passage, a translation and k to its shelf, made on first use."""
+    try:
+        import recommend
+    except ImportError as missing:
+        raise needs_nlp(missing) from missing
+    engine = database()
+    return lambda *passage: recommend.shelf_for(engine, *passage)
 
 
 def searcher():
@@ -145,19 +178,24 @@ def as_features(nights: list[Night]) -> pd.DataFrame:
     return frame[sr.FEATURES]
 
 
-def create_app(store: Path = mr.STORE, search_with=None, topics_with=None) -> FastAPI:
-    """search_with and topics_with stand in for searcher() and topic_finder() in tests."""
+def create_app(
+    store: Path = mr.STORE, search_with=None, topics_with=None, shelves_with=None
+) -> FastAPI:
+    """search_with, topics_with and shelves_with stand in for searcher(), topic_finder() and
+    shelf_finder() in tests."""
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         app.state.champion = mr.load_champion(store)
         app.state.search_with = search_with
         app.state.topics_with = topics_with
+        app.state.shelves_with = shelves_with
         yield
 
     app = FastAPI(
         title="Morning Manna: the ML service",
-        description="Streak risk, search by meaning and topic tags, behind one small API.",
+        description="Streak risk, search by meaning, topic tags and what to read next, behind "
+        "one small API.",
         lifespan=lifespan,
     )
 
@@ -192,9 +230,7 @@ def create_app(store: Path = mr.STORE, search_with=None, topics_with=None) -> Fa
     def streak_risk(request: Nights):
         serving = champion()
         chances = sr.miss_chance(serving.model, as_features(request.nights))
-        return Chances(
-            model_version=serving.version, miss_chances=np.round(chances, 4).tolist()
-        )
+        return Chances(model_version=serving.version, miss_chances=np.round(chances, 4).tolist())
 
     @app.get("/search", response_model=Found)
     def search_verses(
@@ -249,6 +285,42 @@ def create_app(store: Path = mr.STORE, search_with=None, topics_with=None) -> Fa
         return TopicPage(
             tag=tag,
             label=labels[tag],
+            translation=translation,
+            verses=found[["reference", "book", "chapter", "verse", "text"]].to_dict("records"),
+        )
+
+    @app.get("/because-you-read", response_model=Shelf)
+    def because_you_read(
+        book: str = Query(examples=["Psalms"], description="As the app names it"),
+        chapter: int = Query(ge=1),
+        verse: int | None = Query(None, ge=1, description="Leave out for the whole chapter"),
+        end_chapter: int | None = Query(None, ge=1, description="Leave out for the same one"),
+        end_verse: int | None = Query(
+            None, ge=1, description="Leave out for the verse alone, or with no verse, the chapter"
+        ),
+        k: int = Query(10, ge=1, le=MAX_RESULTS, description="How many verses"),
+        translation: Literal["KJV", "ASV"] = "KJV",
+    ):
+        from sqlalchemy.exc import ProgrammingError
+
+        end = chapter if end_chapter is None else end_chapter
+        if verse is not None and end_verse is None and end_chapter is None:
+            end_verse = verse  # John 3:16 alone
+        if (end, end_verse or 999) < (chapter, verse or 1):
+            raise HTTPException(422, "The passage ends before it starts")
+        if app.state.shelves_with is None:
+            app.state.shelves_with = shelf_finder()
+        try:
+            found = app.state.shelves_with(
+                book, chapter, verse or 1, end, end_verse, translation, k
+            )
+        except ProgrammingError as missing:  # no shelves table yet
+            raise HTTPException(503, "No shelves yet: run python ml/recommend.py") from missing
+        name = passage_name(book, chapter, verse, end, end_verse)
+        if found.empty:
+            raise HTTPException(404, f"No shelf for {name}: is it in the Bible?")
+        return Shelf(
+            passage=name,
             translation=translation,
             verses=found[["reference", "book", "chapter", "verse", "text"]].to_dict("records"),
         )

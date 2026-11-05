@@ -1,0 +1,15 @@
+section,method,recall_at_10,queries
+The Law,words,24,536
+History,words,19,274
+Poetry and wisdom,words,20,1412
+The prophets,words,17,834
+The Law,blend,28,536
+History,blend,22,274
+Poetry and wisdom,blend,24,1412
+The prophets,blend,20,834
+Gospels and Acts,words,27,1487
+Letters,words,18,1743
+Gospels and Acts,blend,31,1487
+Letters,blend,22,1743
+Revelation,words,26,207
+Revelation,blend,31,207
