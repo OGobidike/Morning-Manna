@@ -1,0 +1,5530 @@
+tag,book,chapter,verse
+anger,Genesis,4,6
+anger,Genesis,49,7
+anger,2 Chronicles,28,9
+anger,Job,5,2
+anger,Job,19,29
+anger,Psalms,37,8
+anger,Psalms,55,3
+anger,Psalms,76,10
+anger,Proverbs,6,34
+anger,Proverbs,12,16
+anger,Proverbs,14,17
+anger,Proverbs,14,29
+anger,Proverbs,15,1
+anger,Proverbs,15,18
+anger,Proverbs,16,14
+anger,Proverbs,16,29
+anger,Proverbs,16,32
+anger,Proverbs,17,14
+anger,Proverbs,19,11
+anger,Proverbs,19,12
+anger,Proverbs,19,19
+anger,Proverbs,21,24
+anger,Proverbs,22,24
+anger,Proverbs,22,25
+anger,Proverbs,25,28
+anger,Proverbs,27,3
+anger,Proverbs,27,4
+anger,Proverbs,29,8
+anger,Proverbs,29,9
+anger,Proverbs,29,22
+anger,Proverbs,30,33
+anger,Ecclesiastes,7,9
+anger,Hosea,7,16
+anger,Amos,1,11
+anger,Jonah,4,4
+anger,Matthew,5,22
+anger,2 Corinthians,12,20
+anger,Galatians,5,19
+anger,Galatians,5,20
+anger,Galatians,5,21
+anger,Ephesians,4,26
+anger,Ephesians,4,31
+anger,Colossians,3,8
+anger,1 Timothy,2,8
+anger,Titus,1,7
+anger,James,1,19
+anger,James,1,20
+anxiety,Psalms,37,5
+anxiety,Psalms,39,6
+anxiety,Psalms,55,22
+anxiety,Psalms,127,2
+anxiety,Proverbs,16,3
+anxiety,Ecclesiastes,4,8
+anxiety,Jeremiah,17,7
+anxiety,Jeremiah,17,8
+anxiety,Matthew,6,25
+anxiety,Matthew,6,26
+anxiety,Matthew,6,27
+anxiety,Matthew,6,28
+anxiety,Matthew,6,29
+anxiety,Matthew,6,30
+anxiety,Matthew,6,31
+anxiety,Matthew,6,32
+anxiety,Matthew,6,33
+anxiety,Matthew,6,34
+anxiety,Matthew,13,22
+anxiety,Mark,4,19
+anxiety,Luke,8,14
+anxiety,Luke,12,22
+anxiety,Luke,12,23
+anxiety,Luke,12,24
+anxiety,Luke,12,25
+anxiety,Luke,12,26
+anxiety,Luke,12,27
+anxiety,Luke,12,28
+anxiety,Luke,12,29
+anxiety,Luke,12,30
+anxiety,Luke,12,31
+anxiety,Luke,12,32
+anxiety,Luke,14,18
+anxiety,Luke,14,19
+anxiety,Luke,14,20
+anxiety,Luke,21,34
+anxiety,1 Corinthians,7,32
+anxiety,1 Corinthians,7,33
+anxiety,Philippians,4,6
+anxiety,Philippians,4,7
+anxiety,2 Timothy,2,4
+anxiety,Hebrews,13,5
+anxiety,1 Peter,5,6
+anxiety,1 Peter,5,7
+comfort,Genesis,16,7
+comfort,Genesis,16,8
+comfort,Genesis,16,9
+comfort,Genesis,16,10
+comfort,Genesis,16,11
+comfort,Genesis,16,12
+comfort,Genesis,16,13
+comfort,Genesis,21,17
+comfort,Genesis,26,17
+comfort,Genesis,26,33
+comfort,Genesis,31,42
+comfort,Exodus,3,7
+comfort,Exodus,3,8
+comfort,Exodus,3,16
+comfort,Exodus,3,17
+comfort,Exodus,14,13
+comfort,Exodus,14,14
+comfort,Deuteronomy,33,27
+comfort,2 Samuel,22,28
+comfort,Job,5,6
+comfort,Job,5,7
+comfort,Job,5,8
+comfort,Job,5,9
+comfort,Job,5,10
+comfort,Job,5,11
+comfort,Job,5,12
+comfort,Job,5,13
+comfort,Job,5,14
+comfort,Job,5,15
+comfort,Job,5,16
+comfort,Job,5,17
+comfort,Job,5,18
+comfort,Job,5,19
+comfort,Job,5,20
+comfort,Job,5,21
+comfort,Job,5,22
+comfort,Job,5,23
+comfort,Job,5,24
+comfort,Job,5,25
+comfort,Job,5,26
+comfort,Job,5,27
+comfort,Job,11,16
+comfort,Job,11,17
+comfort,Job,11,18
+comfort,Job,11,19
+comfort,Job,16,5
+comfort,Job,29,25
+comfort,Job,31,19
+comfort,Job,31,20
+comfort,Job,31,21
+comfort,Job,31,22
+comfort,Job,35,10
+comfort,Psalms,9,9
+comfort,Psalms,9,10
+comfort,Psalms,23,4
+comfort,Psalms,27,5
+comfort,Psalms,27,6
+comfort,Psalms,30,5
+comfort,Psalms,31,7
+comfort,Psalms,34,4
+comfort,Psalms,34,19
+comfort,Psalms,34,20
+comfort,Psalms,37,23
+comfort,Psalms,37,24
+comfort,Psalms,37,32
+comfort,Psalms,37,33
+comfort,Psalms,41,3
+comfort,Psalms,42,5
+comfort,Psalms,46,1
+comfort,Psalms,50,15
+comfort,Psalms,55,22
+comfort,Psalms,56,8
+comfort,Psalms,56,9
+comfort,Psalms,56,10
+comfort,Psalms,62,1
+comfort,Psalms,62,2
+comfort,Psalms,62,5
+comfort,Psalms,62,6
+comfort,Psalms,62,7
+comfort,Psalms,62,8
+comfort,Psalms,62,11
+comfort,Psalms,62,12
+comfort,Psalms,68,6
+comfort,Psalms,69,20
+comfort,Psalms,69,33
+comfort,Psalms,71,20
+comfort,Psalms,73,26
+comfort,Psalms,94,17
+comfort,Psalms,94,18
+comfort,Psalms,94,19
+comfort,Psalms,103,13
+comfort,Psalms,103,14
+comfort,Psalms,112,4
+comfort,Psalms,119,50
+comfort,Psalms,119,52
+comfort,Psalms,119,54
+comfort,Psalms,119,92
+comfort,Psalms,119,143
+comfort,Psalms,138,3
+comfort,Psalms,138,7
+comfort,Psalms,138,8
+comfort,Psalms,140,12
+comfort,Psalms,145,14
+comfort,Psalms,147,3
+comfort,Proverbs,12,13
+comfort,Ecclesiastes,4,1
+comfort,Isaiah,4,6
+comfort,Isaiah,14,31
+comfort,Isaiah,14,32
+comfort,Isaiah,25,4
+comfort,Isaiah,30,19
+comfort,Isaiah,30,20
+comfort,Isaiah,35,3
+comfort,Isaiah,35,4
+comfort,Isaiah,40,1
+comfort,Isaiah,40,2
+comfort,Isaiah,40,29
+comfort,Isaiah,41,10
+comfort,Isaiah,41,13
+comfort,Isaiah,41,14
+comfort,Isaiah,41,17
+comfort,Isaiah,42,3
+comfort,Isaiah,43,2
+comfort,Isaiah,49,13
+comfort,Isaiah,50,4
+comfort,Isaiah,50,7
+comfort,Isaiah,50,8
+comfort,Isaiah,50,9
+comfort,Isaiah,50,10
+comfort,Isaiah,51,3
+comfort,Isaiah,51,4
+comfort,Isaiah,51,5
+comfort,Isaiah,51,6
+comfort,Isaiah,51,7
+comfort,Isaiah,51,8
+comfort,Isaiah,51,9
+comfort,Isaiah,51,10
+comfort,Isaiah,51,11
+comfort,Isaiah,51,12
+comfort,Isaiah,51,13
+comfort,Isaiah,54,4
+comfort,Isaiah,54,11
+comfort,Isaiah,58,10
+comfort,Isaiah,61,1
+comfort,Isaiah,61,2
+comfort,Isaiah,61,3
+comfort,Isaiah,63,9
+comfort,Isaiah,66,5
+comfort,Isaiah,66,13
+comfort,Isaiah,66,14
+comfort,Jeremiah,31,13
+comfort,Jeremiah,31,25
+comfort,Jeremiah,39,17
+comfort,Jeremiah,39,18
+comfort,Lamentations,3,31
+comfort,Lamentations,3,32
+comfort,Lamentations,3,33
+comfort,Lamentations,3,57
+comfort,Ezekiel,11,16
+comfort,Hosea,2,14
+comfort,Hosea,2,15
+comfort,Hosea,6,1
+comfort,Hosea,6,2
+comfort,Hosea,6,3
+comfort,Nahum,1,7
+comfort,Zephaniah,3,18
+comfort,Matthew,5,4
+comfort,Matthew,5,10
+comfort,Matthew,5,11
+comfort,Matthew,5,12
+comfort,Matthew,10,29
+comfort,Matthew,10,30
+comfort,Matthew,10,31
+comfort,Matthew,11,28
+comfort,Matthew,14,27
+comfort,Matthew,25,34
+comfort,Matthew,25,35
+comfort,Matthew,25,36
+comfort,Matthew,25,40
+comfort,Matthew,28,5
+comfort,Matthew,28,9
+comfort,Matthew,28,10
+comfort,Mark,6,50
+comfort,Luke,6,21
+comfort,Luke,6,22
+comfort,Luke,6,23
+comfort,Luke,7,13
+comfort,Luke,12,6
+comfort,Luke,12,7
+comfort,Luke,18,1
+comfort,Luke,18,2
+comfort,Luke,18,3
+comfort,Luke,18,4
+comfort,Luke,18,5
+comfort,Luke,18,6
+comfort,Luke,18,7
+comfort,Luke,18,8
+comfort,Luke,21,18
+comfort,John,14,1
+comfort,John,14,16
+comfort,John,14,18
+comfort,John,14,27
+comfort,John,15,18
+comfort,John,15,20
+comfort,John,16,20
+comfort,John,16,22
+comfort,John,16,33
+comfort,Acts,12,5
+comfort,Acts,23,11
+comfort,Romans,8,28
+comfort,Romans,8,35
+comfort,Romans,8,36
+comfort,Romans,8,37
+comfort,Romans,8,38
+comfort,Romans,8,39
+comfort,Romans,12,12
+comfort,Romans,12,15
+comfort,Romans,15,4
+comfort,2 Corinthians,1,3
+comfort,2 Corinthians,1,4
+comfort,2 Corinthians,1,5
+comfort,2 Corinthians,1,7
+comfort,2 Corinthians,4,8
+comfort,2 Corinthians,4,9
+comfort,2 Corinthians,4,10
+comfort,2 Corinthians,4,16
+comfort,2 Corinthians,4,17
+comfort,2 Corinthians,7,6
+comfort,2 Corinthians,12,9
+comfort,Galatians,6,2
+comfort,Philippians,1,19
+comfort,1 Thessalonians,4,13
+comfort,1 Thessalonians,4,16
+comfort,1 Thessalonians,4,17
+comfort,1 Thessalonians,4,18
+comfort,2 Thessalonians,1,7
+comfort,2 Thessalonians,2,16
+comfort,2 Thessalonians,2,17
+comfort,2 Timothy,2,12
+comfort,2 Timothy,4,17
+comfort,Hebrews,2,14
+comfort,Hebrews,2,15
+comfort,Hebrews,2,18
+comfort,Hebrews,4,15
+comfort,Hebrews,4,16
+comfort,Hebrews,6,18
+comfort,Hebrews,12,1
+comfort,Hebrews,12,2
+comfort,Hebrews,12,3
+comfort,Hebrews,12,4
+comfort,Hebrews,12,12
+comfort,Hebrews,12,13
+comfort,Hebrews,13,3
+comfort,Hebrews,13,5
+comfort,Hebrews,13,6
+comfort,James,1,12
+comfort,James,1,27
+comfort,James,5,8
+comfort,James,5,10
+comfort,1 Peter,2,21
+comfort,1 Peter,2,22
+comfort,1 Peter,2,23
+comfort,1 Peter,2,24
+comfort,1 Peter,4,12
+comfort,1 Peter,4,13
+comfort,1 Peter,4,14
+comfort,1 Peter,5,7
+comfort,Revelation,2,9
+comfort,Revelation,2,10
+comfort,Revelation,3,2
+comfort,Revelation,3,10
+comfort,Revelation,7,14
+comfort,Revelation,7,15
+comfort,Revelation,7,16
+comfort,Revelation,7,17
+contentment,Psalms,16,6
+contentment,Psalms,37,7
+contentment,Psalms,37,16
+contentment,Proverbs,14,10
+contentment,Proverbs,14,14
+contentment,Proverbs,15,13
+contentment,Proverbs,15,15
+contentment,Proverbs,15,30
+contentment,Proverbs,16,8
+contentment,Proverbs,17,1
+contentment,Proverbs,17,22
+contentment,Proverbs,30,8
+contentment,Ecclesiastes,2,24
+contentment,Ecclesiastes,3,12
+contentment,Ecclesiastes,3,13
+contentment,Ecclesiastes,4,6
+contentment,Ecclesiastes,5,12
+contentment,Ecclesiastes,6,7
+contentment,Ecclesiastes,6,8
+contentment,Ecclesiastes,6,9
+contentment,Ecclesiastes,8,15
+contentment,Ecclesiastes,9,7
+contentment,Ecclesiastes,9,8
+contentment,Ecclesiastes,9,9
+contentment,Luke,3,14
+contentment,1 Corinthians,7,17
+contentment,1 Corinthians,7,20
+contentment,1 Corinthians,7,21
+contentment,1 Corinthians,7,24
+contentment,Galatians,5,26
+contentment,Philippians,4,11
+contentment,Philippians,4,12
+contentment,1 Timothy,6,6
+contentment,1 Timothy,6,7
+contentment,1 Timothy,6,8
+contentment,Hebrews,13,5
+faith,Exodus,14,13
+faith,Numbers,21,34
+faith,Deuteronomy,1,21
+faith,Deuteronomy,1,22
+faith,Deuteronomy,1,23
+faith,Deuteronomy,1,24
+faith,Deuteronomy,1,25
+faith,Deuteronomy,1,26
+faith,Deuteronomy,1,27
+faith,Deuteronomy,1,28
+faith,Deuteronomy,1,29
+faith,Deuteronomy,1,30
+faith,Deuteronomy,1,31
+faith,Deuteronomy,3,2
+faith,Deuteronomy,3,22
+faith,Deuteronomy,7,17
+faith,Deuteronomy,7,18
+faith,Deuteronomy,7,19
+faith,Deuteronomy,7,20
+faith,Deuteronomy,7,21
+faith,Deuteronomy,20,1
+faith,Deuteronomy,31,6
+faith,Deuteronomy,31,7
+faith,Deuteronomy,31,8
+faith,Deuteronomy,31,23
+faith,Joshua,1,5
+faith,Joshua,1,6
+faith,Joshua,1,7
+faith,Joshua,1,8
+faith,Joshua,1,9
+faith,Joshua,10,25
+faith,Judges,6,14
+faith,Judges,6,15
+faith,Judges,6,16
+faith,2 Samuel,22,31
+faith,2 Kings,19,6
+faith,2 Kings,19,7
+faith,2 Chronicles,15,7
+faith,2 Chronicles,16,9
+faith,2 Chronicles,20,15
+faith,2 Chronicles,20,17
+faith,2 Chronicles,20,20
+faith,2 Chronicles,32,7
+faith,2 Chronicles,32,8
+faith,Nehemiah,4,14
+faith,Job,35,14
+faith,Psalms,2,12
+faith,Psalms,4,5
+faith,Psalms,5,11
+faith,Psalms,7,1
+faith,Psalms,9,9
+faith,Psalms,9,10
+faith,Psalms,18,30
+faith,Psalms,27,14
+faith,Psalms,31,19
+faith,Psalms,31,24
+faith,Psalms,32,10
+faith,Psalms,33,18
+faith,Psalms,33,19
+faith,Psalms,34,1
+faith,Psalms,34,2
+faith,Psalms,34,3
+faith,Psalms,34,4
+faith,Psalms,34,5
+faith,Psalms,34,6
+faith,Psalms,34,7
+faith,Psalms,34,8
+faith,Psalms,34,22
+faith,Psalms,36,7
+faith,Psalms,37,3
+faith,Psalms,37,5
+faith,Psalms,37,7
+faith,Psalms,37,39
+faith,Psalms,37,40
+faith,Psalms,40,4
+faith,Psalms,55,22
+faith,Psalms,62,8
+faith,Psalms,64,10
+faith,Psalms,78,5
+faith,Psalms,78,6
+faith,Psalms,78,7
+faith,Psalms,84,5
+faith,Psalms,84,12
+faith,Psalms,112,5
+faith,Psalms,112,7
+faith,Psalms,112,8
+faith,Psalms,115,9
+faith,Psalms,115,11
+faith,Psalms,118,8
+faith,Psalms,118,9
+faith,Psalms,125,1
+faith,Psalms,130,7
+faith,Psalms,147,11
+faith,Proverbs,3,5
+faith,Proverbs,3,6
+faith,Proverbs,3,24
+faith,Proverbs,3,25
+faith,Proverbs,3,26
+faith,Proverbs,14,26
+faith,Proverbs,16,3
+faith,Proverbs,22,19
+faith,Proverbs,28,25
+faith,Proverbs,29,25
+faith,Proverbs,30,5
+faith,Isaiah,10,20
+faith,Isaiah,14,32
+faith,Isaiah,26,3
+faith,Isaiah,26,4
+faith,Isaiah,26,20
+faith,Isaiah,30,15
+faith,Isaiah,35,3
+faith,Isaiah,35,4
+faith,Isaiah,37,6
+faith,Isaiah,41,10
+faith,Isaiah,41,13
+faith,Isaiah,41,14
+faith,Isaiah,43,1
+faith,Isaiah,43,2
+faith,Isaiah,43,5
+faith,Isaiah,43,10
+faith,Isaiah,44,2
+faith,Isaiah,44,8
+faith,Isaiah,50,10
+faith,Isaiah,57,13
+faith,Jeremiah,17,7
+faith,Jeremiah,17,8
+faith,Jeremiah,39,18
+faith,Jeremiah,42,11
+faith,Jeremiah,49,11
+faith,Joel,2,21
+faith,Joel,3,16
+faith,Nahum,1,7
+faith,Habakkuk,2,3
+faith,Habakkuk,2,4
+faith,Zephaniah,3,16
+faith,Zephaniah,3,17
+faith,Zechariah,8,9
+faith,Zechariah,9,12
+faith,Matthew,6,25
+faith,Matthew,6,26
+faith,Matthew,6,27
+faith,Matthew,6,28
+faith,Matthew,6,29
+faith,Matthew,6,30
+faith,Matthew,6,31
+faith,Matthew,6,32
+faith,Matthew,6,33
+faith,Matthew,6,34
+faith,Matthew,9,22
+faith,Matthew,17,18
+faith,Matthew,17,19
+faith,Matthew,17,20
+faith,Matthew,21,21
+faith,Matthew,21,22
+faith,Mark,1,15
+faith,Mark,9,23
+faith,Mark,9,24
+faith,Mark,11,22
+faith,Mark,11,23
+faith,Mark,11,24
+faith,Luke,7,50
+faith,Luke,8,48
+faith,Luke,8,49
+faith,Luke,8,50
+faith,Luke,12,22
+faith,Luke,12,23
+faith,Luke,12,24
+faith,Luke,12,25
+faith,Luke,12,26
+faith,Luke,12,27
+faith,Luke,12,28
+faith,Luke,12,29
+faith,Luke,12,30
+faith,Luke,12,31
+faith,Luke,12,32
+faith,Luke,17,5
+faith,Luke,17,6
+faith,Luke,18,8
+faith,John,11,25
+faith,John,11,26
+faith,John,11,27
+faith,Acts,3,16
+faith,Acts,13,48
+faith,Acts,26,18
+faith,Romans,1,16
+faith,Romans,1,17
+faith,Romans,4,1
+faith,Romans,4,2
+faith,Romans,4,3
+faith,Romans,4,4
+faith,Romans,4,5
+faith,Romans,4,6
+faith,Romans,4,7
+faith,Romans,4,8
+faith,Romans,4,9
+faith,Romans,4,10
+faith,Romans,4,11
+faith,Romans,4,12
+faith,Romans,4,13
+faith,Romans,4,14
+faith,Romans,4,15
+faith,Romans,4,16
+faith,Romans,4,17
+faith,Romans,4,18
+faith,Romans,4,19
+faith,Romans,4,20
+faith,Romans,4,21
+faith,Romans,4,22
+faith,Romans,4,23
+faith,Romans,4,24
+faith,Romans,4,25
+faith,Romans,5,1
+faith,Romans,9,31
+faith,Romans,9,32
+faith,Romans,9,33
+faith,Romans,10,6
+faith,Romans,10,7
+faith,Romans,10,8
+faith,Romans,10,9
+faith,Romans,10,10
+faith,Romans,11,20
+faith,Romans,11,23
+faith,Romans,15,13
+faith,1 Corinthians,1,21
+faith,1 Corinthians,2,5
+faith,1 Corinthians,12,8
+faith,1 Corinthians,12,9
+faith,2 Corinthians,1,24
+faith,Galatians,3,1
+faith,Galatians,3,2
+faith,Galatians,3,3
+faith,Galatians,3,4
+faith,Galatians,3,5
+faith,Galatians,3,6
+faith,Galatians,3,7
+faith,Galatians,3,8
+faith,Galatians,3,9
+faith,Galatians,3,10
+faith,Galatians,3,11
+faith,Galatians,3,12
+faith,Galatians,3,13
+faith,Galatians,3,14
+faith,Galatians,3,15
+faith,Galatians,3,16
+faith,Galatians,3,17
+faith,Galatians,3,18
+faith,Galatians,3,19
+faith,Galatians,3,20
+faith,Galatians,3,21
+faith,Galatians,3,22
+faith,Galatians,3,23
+faith,Galatians,3,24
+faith,Galatians,3,25
+faith,Galatians,3,26
+faith,Galatians,3,27
+faith,Galatians,3,28
+faith,Galatians,3,29
+faith,Galatians,5,22
+faith,Ephesians,2,8
+faith,Ephesians,6,16
+faith,Colossians,1,23
+faith,Colossians,2,12
+faith,1 Thessalonians,2,13
+faith,1 Thessalonians,5,8
+faith,2 Thessalonians,2,13
+faith,1 Timothy,1,5
+faith,1 Timothy,1,19
+faith,1 Timothy,2,15
+faith,1 Timothy,4,10
+faith,1 Timothy,6,11
+faith,1 Timothy,6,12
+faith,1 Timothy,6,17
+faith,2 Timothy,4,7
+faith,2 Timothy,4,8
+faith,Hebrews,4,1
+faith,Hebrews,4,2
+faith,Hebrews,4,3
+faith,Hebrews,4,4
+faith,Hebrews,4,5
+faith,Hebrews,4,6
+faith,Hebrews,4,7
+faith,Hebrews,4,8
+faith,Hebrews,4,9
+faith,Hebrews,4,10
+faith,Hebrews,4,11
+faith,Hebrews,6,1
+faith,Hebrews,6,7
+faith,Hebrews,6,12
+faith,Hebrews,6,18
+faith,Hebrews,10,35
+faith,Hebrews,10,38
+faith,Hebrews,10,39
+faith,Hebrews,11,1
+faith,Hebrews,11,2
+faith,Hebrews,11,3
+faith,Hebrews,11,4
+faith,Hebrews,11,5
+faith,Hebrews,11,6
+faith,Hebrews,11,7
+faith,Hebrews,11,8
+faith,Hebrews,11,9
+faith,Hebrews,11,10
+faith,Hebrews,11,11
+faith,Hebrews,11,12
+faith,Hebrews,11,13
+faith,Hebrews,11,14
+faith,Hebrews,11,15
+faith,Hebrews,11,16
+faith,Hebrews,11,17
+faith,Hebrews,11,18
+faith,Hebrews,11,19
+faith,Hebrews,11,20
+faith,Hebrews,11,21
+faith,Hebrews,11,22
+faith,Hebrews,11,23
+faith,Hebrews,11,24
+faith,Hebrews,11,25
+faith,Hebrews,11,26
+faith,Hebrews,11,27
+faith,Hebrews,11,28
+faith,Hebrews,11,29
+faith,Hebrews,11,30
+faith,Hebrews,11,31
+faith,Hebrews,11,32
+faith,Hebrews,11,33
+faith,Hebrews,11,34
+faith,Hebrews,11,35
+faith,Hebrews,11,36
+faith,Hebrews,11,37
+faith,Hebrews,11,38
+faith,Hebrews,11,39
+faith,Hebrews,13,5
+faith,Hebrews,13,6
+faith,James,1,6
+faith,James,2,1
+faith,James,2,2
+faith,James,2,3
+faith,James,2,4
+faith,James,2,5
+faith,James,2,6
+faith,James,2,7
+faith,James,2,8
+faith,James,2,9
+faith,James,2,10
+faith,James,2,11
+faith,James,2,12
+faith,James,2,13
+faith,James,2,14
+faith,James,2,15
+faith,James,2,16
+faith,James,2,17
+faith,James,2,18
+faith,James,2,19
+faith,James,2,20
+faith,James,2,21
+faith,James,2,22
+faith,James,2,23
+faith,James,2,24
+faith,James,2,25
+faith,James,2,26
+faith,1 Peter,1,5
+faith,1 Peter,1,7
+faith,1 Peter,1,9
+faith,1 Peter,1,21
+faith,1 Peter,3,5
+faith,1 John,3,21
+faith,1 John,5,4
+faith,Revelation,22,7
+family,Genesis,18,19
+family,Exodus,10,2
+family,Exodus,12,26
+family,Exodus,12,27
+family,Exodus,13,8
+family,Exodus,13,9
+family,Exodus,13,10
+family,Exodus,13,14
+family,Exodus,13,15
+family,Exodus,13,16
+family,Exodus,20,5
+family,Exodus,20,10
+family,Exodus,20,12
+family,Exodus,21,17
+family,Leviticus,19,3
+family,Leviticus,19,32
+family,Leviticus,20,9
+family,Leviticus,23,3
+family,Deuteronomy,4,9
+family,Deuteronomy,4,10
+family,Deuteronomy,5,16
+family,Deuteronomy,6,6
+family,Deuteronomy,6,7
+family,Deuteronomy,6,8
+family,Deuteronomy,6,9
+family,Deuteronomy,6,20
+family,Deuteronomy,6,21
+family,Deuteronomy,6,22
+family,Deuteronomy,6,23
+family,Deuteronomy,6,24
+family,Deuteronomy,11,18
+family,Deuteronomy,11,19
+family,Deuteronomy,11,20
+family,Deuteronomy,11,21
+family,Deuteronomy,31,12
+family,Deuteronomy,31,13
+family,Deuteronomy,32,46
+family,Joshua,8,35
+family,Psalms,34,11
+family,Psalms,78,1
+family,Psalms,78,2
+family,Psalms,78,3
+family,Psalms,78,4
+family,Psalms,78,5
+family,Psalms,78,6
+family,Psalms,78,7
+family,Psalms,78,8
+family,Psalms,103,13
+family,Psalms,119,9
+family,Psalms,148,12
+family,Psalms,148,13
+family,Proverbs,1,1
+family,Proverbs,1,4
+family,Proverbs,1,8
+family,Proverbs,1,9
+family,Proverbs,3,1
+family,Proverbs,3,2
+family,Proverbs,3,3
+family,Proverbs,3,12
+family,Proverbs,4,1
+family,Proverbs,4,2
+family,Proverbs,4,3
+family,Proverbs,4,4
+family,Proverbs,4,10
+family,Proverbs,4,11
+family,Proverbs,4,20
+family,Proverbs,4,21
+family,Proverbs,4,22
+family,Proverbs,5,1
+family,Proverbs,5,2
+family,Proverbs,6,20
+family,Proverbs,6,21
+family,Proverbs,6,22
+family,Proverbs,6,23
+family,Proverbs,6,24
+family,Proverbs,6,25
+family,Proverbs,8,32
+family,Proverbs,8,33
+family,Proverbs,13,22
+family,Proverbs,13,24
+family,Proverbs,19,18
+family,Proverbs,22,6
+family,Proverbs,22,15
+family,Proverbs,23,13
+family,Proverbs,23,14
+family,Proverbs,23,22
+family,Proverbs,23,26
+family,Proverbs,27,11
+family,Proverbs,29,15
+family,Proverbs,29,17
+family,Proverbs,31,28
+family,Ecclesiastes,12,1
+family,Isaiah,28,9
+family,Isaiah,28,10
+family,Isaiah,38,19
+family,Isaiah,49,15
+family,Isaiah,66,13
+family,Jeremiah,31,1
+family,Jeremiah,49,11
+family,Lamentations,3,27
+family,Lamentations,5,7
+family,Joel,1,3
+family,Malachi,4,6
+family,Matthew,10,37
+family,Matthew,15,4
+family,Matthew,19,19
+family,Mark,10,19
+family,Luke,11,11
+family,Luke,11,12
+family,Luke,11,13
+family,Luke,18,20
+family,John,21,15
+family,Acts,22,3
+family,2 Corinthians,12,14
+family,Ephesians,6,1
+family,Ephesians,6,2
+family,Ephesians,6,3
+family,Ephesians,6,4
+family,Colossians,3,20
+family,Colossians,3,21
+family,1 Thessalonians,2,11
+family,1 Timothy,3,4
+family,1 Timothy,3,5
+family,1 Timothy,3,12
+family,1 Timothy,4,12
+family,1 Timothy,5,8
+family,2 Timothy,2,22
+family,Titus,1,6
+family,Titus,2,4
+family,Titus,2,6
+family,Hebrews,12,7
+forgiven,Exodus,34,6
+forgiven,Exodus,34,7
+forgiven,Leviticus,4,20
+forgiven,Leviticus,4,26
+forgiven,Leviticus,4,31
+forgiven,Leviticus,4,35
+forgiven,Leviticus,5,4
+forgiven,Leviticus,5,5
+forgiven,Leviticus,5,6
+forgiven,Leviticus,5,7
+forgiven,Leviticus,5,8
+forgiven,Leviticus,5,9
+forgiven,Leviticus,5,10
+forgiven,Leviticus,5,11
+forgiven,Leviticus,5,12
+forgiven,Leviticus,5,13
+forgiven,Numbers,14,18
+forgiven,Numbers,14,20
+forgiven,Numbers,15,25
+forgiven,2 Samuel,12,13
+forgiven,1 Kings,8,22
+forgiven,1 Kings,8,23
+forgiven,1 Kings,8,24
+forgiven,1 Kings,8,25
+forgiven,1 Kings,8,26
+forgiven,1 Kings,8,27
+forgiven,1 Kings,8,28
+forgiven,1 Kings,8,29
+forgiven,1 Kings,8,30
+forgiven,1 Kings,8,31
+forgiven,1 Kings,8,32
+forgiven,1 Kings,8,33
+forgiven,1 Kings,8,34
+forgiven,1 Kings,8,35
+forgiven,1 Kings,8,36
+forgiven,1 Kings,8,37
+forgiven,1 Kings,8,38
+forgiven,1 Kings,8,39
+forgiven,1 Kings,8,40
+forgiven,1 Kings,8,41
+forgiven,1 Kings,8,42
+forgiven,1 Kings,8,43
+forgiven,1 Kings,8,44
+forgiven,1 Kings,8,45
+forgiven,1 Kings,8,46
+forgiven,1 Kings,8,47
+forgiven,1 Kings,8,48
+forgiven,1 Kings,8,49
+forgiven,1 Kings,8,50
+forgiven,Job,10,14
+forgiven,Psalms,19,12
+forgiven,Psalms,25,7
+forgiven,Psalms,25,11
+forgiven,Psalms,25,18
+forgiven,Psalms,32,1
+forgiven,Psalms,32,2
+forgiven,Psalms,32,5
+forgiven,Psalms,51,9
+forgiven,Psalms,65,3
+forgiven,Psalms,79,9
+forgiven,Psalms,85,2
+forgiven,Psalms,85,3
+forgiven,Psalms,99,8
+forgiven,Psalms,103,12
+forgiven,Psalms,130,4
+forgiven,Isaiah,1,18
+forgiven,Isaiah,6,6
+forgiven,Isaiah,6,7
+forgiven,Isaiah,43,25
+forgiven,Isaiah,43,26
+forgiven,Isaiah,44,21
+forgiven,Isaiah,44,22
+forgiven,Isaiah,55,6
+forgiven,Isaiah,55,7
+forgiven,Jeremiah,2,22
+forgiven,Jeremiah,5,1
+forgiven,Jeremiah,5,7
+forgiven,Jeremiah,31,34
+forgiven,Jeremiah,33,8
+forgiven,Ezekiel,18,21
+forgiven,Ezekiel,18,22
+forgiven,Ezekiel,33,14
+forgiven,Ezekiel,33,15
+forgiven,Ezekiel,33,16
+forgiven,Matthew,1,21
+forgiven,Matthew,3,6
+forgiven,Matthew,6,12
+forgiven,Matthew,6,14
+forgiven,Matthew,6,15
+forgiven,Matthew,9,2
+forgiven,Matthew,9,6
+forgiven,Matthew,12,31
+forgiven,Matthew,12,32
+forgiven,Matthew,18,23
+forgiven,Matthew,18,24
+forgiven,Matthew,18,25
+forgiven,Matthew,18,26
+forgiven,Matthew,18,27
+forgiven,Matthew,18,35
+forgiven,Matthew,26,28
+forgiven,Mark,2,5
+forgiven,Mark,2,7
+forgiven,Mark,3,28
+forgiven,Mark,11,26
+forgiven,Luke,3,3
+forgiven,Luke,5,21
+forgiven,Luke,5,24
+forgiven,Luke,12,10
+forgiven,Luke,24,47
+forgiven,John,8,11
+forgiven,John,20,23
+forgiven,Acts,2,38
+forgiven,Acts,10,36
+forgiven,Acts,10,43
+forgiven,Acts,13,38
+forgiven,Acts,13,39
+forgiven,Acts,26,16
+forgiven,Acts,26,17
+forgiven,Acts,26,18
+forgiven,Romans,4,7
+forgiven,Romans,4,8
+forgiven,Ephesians,4,32
+forgiven,Colossians,2,13
+forgiven,Hebrews,8,12
+forgiven,Hebrews,9,22
+forgiven,Hebrews,10,2
+forgiven,Hebrews,10,17
+forgiven,Hebrews,10,18
+forgiven,James,5,15
+forgiven,James,5,20
+forgiven,1 John,1,7
+forgiven,1 John,1,9
+forgiven,1 John,2,1
+forgiven,1 John,2,2
+forgiven,1 John,2,12
+forgiven,1 John,5,16
+forgiven,Revelation,1,5
+forgiving,Exodus,23,4
+forgiving,Exodus,23,5
+forgiving,Job,31,29
+forgiving,Job,31,30
+forgiving,Psalms,35,1
+forgiving,Psalms,35,2
+forgiving,Psalms,35,3
+forgiving,Psalms,35,4
+forgiving,Psalms,35,5
+forgiving,Psalms,35,6
+forgiving,Psalms,35,7
+forgiving,Psalms,35,8
+forgiving,Psalms,35,9
+forgiving,Psalms,35,10
+forgiving,Psalms,35,11
+forgiving,Psalms,35,12
+forgiving,Psalms,35,13
+forgiving,Psalms,35,14
+forgiving,Psalms,35,15
+forgiving,Psalms,35,16
+forgiving,Psalms,35,17
+forgiving,Psalms,35,18
+forgiving,Psalms,35,19
+forgiving,Psalms,35,20
+forgiving,Psalms,35,21
+forgiving,Psalms,35,22
+forgiving,Psalms,35,23
+forgiving,Psalms,35,24
+forgiving,Psalms,35,25
+forgiving,Psalms,35,26
+forgiving,Psalms,35,27
+forgiving,Psalms,35,28
+forgiving,Proverbs,19,11
+forgiving,Proverbs,24,17
+forgiving,Proverbs,24,18
+forgiving,Proverbs,24,29
+forgiving,Proverbs,25,21
+forgiving,Proverbs,25,22
+forgiving,Ecclesiastes,7,21
+forgiving,Matthew,5,7
+forgiving,Matthew,5,39
+forgiving,Matthew,5,40
+forgiving,Matthew,5,41
+forgiving,Matthew,5,43
+forgiving,Matthew,5,44
+forgiving,Matthew,5,45
+forgiving,Matthew,5,46
+forgiving,Matthew,5,47
+forgiving,Matthew,5,48
+forgiving,Matthew,6,12
+forgiving,Matthew,6,14
+forgiving,Matthew,6,15
+forgiving,Matthew,18,21
+forgiving,Matthew,18,22
+forgiving,Matthew,18,23
+forgiving,Matthew,18,24
+forgiving,Matthew,18,25
+forgiving,Matthew,18,26
+forgiving,Matthew,18,27
+forgiving,Matthew,18,28
+forgiving,Matthew,18,29
+forgiving,Matthew,18,30
+forgiving,Matthew,18,31
+forgiving,Matthew,18,32
+forgiving,Matthew,18,33
+forgiving,Matthew,18,34
+forgiving,Matthew,18,35
+forgiving,Mark,11,25
+forgiving,Mark,11,26
+forgiving,Luke,6,27
+forgiving,Luke,6,28
+forgiving,Luke,6,29
+forgiving,Luke,6,30
+forgiving,Luke,6,31
+forgiving,Luke,6,32
+forgiving,Luke,6,33
+forgiving,Luke,6,34
+forgiving,Luke,6,35
+forgiving,Luke,6,36
+forgiving,Luke,6,37
+forgiving,Luke,11,4
+forgiving,Luke,17,3
+forgiving,Luke,17,4
+forgiving,Romans,12,14
+forgiving,Romans,12,17
+forgiving,Romans,12,19
+forgiving,Romans,12,20
+forgiving,Romans,12,21
+forgiving,1 Corinthians,4,12
+forgiving,1 Corinthians,4,13
+forgiving,Ephesians,4,32
+forgiving,Colossians,3,13
+forgiving,Philemon,1,10
+forgiving,Philemon,1,11
+forgiving,Philemon,1,12
+forgiving,Philemon,1,13
+forgiving,Philemon,1,14
+forgiving,Philemon,1,15
+forgiving,Philemon,1,16
+forgiving,Philemon,1,17
+forgiving,Philemon,1,18
+forgiving,1 Peter,3,9
+generosity,Exodus,13,2
+generosity,Exodus,13,12
+generosity,Exodus,22,29
+generosity,Exodus,22,30
+generosity,Exodus,23,15
+generosity,Exodus,25,1
+generosity,Exodus,25,2
+generosity,Exodus,25,3
+generosity,Exodus,25,4
+generosity,Exodus,25,5
+generosity,Exodus,25,6
+generosity,Exodus,25,7
+generosity,Exodus,25,8
+generosity,Exodus,34,20
+generosity,Exodus,35,4
+generosity,Exodus,35,5
+generosity,Exodus,35,6
+generosity,Exodus,35,7
+generosity,Exodus,35,8
+generosity,Exodus,35,9
+generosity,Exodus,35,10
+generosity,Exodus,35,11
+generosity,Exodus,35,12
+generosity,Exodus,35,13
+generosity,Exodus,35,14
+generosity,Exodus,35,15
+generosity,Exodus,35,16
+generosity,Exodus,35,17
+generosity,Exodus,35,18
+generosity,Exodus,35,19
+generosity,Exodus,35,20
+generosity,Exodus,35,21
+generosity,Exodus,35,22
+generosity,Exodus,35,23
+generosity,Exodus,35,24
+generosity,Exodus,35,25
+generosity,Exodus,35,26
+generosity,Exodus,35,27
+generosity,Exodus,35,28
+generosity,Exodus,35,29
+generosity,Exodus,36,3
+generosity,Exodus,36,4
+generosity,Exodus,36,5
+generosity,Exodus,36,6
+generosity,Exodus,38,8
+generosity,Leviticus,19,5
+generosity,Leviticus,22,29
+generosity,Numbers,35,8
+generosity,Deuteronomy,12,11
+generosity,Deuteronomy,12,12
+generosity,Deuteronomy,12,17
+generosity,Deuteronomy,12,18
+generosity,Deuteronomy,12,19
+generosity,Deuteronomy,14,27
+generosity,Deuteronomy,14,28
+generosity,Deuteronomy,14,29
+generosity,Deuteronomy,15,7
+generosity,Deuteronomy,15,8
+generosity,Deuteronomy,15,9
+generosity,Deuteronomy,15,10
+generosity,Deuteronomy,15,11
+generosity,Deuteronomy,15,12
+generosity,Deuteronomy,15,13
+generosity,Deuteronomy,15,14
+generosity,Deuteronomy,15,15
+generosity,Deuteronomy,15,16
+generosity,Deuteronomy,15,17
+generosity,Deuteronomy,15,18
+generosity,Deuteronomy,16,10
+generosity,Deuteronomy,16,17
+generosity,Deuteronomy,18,1
+generosity,Deuteronomy,18,2
+generosity,Deuteronomy,18,3
+generosity,Deuteronomy,18,4
+generosity,Deuteronomy,18,5
+generosity,Deuteronomy,18,6
+generosity,Deuteronomy,18,7
+generosity,Deuteronomy,18,8
+generosity,Deuteronomy,24,19
+generosity,Deuteronomy,24,20
+generosity,Deuteronomy,24,21
+generosity,Deuteronomy,24,22
+generosity,2 Samuel,24,24
+generosity,1 Chronicles,22,19
+generosity,1 Chronicles,28,10
+generosity,1 Chronicles,28,20
+generosity,1 Chronicles,29,5
+generosity,2 Chronicles,15,7
+generosity,2 Chronicles,15,18
+generosity,Ezra,1,2
+generosity,Ezra,1,3
+generosity,Ezra,1,4
+generosity,Psalms,41,1
+generosity,Psalms,41,2
+generosity,Psalms,41,3
+generosity,Psalms,76,11
+generosity,Psalms,112,5
+generosity,Psalms,112,9
+generosity,Psalms,132,1
+generosity,Psalms,132,2
+generosity,Psalms,132,3
+generosity,Psalms,132,4
+generosity,Psalms,132,5
+generosity,Proverbs,3,9
+generosity,Proverbs,3,10
+generosity,Proverbs,11,24
+generosity,Proverbs,11,25
+generosity,Proverbs,13,7
+generosity,Proverbs,14,21
+generosity,Proverbs,19,6
+generosity,Proverbs,19,17
+generosity,Proverbs,21,26
+generosity,Proverbs,22,9
+generosity,Proverbs,28,27
+generosity,Proverbs,31,20
+generosity,Ecclesiastes,11,1
+generosity,Ecclesiastes,11,2
+generosity,Isaiah,32,8
+generosity,Isaiah,60,7
+generosity,Isaiah,60,9
+generosity,Isaiah,60,17
+generosity,Haggai,1,8
+generosity,Haggai,2,18
+generosity,Haggai,2,19
+generosity,Malachi,3,10
+generosity,Malachi,3,11
+generosity,Malachi,3,12
+generosity,Matthew,5,42
+generosity,Matthew,6,1
+generosity,Matthew,6,2
+generosity,Matthew,6,3
+generosity,Matthew,6,4
+generosity,Matthew,19,21
+generosity,Matthew,19,22
+generosity,Matthew,25,34
+generosity,Matthew,25,35
+generosity,Matthew,25,36
+generosity,Matthew,25,37
+generosity,Matthew,25,38
+generosity,Matthew,25,39
+generosity,Matthew,25,40
+generosity,Luke,3,10
+generosity,Luke,3,11
+generosity,Luke,6,38
+generosity,Luke,11,41
+generosity,Luke,12,33
+generosity,Luke,12,34
+generosity,Luke,16,9
+generosity,Acts,10,4
+generosity,Acts,20,35
+generosity,Romans,12,8
+generosity,Romans,12,13
+generosity,Romans,15,27
+generosity,1 Corinthians,13,3
+generosity,1 Corinthians,16,1
+generosity,1 Corinthians,16,2
+generosity,1 Corinthians,16,3
+generosity,2 Corinthians,8,7
+generosity,2 Corinthians,8,8
+generosity,2 Corinthians,8,9
+generosity,2 Corinthians,8,11
+generosity,2 Corinthians,8,12
+generosity,2 Corinthians,8,13
+generosity,2 Corinthians,8,14
+generosity,2 Corinthians,8,15
+generosity,2 Corinthians,8,24
+generosity,2 Corinthians,9,6
+generosity,2 Corinthians,9,7
+generosity,2 Corinthians,9,8
+generosity,2 Corinthians,9,9
+generosity,2 Corinthians,9,10
+generosity,2 Corinthians,9,11
+generosity,2 Corinthians,9,12
+generosity,2 Corinthians,9,13
+generosity,Ephesians,4,28
+generosity,1 Timothy,5,16
+generosity,1 Timothy,6,17
+generosity,1 Timothy,6,18
+generosity,1 Timothy,6,19
+generosity,Philemon,1,14
+generosity,Hebrews,6,10
+generosity,Hebrews,13,16
+generosity,1 John,3,17
+generosity,1 John,3,18
+honesty,Leviticus,19,35
+honesty,Leviticus,19,36
+honesty,Deuteronomy,16,20
+honesty,Deuteronomy,25,13
+honesty,Deuteronomy,25,14
+honesty,Deuteronomy,25,15
+honesty,Deuteronomy,25,16
+honesty,Job,27,6
+honesty,Psalms,7,3
+honesty,Psalms,7,4
+honesty,Psalms,15,5
+honesty,Psalms,24,4
+honesty,Proverbs,4,25
+honesty,Proverbs,11,1
+honesty,Proverbs,12,22
+honesty,Proverbs,16,11
+honesty,Proverbs,20,10
+honesty,Proverbs,20,23
+honesty,Isaiah,33,15
+honesty,Isaiah,33,16
+honesty,Ezekiel,45,10
+honesty,Matthew,7,12
+honesty,Mark,10,19
+honesty,Luke,3,12
+honesty,Luke,3,13
+honesty,Luke,6,31
+honesty,Acts,24,16
+honesty,2 Corinthians,4,1
+honesty,2 Corinthians,4,2
+honesty,2 Corinthians,7,2
+honesty,2 Corinthians,8,21
+honesty,Philippians,4,8
+honesty,Colossians,3,22
+honesty,1 Thessalonians,4,11
+honesty,1 Thessalonians,4,12
+honesty,Hebrews,13,18
+honesty,1 Peter,2,12
+hope,Psalms,9,18
+hope,Psalms,16,9
+hope,Psalms,31,24
+hope,Psalms,33,18
+hope,Psalms,33,22
+hope,Psalms,38,15
+hope,Psalms,39,7
+hope,Psalms,43,5
+hope,Psalms,71,5
+hope,Psalms,71,14
+hope,Psalms,78,5
+hope,Psalms,78,6
+hope,Psalms,78,7
+hope,Psalms,119,74
+hope,Psalms,119,81
+hope,Psalms,119,116
+hope,Psalms,119,166
+hope,Psalms,130,7
+hope,Psalms,146,5
+hope,Proverbs,10,28
+hope,Proverbs,13,12
+hope,Proverbs,14,32
+hope,Proverbs,23,18
+hope,Proverbs,24,14
+hope,Isaiah,38,18
+hope,Jeremiah,17,7
+hope,Lamentations,3,21
+hope,Lamentations,3,24
+hope,Lamentations,3,26
+hope,Hosea,2,15
+hope,Joel,3,16
+hope,Zechariah,9,12
+hope,Acts,23,6
+hope,Acts,24,14
+hope,Acts,24,15
+hope,Acts,26,7
+hope,Acts,26,8
+hope,Acts,28,20
+hope,Romans,4,18
+hope,Romans,5,2
+hope,Romans,5,3
+hope,Romans,5,4
+hope,Romans,5,5
+hope,Romans,8,24
+hope,Romans,8,25
+hope,Romans,12,12
+hope,Romans,15,4
+hope,Romans,15,13
+hope,1 Corinthians,13,13
+hope,1 Corinthians,15,19
+hope,2 Corinthians,3,12
+hope,Galatians,5,5
+hope,Ephesians,1,18
+hope,Ephesians,4,4
+hope,Ephesians,6,17
+hope,Philippians,1,20
+hope,Colossians,1,5
+hope,Colossians,1,23
+hope,Colossians,1,27
+hope,1 Thessalonians,1,3
+hope,1 Thessalonians,5,8
+hope,2 Thessalonians,2,16
+hope,1 Timothy,1,1
+hope,Titus,1,2
+hope,Titus,2,13
+hope,Titus,3,7
+hope,Hebrews,3,6
+hope,Hebrews,6,11
+hope,Hebrews,6,18
+hope,Hebrews,6,19
+hope,Hebrews,11,1
+hope,1 Peter,1,3
+hope,1 Peter,1,13
+hope,1 Peter,1,21
+hope,1 Peter,3,15
+hope,1 John,3,3
+humility,Deuteronomy,9,4
+humility,Deuteronomy,9,5
+humility,Deuteronomy,9,6
+humility,Deuteronomy,9,7
+humility,Deuteronomy,9,8
+humility,Deuteronomy,9,9
+humility,Deuteronomy,9,10
+humility,Deuteronomy,9,11
+humility,Deuteronomy,9,12
+humility,Deuteronomy,9,13
+humility,Deuteronomy,9,14
+humility,Deuteronomy,9,15
+humility,Deuteronomy,9,16
+humility,Deuteronomy,9,17
+humility,Deuteronomy,9,18
+humility,Deuteronomy,9,19
+humility,Deuteronomy,9,20
+humility,Deuteronomy,9,21
+humility,Deuteronomy,9,22
+humility,Deuteronomy,9,23
+humility,Deuteronomy,9,24
+humility,Deuteronomy,9,25
+humility,Deuteronomy,9,26
+humility,Deuteronomy,9,27
+humility,Deuteronomy,9,28
+humility,Deuteronomy,9,29
+humility,Deuteronomy,15,15
+humility,Deuteronomy,32,7
+humility,Job,5,11
+humility,Job,22,29
+humility,Job,25,5
+humility,Job,25,6
+humility,Psalms,9,12
+humility,Psalms,10,17
+humility,Psalms,22,6
+humility,Psalms,22,26
+humility,Psalms,25,9
+humility,Psalms,37,11
+humility,Psalms,69,32
+humility,Psalms,86,1
+humility,Psalms,131,1
+humility,Psalms,131,2
+humility,Psalms,138,6
+humility,Psalms,147,6
+humility,Proverbs,3,34
+humility,Proverbs,10,8
+humility,Proverbs,11,2
+humility,Proverbs,12,15
+humility,Proverbs,15,33
+humility,Proverbs,16,19
+humility,Proverbs,18,12
+humility,Proverbs,22,4
+humility,Proverbs,25,6
+humility,Proverbs,25,7
+humility,Proverbs,27,2
+humility,Proverbs,29,23
+humility,Proverbs,30,32
+humility,Ecclesiastes,5,2
+humility,Isaiah,29,19
+humility,Isaiah,51,1
+humility,Isaiah,57,15
+humility,Isaiah,66,2
+humility,Jeremiah,45,5
+humility,Ezekiel,16,63
+humility,Micah,6,8
+humility,Zephaniah,3,11
+humility,Zephaniah,3,12
+humility,Matthew,5,3
+humility,Matthew,11,29
+humility,Matthew,18,2
+humility,Matthew,18,3
+humility,Matthew,18,4
+humility,Matthew,20,26
+humility,Matthew,20,27
+humility,Matthew,23,12
+humility,Mark,9,33
+humility,Mark,9,34
+humility,Mark,9,35
+humility,Mark,9,36
+humility,Mark,9,37
+humility,Mark,10,43
+humility,Mark,10,44
+humility,Luke,1,52
+humility,Luke,9,46
+humility,Luke,9,47
+humility,Luke,9,48
+humility,Luke,10,21
+humility,Luke,14,10
+humility,Luke,14,11
+humility,Luke,17,10
+humility,Luke,18,13
+humility,Luke,18,14
+humility,Luke,22,24
+humility,Luke,22,25
+humility,Luke,22,26
+humility,Luke,22,27
+humility,John,13,14
+humility,John,13,15
+humility,John,13,16
+humility,Romans,11,18
+humility,Romans,11,20
+humility,Romans,11,25
+humility,Romans,12,3
+humility,Romans,12,10
+humility,Romans,12,16
+humility,1 Corinthians,1,28
+humility,1 Corinthians,1,29
+humility,1 Corinthians,2,1
+humility,1 Corinthians,2,2
+humility,1 Corinthians,2,3
+humility,1 Corinthians,3,18
+humility,1 Corinthians,10,12
+humility,1 Corinthians,13,4
+humility,2 Corinthians,11,30
+humility,2 Corinthians,12,5
+humility,2 Corinthians,12,6
+humility,2 Corinthians,12,7
+humility,2 Corinthians,12,8
+humility,2 Corinthians,12,9
+humility,2 Corinthians,12,10
+humility,2 Corinthians,12,11
+humility,2 Corinthians,12,12
+humility,Galatians,5,26
+humility,Galatians,6,14
+humility,Ephesians,4,2
+humility,Ephesians,5,21
+humility,Philippians,2,3
+humility,Philippians,2,4
+humility,Philippians,2,5
+humility,Philippians,2,6
+humility,Philippians,2,7
+humility,Philippians,2,8
+humility,Philippians,2,9
+humility,Philippians,2,10
+humility,Philippians,2,11
+humility,Colossians,3,12
+humility,James,1,9
+humility,James,1,10
+humility,James,1,19
+humility,James,3,1
+humility,James,4,6
+humility,James,4,10
+humility,1 Peter,5,3
+humility,1 Peter,5,5
+humility,1 Peter,5,6
+joy,Deuteronomy,12,18
+joy,1 Samuel,2,1
+joy,1 Chronicles,16,27
+joy,2 Chronicles,7,10
+joy,Ezra,6,22
+joy,Nehemiah,8,10
+joy,Nehemiah,8,12
+joy,Nehemiah,12,43
+joy,Job,8,21
+joy,Job,22,21
+joy,Job,22,26
+joy,Job,33,26
+joy,Psalms,2,11
+joy,Psalms,4,7
+joy,Psalms,5,11
+joy,Psalms,9,2
+joy,Psalms,9,14
+joy,Psalms,13,5
+joy,Psalms,14,7
+joy,Psalms,16,5
+joy,Psalms,16,6
+joy,Psalms,16,8
+joy,Psalms,16,9
+joy,Psalms,16,11
+joy,Psalms,17,15
+joy,Psalms,19,8
+joy,Psalms,20,5
+joy,Psalms,21,1
+joy,Psalms,21,6
+joy,Psalms,28,7
+joy,Psalms,30,5
+joy,Psalms,30,11
+joy,Psalms,30,12
+joy,Psalms,32,1
+joy,Psalms,32,2
+joy,Psalms,32,11
+joy,Psalms,33,21
+joy,Psalms,35,9
+joy,Psalms,36,8
+joy,Psalms,40,16
+joy,Psalms,42,4
+joy,Psalms,43,4
+joy,Psalms,45,15
+joy,Psalms,46,4
+joy,Psalms,51,8
+joy,Psalms,51,12
+joy,Psalms,53,6
+joy,Psalms,63,5
+joy,Psalms,63,6
+joy,Psalms,63,7
+joy,Psalms,63,11
+joy,Psalms,64,10
+joy,Psalms,68,3
+joy,Psalms,69,32
+joy,Psalms,70,4
+joy,Psalms,71,23
+joy,Psalms,85,6
+joy,Psalms,89,15
+joy,Psalms,89,16
+joy,Psalms,97,11
+joy,Psalms,97,12
+joy,Psalms,100,1
+joy,Psalms,100,2
+joy,Psalms,104,34
+joy,Psalms,105,3
+joy,Psalms,105,43
+joy,Psalms,119,1
+joy,Psalms,119,2
+joy,Psalms,119,14
+joy,Psalms,119,16
+joy,Psalms,119,55
+joy,Psalms,119,111
+joy,Psalms,119,162
+joy,Psalms,119,165
+joy,Psalms,126,5
+joy,Psalms,126,6
+joy,Psalms,132,16
+joy,Psalms,138,5
+joy,Psalms,149,2
+joy,Psalms,149,5
+joy,Proverbs,10,28
+joy,Proverbs,13,9
+joy,Proverbs,19,23
+joy,Proverbs,28,12
+joy,Proverbs,29,6
+joy,Ecclesiastes,2,26
+joy,Isaiah,9,3
+joy,Isaiah,12,1
+joy,Isaiah,12,2
+joy,Isaiah,12,3
+joy,Isaiah,12,4
+joy,Isaiah,12,5
+joy,Isaiah,12,6
+joy,Isaiah,25,9
+joy,Isaiah,29,19
+joy,Isaiah,30,29
+joy,Isaiah,35,1
+joy,Isaiah,35,2
+joy,Isaiah,35,10
+joy,Isaiah,41,16
+joy,Isaiah,44,23
+joy,Isaiah,49,13
+joy,Isaiah,51,11
+joy,Isaiah,52,9
+joy,Isaiah,55,12
+joy,Isaiah,56,7
+joy,Isaiah,61,3
+joy,Isaiah,61,7
+joy,Isaiah,61,10
+joy,Isaiah,65,14
+joy,Isaiah,65,19
+joy,Isaiah,66,10
+joy,Isaiah,66,11
+joy,Isaiah,66,12
+joy,Isaiah,66,14
+joy,Jeremiah,15,16
+joy,Jeremiah,31,12
+joy,Jeremiah,31,13
+joy,Jeremiah,31,14
+joy,Jeremiah,31,25
+joy,Jeremiah,31,26
+joy,Jeremiah,33,6
+joy,Jeremiah,33,11
+joy,Joel,2,23
+joy,Nahum,1,15
+joy,Habakkuk,3,18
+joy,Zephaniah,3,14
+joy,Haggai,2,9
+joy,Zechariah,2,10
+joy,Zechariah,9,9
+joy,Zechariah,10,7
+joy,Matthew,18,13
+joy,Matthew,25,21
+joy,Luke,1,47
+joy,Luke,2,10
+joy,Luke,6,22
+joy,Luke,6,23
+joy,Luke,10,20
+joy,Luke,15,6
+joy,Luke,15,7
+joy,Luke,15,8
+joy,Luke,15,10
+joy,Luke,15,22
+joy,Luke,15,23
+joy,Luke,15,24
+joy,Luke,15,25
+joy,Luke,15,26
+joy,Luke,15,27
+joy,Luke,15,28
+joy,Luke,15,29
+joy,Luke,15,30
+joy,Luke,15,31
+joy,Luke,15,32
+joy,Luke,24,52
+joy,John,16,20
+joy,John,16,22
+joy,John,16,24
+joy,John,16,33
+joy,John,17,13
+joy,Acts,2,28
+joy,Acts,8,8
+joy,Acts,8,39
+joy,Acts,13,52
+joy,Acts,16,25
+joy,Acts,16,34
+joy,Romans,5,2
+joy,Romans,5,11
+joy,Romans,12,12
+joy,Romans,14,17
+joy,Romans,15,13
+joy,2 Corinthians,1,12
+joy,2 Corinthians,1,24
+joy,2 Corinthians,6,10
+joy,2 Corinthians,7,4
+joy,2 Corinthians,8,2
+joy,2 Corinthians,12,10
+joy,Galatians,5,22
+joy,Ephesians,5,18
+joy,Ephesians,5,19
+joy,Philippians,3,3
+joy,Philippians,4,4
+joy,Colossians,1,11
+joy,1 Thessalonians,1,6
+joy,1 Thessalonians,5,16
+joy,Hebrews,10,34
+joy,James,1,2
+joy,James,5,13
+joy,1 Peter,1,8
+joy,1 Peter,4,13
+joy,1 John,1,4
+joy,Jude,1,24
+kindness,Leviticus,19,34
+kindness,Deuteronomy,22,1
+kindness,Deuteronomy,22,2
+kindness,Deuteronomy,22,3
+kindness,Deuteronomy,22,4
+kindness,2 Samuel,22,26
+kindness,Psalms,18,25
+kindness,Psalms,37,25
+kindness,Psalms,37,26
+kindness,Psalms,85,10
+kindness,Psalms,112,5
+kindness,Proverbs,3,3
+kindness,Proverbs,3,4
+kindness,Proverbs,11,17
+kindness,Proverbs,12,10
+kindness,Proverbs,14,21
+kindness,Proverbs,14,22
+kindness,Proverbs,14,31
+kindness,Proverbs,19,22
+kindness,Proverbs,20,28
+kindness,Proverbs,21,21
+kindness,Proverbs,31,26
+kindness,Isaiah,11,13
+kindness,Hosea,4,1
+kindness,Hosea,12,6
+kindness,Micah,6,8
+kindness,Zechariah,7,9
+kindness,Zechariah,7,10
+kindness,Matthew,5,7
+kindness,Matthew,5,42
+kindness,Matthew,23,23
+kindness,Matthew,25,34
+kindness,Matthew,25,35
+kindness,Matthew,25,36
+kindness,Luke,6,30
+kindness,Luke,6,34
+kindness,Luke,6,35
+kindness,Luke,6,36
+kindness,Acts,20,35
+kindness,Romans,12,8
+kindness,Romans,12,15
+kindness,Romans,15,1
+kindness,Romans,15,2
+kindness,Romans,15,5
+kindness,1 Corinthians,13,4
+kindness,1 Corinthians,13,5
+kindness,1 Corinthians,13,6
+kindness,1 Corinthians,13,7
+kindness,Galatians,6,1
+kindness,Galatians,6,2
+kindness,Galatians,6,10
+kindness,Ephesians,4,32
+kindness,Colossians,3,12
+kindness,Colossians,3,13
+kindness,Colossians,3,14
+kindness,1 Timothy,5,9
+kindness,1 Timothy,5,10
+kindness,Hebrews,5,2
+kindness,James,2,13
+kindness,1 Peter,3,8
+kindness,1 Peter,3,9
+kindness,1 Peter,4,8
+kindness,2 Peter,1,7
+kindness,1 John,3,17
+kindness,1 John,3,18
+love_god,Exodus,20,6
+love_god,Deuteronomy,5,10
+love_god,Deuteronomy,6,5
+love_god,Deuteronomy,7,9
+love_god,Deuteronomy,10,12
+love_god,Deuteronomy,11,1
+love_god,Deuteronomy,11,13
+love_god,Deuteronomy,11,22
+love_god,Deuteronomy,13,3
+love_god,Deuteronomy,30,6
+love_god,Deuteronomy,30,16
+love_god,Deuteronomy,30,20
+love_god,Joshua,22,5
+love_god,Joshua,23,11
+love_god,Psalms,18,1
+love_god,Psalms,31,23
+love_god,Psalms,37,4
+love_god,Psalms,45,10
+love_god,Psalms,45,11
+love_god,Psalms,63,5
+love_god,Psalms,63,6
+love_god,Psalms,69,35
+love_god,Psalms,69,36
+love_god,Psalms,73,25
+love_god,Psalms,73,26
+love_god,Psalms,91,14
+love_god,Psalms,97,10
+love_god,Psalms,116,1
+love_god,Psalms,145,20
+love_god,Proverbs,8,17
+love_god,Proverbs,23,26
+love_god,Isaiah,56,6
+love_god,Isaiah,56,7
+love_god,Jeremiah,2,2
+love_god,Jeremiah,2,3
+love_god,Matthew,22,37
+love_god,Matthew,22,38
+love_god,Mark,12,29
+love_god,Mark,12,30
+love_god,Mark,12,32
+love_god,Mark,12,33
+love_god,Luke,11,42
+love_god,John,5,42
+love_god,Romans,5,5
+love_god,Romans,8,28
+love_god,1 Corinthians,8,3
+love_god,Philippians,1,9
+love_god,2 Thessalonians,3,5
+love_god,2 Timothy,1,7
+love_god,1 John,2,5
+love_god,1 John,2,15
+love_god,1 John,3,17
+love_god,1 John,3,18
+love_god,1 John,4,12
+love_god,1 John,4,16
+love_god,1 John,4,17
+love_god,1 John,4,18
+love_god,1 John,4,19
+love_god,1 John,4,20
+love_god,1 John,4,21
+love_god,1 John,5,1
+love_god,1 John,5,2
+love_god,1 John,5,3
+love_god,2 John,1,6
+love_god,Jude,1,21
+love_others,Leviticus,19,18
+love_others,Leviticus,19,34
+love_others,Deuteronomy,10,19
+love_others,Psalms,133,1
+love_others,Psalms,133,2
+love_others,Psalms,133,3
+love_others,Proverbs,10,12
+love_others,Proverbs,15,17
+love_others,Proverbs,17,9
+love_others,Proverbs,17,17
+love_others,Song of Solomon,8,6
+love_others,Song of Solomon,8,7
+love_others,Matthew,5,41
+love_others,Matthew,5,42
+love_others,Matthew,5,43
+love_others,Matthew,5,44
+love_others,Matthew,5,45
+love_others,Matthew,5,46
+love_others,Matthew,5,47
+love_others,Matthew,7,12
+love_others,Matthew,10,41
+love_others,Matthew,10,42
+love_others,Matthew,19,19
+love_others,Matthew,25,34
+love_others,Matthew,25,35
+love_others,Matthew,25,36
+love_others,Matthew,25,37
+love_others,Matthew,25,38
+love_others,Matthew,25,39
+love_others,Matthew,25,40
+love_others,Mark,9,41
+love_others,Mark,12,30
+love_others,Mark,12,31
+love_others,Mark,12,32
+love_others,Mark,12,33
+love_others,Luke,6,31
+love_others,Luke,6,32
+love_others,Luke,6,33
+love_others,Luke,6,34
+love_others,Luke,6,35
+love_others,Luke,10,30
+love_others,Luke,10,31
+love_others,Luke,10,32
+love_others,Luke,10,33
+love_others,Luke,10,34
+love_others,Luke,10,35
+love_others,Luke,10,36
+love_others,Luke,10,37
+love_others,John,13,14
+love_others,John,13,15
+love_others,John,13,34
+love_others,John,13,35
+love_others,John,15,12
+love_others,John,15,13
+love_others,John,15,17
+love_others,Romans,12,9
+love_others,Romans,12,10
+love_others,Romans,13,8
+love_others,Romans,13,9
+love_others,Romans,13,10
+love_others,1 Corinthians,8,1
+love_others,1 Corinthians,13,1
+love_others,1 Corinthians,13,2
+love_others,1 Corinthians,13,3
+love_others,1 Corinthians,13,4
+love_others,1 Corinthians,13,5
+love_others,1 Corinthians,13,6
+love_others,1 Corinthians,13,7
+love_others,1 Corinthians,13,8
+love_others,1 Corinthians,13,9
+love_others,1 Corinthians,13,10
+love_others,1 Corinthians,13,11
+love_others,1 Corinthians,13,12
+love_others,1 Corinthians,13,13
+love_others,1 Corinthians,14,1
+love_others,1 Corinthians,16,14
+love_others,2 Corinthians,8,7
+love_others,2 Corinthians,8,8
+love_others,Galatians,5,13
+love_others,Galatians,5,14
+love_others,Galatians,5,22
+love_others,Galatians,5,26
+love_others,Ephesians,5,2
+love_others,Philippians,1,9
+love_others,Philippians,2,2
+love_others,Colossians,2,2
+love_others,Colossians,3,12
+love_others,1 Thessalonians,1,3
+love_others,1 Thessalonians,3,12
+love_others,1 Thessalonians,4,9
+love_others,1 Timothy,1,5
+love_others,1 Timothy,1,14
+love_others,1 Timothy,2,15
+love_others,1 Timothy,4,12
+love_others,1 Timothy,6,2
+love_others,2 Timothy,2,22
+love_others,Titus,3,15
+love_others,Philemon,1,12
+love_others,Philemon,1,13
+love_others,Philemon,1,14
+love_others,Philemon,1,15
+love_others,Philemon,1,16
+love_others,Hebrews,10,24
+love_others,James,2,8
+love_others,1 Peter,1,22
+love_others,1 Peter,2,17
+love_others,1 Peter,3,8
+love_others,1 Peter,3,9
+love_others,1 Peter,4,8
+love_others,2 Peter,1,7
+love_others,1 John,2,9
+love_others,1 John,2,10
+love_others,1 John,2,11
+love_others,1 John,3,11
+love_others,1 John,3,14
+love_others,1 John,3,16
+love_others,1 John,3,17
+love_others,1 John,3,18
+love_others,1 John,3,19
+love_others,1 John,3,23
+love_others,1 John,4,7
+love_others,1 John,4,11
+love_others,1 John,4,12
+love_others,1 John,4,20
+love_others,1 John,4,21
+love_others,1 John,5,1
+love_others,1 John,5,2
+love_others,2 John,1,5
+marriage,Genesis,2,23
+marriage,Genesis,2,24
+marriage,Exodus,22,16
+marriage,Exodus,22,17
+marriage,Leviticus,18,6
+marriage,Leviticus,18,7
+marriage,Leviticus,18,8
+marriage,Leviticus,18,9
+marriage,Leviticus,18,10
+marriage,Leviticus,18,11
+marriage,Leviticus,18,12
+marriage,Leviticus,18,13
+marriage,Leviticus,18,14
+marriage,Leviticus,18,15
+marriage,Leviticus,18,16
+marriage,Leviticus,18,17
+marriage,Leviticus,18,18
+marriage,Leviticus,20,14
+marriage,Leviticus,20,17
+marriage,Leviticus,20,19
+marriage,Leviticus,20,20
+marriage,Leviticus,20,21
+marriage,Leviticus,21,1
+marriage,Leviticus,21,7
+marriage,Leviticus,21,13
+marriage,Leviticus,21,14
+marriage,Leviticus,21,15
+marriage,Numbers,36,8
+marriage,Deuteronomy,21,10
+marriage,Deuteronomy,21,11
+marriage,Deuteronomy,21,12
+marriage,Deuteronomy,21,13
+marriage,Deuteronomy,21,14
+marriage,Deuteronomy,24,1
+marriage,Deuteronomy,24,2
+marriage,Deuteronomy,24,3
+marriage,Deuteronomy,24,4
+marriage,Deuteronomy,24,5
+marriage,Proverbs,18,22
+marriage,Proverbs,21,9
+marriage,Proverbs,21,19
+marriage,Jeremiah,29,6
+marriage,Hosea,2,19
+marriage,Hosea,2,20
+marriage,Malachi,2,13
+marriage,Malachi,2,14
+marriage,Malachi,2,15
+marriage,Malachi,2,16
+marriage,Matthew,5,31
+marriage,Matthew,5,32
+marriage,Matthew,19,2
+marriage,Matthew,19,3
+marriage,Matthew,19,4
+marriage,Matthew,19,5
+marriage,Matthew,19,6
+marriage,Matthew,19,7
+marriage,Matthew,19,8
+marriage,Matthew,19,9
+marriage,Mark,6,17
+marriage,Mark,6,18
+marriage,Mark,10,2
+marriage,Mark,10,3
+marriage,Mark,10,4
+marriage,Mark,10,5
+marriage,Mark,10,6
+marriage,Mark,10,7
+marriage,Mark,10,8
+marriage,Mark,10,9
+marriage,Mark,10,10
+marriage,Mark,10,11
+marriage,Mark,10,12
+marriage,Luke,16,18
+marriage,Romans,7,1
+marriage,Romans,7,2
+marriage,Romans,7,3
+marriage,1 Corinthians,6,16
+marriage,1 Corinthians,7,1
+marriage,1 Corinthians,7,2
+marriage,1 Corinthians,7,3
+marriage,1 Corinthians,7,4
+marriage,1 Corinthians,7,5
+marriage,1 Corinthians,7,6
+marriage,1 Corinthians,7,7
+marriage,1 Corinthians,7,8
+marriage,1 Corinthians,7,9
+marriage,1 Corinthians,7,10
+marriage,1 Corinthians,7,11
+marriage,1 Corinthians,7,12
+marriage,1 Corinthians,7,13
+marriage,1 Corinthians,7,14
+marriage,1 Corinthians,7,15
+marriage,1 Corinthians,7,16
+marriage,1 Corinthians,7,17
+marriage,1 Corinthians,7,18
+marriage,1 Corinthians,7,19
+marriage,1 Corinthians,7,20
+marriage,1 Corinthians,7,21
+marriage,1 Corinthians,7,22
+marriage,1 Corinthians,7,23
+marriage,1 Corinthians,7,24
+marriage,1 Corinthians,7,25
+marriage,1 Corinthians,7,26
+marriage,1 Corinthians,7,27
+marriage,1 Corinthians,7,28
+marriage,1 Corinthians,7,29
+marriage,1 Corinthians,7,30
+marriage,1 Corinthians,7,31
+marriage,1 Corinthians,7,32
+marriage,1 Corinthians,7,33
+marriage,1 Corinthians,7,34
+marriage,1 Corinthians,7,35
+marriage,1 Corinthians,7,36
+marriage,1 Corinthians,7,37
+marriage,1 Corinthians,7,38
+marriage,1 Corinthians,7,39
+marriage,1 Corinthians,7,40
+marriage,1 Corinthians,9,5
+marriage,1 Corinthians,11,11
+marriage,1 Corinthians,11,12
+marriage,1 Timothy,3,2
+marriage,1 Timothy,3,12
+marriage,1 Timothy,4,1
+marriage,1 Timothy,4,3
+marriage,1 Timothy,5,14
+marriage,Hebrews,13,4
+money,Exodus,18,21
+money,Exodus,20,17
+money,Deuteronomy,5,21
+money,Deuteronomy,6,10
+money,Deuteronomy,6,11
+money,Deuteronomy,6,12
+money,Deuteronomy,8,10
+money,Deuteronomy,8,11
+money,Deuteronomy,8,12
+money,Deuteronomy,8,13
+money,Deuteronomy,8,14
+money,Deuteronomy,8,15
+money,Deuteronomy,8,16
+money,Deuteronomy,8,17
+money,Deuteronomy,8,18
+money,Deuteronomy,31,20
+money,Deuteronomy,32,15
+money,1 Samuel,2,7
+money,Nehemiah,5,7
+money,Job,20,15
+money,Job,31,24
+money,Job,31,25
+money,Job,31,28
+money,Psalms,10,3
+money,Psalms,37,16
+money,Psalms,119,36
+money,Proverbs,1,19
+money,Proverbs,10,2
+money,Proverbs,10,22
+money,Proverbs,11,4
+money,Proverbs,11,24
+money,Proverbs,11,26
+money,Proverbs,11,28
+money,Proverbs,13,7
+money,Proverbs,13,8
+money,Proverbs,14,24
+money,Proverbs,15,6
+money,Proverbs,15,16
+money,Proverbs,15,17
+money,Proverbs,15,27
+money,Proverbs,16,8
+money,Proverbs,19,4
+money,Proverbs,21,6
+money,Proverbs,21,25
+money,Proverbs,21,26
+money,Proverbs,22,16
+money,Proverbs,23,4
+money,Proverbs,23,5
+money,Proverbs,27,23
+money,Proverbs,27,24
+money,Proverbs,28,8
+money,Proverbs,28,20
+money,Proverbs,28,22
+money,Proverbs,30,8
+money,Proverbs,30,9
+money,Ecclesiastes,1,2
+money,Ecclesiastes,1,3
+money,Ecclesiastes,1,4
+money,Ecclesiastes,1,5
+money,Ecclesiastes,1,6
+money,Ecclesiastes,1,7
+money,Ecclesiastes,1,8
+money,Ecclesiastes,4,8
+money,Ecclesiastes,5,9
+money,Ecclesiastes,5,10
+money,Ecclesiastes,5,11
+money,Ecclesiastes,5,12
+money,Ecclesiastes,5,13
+money,Ecclesiastes,5,14
+money,Ecclesiastes,5,15
+money,Ecclesiastes,5,16
+money,Ecclesiastes,5,17
+money,Ecclesiastes,5,18
+money,Ecclesiastes,5,19
+money,Ecclesiastes,5,20
+money,Ecclesiastes,6,1
+money,Ecclesiastes,6,2
+money,Ecclesiastes,7,11
+money,Ecclesiastes,7,12
+money,Ecclesiastes,10,19
+money,Isaiah,1,23
+money,Isaiah,5,8
+money,Isaiah,56,11
+money,Isaiah,57,17
+money,Jeremiah,6,13
+money,Jeremiah,8,10
+money,Jeremiah,17,11
+money,Jeremiah,22,17
+money,Jeremiah,48,36
+money,Jeremiah,51,13
+money,Ezekiel,22,12
+money,Ezekiel,22,13
+money,Ezekiel,33,31
+money,Hosea,4,18
+money,Hosea,10,1
+money,Hosea,12,8
+money,Micah,2,2
+money,Micah,3,11
+money,Micah,7,3
+money,Habakkuk,1,15
+money,Habakkuk,1,16
+money,Habakkuk,2,5
+money,Habakkuk,2,6
+money,Habakkuk,2,7
+money,Habakkuk,2,8
+money,Habakkuk,2,9
+money,Haggai,1,6
+money,Malachi,1,10
+money,Matthew,6,19
+money,Matthew,6,20
+money,Matthew,6,21
+money,Matthew,6,24
+money,Matthew,6,25
+money,Matthew,6,31
+money,Matthew,6,32
+money,Matthew,6,33
+money,Matthew,13,22
+money,Matthew,16,26
+money,Matthew,19,16
+money,Matthew,19,17
+money,Matthew,19,18
+money,Matthew,19,19
+money,Matthew,19,20
+money,Matthew,19,21
+money,Matthew,19,22
+money,Matthew,19,23
+money,Matthew,19,24
+money,Matthew,19,25
+money,Matthew,19,26
+money,Matthew,19,27
+money,Matthew,19,28
+money,Matthew,19,29
+money,Matthew,22,1
+money,Matthew,22,2
+money,Matthew,22,3
+money,Matthew,22,4
+money,Matthew,22,5
+money,Matthew,22,6
+money,Matthew,22,7
+money,Matthew,22,8
+money,Matthew,22,9
+money,Matthew,22,10
+money,Matthew,22,11
+money,Matthew,22,12
+money,Matthew,22,13
+money,Matthew,22,14
+money,Mark,4,19
+money,Mark,7,21
+money,Mark,7,22
+money,Mark,7,23
+money,Mark,10,17
+money,Mark,10,18
+money,Mark,10,19
+money,Mark,10,20
+money,Mark,10,21
+money,Mark,10,22
+money,Mark,10,23
+money,Mark,10,24
+money,Mark,10,25
+money,Luke,7,14
+money,Luke,12,15
+money,Luke,12,16
+money,Luke,12,17
+money,Luke,12,18
+money,Luke,12,19
+money,Luke,12,20
+money,Luke,12,21
+money,Luke,12,33
+money,Luke,12,34
+money,Luke,14,16
+money,Luke,14,17
+money,Luke,14,18
+money,Luke,14,19
+money,Luke,14,20
+money,Luke,14,21
+money,Luke,14,22
+money,Luke,14,23
+money,Luke,14,24
+money,Luke,18,18
+money,Luke,18,19
+money,Luke,18,20
+money,Luke,18,21
+money,Luke,18,22
+money,Luke,18,23
+money,Luke,18,24
+money,Luke,18,25
+money,John,6,26
+money,John,6,27
+money,Romans,1,29
+money,Romans,13,9
+money,1 Corinthians,5,11
+money,1 Corinthians,6,10
+money,Ephesians,5,3
+money,Ephesians,5,5
+money,Philippians,3,18
+money,Philippians,3,19
+money,Colossians,3,2
+money,Colossians,3,5
+money,Colossians,3,6
+money,1 Thessalonians,2,5
+money,1 Timothy,3,3
+money,1 Timothy,6,4
+money,1 Timothy,6,5
+money,1 Timothy,6,6
+money,1 Timothy,6,7
+money,1 Timothy,6,8
+money,1 Timothy,6,9
+money,1 Timothy,6,10
+money,1 Timothy,6,11
+money,1 Timothy,6,17
+money,1 Timothy,6,18
+money,1 Timothy,6,19
+money,2 Timothy,3,2
+money,Titus,1,7
+money,Titus,1,11
+money,Hebrews,13,5
+money,James,2,6
+money,James,2,7
+money,James,4,2
+money,James,4,13
+money,James,4,14
+money,James,4,15
+money,James,4,16
+money,James,4,17
+money,James,5,1
+money,James,5,2
+money,James,5,3
+money,James,5,4
+money,James,5,5
+money,1 Peter,5,2
+money,2 Peter,2,3
+money,2 Peter,2,14
+money,2 Peter,2,15
+money,2 Peter,2,16
+money,1 John,2,15
+money,1 John,2,16
+money,1 John,2,17
+money,1 John,3,17
+money,Jude,1,11
+obedience,Genesis,17,9
+obedience,Genesis,18,19
+obedience,Exodus,19,5
+obedience,Exodus,20,6
+obedience,Exodus,23,22
+obedience,Exodus,24,7
+obedience,Leviticus,19,19
+obedience,Leviticus,19,36
+obedience,Leviticus,19,37
+obedience,Leviticus,20,8
+obedience,Leviticus,20,22
+obedience,Leviticus,22,31
+obedience,Leviticus,26,3
+obedience,Leviticus,26,4
+obedience,Leviticus,26,5
+obedience,Leviticus,26,6
+obedience,Leviticus,26,7
+obedience,Leviticus,26,8
+obedience,Leviticus,26,9
+obedience,Leviticus,26,10
+obedience,Leviticus,26,11
+obedience,Leviticus,26,12
+obedience,Leviticus,26,13
+obedience,Numbers,9,23
+obedience,Numbers,14,24
+obedience,Numbers,15,38
+obedience,Numbers,15,39
+obedience,Numbers,15,40
+obedience,Deuteronomy,4,1
+obedience,Deuteronomy,4,2
+obedience,Deuteronomy,4,3
+obedience,Deuteronomy,4,4
+obedience,Deuteronomy,4,5
+obedience,Deuteronomy,4,6
+obedience,Deuteronomy,4,7
+obedience,Deuteronomy,4,8
+obedience,Deuteronomy,4,9
+obedience,Deuteronomy,4,10
+obedience,Deuteronomy,4,11
+obedience,Deuteronomy,4,12
+obedience,Deuteronomy,4,13
+obedience,Deuteronomy,4,14
+obedience,Deuteronomy,4,15
+obedience,Deuteronomy,4,16
+obedience,Deuteronomy,4,17
+obedience,Deuteronomy,4,18
+obedience,Deuteronomy,4,19
+obedience,Deuteronomy,4,20
+obedience,Deuteronomy,4,21
+obedience,Deuteronomy,4,22
+obedience,Deuteronomy,4,23
+obedience,Deuteronomy,4,24
+obedience,Deuteronomy,4,25
+obedience,Deuteronomy,4,26
+obedience,Deuteronomy,4,27
+obedience,Deuteronomy,4,28
+obedience,Deuteronomy,4,29
+obedience,Deuteronomy,4,30
+obedience,Deuteronomy,4,31
+obedience,Deuteronomy,4,32
+obedience,Deuteronomy,4,33
+obedience,Deuteronomy,4,34
+obedience,Deuteronomy,4,35
+obedience,Deuteronomy,4,36
+obedience,Deuteronomy,4,37
+obedience,Deuteronomy,4,38
+obedience,Deuteronomy,4,39
+obedience,Deuteronomy,4,40
+obedience,Deuteronomy,5,1
+obedience,Deuteronomy,5,2
+obedience,Deuteronomy,5,3
+obedience,Deuteronomy,5,4
+obedience,Deuteronomy,5,5
+obedience,Deuteronomy,5,6
+obedience,Deuteronomy,5,7
+obedience,Deuteronomy,5,8
+obedience,Deuteronomy,5,9
+obedience,Deuteronomy,5,10
+obedience,Deuteronomy,5,11
+obedience,Deuteronomy,5,12
+obedience,Deuteronomy,5,13
+obedience,Deuteronomy,5,14
+obedience,Deuteronomy,5,15
+obedience,Deuteronomy,5,16
+obedience,Deuteronomy,5,17
+obedience,Deuteronomy,5,18
+obedience,Deuteronomy,5,19
+obedience,Deuteronomy,5,20
+obedience,Deuteronomy,5,21
+obedience,Deuteronomy,5,22
+obedience,Deuteronomy,5,23
+obedience,Deuteronomy,5,24
+obedience,Deuteronomy,5,25
+obedience,Deuteronomy,5,26
+obedience,Deuteronomy,5,27
+obedience,Deuteronomy,5,28
+obedience,Deuteronomy,5,29
+obedience,Deuteronomy,5,30
+obedience,Deuteronomy,5,31
+obedience,Deuteronomy,5,32
+obedience,Deuteronomy,5,33
+obedience,Deuteronomy,6,1
+obedience,Deuteronomy,6,2
+obedience,Deuteronomy,6,3
+obedience,Deuteronomy,6,4
+obedience,Deuteronomy,6,5
+obedience,Deuteronomy,6,6
+obedience,Deuteronomy,6,7
+obedience,Deuteronomy,6,8
+obedience,Deuteronomy,6,9
+obedience,Deuteronomy,6,10
+obedience,Deuteronomy,6,11
+obedience,Deuteronomy,6,12
+obedience,Deuteronomy,6,13
+obedience,Deuteronomy,6,14
+obedience,Deuteronomy,6,15
+obedience,Deuteronomy,6,16
+obedience,Deuteronomy,6,17
+obedience,Deuteronomy,6,18
+obedience,Deuteronomy,6,19
+obedience,Deuteronomy,6,20
+obedience,Deuteronomy,6,21
+obedience,Deuteronomy,6,22
+obedience,Deuteronomy,6,23
+obedience,Deuteronomy,6,24
+obedience,Deuteronomy,6,25
+obedience,Deuteronomy,8,1
+obedience,Deuteronomy,8,2
+obedience,Deuteronomy,8,3
+obedience,Deuteronomy,8,4
+obedience,Deuteronomy,8,5
+obedience,Deuteronomy,8,6
+obedience,Deuteronomy,8,11
+obedience,Deuteronomy,8,12
+obedience,Deuteronomy,8,13
+obedience,Deuteronomy,8,14
+obedience,Deuteronomy,8,16
+obedience,Deuteronomy,8,17
+obedience,Deuteronomy,8,18
+obedience,Deuteronomy,8,19
+obedience,Deuteronomy,8,20
+obedience,Deuteronomy,10,12
+obedience,Deuteronomy,10,13
+obedience,Deuteronomy,11,1
+obedience,Deuteronomy,11,2
+obedience,Deuteronomy,11,3
+obedience,Deuteronomy,11,8
+obedience,Deuteronomy,11,9
+obedience,Deuteronomy,11,13
+obedience,Deuteronomy,11,14
+obedience,Deuteronomy,11,15
+obedience,Deuteronomy,11,16
+obedience,Deuteronomy,11,17
+obedience,Deuteronomy,11,18
+obedience,Deuteronomy,11,19
+obedience,Deuteronomy,11,20
+obedience,Deuteronomy,11,21
+obedience,Deuteronomy,11,22
+obedience,Deuteronomy,11,23
+obedience,Deuteronomy,11,24
+obedience,Deuteronomy,11,25
+obedience,Deuteronomy,11,26
+obedience,Deuteronomy,11,27
+obedience,Deuteronomy,11,28
+obedience,Deuteronomy,11,32
+obedience,Deuteronomy,13,4
+obedience,Deuteronomy,26,16
+obedience,Deuteronomy,26,17
+obedience,Deuteronomy,26,18
+obedience,Deuteronomy,27,1
+obedience,Deuteronomy,27,2
+obedience,Deuteronomy,27,3
+obedience,Deuteronomy,27,4
+obedience,Deuteronomy,27,5
+obedience,Deuteronomy,27,6
+obedience,Deuteronomy,27,7
+obedience,Deuteronomy,27,8
+obedience,Deuteronomy,27,9
+obedience,Deuteronomy,27,10
+obedience,Deuteronomy,28,1
+obedience,Deuteronomy,28,2
+obedience,Deuteronomy,28,3
+obedience,Deuteronomy,28,4
+obedience,Deuteronomy,28,5
+obedience,Deuteronomy,28,6
+obedience,Deuteronomy,28,7
+obedience,Deuteronomy,28,8
+obedience,Deuteronomy,28,9
+obedience,Deuteronomy,28,10
+obedience,Deuteronomy,28,11
+obedience,Deuteronomy,28,12
+obedience,Deuteronomy,28,13
+obedience,Deuteronomy,28,14
+obedience,Deuteronomy,28,15
+obedience,Deuteronomy,28,16
+obedience,Deuteronomy,28,17
+obedience,Deuteronomy,28,18
+obedience,Deuteronomy,28,19
+obedience,Deuteronomy,28,20
+obedience,Deuteronomy,28,21
+obedience,Deuteronomy,28,22
+obedience,Deuteronomy,28,23
+obedience,Deuteronomy,28,24
+obedience,Deuteronomy,28,25
+obedience,Deuteronomy,28,26
+obedience,Deuteronomy,28,27
+obedience,Deuteronomy,28,28
+obedience,Deuteronomy,28,29
+obedience,Deuteronomy,28,30
+obedience,Deuteronomy,28,31
+obedience,Deuteronomy,28,32
+obedience,Deuteronomy,28,33
+obedience,Deuteronomy,28,34
+obedience,Deuteronomy,28,35
+obedience,Deuteronomy,28,36
+obedience,Deuteronomy,28,37
+obedience,Deuteronomy,28,38
+obedience,Deuteronomy,28,39
+obedience,Deuteronomy,28,40
+obedience,Deuteronomy,28,41
+obedience,Deuteronomy,28,42
+obedience,Deuteronomy,28,43
+obedience,Deuteronomy,28,44
+obedience,Deuteronomy,28,45
+obedience,Deuteronomy,28,46
+obedience,Deuteronomy,28,47
+obedience,Deuteronomy,28,48
+obedience,Deuteronomy,28,49
+obedience,Deuteronomy,28,50
+obedience,Deuteronomy,28,51
+obedience,Deuteronomy,28,52
+obedience,Deuteronomy,28,53
+obedience,Deuteronomy,28,54
+obedience,Deuteronomy,28,55
+obedience,Deuteronomy,28,56
+obedience,Deuteronomy,28,57
+obedience,Deuteronomy,28,58
+obedience,Deuteronomy,28,59
+obedience,Deuteronomy,28,60
+obedience,Deuteronomy,28,61
+obedience,Deuteronomy,28,62
+obedience,Deuteronomy,28,63
+obedience,Deuteronomy,28,64
+obedience,Deuteronomy,28,65
+obedience,Deuteronomy,28,66
+obedience,Deuteronomy,28,67
+obedience,Deuteronomy,28,68
+obedience,Deuteronomy,32,46
+obedience,Joshua,14,6
+obedience,Joshua,14,7
+obedience,Joshua,14,8
+obedience,Joshua,14,9
+obedience,Joshua,14,10
+obedience,Joshua,14,11
+obedience,Joshua,14,12
+obedience,Joshua,14,13
+obedience,Joshua,14,14
+obedience,Joshua,22,2
+obedience,Joshua,22,5
+obedience,Joshua,23,6
+obedience,Joshua,23,7
+obedience,Joshua,24,14
+obedience,Joshua,24,15
+obedience,Joshua,24,24
+obedience,1 Samuel,12,24
+obedience,1 Samuel,15,22
+obedience,1 Kings,3,14
+obedience,2 Kings,17,37
+obedience,2 Kings,17,38
+obedience,2 Kings,18,6
+obedience,2 Kings,21,8
+obedience,1 Chronicles,16,15
+obedience,1 Chronicles,28,9
+obedience,1 Chronicles,28,10
+obedience,1 Chronicles,28,20
+obedience,Ezra,7,10
+obedience,Ezra,7,23
+obedience,Nehemiah,1,5
+obedience,Psalms,1,2
+obedience,Psalms,18,44
+obedience,Psalms,25,10
+obedience,Psalms,76,11
+obedience,Psalms,99,7
+obedience,Psalms,103,17
+obedience,Psalms,103,18
+obedience,Psalms,103,20
+obedience,Psalms,103,21
+obedience,Psalms,111,10
+obedience,Psalms,112,1
+obedience,Psalms,119,2
+obedience,Psalms,119,4
+obedience,Psalms,119,5
+obedience,Psalms,119,6
+obedience,Psalms,119,8
+obedience,Psalms,119,10
+obedience,Psalms,119,15
+obedience,Psalms,119,16
+obedience,Psalms,119,22
+obedience,Psalms,119,30
+obedience,Psalms,119,31
+obedience,Psalms,119,33
+obedience,Psalms,119,44
+obedience,Psalms,119,45
+obedience,Psalms,119,55
+obedience,Psalms,119,56
+obedience,Psalms,119,59
+obedience,Psalms,119,60
+obedience,Psalms,119,72
+obedience,Psalms,119,77
+obedience,Psalms,119,87
+obedience,Psalms,119,97
+obedience,Psalms,119,100
+obedience,Psalms,119,101
+obedience,Psalms,119,102
+obedience,Psalms,119,104
+obedience,Psalms,119,105
+obedience,Psalms,119,106
+obedience,Psalms,119,109
+obedience,Psalms,119,112
+obedience,Psalms,119,129
+obedience,Psalms,119,167
+obedience,Psalms,119,168
+obedience,Psalms,143,10
+obedience,Proverbs,1,33
+obedience,Proverbs,19,16
+obedience,Proverbs,28,7
+obedience,Ecclesiastes,12,13
+obedience,Isaiah,1,19
+obedience,Jeremiah,7,23
+obedience,Jeremiah,26,13
+obedience,Jeremiah,38,20
+obedience,Ezekiel,18,19
+obedience,Ezekiel,33,14
+obedience,Ezekiel,33,15
+obedience,Ezekiel,33,16
+obedience,Daniel,7,27
+obedience,Malachi,4,4
+obedience,Matthew,5,19
+obedience,Matthew,6,24
+obedience,Matthew,9,9
+obedience,Matthew,12,50
+obedience,Matthew,13,8
+obedience,Matthew,13,23
+obedience,Matthew,19,17
+obedience,Matthew,19,29
+obedience,Matthew,25,20
+obedience,Matthew,25,21
+obedience,Matthew,25,22
+obedience,Matthew,25,23
+obedience,Mark,2,14
+obedience,Mark,3,35
+obedience,Mark,4,20
+obedience,Luke,1,6
+obedience,Luke,6,46
+obedience,Luke,6,47
+obedience,Luke,6,48
+obedience,Luke,8,15
+obedience,Luke,8,21
+obedience,Luke,11,2
+obedience,Luke,11,28
+obedience,Luke,12,37
+obedience,Luke,12,38
+obedience,John,8,28
+obedience,John,8,51
+obedience,John,9,4
+obedience,John,10,27
+obedience,John,12,26
+obedience,John,13,17
+obedience,John,14,15
+obedience,John,14,21
+obedience,John,14,23
+obedience,John,14,31
+obedience,John,15,10
+obedience,John,15,14
+obedience,John,15,16
+obedience,Acts,4,19
+obedience,Acts,5,29
+obedience,Romans,6,17
+obedience,Galatians,3,10
+obedience,Galatians,3,12
+obedience,Galatians,5,3
+obedience,Ephesians,2,10
+obedience,Ephesians,4,1
+obedience,Ephesians,4,17
+obedience,Ephesians,6,6
+obedience,Ephesians,6,7
+obedience,Ephesians,6,8
+obedience,Philippians,2,12
+obedience,1 Timothy,6,14
+obedience,1 Timothy,6,18
+obedience,Hebrews,10,7
+obedience,Hebrews,13,16
+obedience,James,1,22
+obedience,James,1,23
+obedience,James,1,24
+obedience,James,1,25
+obedience,James,2,10
+obedience,James,2,11
+obedience,James,2,12
+obedience,1 Peter,1,2
+obedience,1 Peter,1,14
+obedience,1 John,2,3
+obedience,1 John,2,4
+obedience,1 John,2,5
+obedience,1 John,2,6
+obedience,1 John,2,17
+obedience,1 John,3,22
+obedience,1 John,3,24
+obedience,1 John,5,2
+obedience,1 John,5,3
+obedience,2 John,1,6
+obedience,2 John,1,7
+obedience,2 John,1,8
+obedience,2 John,1,9
+obedience,Revelation,12,17
+obedience,Revelation,22,7
+obedience,Revelation,22,14
+patience,Psalms,37,7
+patience,Psalms,37,8
+patience,Psalms,37,9
+patience,Proverbs,15,18
+patience,Ecclesiastes,7,8
+patience,Ecclesiastes,7,9
+patience,Lamentations,3,26
+patience,Lamentations,3,27
+patience,Luke,8,15
+patience,Luke,21,19
+patience,Romans,2,7
+patience,Romans,5,3
+patience,Romans,5,4
+patience,Romans,8,25
+patience,Romans,12,12
+patience,Romans,15,4
+patience,Romans,15,5
+patience,1 Corinthians,13,4
+patience,1 Corinthians,13,5
+patience,2 Corinthians,6,4
+patience,2 Corinthians,6,5
+patience,2 Corinthians,6,6
+patience,2 Corinthians,12,12
+patience,Galatians,6,9
+patience,Ephesians,4,1
+patience,Ephesians,4,2
+patience,Colossians,1,10
+patience,Colossians,1,11
+patience,Colossians,3,12
+patience,Colossians,3,13
+patience,1 Thessalonians,1,3
+patience,1 Thessalonians,5,14
+patience,2 Thessalonians,3,5
+patience,1 Timothy,3,2
+patience,1 Timothy,3,3
+patience,1 Timothy,6,11
+patience,2 Timothy,2,24
+patience,2 Timothy,2,25
+patience,Titus,2,1
+patience,Titus,2,2
+patience,Titus,2,9
+patience,Hebrews,6,12
+patience,Hebrews,6,15
+patience,Hebrews,10,36
+patience,Hebrews,12,1
+patience,James,1,3
+patience,James,1,4
+patience,James,1,19
+patience,James,5,7
+patience,James,5,8
+patience,1 Peter,2,19
+patience,1 Peter,2,20
+patience,1 Peter,2,21
+patience,1 Peter,2,22
+patience,1 Peter,2,23
+patience,2 Peter,1,5
+patience,2 Peter,1,6
+patience,Revelation,1,9
+patience,Revelation,13,10
+patience,Revelation,14,12
+peace,Job,22,21
+peace,Job,22,26
+peace,Job,34,29
+peace,Psalms,1,1
+peace,Psalms,1,2
+peace,Psalms,4,8
+peace,Psalms,17,15
+peace,Psalms,25,12
+peace,Psalms,25,13
+peace,Psalms,29,11
+peace,Psalms,37,4
+peace,Psalms,37,11
+peace,Psalms,37,37
+peace,Psalms,73,25
+peace,Psalms,73,26
+peace,Psalms,85,8
+peace,Psalms,119,165
+peace,Psalms,125,1
+peace,Psalms,125,5
+peace,Proverbs,3,13
+peace,Proverbs,3,14
+peace,Proverbs,3,15
+peace,Proverbs,3,16
+peace,Proverbs,3,17
+peace,Proverbs,3,18
+peace,Proverbs,3,24
+peace,Proverbs,14,14
+peace,Isaiah,9,6
+peace,Isaiah,11,6
+peace,Isaiah,11,7
+peace,Isaiah,11,8
+peace,Isaiah,11,9
+peace,Isaiah,11,13
+peace,Isaiah,12,1
+peace,Isaiah,12,2
+peace,Isaiah,25,7
+peace,Isaiah,25,8
+peace,Isaiah,26,3
+peace,Isaiah,26,12
+peace,Isaiah,27,5
+peace,Isaiah,28,12
+peace,Isaiah,30,26
+peace,Isaiah,32,2
+peace,Isaiah,32,17
+peace,Isaiah,32,18
+peace,Isaiah,48,18
+peace,Isaiah,53,5
+peace,Isaiah,54,1
+peace,Isaiah,54,10
+peace,Isaiah,54,13
+peace,Isaiah,55,2
+peace,Isaiah,55,12
+peace,Isaiah,57,1
+peace,Isaiah,57,2
+peace,Isaiah,57,19
+peace,Isaiah,60,20
+peace,Jeremiah,33,6
+peace,Ezekiel,34,25
+peace,Haggai,2,9
+peace,Malachi,2,5
+peace,Luke,1,79
+peace,Luke,2,14
+peace,John,7,38
+peace,John,14,27
+peace,John,16,33
+peace,John,20,19
+peace,Acts,10,36
+peace,Romans,2,10
+peace,Romans,5,1
+peace,Romans,8,6
+peace,Romans,10,15
+peace,Romans,14,17
+peace,Romans,15,13
+peace,Romans,15,33
+peace,1 Corinthians,1,3
+peace,2 Corinthians,1,2
+peace,Galatians,1,3
+peace,Galatians,5,22
+peace,Ephesians,2,14
+peace,Ephesians,2,15
+peace,Ephesians,2,16
+peace,Ephesians,2,17
+peace,Philippians,4,7
+peace,Philippians,4,9
+peace,Colossians,1,20
+peace,Colossians,3,15
+peace,1 Thessalonians,1,1
+peace,2 Thessalonians,3,16
+peace,1 Timothy,1,2
+peace,2 Timothy,1,2
+peace,Titus,1,4
+peace,Philemon,1,3
+peace,Revelation,1,4
+praise,Genesis,14,20
+praise,Genesis,35,1
+praise,Exodus,12,14
+praise,Exodus,12,17
+praise,Exodus,12,42
+praise,Exodus,13,3
+praise,Exodus,13,8
+praise,Exodus,13,9
+praise,Exodus,13,10
+praise,Exodus,13,14
+praise,Exodus,13,15
+praise,Exodus,13,16
+praise,Exodus,15,1
+praise,Exodus,15,2
+praise,Exodus,16,32
+praise,Exodus,34,26
+praise,Leviticus,19,24
+praise,Leviticus,23,14
+praise,Deuteronomy,10,21
+praise,Deuteronomy,12,18
+praise,Deuteronomy,16,9
+praise,Deuteronomy,16,10
+praise,Deuteronomy,16,11
+praise,Deuteronomy,16,12
+praise,Deuteronomy,16,13
+praise,Deuteronomy,16,14
+praise,Deuteronomy,16,15
+praise,Deuteronomy,26,10
+praise,Judges,5,3
+praise,Judges,5,11
+praise,2 Samuel,22,4
+praise,1 Chronicles,16,31
+praise,1 Chronicles,16,33
+praise,1 Chronicles,16,34
+praise,1 Chronicles,16,36
+praise,1 Chronicles,23,30
+praise,2 Chronicles,7,3
+praise,Nehemiah,9,5
+praise,Nehemiah,9,6
+praise,Job,36,24
+praise,Psalms,7,17
+praise,Psalms,8,2
+praise,Psalms,9,11
+praise,Psalms,18,3
+praise,Psalms,21,13
+praise,Psalms,22,22
+praise,Psalms,22,23
+praise,Psalms,22,25
+praise,Psalms,24,7
+praise,Psalms,24,8
+praise,Psalms,24,9
+praise,Psalms,24,10
+praise,Psalms,26,12
+praise,Psalms,28,6
+praise,Psalms,28,7
+praise,Psalms,30,4
+praise,Psalms,32,11
+praise,Psalms,33,1
+praise,Psalms,33,2
+praise,Psalms,33,3
+praise,Psalms,34,1
+praise,Psalms,34,2
+praise,Psalms,34,3
+praise,Psalms,35,18
+praise,Psalms,35,28
+praise,Psalms,41,13
+praise,Psalms,42,4
+praise,Psalms,43,3
+praise,Psalms,43,4
+praise,Psalms,47,1
+praise,Psalms,47,6
+praise,Psalms,47,7
+praise,Psalms,48,1
+praise,Psalms,48,11
+praise,Psalms,50,14
+praise,Psalms,50,15
+praise,Psalms,50,23
+praise,Psalms,51,15
+praise,Psalms,52,9
+praise,Psalms,56,10
+praise,Psalms,56,12
+praise,Psalms,57,7
+praise,Psalms,57,8
+praise,Psalms,57,9
+praise,Psalms,61,8
+praise,Psalms,63,3
+praise,Psalms,63,4
+praise,Psalms,63,5
+praise,Psalms,63,6
+praise,Psalms,65,1
+praise,Psalms,66,1
+praise,Psalms,66,2
+praise,Psalms,66,4
+praise,Psalms,66,8
+praise,Psalms,67,3
+praise,Psalms,67,4
+praise,Psalms,68,4
+praise,Psalms,68,26
+praise,Psalms,68,32
+praise,Psalms,68,33
+praise,Psalms,68,34
+praise,Psalms,69,30
+praise,Psalms,69,34
+praise,Psalms,70,4
+praise,Psalms,71,8
+praise,Psalms,71,14
+praise,Psalms,71,15
+praise,Psalms,71,22
+praise,Psalms,75,1
+praise,Psalms,79,13
+praise,Psalms,81,1
+praise,Psalms,84,4
+praise,Psalms,86,12
+praise,Psalms,89,5
+praise,Psalms,89,52
+praise,Psalms,92,1
+praise,Psalms,92,2
+praise,Psalms,92,3
+praise,Psalms,95,1
+praise,Psalms,95,2
+praise,Psalms,95,6
+praise,Psalms,95,7
+praise,Psalms,96,1
+praise,Psalms,96,2
+praise,Psalms,96,3
+praise,Psalms,96,4
+praise,Psalms,96,7
+praise,Psalms,96,8
+praise,Psalms,96,9
+praise,Psalms,97,12
+praise,Psalms,98,1
+praise,Psalms,98,4
+praise,Psalms,98,5
+praise,Psalms,98,6
+praise,Psalms,99,3
+praise,Psalms,99,5
+praise,Psalms,99,9
+praise,Psalms,100,1
+praise,Psalms,100,2
+praise,Psalms,100,3
+praise,Psalms,100,4
+praise,Psalms,100,5
+praise,Psalms,101,1
+praise,Psalms,103,20
+praise,Psalms,103,21
+praise,Psalms,103,22
+praise,Psalms,104,33
+praise,Psalms,104,34
+praise,Psalms,105,1
+praise,Psalms,105,2
+praise,Psalms,105,3
+praise,Psalms,105,4
+praise,Psalms,105,5
+praise,Psalms,105,6
+praise,Psalms,105,7
+praise,Psalms,105,8
+praise,Psalms,105,9
+praise,Psalms,105,10
+praise,Psalms,105,11
+praise,Psalms,105,12
+praise,Psalms,105,13
+praise,Psalms,105,14
+praise,Psalms,105,15
+praise,Psalms,105,16
+praise,Psalms,105,17
+praise,Psalms,105,18
+praise,Psalms,105,19
+praise,Psalms,105,20
+praise,Psalms,105,21
+praise,Psalms,105,22
+praise,Psalms,105,23
+praise,Psalms,105,24
+praise,Psalms,105,25
+praise,Psalms,105,26
+praise,Psalms,105,27
+praise,Psalms,105,28
+praise,Psalms,105,29
+praise,Psalms,105,30
+praise,Psalms,105,31
+praise,Psalms,105,32
+praise,Psalms,105,33
+praise,Psalms,105,34
+praise,Psalms,105,35
+praise,Psalms,105,36
+praise,Psalms,105,37
+praise,Psalms,105,38
+praise,Psalms,105,39
+praise,Psalms,105,40
+praise,Psalms,105,41
+praise,Psalms,105,42
+praise,Psalms,105,43
+praise,Psalms,105,44
+praise,Psalms,105,45
+praise,Psalms,106,1
+praise,Psalms,106,48
+praise,Psalms,107,1
+praise,Psalms,107,2
+praise,Psalms,107,8
+praise,Psalms,107,9
+praise,Psalms,107,15
+praise,Psalms,107,21
+praise,Psalms,107,22
+praise,Psalms,107,31
+praise,Psalms,107,32
+praise,Psalms,107,42
+praise,Psalms,107,43
+praise,Psalms,108,1
+praise,Psalms,108,2
+praise,Psalms,108,3
+praise,Psalms,109,30
+praise,Psalms,111,1
+praise,Psalms,111,10
+praise,Psalms,113,1
+praise,Psalms,113,2
+praise,Psalms,115,18
+praise,Psalms,116,12
+praise,Psalms,116,13
+praise,Psalms,116,14
+praise,Psalms,116,17
+praise,Psalms,116,18
+praise,Psalms,116,19
+praise,Psalms,117,1
+praise,Psalms,117,2
+praise,Psalms,118,1
+praise,Psalms,118,4
+praise,Psalms,118,15
+praise,Psalms,118,28
+praise,Psalms,118,29
+praise,Psalms,119,7
+praise,Psalms,119,62
+praise,Psalms,119,108
+praise,Psalms,119,164
+praise,Psalms,119,171
+praise,Psalms,119,172
+praise,Psalms,119,175
+praise,Psalms,134,1
+praise,Psalms,134,2
+praise,Psalms,135,1
+praise,Psalms,135,2
+praise,Psalms,135,3
+praise,Psalms,135,19
+praise,Psalms,135,21
+praise,Psalms,136,1
+praise,Psalms,136,2
+praise,Psalms,136,3
+praise,Psalms,136,4
+praise,Psalms,136,5
+praise,Psalms,136,6
+praise,Psalms,136,7
+praise,Psalms,136,8
+praise,Psalms,136,9
+praise,Psalms,136,10
+praise,Psalms,136,11
+praise,Psalms,136,12
+praise,Psalms,136,13
+praise,Psalms,136,14
+praise,Psalms,136,15
+praise,Psalms,136,16
+praise,Psalms,136,17
+praise,Psalms,136,18
+praise,Psalms,136,19
+praise,Psalms,136,20
+praise,Psalms,136,21
+praise,Psalms,136,22
+praise,Psalms,136,23
+praise,Psalms,136,24
+praise,Psalms,136,25
+praise,Psalms,136,26
+praise,Psalms,138,1
+praise,Psalms,138,2
+praise,Psalms,140,13
+praise,Psalms,144,1
+praise,Psalms,144,2
+praise,Psalms,144,9
+praise,Psalms,145,1
+praise,Psalms,145,2
+praise,Psalms,145,3
+praise,Psalms,145,4
+praise,Psalms,145,5
+praise,Psalms,145,6
+praise,Psalms,145,7
+praise,Psalms,145,8
+praise,Psalms,145,9
+praise,Psalms,145,10
+praise,Psalms,145,11
+praise,Psalms,145,12
+praise,Psalms,145,13
+praise,Psalms,145,14
+praise,Psalms,145,15
+praise,Psalms,145,16
+praise,Psalms,145,17
+praise,Psalms,145,18
+praise,Psalms,145,19
+praise,Psalms,145,20
+praise,Psalms,145,21
+praise,Psalms,146,1
+praise,Psalms,146,2
+praise,Psalms,146,3
+praise,Psalms,146,4
+praise,Psalms,146,5
+praise,Psalms,146,6
+praise,Psalms,146,7
+praise,Psalms,146,8
+praise,Psalms,146,9
+praise,Psalms,146,10
+praise,Psalms,147,1
+praise,Psalms,147,2
+praise,Psalms,147,3
+praise,Psalms,147,4
+praise,Psalms,147,5
+praise,Psalms,147,6
+praise,Psalms,147,7
+praise,Psalms,147,8
+praise,Psalms,147,9
+praise,Psalms,147,10
+praise,Psalms,147,11
+praise,Psalms,147,12
+praise,Psalms,147,13
+praise,Psalms,147,14
+praise,Psalms,147,15
+praise,Psalms,147,16
+praise,Psalms,147,17
+praise,Psalms,147,18
+praise,Psalms,147,19
+praise,Psalms,147,20
+praise,Psalms,148,1
+praise,Psalms,148,2
+praise,Psalms,148,3
+praise,Psalms,148,4
+praise,Psalms,148,5
+praise,Psalms,148,6
+praise,Psalms,148,7
+praise,Psalms,148,8
+praise,Psalms,148,9
+praise,Psalms,148,10
+praise,Psalms,148,11
+praise,Psalms,148,12
+praise,Psalms,148,13
+praise,Psalms,148,14
+praise,Psalms,149,1
+praise,Psalms,149,2
+praise,Psalms,149,3
+praise,Psalms,149,4
+praise,Psalms,149,5
+praise,Psalms,149,6
+praise,Psalms,149,7
+praise,Psalms,149,8
+praise,Psalms,149,9
+praise,Psalms,150,1
+praise,Psalms,150,2
+praise,Psalms,150,3
+praise,Psalms,150,4
+praise,Psalms,150,5
+praise,Psalms,150,6
+praise,Proverbs,3,9
+praise,Proverbs,3,10
+praise,Ecclesiastes,7,14
+praise,Isaiah,12,1
+praise,Isaiah,12,2
+praise,Isaiah,12,3
+praise,Isaiah,12,4
+praise,Isaiah,12,5
+praise,Isaiah,12,6
+praise,Isaiah,24,14
+praise,Isaiah,24,15
+praise,Isaiah,24,16
+praise,Isaiah,25,1
+praise,Isaiah,35,10
+praise,Isaiah,38,18
+praise,Isaiah,38,19
+praise,Isaiah,42,10
+praise,Isaiah,42,11
+praise,Isaiah,42,12
+praise,Isaiah,43,21
+praise,Isaiah,48,20
+praise,Isaiah,49,13
+praise,Isaiah,51,3
+praise,Isaiah,52,7
+praise,Isaiah,52,8
+praise,Isaiah,52,9
+praise,Isaiah,52,10
+praise,Isaiah,61,3
+praise,Jeremiah,31,7
+praise,Jeremiah,33,11
+praise,Daniel,2,20
+praise,Daniel,2,23
+praise,Daniel,4,37
+praise,Joel,2,26
+praise,Jonah,2,9
+praise,Matthew,26,30
+praise,Mark,14,26
+praise,Luke,1,46
+praise,Luke,1,47
+praise,Luke,1,48
+praise,Luke,1,49
+praise,Luke,1,50
+praise,Luke,1,51
+praise,Luke,1,52
+praise,Luke,1,53
+praise,Luke,1,54
+praise,Luke,1,55
+praise,Luke,1,67
+praise,Luke,1,68
+praise,Luke,1,69
+praise,Luke,1,70
+praise,Luke,1,71
+praise,Luke,1,72
+praise,Luke,1,73
+praise,Luke,1,74
+praise,Luke,1,75
+praise,Luke,2,20
+praise,Luke,17,15
+praise,Luke,17,16
+praise,Luke,19,37
+praise,Luke,19,38
+praise,Luke,24,52
+praise,Luke,24,53
+praise,Acts,2,46
+praise,Acts,2,47
+praise,Acts,4,24
+praise,Acts,16,25
+praise,Romans,2,4
+praise,Romans,11,36
+praise,Romans,15,27
+praise,Romans,16,27
+praise,1 Corinthians,14,15
+praise,1 Corinthians,15,57
+praise,Ephesians,1,3
+praise,Ephesians,3,20
+praise,Ephesians,3,21
+praise,Ephesians,5,4
+praise,Ephesians,5,19
+praise,Ephesians,5,20
+praise,Philippians,4,6
+praise,Philippians,4,20
+praise,Colossians,1,12
+praise,Colossians,2,7
+praise,Colossians,3,15
+praise,Colossians,3,16
+praise,Colossians,3,17
+praise,Colossians,4,2
+praise,1 Thessalonians,5,18
+praise,1 Timothy,1,17
+praise,1 Timothy,2,1
+praise,1 Timothy,4,3
+praise,1 Timothy,4,4
+praise,1 Timothy,4,5
+praise,Hebrews,2,12
+praise,Hebrews,13,15
+praise,James,1,9
+praise,James,5,13
+praise,1 Peter,1,3
+praise,1 Peter,2,9
+praise,1 Peter,4,11
+praise,1 Peter,5,11
+praise,2 Peter,3,18
+praise,Jude,1,25
+praise,Revelation,1,6
+praise,Revelation,14,7
+prayer,Genesis,18,23
+prayer,Genesis,18,24
+prayer,Genesis,18,25
+prayer,Genesis,18,26
+prayer,Genesis,18,27
+prayer,Genesis,18,28
+prayer,Genesis,18,29
+prayer,Genesis,18,30
+prayer,Genesis,18,31
+prayer,Genesis,18,32
+prayer,Genesis,32,24
+prayer,Genesis,32,25
+prayer,Genesis,32,26
+prayer,Genesis,32,27
+prayer,Genesis,32,28
+prayer,Genesis,32,29
+prayer,Exodus,6,5
+prayer,Exodus,22,23
+prayer,Exodus,22,27
+prayer,Exodus,32,32
+prayer,Exodus,33,17
+prayer,Exodus,33,18
+prayer,Exodus,33,19
+prayer,Exodus,33,20
+prayer,Deuteronomy,4,7
+prayer,Deuteronomy,4,29
+prayer,Deuteronomy,4,30
+prayer,Deuteronomy,4,31
+prayer,Deuteronomy,9,25
+prayer,Judges,6,36
+prayer,Judges,6,37
+prayer,Judges,6,38
+prayer,Judges,6,39
+prayer,Judges,6,40
+prayer,Judges,16,28
+prayer,1 Samuel,1,10
+prayer,1 Samuel,1,11
+prayer,1 Samuel,12,23
+prayer,1 Kings,8,22
+prayer,1 Kings,8,23
+prayer,1 Kings,8,24
+prayer,1 Kings,8,25
+prayer,1 Kings,8,26
+prayer,1 Kings,8,27
+prayer,1 Kings,8,28
+prayer,1 Kings,8,29
+prayer,1 Kings,8,30
+prayer,1 Kings,8,53
+prayer,1 Chronicles,16,11
+prayer,1 Chronicles,16,35
+prayer,1 Chronicles,28,9
+prayer,2 Chronicles,7,13
+prayer,2 Chronicles,7,14
+prayer,2 Chronicles,7,15
+prayer,Ezra,9,5
+prayer,Ezra,9,6
+prayer,Nehemiah,1,4
+prayer,Nehemiah,1,5
+prayer,Nehemiah,1,6
+prayer,Nehemiah,4,9
+prayer,Job,8,5
+prayer,Job,8,6
+prayer,Job,12,4
+prayer,Job,22,27
+prayer,Job,33,26
+prayer,Psalms,9,10
+prayer,Psalms,9,12
+prayer,Psalms,10,17
+prayer,Psalms,17,1
+prayer,Psalms,17,6
+prayer,Psalms,18,3
+prayer,Psalms,22,1
+prayer,Psalms,22,2
+prayer,Psalms,22,19
+prayer,Psalms,27,8
+prayer,Psalms,28,1
+prayer,Psalms,28,2
+prayer,Psalms,32,6
+prayer,Psalms,34,15
+prayer,Psalms,34,17
+prayer,Psalms,35,22
+prayer,Psalms,35,23
+prayer,Psalms,37,4
+prayer,Psalms,37,5
+prayer,Psalms,38,15
+prayer,Psalms,50,14
+prayer,Psalms,50,15
+prayer,Psalms,55,1
+prayer,Psalms,55,2
+prayer,Psalms,55,16
+prayer,Psalms,55,17
+prayer,Psalms,56,9
+prayer,Psalms,57,2
+prayer,Psalms,61,1
+prayer,Psalms,61,2
+prayer,Psalms,65,2
+prayer,Psalms,65,5
+prayer,Psalms,69,33
+prayer,Psalms,70,5
+prayer,Psalms,81,10
+prayer,Psalms,86,3
+prayer,Psalms,86,5
+prayer,Psalms,86,6
+prayer,Psalms,86,7
+prayer,Psalms,88,1
+prayer,Psalms,88,2
+prayer,Psalms,88,9
+prayer,Psalms,88,13
+prayer,Psalms,91,15
+prayer,Psalms,102,1
+prayer,Psalms,102,2
+prayer,Psalms,102,17
+prayer,Psalms,102,18
+prayer,Psalms,102,19
+prayer,Psalms,102,20
+prayer,Psalms,105,3
+prayer,Psalms,105,4
+prayer,Psalms,119,58
+prayer,Psalms,119,145
+prayer,Psalms,119,146
+prayer,Psalms,119,147
+prayer,Psalms,130,1
+prayer,Psalms,130,2
+prayer,Psalms,141,1
+prayer,Psalms,141,2
+prayer,Psalms,142,1
+prayer,Psalms,142,2
+prayer,Psalms,145,18
+prayer,Psalms,145,19
+prayer,Proverbs,2,3
+prayer,Proverbs,2,5
+prayer,Proverbs,3,6
+prayer,Proverbs,10,24
+prayer,Proverbs,15,8
+prayer,Proverbs,15,29
+prayer,Proverbs,16,1
+prayer,Ecclesiastes,5,2
+prayer,Isaiah,19,20
+prayer,Isaiah,30,19
+prayer,Isaiah,38,2
+prayer,Isaiah,38,3
+prayer,Isaiah,55,6
+prayer,Isaiah,58,9
+prayer,Isaiah,62,7
+prayer,Isaiah,64,12
+prayer,Isaiah,65,24
+prayer,Jeremiah,29,12
+prayer,Jeremiah,29,13
+prayer,Jeremiah,31,9
+prayer,Jeremiah,33,3
+prayer,Lamentations,3,25
+prayer,Lamentations,3,41
+prayer,Ezekiel,36,37
+prayer,Daniel,9,3
+prayer,Daniel,9,16
+prayer,Daniel,9,17
+prayer,Daniel,9,18
+prayer,Daniel,9,19
+prayer,Hosea,12,4
+prayer,Joel,2,18
+prayer,Joel,2,19
+prayer,Joel,2,32
+prayer,Amos,5,4
+prayer,Amos,5,5
+prayer,Amos,5,6
+prayer,Jonah,1,14
+prayer,Habakkuk,1,2
+prayer,Zephaniah,2,3
+prayer,Zechariah,10,1
+prayer,Zechariah,10,6
+prayer,Zechariah,12,10
+prayer,Zechariah,13,9
+prayer,Matthew,6,5
+prayer,Matthew,6,6
+prayer,Matthew,6,7
+prayer,Matthew,6,8
+prayer,Matthew,6,9
+prayer,Matthew,6,10
+prayer,Matthew,6,11
+prayer,Matthew,6,12
+prayer,Matthew,6,13
+prayer,Matthew,7,7
+prayer,Matthew,7,8
+prayer,Matthew,7,9
+prayer,Matthew,7,10
+prayer,Matthew,7,11
+prayer,Matthew,15,22
+prayer,Matthew,15,23
+prayer,Matthew,15,24
+prayer,Matthew,15,25
+prayer,Matthew,15,26
+prayer,Matthew,15,27
+prayer,Matthew,15,28
+prayer,Matthew,18,19
+prayer,Matthew,18,20
+prayer,Matthew,21,22
+prayer,Mark,7,25
+prayer,Mark,7,26
+prayer,Mark,7,27
+prayer,Mark,7,28
+prayer,Mark,7,29
+prayer,Mark,9,28
+prayer,Mark,9,29
+prayer,Mark,11,24
+prayer,Mark,11,25
+prayer,Luke,7,3
+prayer,Luke,11,1
+prayer,Luke,11,2
+prayer,Luke,11,3
+prayer,Luke,11,4
+prayer,Luke,11,5
+prayer,Luke,11,6
+prayer,Luke,11,7
+prayer,Luke,11,8
+prayer,Luke,11,9
+prayer,Luke,11,10
+prayer,Luke,11,11
+prayer,Luke,11,12
+prayer,Luke,11,13
+prayer,Luke,18,1
+prayer,Luke,18,2
+prayer,Luke,18,3
+prayer,Luke,18,4
+prayer,Luke,18,5
+prayer,Luke,18,6
+prayer,Luke,18,7
+prayer,Luke,18,8
+prayer,Luke,21,36
+prayer,Luke,22,44
+prayer,John,4,10
+prayer,John,4,23
+prayer,John,4,24
+prayer,John,9,31
+prayer,John,14,13
+prayer,John,14,14
+prayer,John,15,7
+prayer,John,15,16
+prayer,John,16,23
+prayer,John,16,24
+prayer,John,16,26
+prayer,John,16,27
+prayer,Acts,7,34
+prayer,Acts,22,16
+prayer,Romans,8,26
+prayer,Romans,10,12
+prayer,Romans,10,13
+prayer,1 Corinthians,14,15
+prayer,2 Corinthians,12,8
+prayer,Ephesians,2,18
+prayer,Ephesians,3,11
+prayer,Ephesians,3,12
+prayer,Ephesians,3,20
+prayer,Ephesians,6,18
+prayer,Ephesians,6,19
+prayer,Philippians,4,6
+prayer,Colossians,4,2
+prayer,1 Thessalonians,5,17
+prayer,1 Thessalonians,5,18
+prayer,1 Timothy,2,8
+prayer,Hebrews,4,16
+prayer,Hebrews,5,7
+prayer,Hebrews,10,22
+prayer,Hebrews,10,23
+prayer,Hebrews,11,6
+prayer,James,1,5
+prayer,James,1,6
+prayer,James,1,7
+prayer,James,4,8
+prayer,James,4,10
+prayer,James,5,16
+prayer,1 John,3,22
+prayer,1 John,5,14
+prayer,1 John,5,15
+prayer,Jude,1,20
+prayer,Revelation,5,8
+prayer,Revelation,8,3
+prayer,Revelation,8,4
+pride,Exodus,18,10
+pride,Exodus,18,11
+pride,Leviticus,26,19
+pride,Deuteronomy,8,11
+pride,Deuteronomy,8,12
+pride,Deuteronomy,8,13
+pride,Deuteronomy,8,14
+pride,Deuteronomy,8,17
+pride,Deuteronomy,8,18
+pride,Deuteronomy,8,19
+pride,Deuteronomy,8,20
+pride,Judges,9,14
+pride,Judges,9,15
+pride,1 Samuel,2,3
+pride,1 Samuel,2,4
+pride,1 Samuel,2,5
+pride,1 Kings,20,11
+pride,2 Kings,14,9
+pride,2 Kings,14,10
+pride,2 Chronicles,25,18
+pride,2 Chronicles,25,19
+pride,Job,11,12
+pride,Job,12,2
+pride,Job,12,3
+pride,Job,13,2
+pride,Job,13,5
+pride,Job,15,1
+pride,Job,15,2
+pride,Job,15,3
+pride,Job,15,4
+pride,Job,15,5
+pride,Job,15,6
+pride,Job,15,7
+pride,Job,15,8
+pride,Job,15,9
+pride,Job,15,10
+pride,Job,15,11
+pride,Job,15,12
+pride,Job,15,13
+pride,Job,18,3
+pride,Job,21,31
+pride,Job,21,32
+pride,Job,32,9
+pride,Job,32,10
+pride,Job,32,11
+pride,Job,32,12
+pride,Job,32,13
+pride,Job,37,24
+pride,Psalms,9,20
+pride,Psalms,10,2
+pride,Psalms,10,3
+pride,Psalms,10,4
+pride,Psalms,10,5
+pride,Psalms,10,6
+pride,Psalms,10,11
+pride,Psalms,12,4
+pride,Psalms,18,27
+pride,Psalms,31,23
+pride,Psalms,49,11
+pride,Psalms,52,7
+pride,Psalms,73,6
+pride,Psalms,73,8
+pride,Psalms,73,9
+pride,Psalms,75,4
+pride,Psalms,75,5
+pride,Psalms,75,6
+pride,Psalms,101,5
+pride,Psalms,119,21
+pride,Psalms,119,69
+pride,Psalms,119,70
+pride,Psalms,119,78
+pride,Psalms,138,6
+pride,Proverbs,3,34
+pride,Proverbs,6,16
+pride,Proverbs,6,17
+pride,Proverbs,8,13
+pride,Proverbs,10,17
+pride,Proverbs,11,2
+pride,Proverbs,11,12
+pride,Proverbs,12,9
+pride,Proverbs,12,15
+pride,Proverbs,13,10
+pride,Proverbs,14,21
+pride,Proverbs,15,5
+pride,Proverbs,15,10
+pride,Proverbs,15,12
+pride,Proverbs,15,25
+pride,Proverbs,15,32
+pride,Proverbs,16,5
+pride,Proverbs,16,18
+pride,Proverbs,16,19
+pride,Proverbs,17,19
+pride,Proverbs,18,11
+pride,Proverbs,18,12
+pride,Proverbs,20,6
+pride,Proverbs,21,4
+pride,Proverbs,21,24
+pride,Proverbs,25,14
+pride,Proverbs,25,27
+pride,Proverbs,26,5
+pride,Proverbs,26,12
+pride,Proverbs,26,16
+pride,Proverbs,27,2
+pride,Proverbs,28,11
+pride,Proverbs,28,25
+pride,Proverbs,29,8
+pride,Proverbs,29,23
+pride,Proverbs,30,12
+pride,Proverbs,30,13
+pride,Isaiah,2,11
+pride,Isaiah,2,12
+pride,Isaiah,2,13
+pride,Isaiah,2,14
+pride,Isaiah,2,15
+pride,Isaiah,2,16
+pride,Isaiah,2,17
+pride,Isaiah,3,16
+pride,Isaiah,3,17
+pride,Isaiah,3,18
+pride,Isaiah,3,19
+pride,Isaiah,3,20
+pride,Isaiah,3,21
+pride,Isaiah,3,22
+pride,Isaiah,3,23
+pride,Isaiah,3,24
+pride,Isaiah,3,25
+pride,Isaiah,3,26
+pride,Isaiah,5,8
+pride,Isaiah,5,15
+pride,Isaiah,9,9
+pride,Isaiah,9,10
+pride,Isaiah,10,5
+pride,Isaiah,10,6
+pride,Isaiah,10,7
+pride,Isaiah,10,8
+pride,Isaiah,10,9
+pride,Isaiah,10,10
+pride,Isaiah,10,11
+pride,Isaiah,10,12
+pride,Isaiah,10,13
+pride,Isaiah,10,14
+pride,Isaiah,10,15
+pride,Isaiah,10,16
+pride,Isaiah,13,11
+pride,Isaiah,14,12
+pride,Isaiah,14,13
+pride,Isaiah,14,14
+pride,Isaiah,14,15
+pride,Isaiah,14,16
+pride,Isaiah,16,6
+pride,Isaiah,16,7
+pride,Isaiah,22,16
+pride,Isaiah,22,19
+pride,Isaiah,23,7
+pride,Isaiah,23,9
+pride,Isaiah,24,4
+pride,Isaiah,24,21
+pride,Isaiah,26,5
+pride,Isaiah,28,3
+pride,Isaiah,47,4
+pride,Isaiah,47,5
+pride,Isaiah,47,6
+pride,Isaiah,47,7
+pride,Isaiah,47,8
+pride,Isaiah,47,9
+pride,Isaiah,47,10
+pride,Jeremiah,9,23
+pride,Jeremiah,9,24
+pride,Jeremiah,13,9
+pride,Jeremiah,13,15
+pride,Jeremiah,13,17
+pride,Jeremiah,48,7
+pride,Jeremiah,48,14
+pride,Jeremiah,48,15
+pride,Jeremiah,48,29
+pride,Jeremiah,49,4
+pride,Jeremiah,49,16
+pride,Jeremiah,50,31
+pride,Jeremiah,50,32
+pride,Ezekiel,16,56
+pride,Ezekiel,28,2
+pride,Ezekiel,28,3
+pride,Ezekiel,28,4
+pride,Ezekiel,28,5
+pride,Ezekiel,28,6
+pride,Ezekiel,28,7
+pride,Ezekiel,28,8
+pride,Ezekiel,28,9
+pride,Ezekiel,28,17
+pride,Ezekiel,30,6
+pride,Ezekiel,31,10
+pride,Ezekiel,31,11
+pride,Ezekiel,31,12
+pride,Ezekiel,31,13
+pride,Ezekiel,31,14
+pride,Daniel,4,37
+pride,Daniel,11,45
+pride,Hosea,5,5
+pride,Hosea,7,10
+pride,Hosea,10,11
+pride,Obadiah,1,3
+pride,Obadiah,1,4
+pride,Nahum,3,19
+pride,Habakkuk,2,4
+pride,Habakkuk,2,5
+pride,Habakkuk,2,9
+pride,Zephaniah,2,10
+pride,Zephaniah,2,15
+pride,Zephaniah,3,11
+pride,Malachi,4,1
+pride,Matthew,20,26
+pride,Matthew,20,27
+pride,Matthew,23,6
+pride,Matthew,23,7
+pride,Matthew,23,8
+pride,Matthew,23,10
+pride,Matthew,23,11
+pride,Matthew,23,12
+pride,Mark,7,21
+pride,Mark,10,43
+pride,Mark,12,38
+pride,Mark,12,39
+pride,Luke,1,51
+pride,Luke,1,52
+pride,Luke,9,46
+pride,Luke,11,43
+pride,Luke,14,8
+pride,Luke,14,9
+pride,Luke,18,14
+pride,Luke,20,45
+pride,Luke,20,46
+pride,Luke,20,47
+pride,Romans,1,22
+pride,Romans,1,29
+pride,Romans,1,30
+pride,Romans,11,17
+pride,Romans,11,18
+pride,Romans,11,19
+pride,Romans,11,20
+pride,Romans,11,21
+pride,Romans,11,25
+pride,Romans,12,3
+pride,Romans,12,16
+pride,1 Corinthians,1,29
+pride,1 Corinthians,3,18
+pride,1 Corinthians,4,6
+pride,1 Corinthians,4,7
+pride,1 Corinthians,4,8
+pride,1 Corinthians,4,10
+pride,1 Corinthians,5,2
+pride,1 Corinthians,5,6
+pride,1 Corinthians,8,1
+pride,1 Corinthians,8,2
+pride,1 Corinthians,10,12
+pride,1 Corinthians,13,4
+pride,1 Corinthians,14,38
+pride,2 Corinthians,10,5
+pride,2 Corinthians,10,12
+pride,2 Corinthians,10,18
+pride,2 Corinthians,12,7
+pride,Galatians,6,3
+pride,Ephesians,4,17
+pride,Philippians,2,3
+pride,1 Timothy,2,9
+pride,1 Timothy,3,6
+pride,1 Timothy,6,3
+pride,1 Timothy,6,4
+pride,1 Timothy,6,17
+pride,2 Timothy,3,2
+pride,2 Timothy,3,4
+pride,James,3,1
+pride,James,4,6
+pride,1 Peter,5,3
+pride,1 Peter,5,5
+pride,1 John,2,16
+pride,Revelation,3,17
+pride,Revelation,3,18
+pride,Revelation,18,7
+pride,Revelation,18,8
+repentance,Leviticus,26,40
+repentance,Leviticus,26,41
+repentance,Leviticus,26,42
+repentance,Deuteronomy,4,29
+repentance,Deuteronomy,4,30
+repentance,Deuteronomy,4,31
+repentance,Deuteronomy,10,16
+repentance,Deuteronomy,30,1
+repentance,Deuteronomy,30,2
+repentance,Deuteronomy,30,3
+repentance,Deuteronomy,30,8
+repentance,Deuteronomy,30,9
+repentance,Deuteronomy,30,10
+repentance,Deuteronomy,32,29
+repentance,1 Kings,8,33
+repentance,1 Kings,8,34
+repentance,1 Kings,8,35
+repentance,1 Kings,8,36
+repentance,1 Kings,8,37
+repentance,1 Kings,8,38
+repentance,1 Kings,8,39
+repentance,1 Kings,8,40
+repentance,1 Kings,8,41
+repentance,1 Kings,8,42
+repentance,1 Kings,8,43
+repentance,1 Kings,8,44
+repentance,1 Kings,8,45
+repentance,1 Kings,8,46
+repentance,1 Kings,8,47
+repentance,1 Kings,8,48
+repentance,1 Kings,8,49
+repentance,1 Kings,8,50
+repentance,2 Chronicles,6,36
+repentance,2 Chronicles,6,37
+repentance,2 Chronicles,6,38
+repentance,2 Chronicles,6,39
+repentance,2 Chronicles,7,14
+repentance,2 Chronicles,30,6
+repentance,2 Chronicles,30,7
+repentance,2 Chronicles,30,8
+repentance,2 Chronicles,30,9
+repentance,Nehemiah,1,9
+repentance,Job,11,13
+repentance,Job,11,14
+repentance,Job,11,15
+repentance,Job,22,23
+repentance,Job,33,26
+repentance,Job,33,27
+repentance,Job,33,28
+repentance,Job,34,31
+repentance,Job,34,32
+repentance,Job,36,10
+repentance,Psalms,22,27
+repentance,Psalms,34,14
+repentance,Psalms,34,18
+repentance,Psalms,51,17
+repentance,Psalms,95,7
+repentance,Psalms,95,8
+repentance,Psalms,147,3
+repentance,Proverbs,1,22
+repentance,Proverbs,1,23
+repentance,Proverbs,1,24
+repentance,Proverbs,1,25
+repentance,Proverbs,1,26
+repentance,Proverbs,1,27
+repentance,Proverbs,1,28
+repentance,Proverbs,1,29
+repentance,Proverbs,1,30
+repentance,Proverbs,1,31
+repentance,Proverbs,1,32
+repentance,Proverbs,1,33
+repentance,Proverbs,9,6
+repentance,Proverbs,28,13
+repentance,Isaiah,10,21
+repentance,Isaiah,22,12
+repentance,Isaiah,31,6
+repentance,Isaiah,44,22
+repentance,Isaiah,46,8
+repentance,Isaiah,55,6
+repentance,Isaiah,55,7
+repentance,Isaiah,57,15
+repentance,Isaiah,59,20
+repentance,Isaiah,61,1
+repentance,Isaiah,61,2
+repentance,Jeremiah,3,4
+repentance,Jeremiah,3,12
+repentance,Jeremiah,3,13
+repentance,Jeremiah,3,14
+repentance,Jeremiah,3,19
+repentance,Jeremiah,4,1
+repentance,Jeremiah,4,2
+repentance,Jeremiah,4,3
+repentance,Jeremiah,4,4
+repentance,Jeremiah,4,14
+repentance,Jeremiah,6,8
+repentance,Jeremiah,6,16
+repentance,Jeremiah,7,3
+repentance,Jeremiah,7,5
+repentance,Jeremiah,7,7
+repentance,Jeremiah,13,15
+repentance,Jeremiah,13,16
+repentance,Jeremiah,18,8
+repentance,Jeremiah,18,11
+repentance,Jeremiah,24,7
+repentance,Jeremiah,25,5
+repentance,Jeremiah,26,3
+repentance,Jeremiah,26,13
+repentance,Jeremiah,31,9
+repentance,Jeremiah,36,3
+repentance,Jeremiah,36,7
+repentance,Jeremiah,50,4
+repentance,Jeremiah,50,5
+repentance,Ezekiel,7,16
+repentance,Ezekiel,11,18
+repentance,Ezekiel,11,19
+repentance,Ezekiel,11,20
+repentance,Ezekiel,12,3
+repentance,Ezekiel,14,6
+repentance,Ezekiel,16,61
+repentance,Ezekiel,16,62
+repentance,Ezekiel,16,63
+repentance,Ezekiel,18,21
+repentance,Ezekiel,18,22
+repentance,Ezekiel,18,23
+repentance,Ezekiel,18,27
+repentance,Ezekiel,18,28
+repentance,Ezekiel,18,30
+repentance,Ezekiel,18,31
+repentance,Ezekiel,18,32
+repentance,Ezekiel,20,43
+repentance,Ezekiel,33,10
+repentance,Ezekiel,33,11
+repentance,Ezekiel,33,12
+repentance,Ezekiel,33,14
+repentance,Ezekiel,33,15
+repentance,Ezekiel,33,16
+repentance,Ezekiel,33,19
+repentance,Ezekiel,36,31
+repentance,Ezekiel,37,23
+repentance,Daniel,4,27
+repentance,Hosea,2,7
+repentance,Hosea,3,5
+repentance,Hosea,5,15
+repentance,Hosea,10,12
+repentance,Hosea,12,6
+repentance,Hosea,14,1
+repentance,Hosea,14,2
+repentance,Hosea,14,3
+repentance,Joel,1,14
+repentance,Joel,2,12
+repentance,Joel,2,13
+repentance,Joel,2,15
+repentance,Joel,2,16
+repentance,Joel,2,17
+repentance,Joel,2,18
+repentance,Amos,4,12
+repentance,Amos,5,4
+repentance,Amos,5,5
+repentance,Amos,5,6
+repentance,Amos,5,15
+repentance,Jonah,3,8
+repentance,Jonah,3,9
+repentance,Haggai,1,7
+repentance,Zechariah,1,3
+repentance,Zechariah,12,10
+repentance,Malachi,3,7
+repentance,Matthew,3,2
+repentance,Matthew,3,7
+repentance,Matthew,3,8
+repentance,Matthew,4,17
+repentance,Matthew,5,4
+repentance,Matthew,9,13
+repentance,Mark,1,4
+repentance,Mark,1,15
+repentance,Mark,2,17
+repentance,Mark,6,12
+repentance,Luke,3,3
+repentance,Luke,5,32
+repentance,Luke,6,21
+repentance,Luke,10,13
+repentance,Luke,13,1
+repentance,Luke,13,2
+repentance,Luke,13,3
+repentance,Luke,13,4
+repentance,Luke,13,5
+repentance,Luke,15,1
+repentance,Luke,15,2
+repentance,Luke,15,3
+repentance,Luke,15,4
+repentance,Luke,15,5
+repentance,Luke,15,6
+repentance,Luke,15,7
+repentance,Luke,15,8
+repentance,Luke,15,9
+repentance,Luke,15,10
+repentance,Luke,18,10
+repentance,Luke,18,11
+repentance,Luke,18,12
+repentance,Luke,18,13
+repentance,Luke,18,14
+repentance,Luke,24,47
+repentance,Acts,2,38
+repentance,Acts,2,40
+repentance,Acts,3,19
+repentance,Acts,5,31
+repentance,Acts,8,22
+repentance,Acts,17,30
+repentance,Acts,20,21
+repentance,Acts,26,20
+repentance,Romans,2,4
+repentance,Romans,11,23
+repentance,Romans,14,11
+repentance,Ephesians,5,14
+repentance,2 Timothy,2,25
+repentance,Hebrews,6,1
+repentance,James,4,8
+repentance,James,4,9
+repentance,James,4,10
+repentance,1 John,1,9
+repentance,Revelation,2,5
+repentance,Revelation,3,2
+repentance,Revelation,3,3
+repentance,Revelation,3,19
+resurrection,Numbers,23,10
+resurrection,2 Samuel,12,23
+resurrection,2 Kings,22,19
+resurrection,2 Kings,22,20
+resurrection,Job,14,12
+resurrection,Job,14,13
+resurrection,Job,14,14
+resurrection,Job,14,15
+resurrection,Job,19,25
+resurrection,Job,19,26
+resurrection,Job,19,27
+resurrection,Psalms,16,9
+resurrection,Psalms,16,10
+resurrection,Psalms,17,15
+resurrection,Psalms,23,4
+resurrection,Psalms,31,5
+resurrection,Psalms,37,37
+resurrection,Psalms,49,15
+resurrection,Psalms,73,24
+resurrection,Psalms,116,15
+resurrection,Proverbs,14,32
+resurrection,Ecclesiastes,7,1
+resurrection,Isaiah,25,8
+resurrection,Isaiah,26,19
+resurrection,Isaiah,57,1
+resurrection,Isaiah,57,2
+resurrection,Ezekiel,37,1
+resurrection,Ezekiel,37,2
+resurrection,Ezekiel,37,3
+resurrection,Ezekiel,37,4
+resurrection,Ezekiel,37,5
+resurrection,Ezekiel,37,6
+resurrection,Ezekiel,37,7
+resurrection,Ezekiel,37,8
+resurrection,Ezekiel,37,9
+resurrection,Ezekiel,37,10
+resurrection,Ezekiel,37,11
+resurrection,Ezekiel,37,12
+resurrection,Ezekiel,37,13
+resurrection,Ezekiel,37,14
+resurrection,Daniel,12,2
+resurrection,Daniel,12,3
+resurrection,Daniel,12,13
+resurrection,Hosea,13,14
+resurrection,Matthew,22,23
+resurrection,Matthew,22,24
+resurrection,Matthew,22,25
+resurrection,Matthew,22,26
+resurrection,Matthew,22,27
+resurrection,Matthew,22,28
+resurrection,Matthew,22,29
+resurrection,Matthew,22,30
+resurrection,Matthew,22,31
+resurrection,Matthew,22,32
+resurrection,Matthew,24,31
+resurrection,Matthew,25,1
+resurrection,Matthew,25,2
+resurrection,Matthew,25,3
+resurrection,Matthew,25,4
+resurrection,Matthew,25,5
+resurrection,Matthew,25,6
+resurrection,Matthew,25,7
+resurrection,Matthew,25,8
+resurrection,Matthew,25,9
+resurrection,Matthew,25,10
+resurrection,Matthew,25,11
+resurrection,Matthew,25,12
+resurrection,Matthew,25,13
+resurrection,Matthew,27,52
+resurrection,Matthew,27,53
+resurrection,Mark,12,18
+resurrection,Mark,12,19
+resurrection,Mark,12,20
+resurrection,Mark,12,21
+resurrection,Mark,12,22
+resurrection,Mark,12,23
+resurrection,Mark,12,24
+resurrection,Mark,12,25
+resurrection,Mark,12,26
+resurrection,Mark,12,27
+resurrection,Luke,2,29
+resurrection,Luke,14,14
+resurrection,Luke,16,22
+resurrection,Luke,20,27
+resurrection,Luke,20,28
+resurrection,Luke,20,29
+resurrection,Luke,20,30
+resurrection,Luke,20,31
+resurrection,Luke,20,32
+resurrection,Luke,20,33
+resurrection,Luke,20,34
+resurrection,Luke,20,35
+resurrection,Luke,20,36
+resurrection,Luke,20,37
+resurrection,Luke,20,38
+resurrection,Luke,23,43
+resurrection,John,5,21
+resurrection,John,5,25
+resurrection,John,5,28
+resurrection,John,5,29
+resurrection,John,6,39
+resurrection,John,6,40
+resurrection,John,6,44
+resurrection,John,6,54
+resurrection,John,11,11
+resurrection,John,11,23
+resurrection,John,11,24
+resurrection,John,11,25
+resurrection,John,14,19
+resurrection,Acts,2,26
+resurrection,Acts,2,27
+resurrection,Acts,2,28
+resurrection,Acts,2,29
+resurrection,Acts,2,30
+resurrection,Acts,2,31
+resurrection,Acts,4,1
+resurrection,Acts,4,2
+resurrection,Acts,7,59
+resurrection,Acts,17,18
+resurrection,Acts,17,32
+resurrection,Acts,23,6
+resurrection,Acts,23,8
+resurrection,Acts,24,14
+resurrection,Acts,24,15
+resurrection,Acts,26,6
+resurrection,Acts,26,7
+resurrection,Acts,26,8
+resurrection,Romans,4,16
+resurrection,Romans,4,17
+resurrection,Romans,4,18
+resurrection,Romans,4,19
+resurrection,Romans,4,20
+resurrection,Romans,4,21
+resurrection,Romans,8,10
+resurrection,Romans,8,11
+resurrection,Romans,8,19
+resurrection,Romans,8,21
+resurrection,Romans,8,22
+resurrection,Romans,8,23
+resurrection,Romans,14,7
+resurrection,Romans,14,8
+resurrection,1 Corinthians,3,21
+resurrection,1 Corinthians,3,22
+resurrection,1 Corinthians,3,23
+resurrection,1 Corinthians,6,14
+resurrection,1 Corinthians,15,12
+resurrection,1 Corinthians,15,13
+resurrection,1 Corinthians,15,14
+resurrection,1 Corinthians,15,15
+resurrection,1 Corinthians,15,16
+resurrection,1 Corinthians,15,17
+resurrection,1 Corinthians,15,18
+resurrection,1 Corinthians,15,19
+resurrection,1 Corinthians,15,20
+resurrection,1 Corinthians,15,21
+resurrection,1 Corinthians,15,22
+resurrection,1 Corinthians,15,23
+resurrection,1 Corinthians,15,24
+resurrection,1 Corinthians,15,25
+resurrection,1 Corinthians,15,26
+resurrection,1 Corinthians,15,27
+resurrection,1 Corinthians,15,28
+resurrection,1 Corinthians,15,29
+resurrection,1 Corinthians,15,30
+resurrection,1 Corinthians,15,31
+resurrection,1 Corinthians,15,32
+resurrection,1 Corinthians,15,35
+resurrection,1 Corinthians,15,36
+resurrection,1 Corinthians,15,37
+resurrection,1 Corinthians,15,38
+resurrection,1 Corinthians,15,39
+resurrection,1 Corinthians,15,40
+resurrection,1 Corinthians,15,41
+resurrection,1 Corinthians,15,42
+resurrection,1 Corinthians,15,43
+resurrection,1 Corinthians,15,44
+resurrection,1 Corinthians,15,45
+resurrection,1 Corinthians,15,46
+resurrection,1 Corinthians,15,47
+resurrection,1 Corinthians,15,48
+resurrection,1 Corinthians,15,49
+resurrection,1 Corinthians,15,50
+resurrection,1 Corinthians,15,51
+resurrection,1 Corinthians,15,52
+resurrection,1 Corinthians,15,53
+resurrection,1 Corinthians,15,54
+resurrection,1 Corinthians,15,55
+resurrection,1 Corinthians,15,56
+resurrection,1 Corinthians,15,57
+resurrection,2 Corinthians,1,9
+resurrection,2 Corinthians,1,10
+resurrection,2 Corinthians,4,14
+resurrection,2 Corinthians,5,1
+resurrection,2 Corinthians,5,2
+resurrection,2 Corinthians,5,3
+resurrection,2 Corinthians,5,4
+resurrection,2 Corinthians,5,5
+resurrection,2 Corinthians,5,8
+resurrection,Philippians,1,20
+resurrection,Philippians,1,21
+resurrection,Philippians,1,23
+resurrection,Philippians,1,24
+resurrection,Philippians,3,10
+resurrection,Philippians,3,11
+resurrection,Philippians,3,21
+resurrection,1 Thessalonians,4,13
+resurrection,1 Thessalonians,4,14
+resurrection,1 Thessalonians,4,16
+resurrection,1 Thessalonians,5,9
+resurrection,1 Thessalonians,5,10
+resurrection,2 Timothy,1,10
+resurrection,2 Timothy,2,18
+resurrection,2 Timothy,4,6
+resurrection,2 Timothy,4,7
+resurrection,2 Timothy,4,8
+resurrection,Hebrews,2,14
+resurrection,Hebrews,2,15
+resurrection,Hebrews,6,2
+resurrection,Hebrews,11,13
+resurrection,Hebrews,11,19
+resurrection,Hebrews,11,35
+resurrection,2 Peter,1,11
+resurrection,2 Peter,1,14
+resurrection,Revelation,1,18
+resurrection,Revelation,14,13
+resurrection,Revelation,20,4
+resurrection,Revelation,20,5
+resurrection,Revelation,20,6
+resurrection,Revelation,20,13
+salvation,Genesis,12,1
+salvation,Genesis,12,3
+salvation,Genesis,15,6
+salvation,Genesis,20,6
+salvation,Exodus,15,2
+salvation,Deuteronomy,7,6
+salvation,Deuteronomy,7,7
+salvation,Deuteronomy,7,8
+salvation,Deuteronomy,7,9
+salvation,Deuteronomy,9,4
+salvation,Deuteronomy,9,5
+salvation,Deuteronomy,9,6
+salvation,Deuteronomy,30,19
+salvation,Deuteronomy,30,20
+salvation,Deuteronomy,32,15
+salvation,2 Samuel,14,14
+salvation,1 Kings,8,41
+salvation,1 Kings,8,42
+salvation,1 Kings,8,43
+salvation,1 Chronicles,16,35
+salvation,2 Chronicles,6,41
+salvation,Job,10,12
+salvation,Job,22,2
+salvation,Job,22,3
+salvation,Psalms,3,8
+salvation,Psalms,36,8
+salvation,Psalms,36,9
+salvation,Psalms,37,39
+salvation,Psalms,46,4
+salvation,Psalms,63,5
+salvation,Psalms,63,6
+salvation,Psalms,65,4
+salvation,Psalms,68,18
+salvation,Psalms,68,19
+salvation,Psalms,68,20
+salvation,Psalms,86,13
+salvation,Psalms,90,14
+salvation,Psalms,91,16
+salvation,Psalms,94,17
+salvation,Psalms,94,18
+salvation,Psalms,94,19
+salvation,Psalms,95,1
+salvation,Psalms,98,2
+salvation,Psalms,98,3
+salvation,Psalms,106,8
+salvation,Psalms,107,9
+salvation,Psalms,121,1
+salvation,Psalms,121,2
+salvation,Psalms,121,3
+salvation,Psalms,121,4
+salvation,Psalms,121,5
+salvation,Psalms,121,6
+salvation,Psalms,121,7
+salvation,Psalms,121,8
+salvation,Psalms,132,16
+salvation,Psalms,138,3
+salvation,Psalms,143,11
+salvation,Proverbs,1,20
+salvation,Proverbs,1,21
+salvation,Proverbs,8,1
+salvation,Proverbs,8,2
+salvation,Proverbs,8,3
+salvation,Proverbs,8,4
+salvation,Proverbs,8,5
+salvation,Proverbs,9,1
+salvation,Proverbs,9,2
+salvation,Proverbs,9,3
+salvation,Proverbs,9,4
+salvation,Proverbs,9,5
+salvation,Proverbs,9,6
+salvation,Isaiah,1,18
+salvation,Isaiah,2,5
+salvation,Isaiah,25,6
+salvation,Isaiah,25,7
+salvation,Isaiah,29,18
+salvation,Isaiah,29,19
+salvation,Isaiah,29,24
+salvation,Isaiah,32,1
+salvation,Isaiah,32,2
+salvation,Isaiah,32,3
+salvation,Isaiah,32,4
+salvation,Isaiah,35,8
+salvation,Isaiah,44,3
+salvation,Isaiah,45,17
+salvation,Isaiah,46,12
+salvation,Isaiah,46,13
+salvation,Isaiah,49,10
+salvation,Isaiah,49,11
+salvation,Isaiah,50,10
+salvation,Isaiah,51,4
+salvation,Isaiah,51,5
+salvation,Isaiah,52,10
+salvation,Isaiah,52,15
+salvation,Isaiah,55,1
+salvation,Isaiah,55,2
+salvation,Isaiah,55,3
+salvation,Isaiah,55,6
+salvation,Isaiah,55,7
+salvation,Isaiah,56,1
+salvation,Isaiah,56,6
+salvation,Isaiah,56,7
+salvation,Isaiah,56,8
+salvation,Isaiah,57,18
+salvation,Isaiah,57,19
+salvation,Isaiah,61,1
+salvation,Isaiah,61,2
+salvation,Isaiah,61,3
+salvation,Isaiah,63,9
+salvation,Jeremiah,3,23
+salvation,Jeremiah,21,8
+salvation,Ezekiel,18,32
+salvation,Daniel,9,18
+salvation,Daniel,10,18
+salvation,Daniel,10,19
+salvation,Joel,2,32
+salvation,Amos,5,4
+salvation,Zechariah,14,8
+salvation,Malachi,4,2
+salvation,Matthew,1,21
+salvation,Matthew,3,9
+salvation,Matthew,11,28
+salvation,Matthew,11,29
+salvation,Matthew,11,30
+salvation,Matthew,18,14
+salvation,Matthew,21,31
+salvation,Matthew,22,9
+salvation,Matthew,22,10
+salvation,Matthew,22,14
+salvation,Matthew,23,37
+salvation,Matthew,24,14
+salvation,Matthew,28,19
+salvation,Mark,2,17
+salvation,Mark,16,15
+salvation,Mark,16,16
+salvation,Luke,2,10
+salvation,Luke,2,31
+salvation,Luke,2,32
+salvation,Luke,3,6
+salvation,Luke,5,31
+salvation,Luke,5,32
+salvation,Luke,7,47
+salvation,Luke,13,29
+salvation,Luke,13,30
+salvation,Luke,14,16
+salvation,Luke,14,17
+salvation,Luke,14,18
+salvation,Luke,14,19
+salvation,Luke,14,20
+salvation,Luke,14,21
+salvation,Luke,14,22
+salvation,Luke,14,23
+salvation,Luke,14,24
+salvation,Luke,15,2
+salvation,Luke,15,4
+salvation,Luke,15,5
+salvation,Luke,15,6
+salvation,Luke,15,7
+salvation,Luke,15,8
+salvation,Luke,15,9
+salvation,Luke,15,10
+salvation,Luke,15,11
+salvation,Luke,15,12
+salvation,Luke,15,13
+salvation,Luke,15,14
+salvation,Luke,15,15
+salvation,Luke,15,16
+salvation,Luke,15,17
+salvation,Luke,15,18
+salvation,Luke,15,19
+salvation,Luke,15,20
+salvation,Luke,15,21
+salvation,Luke,15,22
+salvation,Luke,15,23
+salvation,Luke,15,24
+salvation,Luke,15,25
+salvation,Luke,15,26
+salvation,Luke,15,27
+salvation,Luke,15,28
+salvation,Luke,15,29
+salvation,Luke,15,30
+salvation,Luke,15,31
+salvation,Luke,15,32
+salvation,Luke,19,10
+salvation,Luke,24,47
+salvation,John,1,7
+salvation,John,3,14
+salvation,John,3,15
+salvation,John,3,16
+salvation,John,3,17
+salvation,John,4,14
+salvation,John,4,22
+salvation,John,5,40
+salvation,John,6,35
+salvation,John,6,37
+salvation,John,6,44
+salvation,John,6,45
+salvation,John,7,37
+salvation,John,7,38
+salvation,John,10,16
+salvation,John,11,51
+salvation,John,11,52
+salvation,John,12,32
+salvation,John,15,4
+salvation,John,15,5
+salvation,John,17,11
+salvation,John,17,12
+salvation,John,17,15
+salvation,Acts,2,39
+salvation,Acts,4,12
+salvation,Acts,4,29
+salvation,Acts,4,30
+salvation,Acts,5,20
+salvation,Acts,11,17
+salvation,Acts,11,18
+salvation,Acts,13,26
+salvation,Acts,13,38
+salvation,Acts,13,39
+salvation,Acts,13,47
+salvation,Acts,15,7
+salvation,Acts,15,8
+salvation,Acts,15,9
+salvation,Acts,15,11
+salvation,Acts,16,17
+salvation,Acts,16,30
+salvation,Acts,16,31
+salvation,Acts,20,21
+salvation,Acts,26,22
+salvation,Acts,28,28
+salvation,Romans,1,5
+salvation,Romans,1,14
+salvation,Romans,1,16
+salvation,Romans,1,17
+salvation,Romans,2,26
+salvation,Romans,3,21
+salvation,Romans,3,22
+salvation,Romans,3,23
+salvation,Romans,3,24
+salvation,Romans,3,25
+salvation,Romans,3,26
+salvation,Romans,3,28
+salvation,Romans,3,29
+salvation,Romans,3,30
+salvation,Romans,4,1
+salvation,Romans,4,2
+salvation,Romans,4,3
+salvation,Romans,4,4
+salvation,Romans,4,5
+salvation,Romans,4,6
+salvation,Romans,4,7
+salvation,Romans,4,8
+salvation,Romans,4,9
+salvation,Romans,4,10
+salvation,Romans,4,11
+salvation,Romans,4,12
+salvation,Romans,4,13
+salvation,Romans,4,14
+salvation,Romans,4,15
+salvation,Romans,4,16
+salvation,Romans,4,17
+salvation,Romans,4,18
+salvation,Romans,4,19
+salvation,Romans,4,20
+salvation,Romans,4,21
+salvation,Romans,4,22
+salvation,Romans,4,23
+salvation,Romans,4,24
+salvation,Romans,4,25
+salvation,Romans,5,1
+salvation,Romans,5,2
+salvation,Romans,5,6
+salvation,Romans,5,7
+salvation,Romans,5,8
+salvation,Romans,5,15
+salvation,Romans,5,16
+salvation,Romans,5,17
+salvation,Romans,5,18
+salvation,Romans,5,19
+salvation,Romans,5,20
+salvation,Romans,5,21
+salvation,Romans,7,24
+salvation,Romans,7,25
+salvation,Romans,9,10
+salvation,Romans,9,11
+salvation,Romans,9,12
+salvation,Romans,9,13
+salvation,Romans,9,14
+salvation,Romans,9,15
+salvation,Romans,9,16
+salvation,Romans,9,30
+salvation,Romans,9,31
+salvation,Romans,9,32
+salvation,Romans,9,33
+salvation,Romans,10,4
+salvation,Romans,10,8
+salvation,Romans,10,9
+salvation,Romans,10,10
+salvation,Romans,10,11
+salvation,Romans,10,12
+salvation,Romans,10,13
+salvation,Romans,11,1
+salvation,Romans,11,2
+salvation,Romans,11,3
+salvation,Romans,11,4
+salvation,Romans,11,5
+salvation,Romans,11,6
+salvation,Romans,11,7
+salvation,Romans,11,8
+salvation,Romans,11,9
+salvation,Romans,11,10
+salvation,Romans,11,11
+salvation,Romans,11,12
+salvation,Romans,11,13
+salvation,Romans,11,14
+salvation,Romans,11,15
+salvation,Romans,11,16
+salvation,Romans,11,17
+salvation,Romans,11,18
+salvation,Romans,11,19
+salvation,Romans,11,20
+salvation,Romans,11,21
+salvation,Romans,11,22
+salvation,Romans,11,23
+salvation,Romans,11,24
+salvation,Romans,11,25
+salvation,Romans,11,26
+salvation,Romans,11,27
+salvation,Romans,11,28
+salvation,Romans,11,29
+salvation,Romans,11,30
+salvation,Romans,11,31
+salvation,Romans,11,32
+salvation,Romans,11,33
+salvation,Romans,11,34
+salvation,Romans,11,35
+salvation,Romans,11,36
+salvation,Romans,15,9
+salvation,Romans,15,16
+salvation,1 Corinthians,1,4
+salvation,1 Corinthians,1,5
+salvation,1 Corinthians,1,6
+salvation,1 Corinthians,1,7
+salvation,1 Corinthians,1,8
+salvation,1 Corinthians,1,18
+salvation,1 Corinthians,6,11
+salvation,1 Corinthians,10,13
+salvation,1 Corinthians,15,10
+salvation,2 Corinthians,1,12
+salvation,2 Corinthians,5,17
+salvation,2 Corinthians,5,20
+salvation,2 Corinthians,6,1
+salvation,2 Corinthians,6,17
+salvation,2 Corinthians,7,10
+salvation,Galatians,1,4
+salvation,Galatians,1,15
+salvation,Galatians,1,16
+salvation,Galatians,2,16
+salvation,Galatians,3,1
+salvation,Galatians,3,2
+salvation,Galatians,3,3
+salvation,Galatians,3,4
+salvation,Galatians,3,5
+salvation,Galatians,3,6
+salvation,Galatians,3,7
+salvation,Galatians,3,8
+salvation,Galatians,3,9
+salvation,Galatians,3,10
+salvation,Galatians,3,11
+salvation,Galatians,3,12
+salvation,Galatians,3,13
+salvation,Galatians,3,14
+salvation,Galatians,3,15
+salvation,Galatians,3,16
+salvation,Galatians,3,17
+salvation,Galatians,3,18
+salvation,Galatians,3,19
+salvation,Galatians,3,20
+salvation,Galatians,3,21
+salvation,Galatians,3,22
+salvation,Galatians,3,23
+salvation,Galatians,3,24
+salvation,Galatians,3,25
+salvation,Galatians,3,26
+salvation,Galatians,3,27
+salvation,Galatians,3,28
+salvation,Ephesians,1,5
+salvation,Ephesians,1,6
+salvation,Ephesians,1,7
+salvation,Ephesians,1,8
+salvation,Ephesians,1,9
+salvation,Ephesians,1,10
+salvation,Ephesians,1,11
+salvation,Ephesians,1,12
+salvation,Ephesians,1,13
+salvation,Ephesians,2,1
+salvation,Ephesians,2,3
+salvation,Ephesians,2,4
+salvation,Ephesians,2,5
+salvation,Ephesians,2,8
+salvation,Ephesians,2,9
+salvation,Ephesians,2,14
+salvation,Ephesians,2,15
+salvation,Ephesians,2,17
+salvation,Ephesians,3,6
+salvation,Ephesians,3,9
+salvation,Ephesians,3,16
+salvation,Ephesians,4,7
+salvation,Ephesians,5,14
+salvation,Ephesians,6,10
+salvation,Philippians,1,19
+salvation,Philippians,2,12
+salvation,Philippians,2,13
+salvation,Philippians,3,7
+salvation,Philippians,3,8
+salvation,Philippians,3,9
+salvation,Philippians,3,10
+salvation,Philippians,3,11
+salvation,Colossians,1,5
+salvation,Colossians,1,6
+salvation,Colossians,1,20
+salvation,Colossians,1,21
+salvation,Colossians,1,22
+salvation,Colossians,1,23
+salvation,Colossians,1,26
+salvation,Colossians,1,27
+salvation,Colossians,3,11
+salvation,1 Thessalonians,1,1
+salvation,1 Thessalonians,5,8
+salvation,1 Thessalonians,5,9
+salvation,1 Thessalonians,5,10
+salvation,1 Thessalonians,5,28
+salvation,2 Thessalonians,2,13
+salvation,2 Thessalonians,2,14
+salvation,1 Timothy,1,13
+salvation,1 Timothy,1,14
+salvation,1 Timothy,1,15
+salvation,1 Timothy,1,16
+salvation,1 Timothy,2,3
+salvation,1 Timothy,2,4
+salvation,1 Timothy,2,5
+salvation,1 Timothy,2,6
+salvation,1 Timothy,4,10
+salvation,2 Timothy,1,1
+salvation,2 Timothy,1,9
+salvation,2 Timothy,1,10
+salvation,2 Timothy,2,10
+salvation,2 Timothy,3,15
+salvation,Titus,2,11
+salvation,Titus,3,3
+salvation,Titus,3,4
+salvation,Titus,3,5
+salvation,Titus,3,6
+salvation,Titus,3,7
+salvation,Hebrews,1,14
+salvation,Hebrews,2,3
+salvation,Hebrews,2,10
+salvation,Hebrews,4,1
+salvation,Hebrews,4,2
+salvation,Hebrews,4,3
+salvation,Hebrews,4,4
+salvation,Hebrews,4,5
+salvation,Hebrews,4,6
+salvation,Hebrews,4,7
+salvation,Hebrews,4,8
+salvation,Hebrews,4,9
+salvation,Hebrews,4,10
+salvation,Hebrews,5,9
+salvation,Hebrews,7,25
+salvation,James,1,21
+salvation,1 Peter,1,5
+salvation,1 Peter,1,9
+salvation,1 Peter,1,10
+salvation,1 Peter,4,10
+salvation,1 Peter,5,10
+salvation,2 Peter,1,2
+salvation,2 Peter,3,9
+salvation,2 Peter,3,15
+salvation,1 John,2,25
+salvation,1 John,4,9
+salvation,1 John,4,10
+salvation,1 John,5,11
+salvation,Jude,1,3
+salvation,Jude,1,21
+salvation,Jude,1,24
+salvation,Jude,1,25
+salvation,Revelation,3,10
+salvation,Revelation,3,17
+salvation,Revelation,3,18
+salvation,Revelation,3,20
+salvation,Revelation,5,9
+salvation,Revelation,7,9
+salvation,Revelation,7,10
+salvation,Revelation,14,6
+salvation,Revelation,21,6
+salvation,Revelation,22,17
+temptation,Genesis,3,1
+temptation,Genesis,3,2
+temptation,Genesis,3,3
+temptation,Genesis,3,4
+temptation,Genesis,3,5
+temptation,Genesis,3,6
+temptation,Genesis,3,7
+temptation,Genesis,3,8
+temptation,Genesis,3,9
+temptation,Genesis,3,10
+temptation,Genesis,3,11
+temptation,Genesis,3,12
+temptation,Genesis,3,13
+temptation,Genesis,20,6
+temptation,Genesis,39,7
+temptation,Genesis,39,8
+temptation,Genesis,39,9
+temptation,Genesis,39,10
+temptation,Exodus,34,12
+temptation,Exodus,34,13
+temptation,Exodus,34,14
+temptation,Exodus,34,15
+temptation,Exodus,34,16
+temptation,Deuteronomy,7,25
+temptation,Deuteronomy,8,11
+temptation,Deuteronomy,8,12
+temptation,Deuteronomy,8,13
+temptation,Deuteronomy,8,14
+temptation,Deuteronomy,8,17
+temptation,Deuteronomy,8,18
+temptation,Deuteronomy,13,3
+temptation,1 Chronicles,21,1
+temptation,2 Chronicles,32,30
+temptation,2 Chronicles,32,31
+temptation,Nehemiah,4,9
+temptation,Job,31,1
+temptation,Job,31,5
+temptation,Job,31,6
+temptation,Job,31,7
+temptation,Job,31,8
+temptation,Job,31,9
+temptation,Job,31,10
+temptation,Job,31,11
+temptation,Job,31,12
+temptation,Job,31,13
+temptation,Job,31,14
+temptation,Job,31,15
+temptation,Job,31,16
+temptation,Job,31,17
+temptation,Job,31,19
+temptation,Job,31,20
+temptation,Job,31,21
+temptation,Job,31,22
+temptation,Job,31,23
+temptation,Job,31,24
+temptation,Job,31,25
+temptation,Job,31,26
+temptation,Job,31,27
+temptation,Job,31,28
+temptation,Job,31,29
+temptation,Job,31,30
+temptation,Job,31,31
+temptation,Job,31,32
+temptation,Job,31,33
+temptation,Job,31,34
+temptation,Job,31,38
+temptation,Job,31,39
+temptation,Job,31,40
+temptation,Psalms,17,4
+temptation,Psalms,73,2
+temptation,Psalms,73,3
+temptation,Psalms,73,4
+temptation,Psalms,73,5
+temptation,Psalms,73,6
+temptation,Psalms,73,7
+temptation,Psalms,73,8
+temptation,Psalms,73,9
+temptation,Psalms,73,10
+temptation,Psalms,73,11
+temptation,Psalms,73,12
+temptation,Psalms,73,13
+temptation,Psalms,73,14
+temptation,Psalms,73,15
+temptation,Psalms,73,16
+temptation,Psalms,73,17
+temptation,Psalms,73,18
+temptation,Psalms,73,19
+temptation,Psalms,73,20
+temptation,Psalms,73,21
+temptation,Psalms,73,22
+temptation,Psalms,73,23
+temptation,Psalms,73,24
+temptation,Psalms,73,25
+temptation,Psalms,73,26
+temptation,Psalms,94,17
+temptation,Psalms,94,18
+temptation,Psalms,119,101
+temptation,Psalms,119,110
+temptation,Psalms,119,165
+temptation,Proverbs,1,10
+temptation,Proverbs,1,11
+temptation,Proverbs,1,12
+temptation,Proverbs,1,13
+temptation,Proverbs,1,14
+temptation,Proverbs,1,15
+temptation,Proverbs,1,16
+temptation,Proverbs,1,17
+temptation,Proverbs,2,10
+temptation,Proverbs,2,11
+temptation,Proverbs,2,12
+temptation,Proverbs,2,16
+temptation,Proverbs,4,14
+temptation,Proverbs,4,15
+temptation,Proverbs,5,6
+temptation,Proverbs,5,7
+temptation,Proverbs,5,8
+temptation,Proverbs,5,9
+temptation,Proverbs,5,10
+temptation,Proverbs,5,11
+temptation,Proverbs,5,12
+temptation,Proverbs,5,13
+temptation,Proverbs,5,14
+temptation,Proverbs,5,15
+temptation,Proverbs,5,16
+temptation,Proverbs,5,17
+temptation,Proverbs,5,18
+temptation,Proverbs,5,19
+temptation,Proverbs,5,20
+temptation,Proverbs,5,21
+temptation,Proverbs,6,27
+temptation,Proverbs,6,28
+temptation,Proverbs,7,7
+temptation,Proverbs,7,8
+temptation,Proverbs,7,9
+temptation,Proverbs,7,10
+temptation,Proverbs,7,11
+temptation,Proverbs,7,12
+temptation,Proverbs,7,13
+temptation,Proverbs,7,14
+temptation,Proverbs,7,15
+temptation,Proverbs,7,16
+temptation,Proverbs,7,17
+temptation,Proverbs,7,18
+temptation,Proverbs,7,19
+temptation,Proverbs,7,20
+temptation,Proverbs,7,21
+temptation,Proverbs,7,22
+temptation,Proverbs,7,23
+temptation,Proverbs,9,15
+temptation,Proverbs,9,16
+temptation,Proverbs,9,17
+temptation,Proverbs,12,26
+temptation,Proverbs,13,14
+temptation,Proverbs,14,27
+temptation,Proverbs,16,29
+temptation,Proverbs,19,27
+temptation,Proverbs,28,10
+temptation,Ecclesiastes,7,26
+temptation,Isaiah,33,15
+temptation,Isaiah,33,16
+temptation,Jeremiah,2,24
+temptation,Jeremiah,2,25
+temptation,Jeremiah,35,5
+temptation,Jeremiah,35,6
+temptation,Jeremiah,35,7
+temptation,Hosea,7,5
+temptation,Amos,2,12
+temptation,Amos,4,12
+temptation,Matthew,4,1
+temptation,Matthew,4,2
+temptation,Matthew,4,3
+temptation,Matthew,4,4
+temptation,Matthew,4,5
+temptation,Matthew,4,6
+temptation,Matthew,4,7
+temptation,Matthew,4,8
+temptation,Matthew,4,9
+temptation,Matthew,4,10
+temptation,Matthew,4,11
+temptation,Matthew,5,19
+temptation,Matthew,12,45
+temptation,Matthew,13,22
+temptation,Matthew,18,6
+temptation,Matthew,18,7
+temptation,Matthew,18,8
+temptation,Matthew,18,9
+temptation,Matthew,24,42
+temptation,Matthew,24,43
+temptation,Matthew,24,44
+temptation,Matthew,25,13
+temptation,Matthew,26,31
+temptation,Matthew,26,38
+temptation,Matthew,26,39
+temptation,Matthew,26,40
+temptation,Matthew,26,41
+temptation,Matthew,26,42
+temptation,Mark,4,15
+temptation,Mark,4,17
+temptation,Mark,10,21
+temptation,Mark,10,22
+temptation,Mark,10,23
+temptation,Mark,10,24
+temptation,Mark,10,25
+temptation,Mark,13,21
+temptation,Mark,13,22
+temptation,Mark,13,33
+temptation,Mark,13,34
+temptation,Mark,13,35
+temptation,Mark,13,36
+temptation,Mark,13,37
+temptation,Mark,14,37
+temptation,Mark,14,38
+temptation,Luke,4,1
+temptation,Luke,4,2
+temptation,Luke,4,3
+temptation,Luke,4,4
+temptation,Luke,4,5
+temptation,Luke,4,6
+temptation,Luke,4,7
+temptation,Luke,4,8
+temptation,Luke,4,9
+temptation,Luke,4,10
+temptation,Luke,4,11
+temptation,Luke,4,12
+temptation,Luke,4,13
+temptation,Luke,8,13
+temptation,Luke,8,14
+temptation,Luke,11,4
+temptation,Luke,12,35
+temptation,Luke,12,36
+temptation,Luke,12,37
+temptation,Luke,12,38
+temptation,Luke,21,33
+temptation,Luke,21,34
+temptation,Luke,21,35
+temptation,Luke,21,36
+temptation,Luke,22,3
+temptation,Luke,22,31
+temptation,Luke,22,32
+temptation,Luke,22,40
+temptation,Luke,22,46
+temptation,John,16,1
+temptation,John,16,2
+temptation,Romans,6,12
+temptation,Romans,6,13
+temptation,Romans,6,14
+temptation,Romans,7,5
+temptation,Romans,8,35
+temptation,Romans,8,36
+temptation,Romans,8,37
+temptation,Romans,8,38
+temptation,Romans,8,39
+temptation,Romans,12,21
+temptation,Romans,14,13
+temptation,Romans,14,15
+temptation,Romans,14,21
+temptation,1 Corinthians,6,13
+temptation,1 Corinthians,7,5
+temptation,1 Corinthians,8,9
+temptation,1 Corinthians,8,10
+temptation,1 Corinthians,8,11
+temptation,1 Corinthians,8,12
+temptation,1 Corinthians,8,13
+temptation,1 Corinthians,10,13
+temptation,1 Corinthians,10,28
+temptation,1 Corinthians,10,29
+temptation,1 Corinthians,10,30
+temptation,1 Corinthians,10,31
+temptation,1 Corinthians,10,32
+temptation,2 Corinthians,2,11
+temptation,2 Corinthians,11,3
+temptation,2 Corinthians,11,14
+temptation,2 Corinthians,11,15
+temptation,2 Corinthians,12,7
+temptation,Galatians,4,14
+temptation,Galatians,5,17
+temptation,Ephesians,4,27
+temptation,Ephesians,6,11
+temptation,Ephesians,6,13
+temptation,Ephesians,6,14
+temptation,Ephesians,6,15
+temptation,Ephesians,6,16
+temptation,Ephesians,6,17
+temptation,1 Thessalonians,3,5
+temptation,1 Timothy,5,15
+temptation,1 Timothy,6,9
+temptation,1 Timothy,6,10
+temptation,2 Timothy,3,13
+temptation,Hebrews,2,18
+temptation,Hebrews,4,15
+temptation,Hebrews,12,3
+temptation,Hebrews,12,4
+temptation,James,1,2
+temptation,James,1,3
+temptation,James,1,4
+temptation,James,1,12
+temptation,James,1,13
+temptation,James,1,14
+temptation,James,1,15
+temptation,James,1,16
+temptation,James,4,7
+temptation,1 Peter,1,6
+temptation,1 Peter,1,7
+temptation,1 Peter,4,7
+temptation,1 Peter,4,12
+temptation,1 Peter,5,1
+temptation,1 Peter,5,2
+temptation,1 Peter,5,3
+temptation,1 Peter,5,4
+temptation,1 Peter,5,5
+temptation,1 Peter,5,6
+temptation,1 Peter,5,7
+temptation,1 Peter,5,8
+temptation,1 Peter,5,9
+temptation,1 Peter,5,10
+temptation,1 Peter,5,11
+temptation,1 Peter,5,12
+temptation,1 Peter,5,13
+temptation,1 Peter,5,14
+temptation,2 Peter,2,9
+temptation,2 Peter,2,18
+temptation,2 Peter,3,17
+temptation,1 John,2,16
+temptation,1 John,2,26
+temptation,1 John,4,4
+temptation,Revelation,3,2
+temptation,Revelation,3,3
+temptation,Revelation,3,10
+temptation,Revelation,12,10
+temptation,Revelation,12,11
+temptation,Revelation,12,17
+wisdom,Exodus,4,11
+wisdom,Exodus,4,12
+wisdom,Exodus,8,9
+wisdom,Exodus,8,10
+wisdom,Numbers,27,21
+wisdom,Deuteronomy,4,5
+wisdom,Deuteronomy,4,6
+wisdom,Deuteronomy,4,35
+wisdom,Deuteronomy,4,36
+wisdom,Deuteronomy,29,4
+wisdom,Judges,20,18
+wisdom,1 Kings,3,7
+wisdom,1 Kings,3,9
+wisdom,1 Kings,8,36
+wisdom,1 Chronicles,22,12
+wisdom,2 Chronicles,1,10
+wisdom,Nehemiah,9,20
+wisdom,Job,4,3
+wisdom,Job,11,5
+wisdom,Job,11,6
+wisdom,Job,22,21
+wisdom,Job,22,22
+wisdom,Job,32,7
+wisdom,Job,32,8
+wisdom,Job,33,16
+wisdom,Job,34,32
+wisdom,Job,35,10
+wisdom,Job,35,11
+wisdom,Job,36,22
+wisdom,Job,38,36
+wisdom,Job,38,37
+wisdom,Psalms,5,8
+wisdom,Psalms,16,7
+wisdom,Psalms,19,1
+wisdom,Psalms,19,2
+wisdom,Psalms,25,4
+wisdom,Psalms,25,5
+wisdom,Psalms,25,8
+wisdom,Psalms,25,9
+wisdom,Psalms,25,12
+wisdom,Psalms,25,14
+wisdom,Psalms,27,11
+wisdom,Psalms,31,3
+wisdom,Psalms,32,8
+wisdom,Psalms,36,9
+wisdom,Psalms,39,4
+wisdom,Psalms,43,3
+wisdom,Psalms,51,6
+wisdom,Psalms,71,17
+wisdom,Psalms,86,11
+wisdom,Psalms,90,12
+wisdom,Psalms,94,12
+wisdom,Psalms,112,4
+wisdom,Psalms,119,12
+wisdom,Psalms,119,18
+wisdom,Psalms,119,19
+wisdom,Psalms,119,26
+wisdom,Psalms,119,27
+wisdom,Psalms,119,33
+wisdom,Psalms,119,34
+wisdom,Psalms,119,66
+wisdom,Psalms,119,68
+wisdom,Psalms,119,73
+wisdom,Psalms,119,80
+wisdom,Psalms,119,124
+wisdom,Psalms,119,125
+wisdom,Psalms,119,130
+wisdom,Psalms,119,135
+wisdom,Psalms,119,144
+wisdom,Psalms,119,169
+wisdom,Psalms,119,171
+wisdom,Psalms,139,24
+wisdom,Proverbs,1,23
+wisdom,Proverbs,2,6
+wisdom,Proverbs,2,7
+wisdom,Proverbs,3,5
+wisdom,Proverbs,3,6
+wisdom,Ecclesiastes,2,26
+wisdom,Isaiah,11,1
+wisdom,Isaiah,11,2
+wisdom,Isaiah,11,3
+wisdom,Isaiah,30,21
+wisdom,Isaiah,42,6
+wisdom,Isaiah,42,7
+wisdom,Isaiah,42,16
+wisdom,Isaiah,48,17
+wisdom,Isaiah,54,13
+wisdom,Jeremiah,24,7
+wisdom,Daniel,1,17
+wisdom,Daniel,2,20
+wisdom,Daniel,2,21
+wisdom,Daniel,2,22
+wisdom,Daniel,2,23
+wisdom,Matthew,11,25
+wisdom,Matthew,11,26
+wisdom,Matthew,11,27
+wisdom,Matthew,13,11
+wisdom,Matthew,16,16
+wisdom,Matthew,16,17
+wisdom,Luke,1,76
+wisdom,Luke,1,77
+wisdom,Luke,1,78
+wisdom,Luke,1,79
+wisdom,Luke,12,11
+wisdom,Luke,12,12
+wisdom,Luke,21,15
+wisdom,Luke,24,32
+wisdom,Luke,24,45
+wisdom,John,1,1
+wisdom,John,1,4
+wisdom,John,1,5
+wisdom,John,1,7
+wisdom,John,1,8
+wisdom,John,1,9
+wisdom,John,1,17
+wisdom,John,6,45
+wisdom,John,8,12
+wisdom,John,8,31
+wisdom,John,8,32
+wisdom,John,9,5
+wisdom,John,9,39
+wisdom,John,12,46
+wisdom,John,14,7
+wisdom,John,16,13
+wisdom,John,16,14
+wisdom,John,17,6
+wisdom,John,17,26
+wisdom,John,18,37
+wisdom,Romans,1,19
+wisdom,Romans,1,20
+wisdom,1 Corinthians,1,30
+wisdom,1 Corinthians,2,9
+wisdom,1 Corinthians,2,10
+wisdom,1 Corinthians,2,11
+wisdom,1 Corinthians,2,12
+wisdom,1 Corinthians,2,13
+wisdom,1 Corinthians,2,14
+wisdom,1 Corinthians,12,8
+wisdom,2 Corinthians,4,6
+wisdom,Ephesians,1,16
+wisdom,Ephesians,1,17
+wisdom,Ephesians,1,18
+wisdom,Ephesians,1,19
+wisdom,Ephesians,3,14
+wisdom,Ephesians,3,15
+wisdom,Ephesians,3,16
+wisdom,Ephesians,3,17
+wisdom,Ephesians,3,18
+wisdom,Ephesians,3,19
+wisdom,Ephesians,6,18
+wisdom,Ephesians,6,19
+wisdom,Ephesians,6,20
+wisdom,Philippians,1,9
+wisdom,Philippians,1,10
+wisdom,Philippians,3,15
+wisdom,Colossians,1,9
+wisdom,Colossians,1,10
+wisdom,Colossians,1,26
+wisdom,Colossians,1,27
+wisdom,Colossians,1,28
+wisdom,Colossians,2,1
+wisdom,Colossians,2,2
+wisdom,Colossians,2,3
+wisdom,Colossians,4,2
+wisdom,Colossians,4,3
+wisdom,Colossians,4,4
+wisdom,2 Timothy,1,7
+wisdom,2 Timothy,2,7
+wisdom,James,1,5
+wisdom,James,3,17
+wisdom,2 Peter,1,2
+wisdom,2 Peter,1,3
+wisdom,2 Peter,1,4
+wisdom,2 Peter,1,5
+wisdom,2 Peter,1,8
+wisdom,2 Peter,1,12
+wisdom,2 Peter,3,18
+wisdom,1 John,2,20
+wisdom,1 John,2,27
+wisdom,1 John,5,20
+work,Genesis,2,15
+work,Exodus,23,12
+work,Exodus,35,2
+work,Deuteronomy,5,13
+work,Proverbs,6,6
+work,Proverbs,6,7
+work,Proverbs,6,8
+work,Proverbs,6,9
+work,Proverbs,6,10
+work,Proverbs,6,11
+work,Proverbs,10,4
+work,Proverbs,10,5
+work,Proverbs,10,26
+work,Proverbs,12,11
+work,Proverbs,12,24
+work,Proverbs,12,27
+work,Proverbs,13,4
+work,Proverbs,13,11
+work,Proverbs,13,23
+work,Proverbs,14,4
+work,Proverbs,14,23
+work,Proverbs,15,19
+work,Proverbs,16,26
+work,Proverbs,18,9
+work,Proverbs,19,15
+work,Proverbs,19,24
+work,Proverbs,20,4
+work,Proverbs,20,13
+work,Proverbs,21,5
+work,Proverbs,21,25
+work,Proverbs,22,13
+work,Proverbs,22,29
+work,Proverbs,23,21
+work,Proverbs,24,30
+work,Proverbs,24,31
+work,Proverbs,24,32
+work,Proverbs,24,33
+work,Proverbs,24,34
+work,Proverbs,26,13
+work,Proverbs,26,14
+work,Proverbs,26,15
+work,Proverbs,26,16
+work,Proverbs,27,23
+work,Proverbs,27,24
+work,Proverbs,27,25
+work,Proverbs,27,26
+work,Proverbs,27,27
+work,Proverbs,28,19
+work,Proverbs,30,25
+work,Proverbs,30,26
+work,Proverbs,30,27
+work,Proverbs,30,28
+work,Proverbs,31,13
+work,Proverbs,31,14
+work,Proverbs,31,15
+work,Proverbs,31,16
+work,Proverbs,31,17
+work,Proverbs,31,18
+work,Proverbs,31,19
+work,Proverbs,31,20
+work,Proverbs,31,21
+work,Proverbs,31,22
+work,Proverbs,31,23
+work,Proverbs,31,24
+work,Proverbs,31,25
+work,Proverbs,31,26
+work,Proverbs,31,27
+work,Ecclesiastes,1,3
+work,Ecclesiastes,2,10
+work,Ecclesiastes,2,11
+work,Ecclesiastes,2,17
+work,Ecclesiastes,2,18
+work,Ecclesiastes,2,19
+work,Ecclesiastes,2,20
+work,Ecclesiastes,2,21
+work,Ecclesiastes,2,22
+work,Ecclesiastes,9,10
+work,Ecclesiastes,10,18
+work,Ecclesiastes,11,4
+work,Ecclesiastes,11,6
+work,Isaiah,56,10
+work,Matthew,25,26
+work,Matthew,25,27
+work,Romans,12,11
+work,Ephesians,4,28
+work,1 Thessalonians,4,11
+work,1 Thessalonians,4,12
+work,2 Thessalonians,3,10
+work,2 Thessalonians,3,11
+work,2 Thessalonians,3,12
+work,1 Timothy,5,8
+work,Hebrews,6,12

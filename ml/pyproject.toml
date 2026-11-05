@@ -54,7 +54,8 @@ build-backend = "setuptools.build_meta"
 py-modules = [
     "simulate", "streak_risk", "streak_risk_charts", "model_registry", "serve", "score_tonight",
     "personas", "personas_charts", "reminder_time", "reminder_time_charts",
-    "verse_embeddings", "verse_embeddings_charts", "search", "search_charts",
+    "verse_embeddings", "verse_embeddings_charts", "search", "search_charts", "topics",
+    "topics_charts",
 ]
 
 [tool.pytest.ini_options]

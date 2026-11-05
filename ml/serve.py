@@ -6,9 +6,12 @@ It loads models:/streak_risk@champion from the registry once, when it starts, an
     GET  /model           which version is serving, and how it scored on held-out nights
     POST /streak-risk     for a batch of streak nights, each reader's chance of missing tomorrow
     GET  /search          the verses that answer a question, by meaning and by keyword (8.2)
+    GET  /topics          the 30 topic tags (8.3)
+    GET  /topics/{tag}    a topic's best verses (8.3)
 
-/search needs the nlp extra and the verse vectors (python ml/verse_embeddings.py). It loads its
-model on the first search, so the service starts as fast as before.
+/search needs the nlp extra and the verse vectors (python ml/verse_embeddings.py); /topics/{tag}
+needs the tags (python ml/topics.py). Both connect on first use, so the service starts as fast as
+before.
 
 It's a service of its own, apart from the app's API in backend/, so the app never carries the
 model libraries (over 200 MB) and either one can be restarted or updated without the other.
@@ -35,6 +38,7 @@ import streak_risk as sr
 
 MAX_NIGHTS = 1000  # one request's batch; the nightly scoring (Card 7.5) sends several
 MAX_RESULTS = 20
+TOPIC_TAGS = Path(__file__).with_name("data") / "topic_tags.csv"
 
 
 class Night(BaseModel):
@@ -79,20 +83,51 @@ class Found(BaseModel):
     verses: list[Verse] = Field(description="Best first")
 
 
+class Topic(BaseModel):
+    tag: str = Field(examples=["patience"])
+    label: str = Field(examples=["Patience"])
+    description: str
+
+
+class TopicPage(BaseModel):
+    tag: str
+    label: str
+    translation: str
+    verses: list[Verse] = Field(description="Best first")
+
+
+def database():
+    from sqlalchemy import create_engine
+
+    url = os.environ.get("DATABASE_URL", "postgresql+psycopg://manna:manna@localhost:5432/manna")
+    return create_engine(url.replace("postgresql://", "postgresql+psycopg://"))
+
+
+def needs_nlp(missing: ImportError) -> HTTPException:
+    return HTTPException(
+        503, f"This needs the nlp extra, pip install -e \".[nlp]\" (no {missing.name})"
+    )
+
+
+def topic_finder():
+    """A function from (tag, translation, k) to a topic's best verses, made on first use."""
+    try:
+        import topics
+    except ImportError as missing:
+        raise needs_nlp(missing) from missing
+    engine = database()
+    return lambda tag, translation, k: topics.topic_verses(engine, tag, translation, k)
+
+
 def searcher():
     """A function from (question, translation, k, method) to verses. It's made on the first
     search: loading the model takes a few seconds, and the streak-risk endpoints don't need it."""
     try:
-        from sqlalchemy import create_engine
-
         import search
         import verse_embeddings as ve
     except ImportError as missing:
-        raise HTTPException(
-            503, f"Search needs the nlp extra, pip install -e \".[nlp]\" (no {missing.name})"
-        ) from missing
-    url = os.environ.get("DATABASE_URL", "postgresql+psycopg://manna:manna@localhost:5432/manna")
-    engine = create_engine(url.replace("postgresql://", "postgresql+psycopg://"))
+        raise needs_nlp(missing) from missing
+    engine = database()
     encode = search.asking(ve.encoder(ve.MODEL), ve.MODEL)
     return lambda question, translation, k, method: search.search(
         engine, question, encode, translation, k, method
@@ -110,18 +145,19 @@ def as_features(nights: list[Night]) -> pd.DataFrame:
     return frame[sr.FEATURES]
 
 
-def create_app(store: Path = mr.STORE, search_with=None) -> FastAPI:
-    """search_with stands in for searcher() in tests."""
+def create_app(store: Path = mr.STORE, search_with=None, topics_with=None) -> FastAPI:
+    """search_with and topics_with stand in for searcher() and topic_finder() in tests."""
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         app.state.champion = mr.load_champion(store)
         app.state.search_with = search_with
+        app.state.topics_with = topics_with
         yield
 
     app = FastAPI(
-        title="Morning Manna: streak risk",
-        description="Tonight, how likely is each reader on a streak to miss tomorrow morning?",
+        title="Morning Manna: the ML service",
+        description="Streak risk, search by meaning and topic tags, behind one small API.",
         lifespan=lifespan,
     )
 
@@ -184,6 +220,36 @@ def create_app(store: Path = mr.STORE, search_with=None) -> FastAPI:
             question=q,
             translation=translation,
             method=method,
+            verses=found[["reference", "book", "chapter", "verse", "text"]].to_dict("records"),
+        )
+
+    tags = pd.read_csv(TOPIC_TAGS)[["tag", "label", "description"]]
+    labels = dict(zip(tags.tag, tags.label, strict=True))
+
+    @app.get("/topics", response_model=list[Topic])
+    def topic_list():
+        return tags.to_dict("records")
+
+    @app.get("/topics/{tag}", response_model=TopicPage)
+    def topic_page(
+        tag: str,
+        k: int = Query(10, ge=1, le=MAX_RESULTS, description="How many verses"),
+        translation: Literal["KJV", "ASV"] = "KJV",
+    ):
+        from sqlalchemy.exc import ProgrammingError
+
+        if tag not in labels:
+            raise HTTPException(404, f"No topic {tag!r}: GET /topics lists them")
+        if app.state.topics_with is None:
+            app.state.topics_with = topic_finder()
+        try:
+            found = app.state.topics_with(tag, translation, k)
+        except ProgrammingError as missing:  # no tags table yet
+            raise HTTPException(503, "No topic tags yet: run python ml/topics.py") from missing
+        return TopicPage(
+            tag=tag,
+            label=labels[tag],
+            translation=translation,
             verses=found[["reference", "book", "chapter", "verse", "text"]].to_dict("records"),
         )
 

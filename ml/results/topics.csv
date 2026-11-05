@@ -1,0 +1,5 @@
+method,precision_at_20,average_precision,top1,top3,tags,tagged_verses,winner
+keyword,26,8,25,36,30,4487,False
+zero_shot,38,11,32,50,30,4487,False
+trained,39,15,35,57,30,4487,True
+chance,1,1,4,12,30,4487,False
