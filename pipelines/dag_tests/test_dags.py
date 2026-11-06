@@ -26,9 +26,11 @@ def test_every_dag_file_loads(dagbag):
     assert set(dagbag.dag_ids) == {"daily_events", "ingest_scripture", "retrain_models"}
 
 
-def test_daily_events_loads_the_lake_then_builds(dagbag):
+def test_daily_events_loads_the_lake_then_builds_then_scores(dagbag):
     dag = dagbag.dags["daily_events"]
     assert dag.get_task("load_events").downstream_task_ids == {"dbt_build"}
+    assert dag.get_task("dbt_build").downstream_task_ids == {"score_tonight"}
+    assert "/venvs/ml/" in dag.get_task("score_tonight").bash_command
     assert dag.schedule == "30 0 * * *"
     assert dag.max_active_runs == 1
     assert dag.catchup is False
@@ -36,7 +38,14 @@ def test_daily_events_loads_the_lake_then_builds(dagbag):
 
 def test_the_other_dags_run_when_planned(dagbag):
     assert dagbag.dags["ingest_scripture"].schedule is None  # only by hand
-    assert dagbag.dags["retrain_models"].schedule == "@weekly"
+    retrain = dagbag.dags["retrain_models"]
+    assert retrain.schedule == "0 2 * * 0"  # Sundays, after that night's daily_events (00:30)
+    assert retrain.max_active_runs == 1 and retrain.catchup is False
+
+
+def test_the_retrain_registers_through_the_model_registry(dagbag):
+    command = dagbag.dags["retrain_models"].get_task("retrain").bash_command
+    assert command.endswith("/opt/manna/ml/model_registry.py") and "/venvs/ml/" in command
 
 
 def day_loaded(dagbag, day=None, logical_date=None, run_after=None) -> str:

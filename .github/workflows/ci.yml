@@ -144,6 +144,15 @@ jobs:
           docker run --rm --entrypoint "" manna-airflow \
             /home/airflow/venvs/backend/bin/python -c "import app.etl.__main__"
           docker run --rm --entrypoint "" manna-airflow /home/airflow/venvs/dbt/bin/dbt --version
+      # The models' Python (Card 9): the retrain, the nightly scoring, the ML service and the
+      # MLflow server. LightGBM proves the image has its system library; the server must reach
+      # the lake (boto3) and its records (psycopg): a missing library fails here, not on Kai's PC
+      - name: The models' Python can load the jobs, the service and the MLflow server
+        run: |
+          docker run --rm --entrypoint "" -v "$PWD/ml:/opt/manna/ml:ro" -w /opt/manna/ml manna-airflow \
+            /home/airflow/venvs/ml/bin/python -c "import lightgbm, model_registry, score_tonight, serve"
+          docker run --rm --entrypoint "" manna-airflow \
+            /home/airflow/venvs/ml/bin/python -c "import boto3, psycopg, mlflow.server"
       # The DAG tests run inside the image, so they test the exact Airflow we run
       - name: DAG tests
         run: >

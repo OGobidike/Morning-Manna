@@ -23,7 +23,9 @@ mobile app ──POST /events──> backend ──> Postgres (public.events)
                                                          events/dt=YYYY-MM-DD/*.jsonl  (filed by UTC arrival day)
 ml/simulate.py ──> data/lake/ ──ingest.upload──> same bucket
           └──> data/answer_key/  (true daily finish chances: never loaded, only for grading models)
-Airflow daily_events (00:30 UTC): ingest.load_events (yesterday's folder → raw.events) ──> dbt build (→ analytics schema)
+Airflow daily_events (00:30 UTC): ingest.load_events (yesterday's folder → raw.events) ──> dbt build (→ analytics schema) ──> score_tonight (→ ml.streak_risk_scores)
+Airflow retrain_models (Sundays 02:00 UTC): ml/model_registry.py ──> MLflow server (records in mlflow-db, models in the lake's mlflow-artifacts bucket) ──> @champion, if better
+                                                                     ml service (port 8001) and score_tonight read @champion from it
 ```
 
 - The backend's lake write (`app/lake.py`) runs after the response and never fails the request; `LAKE_URL=""` disables it.
@@ -55,7 +57,7 @@ Airflow daily_events (00:30 UTC): ingest.load_events (yesterday's folder → raw
 
 ## Commands
 
-Local services (from repo root): `docker compose up -d db lake` (Postgres on 5432, S3 on 8333). Airflow: `docker compose up -d --build airflow` (UI on 127.0.0.1:8080).
+Local services (from repo root): `docker compose up -d db lake` (Postgres on 5432, S3 on 8333). Everything: `docker compose up -d --build` (Airflow on 127.0.0.1:8080, MLflow on 127.0.0.1:5000, the ML service on 127.0.0.1:8001; Card 9). Airflow, MLflow and the ML service share one image (`pipelines/Dockerfile`, ~3.6 GB); the models' venv also runs the MLflow server, whose `tracking-server` extra is the only place boto3 is declared (clients reach MLflow over HTTP). After a first start, trigger `retrain_models` once to crown a champion. The MLflow server's job workers are off (`MLFLOW_SERVER_ENABLE_JOB_EXECUTION=false`: they cost ~1.5 GB), and the lake runs with `-volume.max=100` (SeaweedFS's default 8 volumes can't hold a second bucket; a full limit or disk shows as S3 "InternalError").
 
 ### Backend (`cd backend`)
 
@@ -95,7 +97,7 @@ DAG tests need Airflow, so run them in the container:
 
 `pytest`. Run `python ml/simulate.py --end 2026-10-27` (from the root) for reproducible data. Seed 7 with that end date yields exactly 5,000 readers and 179,077 events; CI and the analytics README numbers depend on this, so changing the simulator changes them. Each reader gets reminder wording A or B; `WORDING_B_LIFT` is the planted effect, the practice run's answer key: the Card 6.4 analysis must never read it, and is compared with it only once the analysis is done.
 
-The models need the `models` extra: `pip install -e ".[dev,models]"` (it is `xgboost-cpu`, not `xgboost`, which would pull ~290 MB of unused GPU libraries; ask before adding heavy packages). On Linux, LightGBM also needs the system package `libgomp1` (minimal Ubuntu and WSL lack it; CI's runner has it). `ml/serve.py` (Card 7.4, `serving` extra) serves `@champion` with FastAPI on port 8001, separate from `backend/` so the app never carries the model libraries: `uvicorn --app-dir ml serve:app --port 8001`. Its `Night` schema speaks domain terms (`reminder_variant`), and `as_features()` must build exactly `streak_risk.FEATURES` with the training dtypes; a test checks the API matches offline predictions exactly. `python ml/model_registry.py` (needs the `tracking` extra, full `mlflow`; skinny can't use a local store) logs every race to MLflow (SQLite in `ml/mlruns/`, git-ignored; `MLFLOW_TRACKING_URI` overrides) and registers the best model; it takes `@champion` only if it strictly beats the re-scored champion on the same held-out nights. Models are saved with skops, so a new model class needs its types added to `TRUSTED`; telemetry is switched off in code. `python ml/streak_risk.py` (from the root, after `dbt build`) trains and grades the streak-at-risk models on a date split (`TEST_FROM`) with time-ordered tuning folds; never shuffle nights across time. It writes `ml/results/streak_risk.csv`, which is committed; `ml/charts/` is not.
+The models need the `models` extra: `pip install -e ".[dev,models]"` (it is `xgboost-cpu`, not `xgboost`, which would pull ~290 MB of unused GPU libraries; ask before adding heavy packages). On Linux, LightGBM also needs the system package `libgomp1` (minimal Ubuntu and WSL lack it; CI's runner has it). `ml/serve.py` (Card 7.4, `serving` extra) serves `@champion` with FastAPI on port 8001, separate from `backend/` so the app never carries the model libraries: `uvicorn --app-dir ml serve:app --port 8001`, or the `ml` compose service. It re-checks the registry for a new `@champion` at most every `RECHECK_SECONDS` (600) and keeps serving the old one if the registry is unreachable. Its `Night` schema speaks domain terms (`reminder_variant`), and `as_features()` must build exactly `streak_risk.FEATURES` with the training dtypes; a test checks the API matches offline predictions exactly. `python ml/model_registry.py` (needs the `tracking` extra, full `mlflow`; skinny can't use a local store) logs every race to MLflow (SQLite in `ml/mlruns/`, git-ignored; `MLFLOW_TRACKING_URI` overrides, as compose sets it to the MLflow server). It uses `data/answer_key/` only if present (then the truth row and charts); without it, it grades on what happened and registers the best model; it takes `@champion` only if it strictly beats the re-scored champion on the same held-out nights. Models are saved with skops, so a new model class needs its types added to `TRUSTED`; telemetry is switched off in code. `python ml/streak_risk.py` (from the root, after `dbt build`) trains and grades the streak-at-risk models holding out the latest `TEST_DAYS` (21) nights (`held_out_from`: 2026-10-06 on the practice data, so the committed record is unchanged) with time-ordered tuning folds; never shuffle nights across time. It writes `ml/results/streak_risk.csv`, which is committed; `ml/charts/` is not.
 
 ### Mobile (`cd mobile`)
 
@@ -110,5 +112,5 @@ The models need the `models` extra: `pip install -e ".[dev,models]"` (it is `xgb
 ## Conventions
 
 - ruff, line length 100, rules `E, W, F, I`. Alembic versions are exempt from E501/I001. A project hook (`.claude/settings.json`) formats and lints each edited `.py` file, and runs backend pytest on Stop.
-- Airflow mounts the repo read-only at `/opt/manna` (only `data/` is writable). Each job has its own venv in the image, so a new dependency means rebuilding: `docker compose up -d --build airflow`.
+- Airflow mounts the repo read-only at `/opt/manna` (only `data/` is writable). Each job has its own venv in the image (`backend`, `pipelines`, `dbt`, `ml`), so a new dependency means rebuilding: `docker compose up -d --build`.
 - Commit messages follow the "Card X.Y" project-card pattern seen in `git log`.

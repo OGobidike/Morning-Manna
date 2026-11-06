@@ -1,3 +1,11 @@
+# One image for Airflow, the MLflow server and the ML service (pipelines/Dockerfile): each runs
+# its own Python inside it. Built once, by whichever of them starts first.
+x-manna-image: &manna-image
+  build:
+    context: .
+    dockerfile: pipelines/Dockerfile
+  image: morning-manna-airflow   # the name compose has always given it, so a rebuild replaces it
+
 services:
   # Postgres 16 with pgvector, which stores the verse embeddings (Card 8.1) and finds the
   # nearest ones. It's built on the official postgres:16 image, so the data volume carries over
@@ -32,7 +40,11 @@ services:
   # (MinIO, the blueprint's choice, took its images off Docker Hub.)
   lake:
     image: chrislusf/seaweedfs:4.51
-    command: server -dir=/data -s3
+    # -volume.max: SeaweedFS keeps each bucket in volumes of its own, at most 8 by default,
+    # and a new bucket asks for 7. The events bucket's share leaves too few for a second one
+    # (MLflow's, Card 9), which then fails with "InternalError". Volumes are created only as
+    # they fill, so a higher limit costs no disk
+    command: server -dir=/data -s3 -volume.max=100
     ports:
       - "8333:8333"   # the S3 API
       - "8888:8888"   # a web page for browsing the lake's files
@@ -58,9 +70,7 @@ services:
   # "standalone" puts all of Airflow in this one container, light enough for 8 GB.
   # Its web page: http://localhost:8080
   airflow:
-    build:
-      context: .
-      dockerfile: pipelines/Dockerfile
+    <<: *manna-image
     command: standalone
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db:5432/airflow
@@ -77,6 +87,8 @@ services:
       DBT_PROFILES_DIR: /opt/manna/analytics
       DBT_TARGET_PATH: /tmp/dbt/target
       DBT_LOG_PATH: /tmp/dbt/logs
+      # The model registry (Card 9): the weekly retrain and the nightly scoring use it
+      MLFLOW_TRACKING_URI: http://mlflow:5000
     ports:
       - "127.0.0.1:8080:8080"
     volumes:
@@ -89,8 +101,90 @@ services:
         condition: service_healthy
       lake:
         condition: service_started
+      mlflow:
+        condition: service_healthy
+
+  # The model registry's own records: every training run, its scores, and which version is
+  # @champion. A Postgres of its own, like Airflow's.
+  mlflow-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: mlflow
+      POSTGRES_PASSWORD: mlflow
+      POSTGRES_DB: mlflow
+    volumes:
+      - mlflowdb:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mlflow"]
+      interval: 5s
+      retries: 10
+
+  # The model registry (Card 9): MLflow's server. Records in mlflow-db; the saved models
+  # themselves in the lake, in their own bucket. Everyone else reaches it over HTTP, and only
+  # it talks to the lake. Its web page: http://localhost:5000
+  mlflow:
+    <<: *manna-image
+    entrypoint: ["bash", "-c"]
+    # Make sure the bucket exists (with the lake loader's tested helper, which knows SeaweedFS's
+    # bucket list can't be trusted), then serve. Other containers call it "mlflow", so that
+    # name is allowed; one worker is plenty, and saves memory
+    command:
+      - >-
+        /home/airflow/venvs/pipelines/bin/python -c "from ingest.settings import ensure_bucket,
+        lake_client; ensure_bucket(lake_client(), 'mlflow-artifacts')" &&
+        exec /home/airflow/venvs/ml/bin/mlflow server
+        --backend-store-uri postgresql+psycopg://mlflow:mlflow@mlflow-db:5432/mlflow
+        --artifacts-destination s3://mlflow-artifacts --serve-artifacts
+        --host 0.0.0.0 --port 5000 --workers 1
+        --allowed-hosts mlflow,mlflow:5000,localhost,localhost:5000,127.0.0.1,127.0.0.1:5000
+    environment:
+      LAKE_URL: http://lake:8333
+      MLFLOW_S3_ENDPOINT_URL: http://lake:8333
+      AWS_ACCESS_KEY_ID: lake
+      AWS_SECRET_ACCESS_KEY: lake-secret
+      MLFLOW_DISABLE_TELEMETRY: "true"
+      # MLflow 3 starts 9 background job processes (about 240 MB each) for its GenAI features,
+      # which nothing here uses. Off, the server needs about a seventh of the memory
+      MLFLOW_SERVER_ENABLE_JOB_EXECUTION: "false"
+    ports:
+      - "127.0.0.1:5000:5000"
+    volumes:
+      - .:/opt/manna:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 10s
+      retries: 12
+    depends_on:
+      mlflow-db:
+        condition: service_healthy
+      lake:
+        condition: service_started
+
+  # The ML service (Cards 7.4 and 8): streak risk, search, topics and shelves, on
+  # http://localhost:8001 (its /docs page lets you try them). It serves the registry's
+  # @champion, and picks up a new one within 10 minutes of the weekly retrain.
+  ml:
+    <<: *manna-image
+    entrypoint: ["bash", "-c"]
+    command:
+      - exec /home/airflow/venvs/ml/bin/uvicorn --app-dir /opt/manna/ml serve:app --host 0.0.0.0 --port 8001
+    environment:
+      DATABASE_URL: postgresql+psycopg://manna:manna@db:5432/manna
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    ports:
+      - "127.0.0.1:8001:8001"
+    volumes:
+      - .:/opt/manna:ro
+      - mlcache:/home/airflow/.cache   # the search model (67.5 MB) downloads once, and stays
+    depends_on:
+      db:
+        condition: service_healthy
+      mlflow:
+        condition: service_healthy
 
 volumes:
   pgdata:
   lakedata:
   airflowdb:
+  mlflowdb:
+  mlcache:

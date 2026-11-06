@@ -31,6 +31,14 @@ models = [
 tracking = [
     "mlflow>=3.18",
 ]
+# The MLflow server itself (Card 9), for docker compose. Only the server talks to the lake (S3,
+# through boto3) and keeps its records in Postgres; everything else reaches it over HTTP, so
+# the other extras never need boto3 (CI's ml job installs them without it)
+tracking-server = [
+    "mlflow>=3.18",
+    "boto3>=1.35",
+    "psycopg[binary]>=3.2",
+]
 # The model service (Card 7.4): FastAPI and uvicorn already come with MLflow, so only httpx2
 # (about 200 KB, for FastAPI's test client) is new
 serving = [

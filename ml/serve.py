@@ -1,6 +1,6 @@
 """The ML service (Cards 7.4 and 8.2 to 8.4): the models behind a small web API.
 
-It loads models:/streak_risk@champion from the registry once, when it starts, and answers:
+It loads models:/streak_risk@champion from the registry when it starts, and answers:
 
     GET  /health          is it up, and is a model loaded?
     GET  /model           which version is serving, and how it scored on held-out nights
@@ -16,14 +16,18 @@ ml/recommend.py). They connect on first use, so the service starts as fast as be
 
 It's a service of its own, apart from the app's API in backend/, so the app never carries the
 model libraries (over 200 MB) and either one can be restarted or updated without the other.
-To pick up a new champion, restart it.
+Every 10 minutes at most, it asks the registry whether the champion has changed (the weekly
+retrain, Card 9, may have crowned a new one) and swaps it in, with no restart. If the
+registry can't be reached, it keeps serving the champion it has.
 
-Run it from the repo root, then open http://localhost:8001 (it goes to /docs, which shows every
-endpoint and lets you try them):
+docker compose runs it (Card 9): http://localhost:8001 goes to /docs, which shows every
+endpoint and lets you try them. Or run it from the repo root yourself:
     ml/.venv/bin/uvicorn --app-dir ml serve:app --port 8001
 """
 
+import logging
 import os
+import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Literal
@@ -38,6 +42,8 @@ import model_registry as mr  # also switches MLflow's telemetry off
 import streak_risk as sr
 
 MAX_NIGHTS = 1000  # one request's batch; the nightly scoring (Card 7.5) sends several
+RECHECK_SECONDS = 600  # how often, at most, to ask the registry whether the champion changed
+logger = logging.getLogger("serve")
 MAX_RESULTS = 20
 TOPIC_TAGS = Path(__file__).with_name("data") / "topic_tags.csv"
 
@@ -179,14 +185,20 @@ def as_features(nights: list[Night]) -> pd.DataFrame:
 
 
 def create_app(
-    store: Path = mr.STORE, search_with=None, topics_with=None, shelves_with=None
+    store: Path = mr.STORE,
+    search_with=None,
+    topics_with=None,
+    shelves_with=None,
+    recheck: float = RECHECK_SECONDS,
+    clock=time.monotonic,
 ) -> FastAPI:
     """search_with, topics_with and shelves_with stand in for searcher(), topic_finder() and
-    shelf_finder() in tests."""
+    shelf_finder() in tests; recheck and clock let a test move time on."""
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         app.state.champion = mr.load_champion(store)
+        app.state.checked = clock()
         app.state.search_with = search_with
         app.state.topics_with = topics_with
         app.state.shelves_with = shelves_with
@@ -199,10 +211,26 @@ def create_app(
         lifespan=lifespan,
     )
 
+    def refresh() -> None:
+        """Swap in a new champion if the registry has crowned one since the last look."""
+        if clock() - app.state.checked < recheck:
+            return
+        app.state.checked = clock()
+        serving = app.state.champion
+        try:
+            record = mr.champion_version()
+            if record is not None and (serving is None or str(record.version) != serving.version):
+                app.state.champion = mr.load_champion(store)
+                logger.info("now serving champion version %s", app.state.champion.version)
+        except Exception as error:  # an unreachable registry must not take the service down
+            logger.warning("couldn't check the registry, still serving what we have: %s", error)
+
     def champion() -> mr.Champion:
+        refresh()
         if app.state.champion is None:
             raise HTTPException(
-                503, "No champion model yet: run python ml/model_registry.py, then restart"
+                503, "No champion model yet: run python ml/model_registry.py (or the "
+                "retrain_models DAG); the service picks it up within 10 minutes"
             )
         return app.state.champion
 
@@ -213,6 +241,7 @@ def create_app(
 
     @app.get("/health")
     def health():
+        refresh()
         return {"status": "ok", "model_loaded": app.state.champion is not None}
 
     @app.get("/model")

@@ -149,3 +149,24 @@ def test_the_charts_draw(tiny_run):
     ]
     for figure in figures:
         assert figure.data and figure.layout.title.text
+
+
+def test_the_held_out_weeks_move_with_the_data():
+    nights = pretend_nights()
+    first = sr.held_out_from(nights)
+    assert (nights.night.max() - pd.Timestamp(first)).days == sr.TEST_DAYS - 1
+    learn, test = sr.split(nights)
+    assert test.night.min() == pd.Timestamp(first) and learn.night.max() < test.night.min()
+    a_week_on = nights.assign(night=nights.night + pd.Timedelta(days=7))
+    assert sr.held_out_from(a_week_on) == first + pd.Timedelta(days=7)
+    # The practice run's last labelled night is 2026-10-26, so its window is unchanged
+    practice = pd.DataFrame({"night": pd.to_datetime(["2026-07-30", "2026-10-26"])})
+    assert sr.held_out_from(practice) == date(2026, 10, 6)
+
+
+def test_without_an_answer_key_it_grades_what_happened(race):
+    board, trained, _, test = race
+    plain = sr.leaderboard(trained, test.drop(columns="true_miss_chance"))
+    assert "truth" not in set(plain.model) and plain.gap_closed.isna().all()
+    with_truth = board.set_index("model").roc_auc.drop("truth")
+    assert plain.set_index("model").roc_auc.equals(with_truth)  # the models' grades don't change

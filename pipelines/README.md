@@ -1,6 +1,6 @@
 # Morning Manna pipelines
 
-The jobs that move the app's events from the data lake into the warehouse, and the Airflow DAGs that run them every night.
+The jobs that move the app's events from the data lake into the warehouse, and the Airflow DAGs that run them: every night the events and tonight's streak risk, every Sunday the models' retraining.
 
 Python 3.11+ · boto3 · psycopg 3 · Airflow 3.3 · SeaweedFS (S3)
 
@@ -53,11 +53,11 @@ The first build takes a few minutes. Then open http://localhost:8080. There's no
 
 | DAG | When | What it does |
 |---|---|---|
-| `daily_events` | 00:30 UTC every day | `load_events` (yesterday's lake folder into `raw.events`), then `dbt_build` |
+| `daily_events` | 00:30 UTC every day | `load_events` (yesterday's lake folder into `raw.events`), then `dbt_build`, then `score_tonight` (tonight's streak risk, from the champion model, into `ml.streak_risk_scores`) |
 | `ingest_scripture` | By hand | The Bible pipeline from [backend/README.md](../backend/README.md#data-pipeline) |
-| `retrain_models` | Weekly | A placeholder until the models arrive in Phase 7 |
+| `retrain_models` | 02:00 UTC on Sundays | Retrains the streak-at-risk models on the latest three weeks held out, logs the race to MLflow, and crowns the best only if it beats the champion ([ml/README.md](../ml/README.md#-the-model-registry-in-docker-card-9)) |
 
-New DAGs start paused: switch one on with the toggle beside its name.
+New DAGs start paused: switch one on with the toggle beside its name. **After the first start, trigger `retrain_models` once by hand:** it crowns the first champion, and `score_tonight` fails loudly until there is one.
 
 **Which day a run loads.** A night's run loads the day before its date. To load a different day, press **Trigger** and fill in **day**. To load a stretch of past days, backfill. Each run loads the day before its date, and the end date isn't included, so this loads 1 to 27 October:
 
@@ -68,8 +68,8 @@ docker compose exec airflow airflow backfill create --dag-id daily_events \
 
 **How the image is built** ([Dockerfile](Dockerfile)):
 
-- Airflow runs in **standalone** mode: the scheduler, the web page and the workers share one container. It uses about 850 MB of memory when idle, and about 1.1 GB during a run.
-- Each job has **its own Python** (venv) in the image, so the backend's, the loader's and dbt's libraries never clash with Airflow's.
+- Airflow runs in **standalone** mode: the scheduler, the web page and the workers share one container. It uses about 900 MB of memory when idle, and about 2 GB while the models retrain.
+- Each job has **its own Python** (venv) in the image, so the backend's, the loader's, dbt's and the models' libraries never clash with Airflow's. The MLflow server and the ML service run from the same image, with the models' Python (Card 9), so there's one image to build. It's about 3.6 GB on disk, 1.5 GB of it the model libraries.
 - Your code is **mounted read-only** at `/opt/manna`. The jobs can read it but never change it. Only `data/` is writable, for the Bible downloads.
 - Changing code needs no rebuild. Adding a dependency does: `docker compose up -d --build airflow`.
 - Airflow keeps its own records in a separate Postgres (`airflow-db`), away from the app's tables.
@@ -92,7 +92,7 @@ docker compose exec airflow bash -c "pip install -q pytest && python -m pytest -
 On every push, GitHub Actions runs three jobs for this folder:
 
 1. **pipelines:** `ruff check .` and the loader's tests.
-2. **airflow:** builds the image, checks that each job's Python can load its code, and runs the 7 DAG tests inside it.
+2. **airflow:** builds the image, checks that each job's Python can load its code (the models' Python must also load LightGBM and the MLflow server's lake and database drivers), and runs the 8 DAG tests inside it.
 3. **analytics:** builds the whole warehouse from nothing, through this loader (see [analytics/README.md](../analytics/README.md)).
 
 ## Layout
