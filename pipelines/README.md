@@ -68,8 +68,8 @@ docker compose exec airflow airflow backfill create --dag-id daily_events \
 
 **How the image is built** ([Dockerfile](Dockerfile)):
 
-- Airflow runs in **standalone** mode: the scheduler, the web page and the workers share one container. It uses about 900 MB of memory when idle, and about 2 GB while the models retrain.
-- Each job has **its own Python** (venv) in the image, so the backend's, the loader's, dbt's and the models' libraries never clash with Airflow's. The MLflow server and the ML service run from the same image, with the models' Python (Card 9), so there's one image to build. It's about 3.6 GB on disk, 1.5 GB of it the model libraries.
+- Airflow runs in **standalone** mode: the scheduler, the web page and the workers share one container. It uses about 900 MB of memory when idle, and about 1.8 GB while the models retrain. It runs at most 2 tasks at once (`AIRFLOW__CORE__PARALLELISM`), because each worker process lives on once started, and only one retrain ever runs at a time (Card 9b).
+- Each job has **its own Python** (venv) in the image, so the backend's, the loader's, dbt's and the models' libraries never clash with Airflow's. The MLflow server and the ML service run from the same image, with the models' Python (Card 9), so there's one image to build. It's about 3.1 GB on disk, about 0.8 GB of it the models' Python. To keep it small (Card 9b), packages are installed without precompiled bytecode (Python makes it on first import), and the models' Python deletes its libraries' own test suites in the same step: together they save about 0.55 GB. The other venvs keep theirs, because dbt keeps its built-in tests (`not_null`, `unique`) in a `tests` folder.
 - Your code is **mounted read-only** at `/opt/manna`. The jobs can read it but never change it. Only `data/` is writable, for the Bible downloads.
 - Changing code needs no rebuild. Adding a dependency does: `docker compose up -d --build airflow`.
 - Airflow keeps its own records in a separate Postgres (`airflow-db`), away from the app's tables.

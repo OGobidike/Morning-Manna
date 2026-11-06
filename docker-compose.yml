@@ -75,7 +75,9 @@ services:
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db:5432/airflow
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__CORE__PARALLELISM: 4   # at most 4 tasks at once: fewer idle workers, less RAM
+      # At most 2 tasks at once. Each worker process (about 135 MB) lives on once started, and
+      # our DAGs never run more than one task at a time (Card 9b), so 2 is plenty
+      AIRFLOW__CORE__PARALLELISM: 2
       AIRFLOW__CORE__DAGS_FOLDER: /opt/manna/pipelines/dags
       # No login: the page is only reachable from this PC (see ports)
       AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: "true"

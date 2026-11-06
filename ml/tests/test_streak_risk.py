@@ -1,6 +1,7 @@
 """The streak-at-risk model (Card 7.2): its folds, its baseline, its grading, and a tiny run."""
 
 import gzip
+import os
 import sys
 from datetime import date
 from pathlib import Path
@@ -170,3 +171,9 @@ def test_without_an_answer_key_it_grades_what_happened(race):
     assert "truth" not in set(plain.model) and plain.gap_closed.isna().all()
     with_truth = board.set_index("model").roc_auc.drop("truth")
     assert plain.set_index("model").roc_auc.equals(with_truth)  # the models' grades don't change
+
+
+def test_tuning_uses_two_workers_unless_told_otherwise():
+    # One worker per core took an 8-core laptop's training past what WSL had (Card 9b)
+    if "TUNING_JOBS" not in os.environ:
+        assert sr.TUNING_JOBS == 2

@@ -10,6 +10,11 @@ The nightly scoring and the ML service pick up a new champion by themselves.
 
 It runs at 02:00 UTC on Sundays, after that night's daily_events has rebuilt the tables. Run it
 by hand once after first starting the stack, to crown the first champion.
+
+Only one retrain ever runs at a time (Card 9b). Training takes about 1 GB of memory, and on an
+8 GB laptop WSL has under 4 GB: when two runs left over from an old schedule started beside a
+manual one, all three died. max_active_runs alone didn't stop them, because those runs already
+existed; the limit on the task itself holds however its runs were made.
 """
 
 from datetime import datetime, timedelta
@@ -34,4 +39,5 @@ with DAG(
     BashOperator(
         task_id="retrain",
         bash_command=f"{VENVS}/ml/bin/python /opt/manna/ml/model_registry.py",
+        max_active_tis_per_dag=1,  # one retrain at a time, whichever run it belongs to
     )

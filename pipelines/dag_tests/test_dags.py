@@ -48,6 +48,12 @@ def test_the_retrain_registers_through_the_model_registry(dagbag):
     assert command.endswith("/opt/manna/ml/model_registry.py") and "/venvs/ml/" in command
 
 
+def test_only_one_retrain_ever_runs_at_once(dagbag):
+    # Runs left over from an old schedule once started beside a manual one, and all three ran
+    # out of memory together; the task's own limit holds whichever run it belongs to
+    assert dagbag.dags["retrain_models"].get_task("retrain").max_active_tis_per_dag == 1
+
+
 def day_loaded(dagbag, day=None, logical_date=None, run_after=None) -> str:
     """The day daily_events would load, by filling in its command as Airflow does."""
     dag = dagbag.dags["daily_events"]

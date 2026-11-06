@@ -58,6 +58,11 @@ TEST_DAYS = 21  # the latest three weeks of nights are held out for grading
 FOLDS = 4  # time-ordered folds for tuning, inside the training weeks
 NUDGE_SHARE = 0.20  # the nudge budget: the riskiest fifth of streak nights
 SEED = 7
+# Tuning tries settings in parallel worker processes, each holding its own copy of the libraries
+# and the data (about 200 MB). One per core, an 8-core laptop's workers alone took about 1.9 GB,
+# past what WSL had (Card 9b). Two keep memory steady on any machine; the results don't change,
+# because every try is seeded. Set TUNING_JOBS=-1 for one per core on a big machine
+TUNING_JOBS = int(os.environ.get("TUNING_JOBS", "2"))
 MODEL_NAMES = {
     "streak_rule": "Streak rule",
     "logistic_regression": "Logistic regression",
@@ -252,7 +257,7 @@ def train(name: str, nights: pd.DataFrame, tries: int = 25, folds: int = FOLDS) 
         scoring="roc_auc",
         cv=time_folds(nights, folds),
         random_state=SEED,
-        n_jobs=-1,
+        n_jobs=TUNING_JOBS,
         refit=True,
     )
     search.fit(nights[FEATURES], nights[LABEL])

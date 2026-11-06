@@ -28,17 +28,24 @@ COPY --chown=airflow ml/pyproject.toml ml/*.py /opt/manna/ml/
 # One venv per job, so their libraries never clash with Airflow's, or with each other's.
 # The -e (editable) installs point at /opt/manna, where your live code is mounted, so
 # changing code needs no rebuild. Only a new dependency does.
+# To keep the image small (Card 9b): no precompiled bytecode, which Python makes itself on first
+# import. These venvs keep their libraries' tests/ folders: dbt keeps its built-in test macros
+# (not_null, unique) in one, and deleting it broke every dbt test
 RUN python -m venv /home/airflow/venvs/backend \
- && /home/airflow/venvs/backend/bin/pip install --no-cache-dir -e /opt/manna/backend \
+ && /home/airflow/venvs/backend/bin/pip install --no-cache-dir --no-compile -e /opt/manna/backend \
  && python -m venv /home/airflow/venvs/pipelines \
- && /home/airflow/venvs/pipelines/bin/pip install --no-cache-dir -e /opt/manna/pipelines \
+ && /home/airflow/venvs/pipelines/bin/pip install --no-cache-dir --no-compile -e /opt/manna/pipelines \
  && python -m venv /home/airflow/venvs/dbt \
- && /home/airflow/venvs/dbt/bin/pip install --no-cache-dir -r /opt/manna/analytics/requirements.txt
+ && /home/airflow/venvs/dbt/bin/pip install --no-cache-dir --no-compile \
+    -r /opt/manna/analytics/requirements.txt
 
 # The models (Card 9): the weekly retrain, the nightly scoring, the ML service and the MLflow
 # server all run from this one Python. The server's extra (tracking-server) adds what only it
-# uses, boto3 for the lake; a Python of its own would repeat 0.9 GB of the same libraries
+# uses, boto3 for the lake; a Python of its own would repeat 0.9 GB of the same libraries.
+# Here the libraries' own test suites are deleted too, in the same step (a later step can't
+# shrink this one): every job that uses this venv was run on the trimmed image (Card 9b)
 RUN python -m venv /home/airflow/venvs/ml \
- && /home/airflow/venvs/ml/bin/pip install --no-cache-dir \
+ && /home/airflow/venvs/ml/bin/pip install --no-cache-dir --no-compile \
     -e "/opt/manna/ml[models,tracking,serving,nlp,tracking-server]" \
+ && find /home/airflow/venvs/ml -path "*/site-packages/*/tests" -type d -prune -exec rm -rf {} + \
  && mkdir -p /home/airflow/.cache/fastembed
