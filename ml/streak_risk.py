@@ -8,8 +8,11 @@ likely they are to miss tomorrow, so the app can send a gentle nudge to the ones
     XGBoost, LightGBM      gradient-boosted trees, the workhorses of tabular data
 
 They learn from the warehouse (analytics.fct_reader_nights, Card 7.1) and are graded on the
-last three weeks, which none of them see while learning. The simulator's answer key then shows
-the best score possible: the truth itself, used as a prediction.
+latest three weeks of nights, which none of them see while learning. The window moves with the
+data (Card 9), so a weekly retrain is always graded on the most recent behaviour; on the
+practice run it starts on 2026-10-06. The simulator's answer key, when it's there, shows the
+best score possible: the truth itself, used as a prediction. A real deployment has no answer
+key, and everything still works without it.
 
 Run it from the repo root after `python ml/simulate.py` and `dbt build` (under a minute):
     python ml/streak_risk.py
@@ -51,7 +54,7 @@ FEATURES = [
 NUMERIC = [f for f in FEATURES if f != "tomorrow_weekday"]
 LABEL = "missed_tomorrow"
 
-TEST_FROM = date(2026, 10, 6)  # the last three weeks of the practice run: held out
+TEST_DAYS = 21  # the latest three weeks of nights are held out for grading
 FOLDS = 4  # time-ordered folds for tuning, inside the training weeks
 NUDGE_SHARE = 0.20  # the nudge budget: the riskiest fifth of streak nights
 SEED = 7
@@ -110,9 +113,15 @@ def attach_truth(nights: pd.DataFrame, answer_key: Path) -> pd.DataFrame:
     return merged.drop(columns=["day", "finish_chance"])
 
 
-def split(nights: pd.DataFrame, test_from: date = TEST_FROM):
-    """Learn from the weeks before test_from, and be graded on the weeks from it on."""
-    cut = pd.Timestamp(test_from)
+def held_out_from(nights: pd.DataFrame, days: int = TEST_DAYS) -> date:
+    """The first held-out night: the latest `days` nights with a label are held out."""
+    return (nights.night.max() - pd.Timedelta(days=days - 1)).date()
+
+
+def split(nights: pd.DataFrame, test_from: date | None = None):
+    """Learn from the weeks before test_from, and be graded on the weeks from it on. With no
+    date, the latest three weeks are held out (held_out_from)."""
+    cut = pd.Timestamp(held_out_from(nights) if test_from is None else test_from)
     return nights[nights.night < cut].reset_index(drop=True), nights[
         nights.night >= cut
     ].reset_index(drop=True)
@@ -303,6 +312,8 @@ def leaderboard(trained: list[Trained], test: pd.DataFrame) -> pd.DataFrame:
                 "settings": json.dumps(t.settings, sort_keys=True) if t.settings else "",
             }
         )
+    if "true_miss_chance" not in test:  # no answer key: graded on what happened, nothing more
+        return pd.DataFrame(rows).assign(gap_closed=None)
     truth = grade(test.true_miss_chance, test[LABEL])
     rows.append({"model": "truth", **truth, "cv_roc_auc": None, "settings": ""})
     board = pd.DataFrame(rows)
@@ -326,9 +337,12 @@ def importance(trained: Trained) -> pd.Series:
     return (totals / totals.sum()).sort_values(ascending=False)
 
 
-def run(engine, answer_key: Path, tries: int = 25):
-    """Load, split, train every model, and grade them. Returns the leaderboard and the models."""
-    nights = attach_truth(load_nights(engine), answer_key)
+def run(engine, answer_key: Path | None, tries: int = 25):
+    """Load, split, train every model, and grade them. Returns the leaderboard and the models.
+    With an answer key, the truth joins the leaderboard as the best possible score."""
+    nights = load_nights(engine)
+    if answer_key is not None:
+        nights = attach_truth(nights, answer_key)
     learn, test = split(nights)
     trained = [train(name, learn, tries) for name in candidates()]
     return leaderboard(trained, test), trained, learn, test
@@ -341,7 +355,7 @@ if __name__ == "__main__":
         create_engine(url), repo / "data" / "answer_key" / "finish_chance.csv.gz"
     )
     print(f"Learned from {len(learn):,} streak nights; graded on {len(test):,} held-out ones")
-    print(f"(from {TEST_FROM}; {test[LABEL].mean():.1%} of them ended in a miss)\n")
+    print(f"(from {test.night.min():%Y-%m-%d}; {test[LABEL].mean():.1%} of them ended in a miss)\n")
     shown = board.assign(model=board.model.map(MODEL_NAMES)).drop(columns="settings")
     print(shown.to_string(index=False))
     times = ", ".join(f"{MODEL_NAMES[t.name]} {t.seconds:.0f}s" for t in trained)

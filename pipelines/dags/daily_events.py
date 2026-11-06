@@ -1,13 +1,17 @@
 
 
-"""Every night: bring yesterday's events from the lake into the warehouse, then rebuild
-the retention tables with dbt.
+"""Every night: bring yesterday's events from the lake into the warehouse, rebuild the
+tables with dbt, then score tonight's streaks with the champion model.
 
-    load_events  -->  dbt_build
+    load_events  -->  dbt_build  -->  score_tonight
 
 The lake files each event under the day it arrived (in UTC), so by 00:30 UTC yesterday's
 folder is complete. Loading a day again replaces it, so re-running any night is safe.
 To load a different day, trigger this DAG by hand and fill in "day".
+
+score_tonight (Card 9) asks the MLflow server for models:/streak_risk@champion and writes
+ml.streak_risk_scores; scoring a night again replaces it. It fails loudly if there's no
+champion yet: run the retrain_models DAG once to crown the first one.
 """
 
 from datetime import datetime, timedelta
@@ -28,7 +32,7 @@ DAY = (
 
 with DAG(
     dag_id="daily_events",
-    description="Lake to warehouse, then dbt: fresh retention numbers every morning",
+    description="Lake to warehouse, dbt, then tonight's streak risk: fresh every morning",
     schedule="30 0 * * *",  # 00:30 UTC, every day
     start_date=datetime(2026, 10, 1),
     catchup=False,  # on first start, don't run every night since start_date
@@ -42,7 +46,7 @@ with DAG(
             description="Load this day instead of yesterday, e.g. 2026-10-27",
         )
     },
-    tags=["lake", "dbt"],
+    tags=["lake", "dbt", "ml"],
     doc_md=__doc__,
 ):
     load_events = BashOperator(
@@ -57,4 +61,10 @@ with DAG(
         bash_command=f"{VENVS}/dbt/bin/dbt build",
     )
 
-    load_events >> dbt_build
+    # Reads dbt's fct_reader_tonight, so it only runs once the tables are rebuilt
+    score_tonight = BashOperator(
+        task_id="score_tonight",
+        bash_command=f"{VENVS}/ml/bin/python /opt/manna/ml/score_tonight.py",
+    )
+
+    load_events >> dbt_build >> score_tonight

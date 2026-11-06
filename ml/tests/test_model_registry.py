@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 
 import mlflow
+import numpy as np
 import pytest
 from mlflow import MlflowClient
 
@@ -82,3 +83,15 @@ def test_the_streak_rule_loads_back_without_pickle(race, store):
     loaded = mlflow.sklearn.load_model(saved["streak_rule"])
     rule = next(t.model for t in trained if t.name == "streak_rule")
     assert type(loaded).__name__ == "StreakRule" and mr.same_predictions(rule, loaded, test)
+
+
+def test_a_race_without_an_answer_key_is_tracked_too(race, store):
+    """A real deployment has no answer key: the race is still logged, and still crowns."""
+    _, trained, learn, test = race
+    test = test.drop(columns="true_miss_chance")
+    plain = sr.leaderboard(trained, test)
+    _, _, decision = mr.track(plain, trained, learn, test, store=store)
+    assert decision.promoted
+    parent = mlflow.search_runs(filter_string="tags.mlflow.runName = 'race'").iloc[0]
+    assert "metrics.truth_roc_auc" not in parent.index or np.isnan(parent["metrics.truth_roc_auc"])
+    assert parent["params.test_from"] == f"{test.night.min():%Y-%m-%d}"

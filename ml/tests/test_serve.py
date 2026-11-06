@@ -119,3 +119,43 @@ def test_a_reader_with_too_few_reads_for_a_spread_still_gets_an_answer(crowned):
         night = {**A_NIGHT, "read_time_spread_14d": None}
         answer = client.post("/streak-risk", json={"nights": [night]})
     assert answer.status_code == 200 and 0 < answer.json()["miss_chances"][0] < 1
+
+
+def test_it_picks_up_a_new_champion_without_a_restart(race, store):
+    board, trained, learn, test = race
+    mr.use_store(store)
+    saved = mr.log_race(board, trained, learn, test)
+    rule = mr.promote(saved["streak_rule"], test)
+    now = [0.0]
+    with TestClient(serve.create_app(store, clock=lambda: now[0])) as client:
+        assert client.get("/model").json()["version"] == str(rule.version)
+        tree = mr.promote(saved["lightgbm"], test)  # the weekly retrain crowns a better one
+        assert tree.promoted
+        assert client.get("/model").json()["version"] == str(rule.version)  # not looked yet
+        now[0] += serve.RECHECK_SECONDS
+        assert client.get("/model").json()["version"] == str(tree.version)
+
+
+def test_a_champion_crowned_later_is_picked_up(race, store):
+    board, trained, learn, test = race
+    now = [0.0]
+    with TestClient(serve.create_app(store, clock=lambda: now[0])) as client:
+        assert client.get("/health").json()["model_loaded"] is False
+        _, _, decision = mr.track(board, trained, learn, test, store=store)
+        now[0] += serve.RECHECK_SECONDS
+        assert client.get("/health").json()["model_loaded"] is True
+        assert client.get("/model").json()["version"] == str(decision.version)
+
+
+def test_an_unreachable_registry_keeps_the_champion_serving(crowned, monkeypatch):
+    store, _, version = crowned
+    now = [0.0]
+    with TestClient(serve.create_app(store, clock=lambda: now[0])) as client:
+
+        def down():
+            raise ConnectionError("the registry is down")
+
+        monkeypatch.setattr(mr, "champion_version", down)
+        now[0] += serve.RECHECK_SECONDS
+        answer = client.post("/streak-risk", json={"nights": [A_NIGHT]})
+        assert answer.status_code == 200 and answer.json()["model_version"] == version

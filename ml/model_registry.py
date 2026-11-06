@@ -7,10 +7,15 @@ its scores and the model itself. The best model is then registered as a new vers
 same held-out nights. The API (Card 7.4) asks for models:/streak_risk@champion, so a worse
 model can never reach readers by accident.
 
-Where the records live: MLFLOW_TRACKING_URI if it's set (an MLflow server, later), otherwise a
-SQLite file in ml/mlruns/, which git ignores. To look around, from the repo root:
+Where the records live: MLFLOW_TRACKING_URI if it's set (the MLflow server in docker compose,
+Card 9, at http://localhost:5000), otherwise a SQLite file in ml/mlruns/, which git ignores. To
+look around the SQLite one, from the repo root:
     MLFLOW_DISABLE_TELEMETRY=true mlflow ui --backend-store-uri sqlite:///ml/mlruns/mlflow.db
 then open localhost:5000.
+
+Airflow runs it every Sunday (the retrain_models DAG, Card 9). The simulator's answer key is
+used only if it's there: without it, the race is graded on what happened, with no truth row
+and no charts, which is all a real deployment would have.
 """
 
 import logging
@@ -95,7 +100,8 @@ def log_race(board: pd.DataFrame, trained: list[sr.Trained], learn: pd.DataFrame
     runs = {}
     with mlflow.start_run(run_name="race"):
         mlflow.log_params(
-            {"test_from": str(sr.TEST_FROM), "folds": sr.FOLDS, "nudge_share": sr.NUDGE_SHARE,
+            {"test_from": f"{test.night.min():%Y-%m-%d}", "folds": sr.FOLDS,
+             "nudge_share": sr.NUDGE_SHARE,
              "seed": sr.SEED, "features": ",".join(sr.FEATURES)}
         )
         mlflow.set_tags(
@@ -103,9 +109,10 @@ def log_race(board: pd.DataFrame, trained: list[sr.Trained], learn: pd.DataFrame
              "test_miss_rate": round(float(test[sr.LABEL].mean()), 4),
              "libraries": " ".join(libraries())}
         )
-        # The truth is the ceiling every model is measured against
-        mlflow.log_metrics({f"truth_{k}": float(v) for k, v in scores.loc["truth"].items()
-                            if k in ("roc_auc", "pr_auc", "brier", "nudge_recall")})
+        # The truth is the ceiling every model is measured against, when there's an answer key
+        if "truth" in scores.index:
+            mlflow.log_metrics({f"truth_{k}": float(v) for k, v in scores.loc["truth"].items()
+                                if k in ("roc_auc", "pr_auc", "brier", "nudge_recall")})
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / "leaderboard.csv"
             board.to_csv(path, index=False, lineterminator="\n")
@@ -217,10 +224,13 @@ if __name__ == "__main__":
 
     url = os.environ.get("DATABASE_URL", "postgresql+psycopg://manna:manna@localhost:5432/manna")
     repo = Path(__file__).resolve().parents[1]
-    board, trained, learn, test = sr.run(
-        create_engine(url), repo / "data" / "answer_key" / "finish_chance.csv.gz"
-    )
-    uri, best, decision = track(board, trained, learn, test, charts.draw(trained, test, board))
+    key = repo / "data" / "answer_key" / "finish_chance.csv.gz"
+    key = key if key.exists() else None
+    board, trained, learn, test = sr.run(create_engine(url), key)
+    if key is None:
+        print("No answer key here: graded on what happened, without the truth or the charts")
+    drawn = None if key is None else charts.draw(trained, test, board)
+    uri, best, decision = track(board, trained, learn, test, drawn)
     print(f"Logged the race: {len(trained)} models, to {uri}")
     print(f"Registered {sr.MODEL_NAMES[best]} as {MODEL_NAME} version {decision.version} "
           f"(held-out ROC-AUC {decision.challenger_roc_auc:.4f})")

@@ -60,7 +60,7 @@ The first thing it graded was the warehouse itself. [Notebook 03](../analytics/n
 
 ## 🔥 The streak-at-risk model (Card 7.2)
 
-Tonight, how likely is a reader on a streak to miss tomorrow morning? [streak_risk.py](streak_risk.py) trains four models to answer it, from the warehouse's `fct_reader_nights`: a streak-length lookup (the baseline), logistic regression, XGBoost and LightGBM. Each is tuned on time-ordered folds, so no model learns from its own future, then graded once on the last three weeks, against the answer key.
+Tonight, how likely is a reader on a streak to miss tomorrow morning? [streak_risk.py](streak_risk.py) trains four models to answer it, from the warehouse's `fct_reader_nights`: a streak-length lookup (the baseline), logistic regression, XGBoost and LightGBM. Each is tuned on time-ordered folds, so no model learns from its own future, then graded once on the latest three weeks of nights (on the practice run, from 2026-10-06), against the answer key.
 
 | Model | ROC-AUC | Nudge the riskiest 20%: misses caught | Gap closed |
 |---|---|---|---|
@@ -121,7 +121,7 @@ MLFLOW_DISABLE_TELEMETRY=true mlflow ui --backend-store-uri sqlite:///ml/mlruns/
 
 ## 🔔 The streak-at-risk service (Card 7.4)
 
-[serve.py](serve.py) puts the champion behind a small web API. It loads `models:/streak_risk@champion` once, when it starts, and anything that can send JSON (the nightly scoring in Card 7.5, the app, or you) can ask it about tonight's readers.
+[serve.py](serve.py) puts the champion behind a small web API. It loads `models:/streak_risk@champion` when it starts, and anything that can send JSON (the nightly scoring in Card 7.5, the app, or you) can ask it about tonight's readers.
 
 | Endpoint | What it answers |
 |---|---|
@@ -145,7 +145,7 @@ uvicorn --app-dir ml serve:app --port 8001      # then open http://localhost:800
 - **It says exactly what the model says.** A test sends 300 held-out nights through the API and checks every answer against the model run directly, to the last digit.
 - **Every answer is traceable:** it names the model version that gave it.
 - **No champion yet?** It still starts, and says so plainly (503, with what to run) instead of crashing.
-- **It's its own service, apart from the app's API in `backend/`,** so the app never carries the model libraries (over 200 MB), and either one can be restarted without the other. To pick up a new champion, restart it.
+- **It's its own service, apart from the app's API in `backend/`,** so the app never carries the model libraries (over 200 MB), and either one can be restarted without the other. It checks the registry for a new champion every 10 minutes at most, and swaps it in with no restart.
 - **It's quick:** a batch of 1,000 nights takes about 20 milliseconds.
 
 ## 🌙 Tonight's scores (Card 7.5)
@@ -175,7 +175,7 @@ python ml/score_tonight.py
 - **Safe to re-run.** Scoring a night again replaces its scores in one transaction: all of them land, or none do.
 - **Its own schema.** The scores live in `ml`, apart from the app's tables (`public`), the loader's (`raw`) and dbt's (`analytics`).
 
-Run by hand for now. Card 9 hands it to Airflow, together with the MLflow server: in a container, the model store's file paths (written on this machine) don't resolve, and the server is the proper fix.
+Airflow runs it every night after dbt (`daily_events`, Card 9), asking the MLflow server for the champion. You can still run it by hand.
 
 ## 🧭 Reader personas (Card 7.6)
 
@@ -294,10 +294,31 @@ curl "http://localhost:8001/because-you-read?book=John&chapter=3&verse=16&k=5"
 - **Readers like you is built and switched off.** Everyone reads the same plan, so readers' choices say nothing yet; `collab_status` turns it on once 200 readers have each chosen 5 chapters themselves.
 - **The records:** `results/shelves.csv` (the leaderboard), `shelves_by_section.csv`, `shelves_weights.csv` and `shelves_passages.csv`, all whole percents or counts. With the vectors nudged by another computer's rounding, the blend's weights for one book group can swap with a neighbour 0.04 points behind, moving a few numbers by a point, so another computer's records match within a point, not byte for byte.
 
+## 🐳 The model registry in Docker (Card 9)
+
+`docker compose up -d --build` now runs the models' whole life by itself: the MLflow server keeps the registry, Airflow retrains every Sunday and scores every night, and the ML service serves whichever version is `@champion`.
+
+| Service | Address | What it does |
+|---|---|---|
+| `mlflow` | http://localhost:5000 | The registry: every race, its scores and charts, and which version is `@champion` |
+| `mlflow-db` | | MLflow's records, in a Postgres of its own |
+| `ml` | http://localhost:8001 | The ML service ([serve.py](serve.py)): streak risk, search, topics and shelves |
+| `airflow` | http://localhost:8080 | `retrain_models` on Sundays, `score_tonight` in `daily_events` every night |
+
+**The saved models live in the lake**, in a bucket of their own (`mlflow-artifacts`). Only the MLflow server talks to the lake; everyone else reaches it over HTTP, so only the server needs boto3 (the `tracking-server` extra).
+
+**The first time, crown a champion:** trigger `retrain_models` once in Airflow. Until then the nightly scoring fails loudly, and the service answers 503. The service picks up the new champion within 10 minutes, with no restart.
+
+- **The weekly retrain holds out the latest three weeks.** The window moves with the data, so a retrain is always graded on recent nights, and the champion is re-scored on the same nights before any swap. On the practice data it lands on 2026-10-06, as before, so every record stays the same.
+- **No answer key, no problem.** The simulator's answer key is used if `data/answer_key/` has it: then the race also gets its truth row and charts. A real deployment has none, and the retrain grades on what happened.
+- **Memory:** the whole stack uses about 2.3 GB at rest and about 3.3 GB while the models retrain. The MLflow server's background job workers (for MLflow's GenAI features, which nothing here uses) are switched off; on, they'd cost about 1.5 GB more.
+- **The lake's volume limit is raised** (`-volume.max=100`). SeaweedFS keeps each bucket in volumes of its own, at most 8 by default, and a new bucket asks for 7, so MLflow's bucket couldn't be created beside the events. If the lake ever answers "InternalError", check the volume limit and free disk space first.
+- **Your old local registry stays** in `ml/mlruns/`, for history. The server starts empty, and the first retrain crowns version 1 there. Running `model_registry.py` by hand still uses `ml/mlruns/` unless you set `MLFLOW_TRACKING_URI=http://localhost:5000`.
+
 ## Tests
 
 ```bash
 cd ml
 pip install -e ".[dev,models,tracking,serving,nlp]"
-pytest          # 124 tests; the embedding, search, topic and shelf tests need docker compose up -d db
+pytest          # 130 tests; the embedding, search, topic and shelf tests need docker compose up -d db
 ```

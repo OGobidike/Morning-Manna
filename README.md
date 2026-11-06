@@ -41,7 +41,7 @@ bash, Docker, cd mobile && npm install && expo start
 ```
 The text comes from the King James Version and the American Standard Version (both public domain).
 
-**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt) the first analytics (two notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP steps (verse embeddings, search by meaning, topic tags and what to read next) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
+**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt, and an MLflow model registry) the first analytics (two notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP steps (verse embeddings, search by meaning, topic tags and what to read next) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
 
 ## 📊 The reading dashboard
 
@@ -54,6 +54,10 @@ Who reads, when, how steadily, and who comes back: six charts and four headline 
 ![Three measures, each a magenta dot with its 95% interval: day-7 return +4.0 points with the truth, +5.5, inside its interval; day-1 return +4.8 points; finish rate +0.2 points, all well above the guardrail floor at −2](docs/images/experiment-result.png)
 
 Two wordings of the morning reminder, tested on 5,000 pretend readers with a planted effect the analysis never saw. Wording B brought **+4.0 points** more readers back on day 7 (95% interval +0.6 to +7.4), and the truth, **+5.5**, sits inside that interval. A drill of **1,200** more practice runs checked the analysis itself. See [the results](docs/analysis/reminder-experiment-results.md).
+
+## 🐳 The models run themselves
+
+`docker compose up -d --build` starts the whole platform: the warehouse, the lake, Airflow, an MLflow server for the model registry, and the ML service on http://localhost:8001. Every night Airflow loads the day's events, rebuilds the warehouse, and scores tonight's streaks with the champion model. Every Sunday it retrains the models on the latest data, and a new model takes over only if it beats the champion on the same held-out nights. The service picks it up by itself. See [ml/README.md](ml/README.md#-the-model-registry-in-docker-card-9).
 
 ## 🔥 The streak-at-risk model
 
