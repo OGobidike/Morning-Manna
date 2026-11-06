@@ -78,7 +78,7 @@ Tonight, how likely is a reader on a streak to miss tomorrow morning? [streak_ri
 # From the repo root, after simulate.py and dbt build
 sudo apt install libgomp1           # Linux: LightGBM needs this system library (about 0.4 MB)
 pip install -e "ml[models]"         # scikit-learn, xgboost-cpu, LightGBM, … (about 107 MB)
-python ml/streak_risk.py            # about 25 seconds; writes ml/results/streak_risk.csv
+python ml/streak_risk.py            # about 40 seconds; writes ml/results/streak_risk.csv (TUNING_JOBS=-1 tunes on every core)
 python ml/streak_risk_charts.py     # the charts, as web pages in ml/charts/
 ```
 
@@ -311,7 +311,7 @@ curl "http://localhost:8001/because-you-read?book=John&chapter=3&verse=16&k=5"
 
 - **The weekly retrain holds out the latest three weeks.** The window moves with the data, so a retrain is always graded on recent nights, and the champion is re-scored on the same nights before any swap. On the practice data it lands on 2026-10-06, as before, so every record stays the same.
 - **No answer key, no problem.** The simulator's answer key is used if `data/answer_key/` has it: then the race also gets its truth row and charts. A real deployment has none, and the retrain grades on what happened.
-- **Memory:** the whole stack uses about 2.3 GB at rest and about 3.3 GB while the models retrain. The MLflow server's background job workers (for MLflow's GenAI features, which nothing here uses) are switched off; on, they'd cost about 1.5 GB more.
+- **Memory:** the whole stack uses about 2.2 GB when it starts, about 2.7 GB once everything has run, and peaks at about 3.4 GB while the models retrain, the same on any number of CPU cores: the tuning uses 2 worker processes (`TUNING_JOBS`, Card 9b), where one per core once took an 8-core laptop's training past what WSL had. Only one retrain runs at a time. The MLflow server's background job workers (for MLflow's GenAI features, which nothing here uses) are switched off; on, they'd cost about 1.5 GB more. **On an 8 GB laptop, give WSL at least 4.5 GB** in `C:\Users\<you>\.wslconfig` (`[wsl2]`, `memory=4608MB`, which is 4.5 GB, and `swap=2GB`); its default, half the memory, leaves the retrain no room.
 - **The lake's volume limit is raised** (`-volume.max=100`). SeaweedFS keeps each bucket in volumes of its own, at most 8 by default, and a new bucket asks for 7, so MLflow's bucket couldn't be created beside the events. If the lake ever answers "InternalError", check the volume limit and free disk space first.
 - **Your old local registry stays** in `ml/mlruns/`, for history. The server starts empty, and the first retrain crowns version 1 there. Running `model_registry.py` by hand still uses `ml/mlruns/` unless you set `MLFLOW_TRACKING_URI=http://localhost:5000`.
 
@@ -320,5 +320,5 @@ curl "http://localhost:8001/because-you-read?book=John&chapter=3&verse=16&k=5"
 ```bash
 cd ml
 pip install -e ".[dev,models,tracking,serving,nlp]"
-pytest          # 130 tests; the embedding, search, topic and shelf tests need docker compose up -d db
+pytest          # 131 tests; the embedding, search, topic and shelf tests need docker compose up -d db
 ```

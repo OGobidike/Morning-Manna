@@ -266,8 +266,8 @@ jobs:
           ../../.dbt/bin/ruff check .
           ../../.dbt/bin/pytest
       # The streak-at-risk models (Card 7.2), trained and graded on the warehouse just built
-      # (about 25 seconds). Tree models can round differently on another processor, so a
-      # leaderboard that differs from the committed one is flagged, not failed
+      # (about 40 seconds, with 2 tuning workers). Tree models can round differently on another
+      # processor, so a leaderboard that differs from the committed one is flagged, not failed
       - name: The streak-at-risk models, for the record
         run: |
           python ml/streak_risk.py
