@@ -108,7 +108,7 @@ The champion is re-scored rather than trusted from its old tag, so the compariso
 ```bash
 # From the repo root, after dbt build
 pip install -e "ml[models,tracking]"     # MLflow, about 113 MB more
-python ml/model_registry.py              # trains, tracks and registers (about 30 seconds)
+python ml/model_registry.py              # trains, tracks and registers (a little longer than streak_risk.py)
 
 # Then look around, at http://localhost:5000
 MLFLOW_DISABLE_TELEMETRY=true mlflow ui --backend-store-uri sqlite:///ml/mlruns/mlflow.db
@@ -132,7 +132,7 @@ MLFLOW_DISABLE_TELEMETRY=true mlflow ui --backend-store-uri sqlite:///ml/mlruns/
 | `GET /topics`, `GET /topics/{tag}` | The 30 topic tags, and a topic's best verses (Card 8.3, below) |
 | `GET /because-you-read` | After a verse, a chapter or a passage, the 10 verses a reader might want next (Card 8.4, below) |
 
-![The service's interactive docs page: the three endpoints, and a request for two readers. A steady reader (a 12-day streak, read every day this week) gets a 15% chance of missing tomorrow; a wobbly one (a 1-day streak, read 2 days in 7, reading time wandering by 95 minutes) gets 48%. Both answers name model version 1.](../docs/images/streak-service.png)
+![The ML service's interactive docs page: its seven endpoints, and a request for two readers. A steady reader (a 12-day streak, read every day this week) gets a 15% chance of missing tomorrow; a wobbly one (a 1-day streak, read 2 days in 7, reading time wandering by 95 minutes) gets 48%. Both answers name model version 1.](../docs/images/streak-service.png)
 
 ```bash
 # From the repo root, after python ml/model_registry.py has crowned a champion
@@ -257,9 +257,9 @@ curl "http://localhost:8001/search?q=verses+about+worry&k=5"
 
 Every verse is tagged with what it's about, from 30 topics a reader would recognise: hope, patience, comfort in hard times, forgiving others, money and greed, and more. [topics.py](topics.py) races three taggers and stores the winner's tags in `ml.verse_topics`, for topic pages in the app.
 
-![Each topic's first screen of 20 verses: hope 85% right, praise and loving others 80%, down to worry and anxiety at 0%](../docs/images/topics-by-tag.png)
+![Each topic's first screen of 20 verses: hope 85% right, praise 80%, loving others 80%, down to worry and anxiety at 0%](../docs/images/topics-by-tag.png)
 
-**The answer key is Nave's Topical Bible** (1896, public domain; the CSV from [BibleData](https://github.com/BradyStephenson/bible-data), CC BY 4.0). Each tag was mapped to Nave's teaching headings before any tagger ran, giving 5,529 tagged verses. **A logistic regression on the BGE vectors wins every measure**, graded on whole books it never saw. Worry and anxiety fails, because Nave's files it under worldly care (food, clothing, barns), and the write-up shows why. The whole story: [the write-up](../docs/analysis/topic-tags.md).
+**The answer key is Nave's Topical Bible** (1896, public domain; the CSV from [BibleData](https://github.com/BradyStephenson/bible-data), CC BY 4.0). Each tag was mapped to Nave's teaching headings before any tagger ran, giving 5,529 tags on 4,487 verses. **A logistic regression on the BGE vectors wins every measure**, graded on whole books it never saw. Worry and anxiety fails, because Nave's files it under worldly care (food, clothing, barns), and the write-up shows why. The whole story: [the write-up](../docs/analysis/topic-tags.md).
 
 ```bash
 # From the repo root, with the database up and the verses embedded

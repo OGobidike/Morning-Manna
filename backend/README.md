@@ -73,20 +73,23 @@ curl -s -X POST localhost:8000/events -H "Authorization: Bearer $TOKEN" \
 
 ## Endpoints
 
-Every endpoint except `GET /health`, `GET /plans` and `POST /users` needs `Authorization: Bearer <token>`.
+Every endpoint except `GET /health`, `GET /plans`, `GET /translations` and `POST /users` needs `Authorization: Bearer <token>`.
 
 | Method | Path | What it does |
 |---|---|---|
 | GET | `/health` | Liveness check |
 | GET | `/plans` | List the reading plans |
+| GET | `/translations` | List the translations a reader can choose (KJV, ASV) |
 | POST | `/users` | Sign up a device and return its token (rate-limited) |
 | GET | `/users/me` | The reader's settings, and which reminder wording they get (`A` or `B`) |
-| PATCH | `/users/me` | Change time zone or wake time |
+| PATCH | `/users/me` | Change time zone, wake time or translation |
 | POST | `/users/me/plans` | Start a plan |
 | GET | `/today` | Today's passage, in the reader's translation |
-| POST | `/readings` | Open a reading for the current day |
-| POST | `/readings/{id}/complete` | Mark it read and move to the next day |
+| GET | `/today/upcoming` | The next passages, from the reader's current day (7 by default, up to 14) |
+| POST | `/readings` | Open a reading for the current day (`opened_at` optional, for offline reads) |
+| POST | `/readings/{id}/complete` | Mark it read and move to the next day (`completed_at` optional) |
 | GET | `/users/me/streak` | Current and longest streak |
+| GET | `/users/me/history` | The days the reader finished a reading (the last 13 weeks by default, up to a year) |
 | POST | `/events` | Store a batch of app events, and copy it to the data lake |
 
 ## Design decisions
@@ -135,12 +138,17 @@ On every push, GitHub Actions runs:
 ```
 app/
   main.py        the FastAPI app: routers, logging middleware
-  routers/       one file per area: users, plans, today, readings, events
+  routers/       one file per area: users, plans, translations, today, readings, events
   models.py      the database tables (SQLAlchemy)
   schemas.py     request and response shapes (Pydantic)
+  config.py      settings, from environment variables or .env
+  db.py          the database engine and sessions
   auth.py        Bearer-token authentication
+  security.py    how tokens are made, and stored as SHA-256 hashes
+  clock.py       dates and times in the reader's own time zone
   progress.py    which plan and day a reader is on
   streaks.py     streak calculation
+  experiment.py  which reminder wording (A or B) each reader gets
   ratelimit.py   sliding-window rate limiter
   logs.py        structured JSON request logs
   lake.py        copies each event batch to the data lake

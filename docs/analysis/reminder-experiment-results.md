@@ -116,7 +116,7 @@ One practice run can be lucky, so [drill.py](../../analytics/experiments/drill.p
 ## 🧭 What this means for real readers
 
 - **The analysis can be trusted, with one caveat.** On data where the answer was known, it found the right winner, and across 1,200 drills it found real effects 87.5% of the time. But it raises false alarms about 7% of the time, not 5%, so a result with p just under 0.05 deserves a second look.
-- **My "partly luck" worry above was too gloomy.** I wrote it before the reveal, and I've left it as it was. The true effect, +5.9 points, is bigger than the +5 the test was sized for, so the test had a better than 80% chance of spotting it.
+- **My "partly luck" worry above was too gloomy.** I wrote it before the reveal, and I've left it as it was. The true effect, +5.5 points (+5.9 in the reveal's one long run), is bigger than the +5 the test was sized for, so the test had a better than 80% chance of spotting it.
 - **The size of a win is the uncertain part.** If a real test needs a sharp number rather than just a winner, it needs more readers than 1,508 a group.
 - **The pictures:** the charts on this page come from [charts.py](../../analytics/experiments/charts.py), and [notebook 02](../../analytics/notebooks/02_reminder_experiment.ipynb) draws them from the warehouse on every CI run.
 - **For Tableau Public:** [analytics/tableau/](../../analytics/tableau/) holds the same story as three tidy CSV files, for people who will never open a notebook.

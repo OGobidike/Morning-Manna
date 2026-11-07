@@ -172,7 +172,7 @@ Every reader in the test is a row of `fct_experiment`, with the measures the pla
 
 [notebooks/03_streak_risk_data.ipynb](notebooks/03_streak_risk_data.ipynb) looks at the streak-at-risk model's data before any model exists, and checks every night's label against the simulator's answer key ([ml/README.md](../ml/README.md#-the-answer-key-card-7)). CI fails if they drift apart.
 
-Open either in VS Code after `dbt build`, choose the `analytics/.venv` kernel, and click **Run All**.
+Open any of them in VS Code after `dbt build`, choose the `analytics/.venv` kernel, and click **Run All**.
 
 Notebooks are committed without their outputs or run details, which keeps diffs readable. Clear them before you commit:
 

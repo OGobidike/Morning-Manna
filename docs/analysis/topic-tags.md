@@ -20,7 +20,7 @@ The result is [ml/data/topic_key.csv](../../ml/data/topic_key.csv): **5,529 tag-
 
 ```mermaid
 flowchart TD
-    K["① Nave's: 5,529 tagged verses, frozen first"] --> G["② The books split into 3 groups by a hash of their names"]
+    K["① Nave's: 5,529 tags on 4,487 verses, frozen first"] --> G["② The books split into 3 groups by a hash of their names"]
     G -->|"each group held out in turn"| T["③ Three taggers score every verse of the held-out books"]
     T --> S["④ Graded against Nave's: topic pages and verse tags"]
     S -->|"the best average precision"| A["⑤ ml.verse_topics, served at GET /topics/{tag}"]
@@ -49,7 +49,7 @@ Three taggers, each scoring every verse for every tag:
 
 **The trained tagger leads on every measure**, so it's what the app uses, by the rule fixed beforehand (the best average precision). Against meaning without training, it gains **+3.9 points of average precision** (95% interval +0.9 to +7.6, better on 21 of 30 tags). On a topic's first screen of 20 verses, the two are close (+1.3 points, interval −4.8 to +7.5).
 
-![Each topic's first screen: hope 85% right, praise and loving others 80%, down to worry and anxiety at 0%](../images/topics-by-tag.png)
+![Each topic's first screen: hope 85% right, praise 80%, loving others 80%, down to worry and anxiety at 0%](../images/topics-by-tag.png)
 
 ## 💡 What we learned
 

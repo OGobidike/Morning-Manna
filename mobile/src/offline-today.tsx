@@ -4,6 +4,7 @@
 // this phone, and Mark as read is kept here until it can be sent.
 
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { Passage } from '@/api/client';
 import { useAppearance } from '@/appearance';
@@ -19,13 +20,15 @@ type Props = {
 
 export function OfflineToday({ snapshot, pending, onMarkRead, onRetry }: Props) {
   const { colors, passage: passageStyle } = useAppearance();
+  // The app draws under Android's navigation bar, so the page ends with room for it
+  const insets = useSafeAreaInsets();
 
   const next = nextOfflinePassage(snapshot, pending);
   const doneToday = readToday(snapshot, pending);
   const { plan_name, total_days } = snapshot.upcoming;
 
   return (
-    <ScrollView contentContainerStyle={styles.page}>
+    <ScrollView contentContainerStyle={[styles.page, { paddingBottom: 24 + insets.bottom }]}>
       <View style={[styles.banner, { backgroundColor: colors.card }]}>
         <Text style={[styles.bannerText, { color: colors.text }]}>
           📴 Offline: reading the copy saved on this phone

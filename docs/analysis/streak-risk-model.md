@@ -93,7 +93,7 @@ The reminder wording barely matters to either (1 to 4%). The wording's planted e
 - **The trees are worth it here, but not by much.** Going from a straight line to trees closed another 17% of the gap. Between XGBoost and LightGBM, the data can't really choose. LightGBM goes forward because it's ahead on every measure.
 - **These are pretend readers.** The practice run proves the whole chain works: the warehouse, the split, the tuning, and the grading. With real readers, I'd run the same code, and there'd be no answer key to compare with, so the streak rule and the held-out weeks become the only rulers.
 - **A nudge isn't free.** Half the nudges go to readers who would have read anyway. Whether that's fine depends on how gentle the nudge is, which is a question for the app's nudge (the card after 7.5), and maybe for another A/B test.
-- **It's reproducible.** The same warehouse gives the same leaderboard, to the last digit, on every run on the same computer (about 25 seconds).
+- **It's reproducible.** The same warehouse gives the same leaderboard, to the last digit, on every run on the same computer (under a minute).
 
 ## ▶️ Run it yourself
 

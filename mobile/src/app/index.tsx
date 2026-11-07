@@ -11,6 +11,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
   ApiError,
@@ -65,6 +66,8 @@ type Offline = { snapshot: Snapshot; pending: PendingReading[] };
 export default function TodayScreen() {
   const { token, reset } = useSession();
   const { colors, passage } = useAppearance();
+  // The app draws under Android's navigation bar, so the page ends with room for it
+  const insets = useSafeAreaInsets();
 
   const [data, setData] = useState<Loaded | null>(null);
   const [error, setError] = useState<ApiError | Error | null>(null);
@@ -246,7 +249,7 @@ export default function TodayScreen() {
 
   return (
     <ScrollView
-      contentContainerStyle={styles.page}
+      contentContainerStyle={[styles.page, { paddingBottom: 24 + insets.bottom }]}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} />}
     >
       <Text style={[styles.streak, { color: colors.text }]}>

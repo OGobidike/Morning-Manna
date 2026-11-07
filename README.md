@@ -1,7 +1,7 @@
 
 
 # Morning Manna
-![Morning Manna](docs/images/hero.png)
+![Morning Manna: a smiling robot with a halo holds a bowl of manna on a cloud. Daily bread for the soul, served by a full data platform.](docs/images/hero.png)
 
 Hihi! OG here! smiley day to ya! This project will create a daily Bible reading app for working class people: you can set your wake time, get reminders in the morning,
 read one short passage, and other features! 
@@ -10,17 +10,15 @@ This is also a full data platform: Contains everything from Python API, ETL pipe
 and machine learning models for streak-risk prediction, reader personas, and passage
 recommendations.
 
-**status Early-Dev**
-
 ## Da Stack
 
 | Layer | Tools |
 |---|---|
 | Mobile | React Native (Expo), TypeScript |
 | API | Python, FastAPI, PostgreSQL |
-| Data | pandas, Airflow, dbt, AWS S3 |
-| ML / NLP | scikit-learn, XGBoost, LightGBM, MLflow, sentence embeddings, pgvector, LLM API |
-| Ops | Docker, GitHub Actions, AWS(mayyybe we'll see) |
+| Data | pandas, Airflow, dbt, SeaweedFS (S3) |
+| ML / NLP | scikit-learn, XGBoost, LightGBM, MLflow, sentence embeddings, pgvector, LLM API (planned) |
+| Ops | Docker, GitHub Actions, AWS (next up) |
 
 ## Repository layout
 
@@ -30,18 +28,16 @@ mobile/      React Native (Expo) app
 pipelines/   ETL jobs and Airflow DAGs
 analytics/   dbt models and dashboard
 ml/          models and experiments
-docs/        blueprint and design notes
+docs/        database diagram, write-ups and pictures
 ```
 
-## What will run locally
+## Run it locally
 
-```
-bash, Docker, cd mobile && npm install && expo start
+You need Docker. `docker compose up -d --build` starts the whole platform ([below](#-the-models-run-themselves)), and each folder's README has its own quick start: [backend](backend/README.md#quick-start) for the API and the Bible, [mobile](mobile/README.md#run-it) for the app on your phone, then [pipelines](pipelines/README.md), [analytics](analytics/README.md) and [ml](ml/README.md).
 
-```
 The text comes from the King James Version and the American Standard Version (both public domain).
 
-**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt, and an MLflow model registry) the first analytics (two notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP steps (verse embeddings, search by meaning, topic tags and what to read next) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
+**Status: the API, the Android app, the data platform (lake, loader, Airflow, dbt, and an MLflow model registry), the first analytics (three notebooks, a dashboard and the first A/B test), the machine learning (streak risk, reader personas and reminder times) and the first NLP steps (verse embeddings, search by meaning, topic tags and what to read next) are built. See [backend/README.md](backend/README.md), [mobile/README.md](mobile/README.md), [pipelines/README.md](pipelines/README.md), [analytics/README.md](analytics/README.md) and [ml/README.md](ml/README.md).**
 
 ## 📊 The reading dashboard
 
@@ -91,7 +87,7 @@ Ask in your own words, and get the verses that answer, even when they share no w
 
 ## 🏷️ Topic tags
 
-![Each topic's first screen of 20 verses: hope 85% right, praise and loving others 80%, down to worry and anxiety at 0%](docs/images/topics-by-tag.png)
+![Each topic's first screen of 20 verses: hope 85% right, praise 80%, loving others 80%, down to worry and anxiety at 0%](docs/images/topics-by-tag.png)
 
 Every verse is tagged with what it's about, from 30 topics a reader would recognise, so the app can offer "more on patience" or a page of verses for hard times. The answer key is **Nave's Topical Bible** (1896), mapped to our tags before any tagger ran. A model trained on Nave's examples wins, graded on whole books it never saw: hope gets **85%** of its first screen right. Worry and anxiety fails, because Nave's files it under worldly care, and the write-up shows why. See [the write-up](docs/analysis/topic-tags.md).
 

@@ -12,6 +12,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { getMe, getTranslations, type Me, type Translation, updateMe } from '@/api/client';
 import { type TextSize, type ThemeName, useAppearance } from '@/appearance';
@@ -57,6 +58,8 @@ function Option({ label, chosen, disabled, onPress }: OptionProps) {
 export default function Settings() {
   const { token } = useSession();
   const { colors, passage, theme, setTheme, textSize, setTextSize } = useAppearance();
+  // The app draws under Android's navigation bar, so the page ends with room for it
+  const insets = useSafeAreaInsets();
 
   const [me, setMe] = useState<Me | null>(null);
   const [translations, setTranslations] = useState<Translation[]>([]);
@@ -114,7 +117,7 @@ export default function Settings() {
   const heading = [styles.heading, { color: colors.faint }];
 
   return (
-    <ScrollView contentContainerStyle={styles.page}>
+    <ScrollView contentContainerStyle={[styles.page, { paddingBottom: 24 + insets.bottom }]}>
       <Text style={heading}>Wake time</Text>
       <View style={styles.row}>
         <Text style={[styles.value, { color: colors.text }]}>{me.wake_time.slice(0, 5)}</Text>
