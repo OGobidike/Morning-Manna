@@ -4,7 +4,7 @@ The jobs that move the app's events from the data lake into the warehouse, and t
 
 Python 3.11+ · boto3 · psycopg 3 · Airflow 3.3 · SeaweedFS (S3)
 
-![The daily_events DAG in Airflow: load_events, then dbt_build](../docs/images/airflow-graph.png)
+![The daily_events DAG in Airflow: load_events, then dbt_build, then score_tonight](../docs/images/airflow-graph.png)
 
 ## How an event travels
 
@@ -12,6 +12,7 @@ Python 3.11+ · boto3 · psycopg 3 · Airflow 3.3 · SeaweedFS (S3)
 2. **The API** stores them in Postgres, then copies the batch to the lake as one JSON-lines file ([backend/app/lake.py](../backend/app/lake.py)). If the lake is down, the request still succeeds.
 3. **Every night at 00:30 UTC**, Airflow's `daily_events` loads yesterday's lake folder into the warehouse table `raw.events`.
 4. **Then dbt** rebuilds the retention tables from it (see [analytics/README.md](../analytics/README.md)).
+5. **Then the champion model** scores tonight's streaks and flags who gets a nudge, into `ml.streak_risk_scores` (see [ml/README.md](../ml/README.md#-tonights-scores-card-75)).
 
 ## The lake
 
@@ -55,7 +56,7 @@ The first build takes a few minutes. Then open http://localhost:8080. There's no
 |---|---|---|
 | `daily_events` | 00:30 UTC every day | `load_events` (yesterday's lake folder into `raw.events`), then `dbt_build`, then `score_tonight` (tonight's streak risk, from the champion model, into `ml.streak_risk_scores`) |
 | `ingest_scripture` | By hand | The Bible pipeline from [backend/README.md](../backend/README.md#data-pipeline) |
-| `retrain_models` | 02:00 UTC on Sundays | Retrains the streak-at-risk models on the latest three weeks held out, logs the race to MLflow, and crowns the best only if it beats the champion ([ml/README.md](../ml/README.md#-the-model-registry-in-docker-card-9)) |
+| `retrain_models` | 02:00 UTC on Sundays | Retrains the streak-at-risk models, holding out the latest three weeks to grade them, logs the race to MLflow, and crowns the best only if it beats the champion ([ml/README.md](../ml/README.md#-the-model-registry-in-docker-card-9)) |
 
 New DAGs start paused: switch one on with the toggle beside its name. **After the first start, trigger `retrain_models` once by hand:** it crowns the first champion, and `score_tonight` fails loudly until there is one.
 
@@ -92,7 +93,7 @@ docker compose exec airflow bash -c "pip install -q pytest && python -m pytest -
 On every push, GitHub Actions runs three jobs for this folder:
 
 1. **pipelines:** `ruff check .` and the loader's tests.
-2. **airflow:** builds the image, checks that each job's Python can load its code (the models' Python must also load LightGBM and the MLflow server's lake and database drivers), and runs the 8 DAG tests inside it.
+2. **airflow:** builds the image, checks that each job's Python can load its code (the models' Python must also load LightGBM and the MLflow server's lake and database drivers), and runs the 9 DAG tests inside it.
 3. **analytics:** builds the whole warehouse from nothing, through this loader (see [analytics/README.md](../analytics/README.md)).
 
 ## Layout

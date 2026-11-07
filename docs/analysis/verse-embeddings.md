@@ -4,7 +4,7 @@
 
 Phase 8 gives Morning Manna a smarter reading experience: search by meaning, topic tags, and "because you read Psalm 23…". All of it rests on one step, taken in this card: **turning every verse into a vector of its meaning.**
 
-A sentence-transformer model reads a verse and gives back 384 numbers. Verses that mean similar things get vectors that point the same way, even when they share no words. So "fear not" and "be not afraid" end up close, and a search for "verses about worry" can find "take no thought for the morrow" (Card 8.2).
+A sentence-transformer model reads a verse and gives back 384 numbers. Verses that mean similar things get vectors that point the same way, even when they share no words. So "fear not" and "be not afraid" end up close, and a search for "verses about worry" can find "Fear thou not; for I am with thee" (Card 8.2).
 
 ## 🔧 What was built
 

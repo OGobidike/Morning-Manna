@@ -2,6 +2,8 @@
 
 *Written 1 November 2026, before any data from the test exists.*
 
+*Added 7 November 2026: the result, by these rules, is in [reminder-experiment-results.md](reminder-experiment-results.md).*
+
 Every morning, Morning Manna sends readers a reminder at the time they wake up. I want to know whether the words in that reminder change whether new readers come back. So I'm going to test two wordings against each other: an A/B test.
 
 This page is the plan, written down *before* the test runs. It fixes what I'm measuring, how many readers I need and how I'll decide, so that once the results come in I can't (even without meaning to) pick whichever number looks best. That's what "pre-registration" means: the rules come first, the data second.

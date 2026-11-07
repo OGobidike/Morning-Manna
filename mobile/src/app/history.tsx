@@ -3,6 +3,7 @@
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { getHistory, type History } from '@/api/client';
 import { useAppearance } from '@/appearance';
@@ -20,6 +21,8 @@ const WEEKDAYS = ['Mon', '', 'Wed', '', 'Fri', '', ''];
 export default function HistoryScreen() {
   const { token } = useSession();
   const { colors } = useAppearance();
+  // The app draws under Android's navigation bar, so the page ends with room for it
+  const insets = useSafeAreaInsets();
 
   const [history, setHistory] = useState<History | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +50,7 @@ export default function HistoryScreen() {
   if (labels[1]) labels[0] = '';
 
   return (
-    <ScrollView contentContainerStyle={styles.page}>
+    <ScrollView contentContainerStyle={[styles.page, { paddingBottom: 24 + insets.bottom }]}>
       <Text style={[styles.total, { color: colors.text }]}>
         {history.days.length} {history.days.length === 1 ? 'morning' : 'mornings'}
       </Text>

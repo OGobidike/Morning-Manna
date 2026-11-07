@@ -22,7 +22,7 @@ To rebuild them, from `analytics/experiments` after `dbt build`:
 
 ## 📖 The columns
 
-Differences are in **points** (percentage points): 42.3% against 38.2% is **+4.0 points**.
+Differences are in **points** (percentage points): 42.25% against 38.24% is **+4.0 points**.
 
 **experiment_look.csv**
 

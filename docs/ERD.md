@@ -1,6 +1,6 @@
 # Morning Manna – Entity Relationship Diagram
 
-How the nine tables connect. Source of truth: `backend/app/models.py`.
+How the ten tables connect. Source of truth: `backend/app/models.py`. The scripture pipeline's log, `etl_runs`, links to no other table, so it has [a diagram of its own](#the-pipelines-log).
 
 ```mermaid
 erDiagram
@@ -47,7 +47,7 @@ erDiagram
     reading_plans {
         int id PK
         string name UK
-        text description
+        string description
     }
 
     plan_days {
@@ -64,6 +64,7 @@ erDiagram
     users {
         int id PK
         string device_id UK
+        string token_hash UK "SHA-256 of the token"
         string timezone
         time wake_time
         int translation_id FK
@@ -106,3 +107,22 @@ Mermaid can only mark single columns as `UK`. These rules span several columns:
 | `verses` | `translation_id, book_id, chapter, verse` | Each verse appears once per translation |
 | `plan_days` | `plan_id, day_number` | Each plan has one row per day |
 | `user_plans` | `user_id, plan_id` | A reader joins each plan only once |
+
+## The pipeline's log
+
+`python -m app.etl` adds one row each time it runs: what it read, loaded and rejected, and any error.
+
+```mermaid
+erDiagram
+    etl_runs {
+        int id PK
+        string pipeline
+        string status
+        datetime started_at
+        datetime finished_at "nullable"
+        int rows_read
+        int rows_loaded
+        int rows_rejected
+        text error "nullable"
+    }
+```
